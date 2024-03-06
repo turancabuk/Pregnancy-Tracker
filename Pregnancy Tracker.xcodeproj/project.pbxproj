@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A8C2B98BF8400212267 /* HomeController.swift */; };
+		5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A942B98C0B200212267 /* UIView+Layout.swift */; };
+		5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A962B98C0BD00212267 /* VerticalStackView.swift */; };
+		5C917A992B98C61E00212267 /* CalendarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A982B98C61E00212267 /* CalendarController.swift */; };
+		5C917A9B2B98C6BE00212267 /* WeeklyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A9A2B98C6BE00212267 /* WeeklyController.swift */; };
+		5C917A9D2B98C74500212267 /* HealthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A9C2B98C74500212267 /* HealthController.swift */; };
+		5C917A9F2B98C7A500212267 /* NutritionAndExerciseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A9E2B98C7A500212267 /* NutritionAndExerciseController.swift */; };
+		5C917AA12B98C7FC00212267 /* InformationSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA02B98C7FC00212267 /* InformationSourceController.swift */; };
+		5C917AA32B98CA9B00212267 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA22B98CA9B00212267 /* ProfileController.swift */; };
+		5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA42B98CAD900212267 /* SettingsController.swift */; };
+		5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA72B98CB3300212267 /* MainTabbarController.swift */; };
 		5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF52B986EB4004FAD1D /* AppDelegate.swift */; };
 		5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF72B986EB4004FAD1D /* SceneDelegate.swift */; };
 		5CA9DEFA2B986EB4004FAD1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF92B986EB4004FAD1D /* ViewController.swift */; };
@@ -16,6 +27,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C917A8C2B98BF8400212267 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		5C917A942B98C0B200212267 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		5C917A962B98C0BD00212267 /* VerticalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
+		5C917A982B98C61E00212267 /* CalendarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarController.swift; sourceTree = "<group>"; };
+		5C917A9A2B98C6BE00212267 /* WeeklyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyController.swift; sourceTree = "<group>"; };
+		5C917A9C2B98C74500212267 /* HealthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthController.swift; sourceTree = "<group>"; };
+		5C917A9E2B98C7A500212267 /* NutritionAndExerciseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionAndExerciseController.swift; sourceTree = "<group>"; };
+		5C917AA02B98C7FC00212267 /* InformationSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationSourceController.swift; sourceTree = "<group>"; };
+		5C917AA22B98CA9B00212267 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		5C917AA42B98CAD900212267 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		5C917AA72B98CB3300212267 /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pregnancy Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA9DEF52B986EB4004FAD1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5CA9DEF72B986EB4004FAD1D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,6 +59,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C917A8B2B98BF7400212267 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5C917A8C2B98BF8400212267 /* HomeController.swift */,
+				5C917A982B98C61E00212267 /* CalendarController.swift */,
+				5C917A9A2B98C6BE00212267 /* WeeklyController.swift */,
+				5C917A9C2B98C74500212267 /* HealthController.swift */,
+				5C917A9E2B98C7A500212267 /* NutritionAndExerciseController.swift */,
+				5C917AA02B98C7FC00212267 /* InformationSourceController.swift */,
+				5C917AA22B98CA9B00212267 /* ProfileController.swift */,
+				5C917AA42B98CAD900212267 /* SettingsController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		5C917A932B98C0A800212267 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				5C917A962B98C0BD00212267 /* VerticalStackView.swift */,
+				5C917A942B98C0B200212267 /* UIView+Layout.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		5C917AA62B98CB1300212267 /* MainTabbarController  */ = {
+			isa = PBXGroup;
+			children = (
+				5C917AA72B98CB3300212267 /* MainTabbarController.swift */,
+			);
+			path = "MainTabbarController ";
+			sourceTree = "<group>";
+		};
 		5CA9DEE92B986EB4004FAD1D = {
 			isa = PBXGroup;
 			children = (
@@ -56,9 +110,12 @@
 		5CA9DEF42B986EB4004FAD1D /* Pregnancy Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				5C917AA62B98CB1300212267 /* MainTabbarController  */,
+				5C917A8B2B98BF7400212267 /* Controllers */,
 				5CA9DEF52B986EB4004FAD1D /* AppDelegate.swift */,
 				5CA9DEF72B986EB4004FAD1D /* SceneDelegate.swift */,
 				5CA9DEF92B986EB4004FAD1D /* ViewController.swift */,
+				5C917A932B98C0A800212267 /* Helpers */,
 				5CA9DEFB2B986EB4004FAD1D /* Main.storyboard */,
 				5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */,
 				5CA9DF002B986EB5004FAD1D /* LaunchScreen.storyboard */,
@@ -83,6 +140,8 @@
 			dependencies = (
 			);
 			name = "Pregnancy Tracker";
+			packageProductDependencies = (
+			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +170,8 @@
 				Base,
 			);
 			mainGroup = 5CA9DEE92B986EB4004FAD1D;
+			packageReferences = (
+			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,9 +199,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */,
+				5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */,
+				5C917A9D2B98C74500212267 /* HealthController.swift in Sources */,
+				5C917AA12B98C7FC00212267 /* InformationSourceController.swift in Sources */,
+				5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */,
 				5CA9DEFA2B986EB4004FAD1D /* ViewController.swift in Sources */,
+				5C917A9F2B98C7A500212267 /* NutritionAndExerciseController.swift in Sources */,
+				5C917A992B98C61E00212267 /* CalendarController.swift in Sources */,
 				5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */,
 				5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */,
+				5C917A9B2B98C6BE00212267 /* WeeklyController.swift in Sources */,
+				5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */,
+				5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */,
+				5C917AA32B98CA9B00212267 /* ProfileController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
