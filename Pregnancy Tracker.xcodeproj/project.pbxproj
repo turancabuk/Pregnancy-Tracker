@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5C01984C2B99BFF300AC22CB /* SafeAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */; };
+		5C0198502B9A0DFA00AC22CB /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984F2B9A0DFA00AC22CB /* UIFont.swift */; };
+		5C0198512B9A12B800AC22CB /* Kinoble.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C01984E2B9A0D9C00AC22CB /* Kinoble.ttf */; };
 		5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A8C2B98BF8400212267 /* HomeController.swift */; };
 		5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A942B98C0B200212267 /* UIView+Layout.swift */; };
 		5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A962B98C0BD00212267 /* VerticalStackView.swift */; };
@@ -29,6 +31,8 @@
 
 /* Begin PBXFileReference section */
 		5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaView.swift; sourceTree = "<group>"; };
+		5C01984E2B9A0D9C00AC22CB /* Kinoble.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Kinoble.ttf; sourceTree = "<group>"; };
+		5C01984F2B9A0DFA00AC22CB /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		5C917A8C2B98BF8400212267 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		5C917A942B98C0B200212267 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		5C917A962B98C0BD00212267 /* VerticalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
@@ -61,15 +65,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5C917A8B2B98BF7400212267 /* Controllers */ = {
+		5C01984D2B99E35400AC22CB /* SubControllers */ = {
 			isa = PBXGroup;
 			children = (
-				5C917A8C2B98BF8400212267 /* HomeController.swift */,
 				5C917A982B98C61E00212267 /* CalendarController.swift */,
 				5C917A9A2B98C6BE00212267 /* WeeklyController.swift */,
 				5C917A9C2B98C74500212267 /* HealthController.swift */,
 				5C917A9E2B98C7A500212267 /* NutritionAndExerciseController.swift */,
 				5C917AA02B98C7FC00212267 /* InformationSourceController.swift */,
+			);
+			path = SubControllers;
+			sourceTree = "<group>";
+		};
+		5C917A8B2B98BF7400212267 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5C01984D2B99E35400AC22CB /* SubControllers */,
+				5C917A8C2B98BF8400212267 /* HomeController.swift */,
 				5C917AA22B98CA9B00212267 /* ProfileController.swift */,
 				5C917AA42B98CAD900212267 /* SettingsController.swift */,
 			);
@@ -79,8 +91,10 @@
 		5C917A932B98C0A800212267 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				5C01984E2B9A0D9C00AC22CB /* Kinoble.ttf */,
 				5C917A962B98C0BD00212267 /* VerticalStackView.swift */,
 				5C917A942B98C0B200212267 /* UIView+Layout.swift */,
+				5C01984F2B9A0DFA00AC22CB /* UIFont.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -197,6 +211,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C0198512B9A12B800AC22CB /* Kinoble.ttf in Resources */,
 				5CA9DF022B986EB5004FAD1D /* LaunchScreen.storyboard in Resources */,
 				5CA9DEFF2B986EB5004FAD1D /* Assets.xcassets in Resources */,
 				5CA9DEFD2B986EB4004FAD1D /* Main.storyboard in Resources */,
@@ -222,6 +237,7 @@
 				5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */,
 				5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */,
 				5C917A9B2B98C6BE00212267 /* WeeklyController.swift in Sources */,
+				5C0198502B9A0DFA00AC22CB /* UIFont.swift in Sources */,
 				5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */,
 				5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */,
 				5C917AA32B98CA9B00212267 /* ProfileController.swift in Sources */,

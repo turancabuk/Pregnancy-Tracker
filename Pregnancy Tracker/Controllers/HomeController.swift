@@ -9,6 +9,7 @@ import UIKit
 
 class HomeController: UIViewController {
     
+    let personalCardColor = #colorLiteral(red: 0.9507680535, green: 0.7077944875, blue: 0.8335040212, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +22,7 @@ class HomeController: UIViewController {
         view.backgroundColor = UIColor(white: 1, alpha: 0.8)
         
         let safeAreaView = SafeAreaView(frame: view.bounds)
-        safeAreaView.setPersonelView(backgroundColor: .blue)
+        safeAreaView.setPersonelView(backgroundColor: personalCardColor)
         view.addSubview(safeAreaView)
     }
 }
