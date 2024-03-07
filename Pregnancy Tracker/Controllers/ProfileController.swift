@@ -12,6 +12,14 @@ class ProfileController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemIndigo
+        
+        setupLayout()
+        
+    }
+    fileprivate func setupLayout() {
+        view.backgroundColor = UIColor(white: 1, alpha: 0.8)
+        let safeAreaView = SafeAreaView(frame: view.bounds)
+        safeAreaView.setPersonelView(backgroundColor: .red)
+        view.addSubview(safeAreaView)
     }
 }

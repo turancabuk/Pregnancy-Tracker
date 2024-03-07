@@ -14,6 +14,8 @@ class MainTabbarController: UIViewController {
     let settingsController = SettingsController()
     let MainBarController = UITabBarController()
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,5 +31,7 @@ class MainTabbarController: UIViewController {
         MainBarController.tabBar.barTintColor = .blue
         MainBarController.tabBar.layer.cornerRadius = 12
         MainBarController.tabBar.layer.masksToBounds = true
+        
+       
     }
 }
