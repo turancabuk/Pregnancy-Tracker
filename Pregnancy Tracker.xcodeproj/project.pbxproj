@@ -12,6 +12,10 @@
 		5C01984C2B99BFF300AC22CB /* SafeAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */; };
 		5C0198502B9A0DFA00AC22CB /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984F2B9A0DFA00AC22CB /* UIFont.swift */; };
 		5C0198512B9A12B800AC22CB /* Kinoble.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C01984E2B9A0D9C00AC22CB /* Kinoble.ttf */; };
+		5C01985D2B9B7EDE00AC22CB /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01985C2B9B7EDE00AC22CB /* HomeCell.swift */; };
+		5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198602B9B912D00AC22CB /* OnboardingController.swift */; };
+		5C0198672B9B93E100AC22CB /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0198662B9B93E100AC22CB /* UIOnboarding */; };
+		5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */; };
 		5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A8C2B98BF8400212267 /* HomeController.swift */; };
 		5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A942B98C0B200212267 /* UIView+Layout.swift */; };
 		5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A962B98C0BD00212267 /* VerticalStackView.swift */; };
@@ -37,6 +41,9 @@
 		5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaView.swift; sourceTree = "<group>"; };
 		5C01984E2B9A0D9C00AC22CB /* Kinoble.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Kinoble.ttf; sourceTree = "<group>"; };
 		5C01984F2B9A0DFA00AC22CB /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
+		5C01985C2B9B7EDE00AC22CB /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
+		5C0198602B9B912D00AC22CB /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
+		5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOnboardingHelper.swift; sourceTree = "<group>"; };
 		5C917A8C2B98BF8400212267 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		5C917A942B98C0B200212267 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		5C917A962B98C0BD00212267 /* VerticalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
@@ -63,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C0198672B9B93E100AC22CB /* UIOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,9 +89,27 @@
 			path = SubControllers;
 			sourceTree = "<group>";
 		};
+		5C01985B2B9B7ED300AC22CB /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5C01985C2B9B7EDE00AC22CB /* HomeCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		5C01985F2B9B911900AC22CB /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				5C0198602B9B912D00AC22CB /* OnboardingController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		5C917A8B2B98BF7400212267 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5C01985F2B9B911900AC22CB /* Onboarding */,
+				5C01985B2B9B7ED300AC22CB /* Cells */,
 				5C01984D2B99E35400AC22CB /* SubControllers */,
 				5C917A8C2B98BF8400212267 /* HomeController.swift */,
 				5C917AA22B98CA9B00212267 /* ProfileController.swift */,
@@ -100,6 +126,7 @@
 				5C917A942B98C0B200212267 /* UIView+Layout.swift */,
 				5C01984F2B9A0DFA00AC22CB /* UIFont.swift */,
 				53372BD02B9A3A0B00F2F268 /* SettingsPageButtons.swift */,
+				5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -172,6 +199,7 @@
 			);
 			name = "Pregnancy Tracker";
 			packageProductDependencies = (
+				5C0198662B9B93E100AC22CB /* UIOnboarding */,
 			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
@@ -202,6 +230,7 @@
 			);
 			mainGroup = 5CA9DEE92B986EB4004FAD1D;
 			packageReferences = (
+				5C0198652B9B93E100AC22CB /* XCRemoteSwiftPackageReference "UIOnboarding" */,
 			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
@@ -233,6 +262,8 @@
 			files = (
 				5C01984C2B99BFF300AC22CB /* SafeAreaView.swift in Sources */,
 				5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */,
+				5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */,
+				5C01985D2B9B7EDE00AC22CB /* HomeCell.swift in Sources */,
 				53372BD32B9B239B00F2F268 /* CustomView.swift in Sources */,
 				5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */,
 				5C917A9D2B98C74500212267 /* HealthController.swift in Sources */,
@@ -244,6 +275,7 @@
 				5C917A992B98C61E00212267 /* CalendarController.swift in Sources */,
 				5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */,
 				5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */,
+				5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */,
 				5C917A9B2B98C6BE00212267 /* WeeklyController.swift in Sources */,
 				5C0198502B9A0DFA00AC22CB /* UIFont.swift in Sources */,
 				5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */,
@@ -471,6 +503,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5C0198652B9B93E100AC22CB /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lascic/UIOnboarding.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5C0198662B9B93E100AC22CB /* UIOnboarding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C0198652B9B93E100AC22CB /* XCRemoteSwiftPackageReference "UIOnboarding" */;
+			productName = UIOnboarding;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5CA9DEEA2B986EB4004FAD1D /* Project object */;
 }

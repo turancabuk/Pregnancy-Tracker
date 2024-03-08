@@ -21,7 +21,7 @@ class SafeAreaView: UIView {
         addSubview(safeAreaView)
 
         safeAreaView.frame = CGRect(x: 24, y: 60, width: frame.width - 24 * 2 , height: frame.height - 60 * 2)
-        safeAreaView.backgroundColor = UIColor(hex: "E2D6CD")
+        safeAreaView.backgroundColor = .white
         safeAreaView.layer.cornerRadius = 16
         safeAreaView.clipsToBounds = true
         
@@ -112,22 +112,22 @@ class SafeAreaView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    enum ColorOption {
-            case red, green, blue
-        }
-        
-        private var selectedColor: ColorOption?
-        
-        func selectColor(_ color: ColorOption) {
-            selectedColor = color
-            
-            switch color {
-            case .red:
-                backgroundColor = .red
-            case .green:
-                backgroundColor = .green
-            case .blue:
-                backgroundColor = .blue
-            }
-        }
+//    enum ColorOption {
+//            case red, green, blue
+//        }
+//        
+//        private var selectedColor: ColorOption?
+//        
+//        func selectColor(_ color: ColorOption) {
+//            selectedColor = color
+//            
+//            switch color {
+//            case .red:
+//                backgroundColor = .red
+//            case .green:
+//                backgroundColor = .green
+//            case .blue:
+//                backgroundColor = .blue
+//            }
+//        }
 }
