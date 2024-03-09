@@ -14,7 +14,7 @@ struct UIOnboardingHelper {
         return Bundle.main.appIcon ?? .init(named: "AppIcon")!
     }
     static func setupFirstTitleLine() -> NSMutableAttributedString {
-        .init(string: "Wellcome to Pregnancy Tracker", attributes: [.foregroundColor: UIColor.label])
+        .init(string: "Hoşgeldiniz ", attributes: [.foregroundColor: UIColor.label])
     }
     static func setupSecondTitleLine() -> NSMutableAttributedString {
         .init(string: Bundle.main.displayName ?? "Pregnancy Tracker", attributes: [
@@ -23,15 +23,15 @@ struct UIOnboardingHelper {
     }
     static func setUpFeatures() -> Array<UIOnboardingFeature> {
         return .init([
+            .init(icon: .init(named: "onboarding2")!,
+                  title: "Gebelik Takip Ekranı",
+                  description: "Gebelik Takip sürecinizi kolayca takip edip önemli tarihleri ve randevularınızı oluşturun."),
+            .init(icon: .init(named: "onboarding3")!,
+                  title: "Bebek Gelişim Takip Ekranı",
+                  description: "Gebelik sürecinizde bebeğinizin ve kendi gelişiminizi kolayca yönetin.Bu süreçte bebeğinizin gelişim aşamlarına dair bilgiler edinin, semptomlar hakkında bilgi sahibi olun"),
             .init(icon: .init(named: "onboarding1")!,
-                  title: "Deneme Deneme Deneme",
-                  description: "Deneme Deneme Deneme"),
-            .init(icon: .init(named: "onboarding1")!,
-                  title: "Deneme Deneme Deneme",
-                  description: "Deneme Deneme Deneme"),
-            .init(icon: .init(named: "onboarding1")!,
-                  title: "Deneme Deneme Deneme",
-                  description: "Deneme Deneme Deneme")
+                  title: "Beslenme ve Egzersiz Ekranı",
+                  description: "Gebelik sürecinizde sağlıklı ve dengeli bir beslenme alışkanlığı edinin.Günlük beslenme planları oluşturun.")
         ])
     }
     static func setUpButton() -> UIOnboardingButtonConfiguration {

@@ -8,11 +8,12 @@
 import UIKit
 import UIOnboarding
 
-class OnboardingController: UIViewController, UIOnboardingViewControllerDelegate {
+class OnboardingController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUp()
+        presentOnboarding()
     }
     @objc private func presentOnboarding() {
         let onboardingController: UIOnboardingViewController = .init(withConfiguration: .setUp())
@@ -25,7 +26,7 @@ extension OnboardingController {
         view.backgroundColor = .systemBackground
     }
 }
-extension OnboardingController {
+extension OnboardingController: UIOnboardingViewControllerDelegate {
     func didFinishOnboarding(onboardingViewController: UIOnboardingViewController) {
         onboardingViewController.modalTransitionStyle = .crossDissolve
         onboardingViewController.dismiss(animated: true) { [weak self] in
