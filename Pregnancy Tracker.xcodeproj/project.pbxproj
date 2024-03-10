@@ -16,6 +16,8 @@
 		5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198602B9B912D00AC22CB /* OnboardingController.swift */; };
 		5C0198672B9B93E100AC22CB /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0198662B9B93E100AC22CB /* UIOnboarding */; };
 		5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */; };
+		5C1EEA542B9C72D000001ACF /* PersonelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */; };
+		5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C86E60C2B9DE80A00FFB7A8 /* PersonalInformationView.swift */; };
 		5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A8C2B98BF8400212267 /* HomeController.swift */; };
 		5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A942B98C0B200212267 /* UIView+Layout.swift */; };
 		5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A962B98C0BD00212267 /* VerticalStackView.swift */; };
@@ -44,6 +46,8 @@
 		5C01985C2B9B7EDE00AC22CB /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
 		5C0198602B9B912D00AC22CB /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
 		5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOnboardingHelper.swift; sourceTree = "<group>"; };
+		5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonelViewController.swift; sourceTree = "<group>"; };
+		5C86E60C2B9DE80A00FFB7A8 /* PersonalInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationView.swift; sourceTree = "<group>"; };
 		5C917A8C2B98BF8400212267 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		5C917A942B98C0B200212267 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		5C917A962B98C0BD00212267 /* VerticalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 				5C917A8C2B98BF8400212267 /* HomeController.swift */,
 				5C917AA22B98CA9B00212267 /* ProfileController.swift */,
 				5C917AA42B98CAD900212267 /* SettingsController.swift */,
+				5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 			children = (
 				5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */,
 				53372BD22B9B239B00F2F268 /* CustomView.swift */,
+				5C86E60C2B9DE80A00FFB7A8 /* PersonalInformationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -265,6 +271,7 @@
 				5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */,
 				5C01985D2B9B7EDE00AC22CB /* HomeCell.swift in Sources */,
 				53372BD32B9B239B00F2F268 /* CustomView.swift in Sources */,
+				5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */,
 				5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */,
 				5C917A9D2B98C74500212267 /* HealthController.swift in Sources */,
 				5C917AA12B98C7FC00212267 /* InformationSourceController.swift in Sources */,
@@ -280,6 +287,7 @@
 				5C0198502B9A0DFA00AC22CB /* UIFont.swift in Sources */,
 				5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */,
 				5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */,
+				5C1EEA542B9C72D000001ACF /* PersonelViewController.swift in Sources */,
 				5C917AA32B98CA9B00212267 /* ProfileController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

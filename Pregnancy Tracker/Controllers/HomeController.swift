@@ -9,6 +9,7 @@ import UIKit
 
 class HomeController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    var personelView = PersonalInformationView()
     
     let personalCardColor = #colorLiteral(red: 0.9507680535, green: 0.7077944875, blue: 0.8335040212, alpha: 1)
     let collection = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -33,6 +34,28 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        //
+        
+
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let isFirstLaunch = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
+        
+        if isFirstLaunch {
+            UserDefaults.standard.setValue(true, forKey: "hasLaunchedBefore")
+            UserDefaults.standard.synchronize()
+            
+            self.showAlert()
+        }
+
+    }
+    fileprivate func showAlert() {
+        
+        personelView.frame = self.view.bounds
+        self.view.addSubview(personelView)
     }
     fileprivate func setupLayout() {
         view.backgroundColor = UIColor(white: 1, alpha: 0.8)
