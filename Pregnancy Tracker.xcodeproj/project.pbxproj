@@ -17,7 +17,7 @@
 		5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */; };
 		5C1EEA542B9C72D000001ACF /* PersonelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */; };
 		5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C86E60C2B9DE80A00FFB7A8 /* PersonalInformationView.swift */; };
-		5C86E6132B9DF17E00FFB7A8 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C86E6122B9DF17E00FFB7A8 /* UIOnboarding */; };
+		5C86E6162B9DF22C00FFB7A8 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C86E6152B9DF22C00FFB7A8 /* UIOnboarding */; };
 		5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A8C2B98BF8400212267 /* HomeController.swift */; };
 		5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A942B98C0B200212267 /* UIView+Layout.swift */; };
 		5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A962B98C0BD00212267 /* VerticalStackView.swift */; };
@@ -74,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C86E6132B9DF17E00FFB7A8 /* UIOnboarding in Frameworks */,
+				5C86E6162B9DF22C00FFB7A8 /* UIOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +205,7 @@
 			);
 			name = "Pregnancy Tracker";
 			packageProductDependencies = (
-				5C86E6122B9DF17E00FFB7A8 /* UIOnboarding */,
+				5C86E6152B9DF22C00FFB7A8 /* UIOnboarding */,
 			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
@@ -236,7 +236,7 @@
 			);
 			mainGroup = 5CA9DEE92B986EB4004FAD1D;
 			packageReferences = (
-				5C86E6112B9DF17E00FFB7A8 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
+				5C86E6142B9DF22C00FFB7A8 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
 			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
@@ -513,7 +513,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5C86E6112B9DF17E00FFB7A8 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
+		5C86E6142B9DF22C00FFB7A8 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lascic/UIOnboarding.git";
 			requirement = {
@@ -524,9 +524,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5C86E6122B9DF17E00FFB7A8 /* UIOnboarding */ = {
+		5C86E6152B9DF22C00FFB7A8 /* UIOnboarding */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5C86E6112B9DF17E00FFB7A8 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
+			package = 5C86E6142B9DF22C00FFB7A8 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
 			productName = UIOnboarding;
 		};
 /* End XCSwiftPackageProductDependency section */
