@@ -35,7 +35,6 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        //
         
 
     }
@@ -48,14 +47,15 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
             UserDefaults.standard.setValue(true, forKey: "hasLaunchedBefore")
             UserDefaults.standard.synchronize()
             
-            self.showAlert()
+            self.showPersonalInfoView()
         }
 
     }
-    fileprivate func showAlert() {
-        
-        personelView.frame = self.view.bounds
-        self.view.addSubview(personelView)
+    fileprivate func showPersonalInfoView() {
+
+        let personalInfoView = PersonalInformationView()
+        personalInfoView.modalPresentationStyle = .fullScreen
+        self.present(personalInfoView, animated: true, completion: nil)
     }
     fileprivate func setupLayout() {
         view.backgroundColor = UIColor(white: 1, alpha: 0.8)
