@@ -20,7 +20,7 @@ class SafeAreaView: UIView {
         let safeAreaView = UIView()
         addSubview(safeAreaView)
 
-        safeAreaView.frame = CGRect(x: 24, y: 60, width: frame.width - 24 * 2 , height: frame.height - 60 * 2)
+        safeAreaView.frame = CGRect(x: 24, y: 50, width: frame.width - 24 * 2 , height: frame.height - 50 * 2)
         safeAreaView.backgroundColor = .white
         safeAreaView.layer.cornerRadius = 16
         safeAreaView.clipsToBounds = true
@@ -30,8 +30,9 @@ class SafeAreaView: UIView {
         
         personelView.layer.cornerRadius = 12
         personelView.clipsToBounds = true
+        personelView.heightAnchor.constraint(equalTo: safeAreaView.heightAnchor, multiplier: 1/3).isActive = true
         personelView.anchor(
-            top: safeAreaView.topAnchor, leading: safeAreaView.leadingAnchor, bottom: nil, trailing: safeAreaView.trailingAnchor, size: .init(width: 0, height: 280))
+            top: safeAreaView.topAnchor, leading: safeAreaView.leadingAnchor, bottom: nil, trailing: safeAreaView.trailingAnchor)
         
         let profileImageView = UIImageView()
         profileImageView.backgroundColor = .white
@@ -43,7 +44,7 @@ class SafeAreaView: UIView {
         profileImageView.image = UIImage(named: "women")
 
         
-        let centerYConstraint = profileImageView.centerYAnchor.constraint(equalTo: personelView.centerYAnchor, constant: -60)
+        let centerYConstraint = profileImageView.centerYAnchor.constraint(equalTo: personelView.centerYAnchor, constant: -50)
         centerYConstraint.isActive = true
         profileImageView.centerXAnchor.constraint(equalTo: personelView.centerXAnchor).isActive = true
 
@@ -61,7 +62,7 @@ class SafeAreaView: UIView {
         nameLabel.centerXAnchor.constraint(equalTo: personelView.centerXAnchor).isActive = true
         nameLabel.anchor(
             top: profileImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(
-                top: 12, left: 10, bottom: 0, right: 0), size: .init(
+                top: 0, left: 10, bottom: 0, right: 0), size: .init(
                     width: 200, height: 40))
         
         let weightLabel = UILabel()
@@ -72,7 +73,7 @@ class SafeAreaView: UIView {
         
         weightLabel.anchor(
             top: nameLabel.bottomAnchor, leading: safeAreaView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(
-                top: 4, left: 0, bottom: 0, right: 0), size: .init(width: 120, height: 28))
+                top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 120, height: 28))
         
         let weightValueLabel = UILabel()
         personelView.addSubview(weightValueLabel)
@@ -92,7 +93,7 @@ class SafeAreaView: UIView {
         
         heightLabel.anchor(
             top: nameLabel.bottomAnchor, leading: nil, bottom: nil, trailing: safeAreaView.trailingAnchor, padding: .init(
-                top: 4, left: 0, bottom: 0, right: 0), size: .init(width: 120, height: 28))
+                top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 120, height: 28))
         
         let heightValueLabel = UILabel()
         personelView.addSubview(heightValueLabel)
