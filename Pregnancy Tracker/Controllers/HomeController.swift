@@ -49,7 +49,6 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             self.showPersonalInfoView()
         }
-
     }
     fileprivate func showPersonalInfoView() {
 
