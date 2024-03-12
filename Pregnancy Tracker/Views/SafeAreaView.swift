@@ -10,7 +10,7 @@ import UIKit
 class SafeAreaView: UIView {
     
     var personelView: UIView!
-    
+    let defaults = UserDefaults.standard
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -41,7 +41,11 @@ class SafeAreaView: UIView {
         profileImageView.layer.cornerRadius = 60 / 2
         profileImageView.clipsToBounds = true
         profileImageView.contentMode = .scaleAspectFill
-        profileImageView.image = UIImage(named: "women")
+        if let imageData = defaults.data(forKey: "profileImage") {
+            profileImageView.image = UIImage(data: imageData)
+        }else{
+            profileImageView.image = UIImage(named: "women")
+        }
 
         
         let centerYConstraint = profileImageView.centerYAnchor.constraint(equalTo: personelView.centerYAnchor, constant: -50)
@@ -55,7 +59,8 @@ class SafeAreaView: UIView {
         
         let nameLabel = UILabel()
         personelView.addSubview(nameLabel)
-        nameLabel.text = "Your Name"
+        let defaults = UserDefaults.standard
+        nameLabel.text = defaults.string(forKey: "userName") ?? "your 4 name"
         nameLabel.font = FontHelper.customFont(size: 16)
         nameLabel.textAlignment = .center
         
@@ -77,9 +82,12 @@ class SafeAreaView: UIView {
         
         let weightValueLabel = UILabel()
         personelView.addSubview(weightValueLabel)
-        weightValueLabel.text = "0.00 kg"
-        weightValueLabel.font = FontHelper.customFont(size: 12)
+        let kgValue = defaults.string(forKey: "kgValue") ?? ""
+        let gValue = defaults.string(forKey: "gValue") ?? ""
+        weightValueLabel.text = "\(kgValue).\(gValue) kg"
+        weightValueLabel.font = FontHelper.customFont(size: 16)
         weightValueLabel.textAlignment = .center
+        weightLabel.textColor = .white
         
         weightValueLabel.anchor(
             top: weightLabel.bottomAnchor, leading: safeAreaView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(
@@ -97,9 +105,12 @@ class SafeAreaView: UIView {
         
         let heightValueLabel = UILabel()
         personelView.addSubview(heightValueLabel)
-        heightValueLabel.text = "0.00 cm"
-        heightValueLabel.font = FontHelper.customFont(size: 12)
+        let mValue = defaults.string(forKey: "mValue") ?? ""
+        let cmValue = defaults.string(forKey: "cmValue") ?? ""
+        heightValueLabel.text = "\(mValue).\(cmValue)cm"
+        heightValueLabel.font = FontHelper.customFont(size: 16)
         heightValueLabel.textAlignment = .center
+        heightLabel.textColor = .white
         
         heightValueLabel.anchor(
             top: heightLabel.bottomAnchor, leading: nil, bottom: nil, trailing: safeAreaView.trailingAnchor, padding: .init(
