@@ -38,24 +38,6 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
 
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        let isFirstLaunch = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
-        
-        if isFirstLaunch {
-            UserDefaults.standard.setValue(true, forKey: "hasLaunchedBefore")
-            UserDefaults.standard.synchronize()
-            
-            self.showPersonalInfoView()
-        }
-    }
-    fileprivate func showPersonalInfoView() {
-
-        let personalInfoView = PersonalInformationView()
-        personalInfoView.modalPresentationStyle = .fullScreen
-        self.present(personalInfoView, animated: true, completion: nil)
-    }
     fileprivate func setupLayout() {
         view.backgroundColor = UIColor(white: 1, alpha: 0.8)
         

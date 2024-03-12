@@ -15,6 +15,24 @@ class OnboardingController: UIViewController {
         setUp()
         presentOnboarding()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let isFirstLaunch = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
+        
+        if isFirstLaunch {
+            UserDefaults.standard.setValue(true, forKey: "hasLaunchedBefore")
+            UserDefaults.standard.synchronize()
+            
+            self.showPersonalInfoView()
+        }
+    }
+    fileprivate func showPersonalInfoView() {
+
+        let personalInfoView = PersonalInformationView()
+        personalInfoView.modalPresentationStyle = .fullScreen
+        self.present(personalInfoView, animated: true, completion: nil)
+    }
     @objc private func presentOnboarding() {
         let onboardingController: UIOnboardingViewController = .init(withConfiguration: .setUp())
         onboardingController.delegate = self

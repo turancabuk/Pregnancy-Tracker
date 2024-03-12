@@ -13,8 +13,8 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
     let personalCardColor1 = #colorLiteral(red: 0.9507680535, green: 0.7077944875, blue: 0.8335040212, alpha: 1)
     var pickerNumbers = Array(0...120)
     var picker1Numbers = Array(0...99)
-    var picker3Numbers = Array(0...120)
-    var picker4Numbers = Array(0...99)
+    var picker2Numbers = Array(0...2)
+    var picker3Numbers = Array(0...99)
     let profileImageView = UIImageView()
     let nameTextfield = PaddedPlaceHolder()
     let datePicker = UIDatePicker()
@@ -69,6 +69,7 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
         
+        // ImageView constraints
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.tintColor = .white
         profileImageView.layer.cornerRadius = 16
@@ -97,6 +98,7 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
             top: profileImageView.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(
                 top: 4, left: 60, bottom: 0, right: 60), size: .init(width: 120, height: 40))
         
+        // Textfield constraints
         nameTextfield.placeHolderPadding = 18
         nameTextfield.font = FontHelper.customFont(size: 18)
         nameTextfield.translatesAutoresizingMaskIntoConstraints = false
@@ -126,6 +128,7 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
             top: nameTextfield.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(
                 top: 36, left: 30, bottom: 0, right: 0), size: .init(width: 280, height: 36))
 
+        // UIPicker constraints
         let datePickerContainer = UIView()
         datePickerContainer.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(datePickerContainer)
@@ -242,6 +245,18 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
             return picker1Numbers.count
         }
     }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.profileImageView.image = chosenImage
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    fileprivate func showAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        present(alert, animated: true, completion: nil)
+    }
+    // MARK: Button Confgs.
     @objc fileprivate func handlePicker() {
         print("select a photo")
         let picker = UIImagePickerController()
@@ -264,29 +279,19 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         
         let defaults = UserDefaults.standard
         defaults.setValue(name, forKey: "userName")
-        defaults.setValue(pickerNumbers[picker.selectedRow(inComponent: 0)], forKey: "weekValue")
-        defaults.setValue(picker1Numbers[picker1.selectedRow(inComponent: 0)], forKey: "weekValue")
-
+        defaults.setValue(pickerNumbers[picker.selectedRow(inComponent: 0)], forKey: "kgValue")
+        defaults.setValue(picker1Numbers[picker1.selectedRow(inComponent: 0)], forKey: "gValue")
+        defaults.setValue(picker2Numbers[picker2.selectedRow(inComponent: 0)], forKey: "mValue")
+        defaults.setValue(picker3Numbers[picker3.selectedRow(inComponent: 0)], forKey: "cmValue")
         
         if let imageData = profileImage.jpegData(compressionQuality: 1.0) {
             defaults.set(imageData, forKey: "profileImage")
         }else{
             showAlert(message: "please select a profile image")
         }
-        defaults.synchronize()
+        defaults.synchronize() 
         
         self.dismiss(animated: true)
-    }
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.profileImageView.image = chosenImage
-        }
-        dismiss(animated: true, completion: nil)
-    }
-    fileprivate func showAlert(message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-        present(alert, animated: true, completion: nil)
     }
     @objc fileprivate func handleDismiss() {
         view.endEditing(true)
