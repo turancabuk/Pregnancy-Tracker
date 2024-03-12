@@ -17,7 +17,9 @@
 		5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */; };
 		5C1EEA542B9C72D000001ACF /* PersonelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */; };
 		5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C86E60C2B9DE80A00FFB7A8 /* PersonalInformationView.swift */; };
-		5C86E6442BA0969000FFB7A8 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C86E6432BA0969000FFB7A8 /* UIOnboarding */; };
+		5C86E6162B9DF22C00FFB7A8 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C86E6152B9DF22C00FFB7A8 /* UIOnboarding */; };
+		5C86E61B2BA0611600FFB7A8 /* PaddedPlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C86E61A2BA0611600FFB7A8 /* PaddedPlaceHolder.swift */; };
+		5C86E61E2BA0745000FFB7A8 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C86E61C2BA0745000FFB7A8 /* CoreData.xcdatamodeld */; };
 		5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A8C2B98BF8400212267 /* HomeController.swift */; };
 		5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A942B98C0B200212267 /* UIView+Layout.swift */; };
 		5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A962B98C0BD00212267 /* VerticalStackView.swift */; };
@@ -48,6 +50,8 @@
 		5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOnboardingHelper.swift; sourceTree = "<group>"; };
 		5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonelViewController.swift; sourceTree = "<group>"; };
 		5C86E60C2B9DE80A00FFB7A8 /* PersonalInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationView.swift; sourceTree = "<group>"; };
+		5C86E61A2BA0611600FFB7A8 /* PaddedPlaceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedPlaceHolder.swift; sourceTree = "<group>"; };
+		5C86E61D2BA0745000FFB7A8 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		5C917A8C2B98BF8400212267 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		5C917A942B98C0B200212267 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		5C917A962B98C0BD00212267 /* VerticalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
@@ -132,6 +136,7 @@
 				5C01984F2B9A0DFA00AC22CB /* UIFont.swift */,
 				53372BD02B9A3A0B00F2F268 /* SettingsPageButtons.swift */,
 				5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */,
+				5C86E61A2BA0611600FFB7A8 /* PaddedPlaceHolder.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 				5CA9DEFB2B986EB4004FAD1D /* Main.storyboard */,
 				5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */,
 				5CA9DF002B986EB5004FAD1D /* LaunchScreen.storyboard */,
+				5C86E61C2BA0745000FFB7A8 /* CoreData.xcdatamodeld */,
 				5CA9DF032B986EB5004FAD1D /* Info.plist */,
 			);
 			path = "Pregnancy Tracker";
@@ -268,11 +274,13 @@
 			files = (
 				5C01984C2B99BFF300AC22CB /* SafeAreaView.swift in Sources */,
 				5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */,
+				5C86E61E2BA0745000FFB7A8 /* CoreData.xcdatamodeld in Sources */,
 				5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */,
 				5C01985D2B9B7EDE00AC22CB /* HomeCell.swift in Sources */,
 				53372BD32B9B239B00F2F268 /* CustomView.swift in Sources */,
 				5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */,
 				5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */,
+				5C86E61B2BA0611600FFB7A8 /* PaddedPlaceHolder.swift in Sources */,
 				5C917A9D2B98C74500212267 /* HealthController.swift in Sources */,
 				5C917AA12B98C7FC00212267 /* InformationSourceController.swift in Sources */,
 				53372BD12B9A3A0C00F2F268 /* SettingsPageButtons.swift in Sources */,
@@ -530,6 +538,19 @@
 			productName = UIOnboarding;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		5C86E61C2BA0745000FFB7A8 /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5C86E61D2BA0745000FFB7A8 /* CoreData.xcdatamodel */,
+			);
+			currentVersion = 5C86E61D2BA0745000FFB7A8 /* CoreData.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5CA9DEEA2B986EB4004FAD1D /* Project object */;
 }
