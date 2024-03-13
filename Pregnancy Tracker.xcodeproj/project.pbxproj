@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		530E34352BA1E52D0067E21A /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 530E34342BA1E52D0067E21A /* UIOnboarding */; };
 		53372BD12B9A3A0C00F2F268 /* SettingsPageButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53372BD02B9A3A0B00F2F268 /* SettingsPageButtons.swift */; };
 		53372BD32B9B239B00F2F268 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53372BD22B9B239B00F2F268 /* CustomView.swift */; };
 		5C01984C2B99BFF300AC22CB /* SafeAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */; };
@@ -63,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				530E34352BA1E52D0067E21A /* UIOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +174,7 @@
 			);
 			name = "Pregnancy Tracker";
 			packageProductDependencies = (
+				530E34342BA1E52D0067E21A /* UIOnboarding */,
 			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
@@ -202,6 +205,7 @@
 			);
 			mainGroup = 5CA9DEE92B986EB4004FAD1D;
 			packageReferences = (
+				530E34332BA1E52D0067E21A /* XCRemoteSwiftPackageReference "UIOnboarding" */,
 			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
@@ -471,6 +475,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		530E34332BA1E52D0067E21A /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lascic/UIOnboarding.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		530E34342BA1E52D0067E21A /* UIOnboarding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 530E34332BA1E52D0067E21A /* XCRemoteSwiftPackageReference "UIOnboarding" */;
+			productName = UIOnboarding;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5CA9DEEA2B986EB4004FAD1D /* Project object */;
 }
