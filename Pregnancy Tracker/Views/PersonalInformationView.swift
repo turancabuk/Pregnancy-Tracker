@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UINavigationControllerDelegate {
+class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let personalCardColor = #colorLiteral(red: 0.970778048, green: 0.8382893801, blue: 0.8796723485, alpha: 1)
     let personalCardColor1 = #colorLiteral(red: 0.9507680535, green: 0.7077944875, blue: 0.8335040212, alpha: 1)
@@ -32,10 +32,11 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
     }
     fileprivate func setupView() {
+        
         view.backgroundColor = personalCardColor
+       
         let safeAreaView = UIView()
         view.addSubview(safeAreaView)
-        
         safeAreaView.anchor(
             top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(
                 top: 50, left: 24, bottom: 10, right: 24))
@@ -86,15 +87,11 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
             top: contentView.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(
                 top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 80, height: 80))
 
-
-        let nameDesLabel = UILabel()
-        nameDesLabel.text = "Select a photo"
-        nameDesLabel.font = FontHelper.customFont(size: 15)
-        nameDesLabel.textColor = .black
-        nameDesLabel.textAlignment = .center
+        let photoDesLabel = createPersonalLabel(text: "Select a photo", textColor: .black)
+        photoDesLabel.textAlignment = .center
+        contentView.addSubview(photoDesLabel)
         
-        contentView.addSubview(nameDesLabel)
-        nameDesLabel.anchor(
+        photoDesLabel.anchor(
             top: profileImageView.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(
                 top: 4, left: 60, bottom: 0, right: 60), size: .init(width: 120, height: 40))
         
@@ -114,16 +111,12 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         
         contentView.addSubview(nameTextfield)
         nameTextfield.anchor(
-            top: nameDesLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(
+            top: photoDesLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(
                 top: 36, left: 12, bottom: 0, right: 10), size: .init(width: contentView.frame.width, height: 30))
         
-        let dateLabel = UILabel()
-        dateLabel.text = "Select your Last Menstrual Period"
-        dateLabel.font = FontHelper.customFont(size: 14)
-        dateLabel.textColor = .purple
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+        let dateLabel = createPersonalLabel(text: "Select your last Menstrual Period", textColor: .purple)
         contentView.addSubview(dateLabel)
+        
         dateLabel.anchor(
             top: nameTextfield.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(
                 top: 36, left: 30, bottom: 0, right: 0), size: .init(width: 280, height: 36))
@@ -145,66 +138,35 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         datePickerContainer.addSubview(datePicker)
 
-        let weightLabel = UILabel()
-        weightLabel.text = "Your Weight"
-        weightLabel.textColor = .purple
-        weightLabel.font = FontHelper.customFont(size: 14)
-        
+        let weightLabel = createPersonalLabel(text: "Your Weight", textColor: .purple)
         contentView.addSubview(weightLabel)
+        
         weightLabel.anchor(
             top: datePickerContainer.bottomAnchor, leading: datePickerContainer.leadingAnchor, bottom: nil, trailing: nil, padding: .init(
                 top: 36, left: 0, bottom: 0, right: 0), size: .init(width: 280, height: 40))
         
-        picker.backgroundColor = .clear
-        picker.setValue(UIColor.black, forKey: "textColor")
-        picker.delegate = self
-        picker.dataSource = self
+        customPicker(picker: picker)
+        customPicker(picker: picker1)
         
-        contentView.addSubview(picker)
-        picker.anchor(
-            top: weightLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(
-                top: 0, left: 10, bottom: 0, right: 0), size: .init(width: 140, height: 100))
+        let weightPickerStack = createPickerStackView(withPickers: [picker, picker1])
+        contentView.addSubview(weightPickerStack)
+        weightPickerStack.anchor(
+            top: weightLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, size: .init(width: 0, height: 150))
         
-        picker1.backgroundColor = .clear
-        picker1.setValue(UIColor.black, forKey: "textColor")
-        picker1.delegate = self
-        picker1.dataSource = self
-        
-        contentView.addSubview(picker1)
-        picker1.anchor(
-            top: weightLabel.bottomAnchor, leading: picker.trailingAnchor, bottom: nil, trailing: nil, padding: .init(
-                top: 0, left: 2, bottom: 0, right: 0), size: .init(width: 140, height: 100))
-        
-        let heightLabel = UILabel()
-        heightLabel.text = "Your Height"
-        heightLabel.textColor = .purple
-        heightLabel.font = FontHelper.customFont(size: 14)
-        
+        let heightLabel = createPersonalLabel(text: "Your HEight", textColor: .purple)
         contentView.addSubview(heightLabel)
+        
         heightLabel.anchor(
-            top: picker.bottomAnchor, leading: datePickerContainer.leadingAnchor, bottom: nil, trailing: nil, padding: .init(
-                top: 12, left: 0, bottom: 0, right: 0), size: .init(width: 280, height: 40))
+            top: weightPickerStack.bottomAnchor, leading: weightLabel.leadingAnchor, bottom: nil, trailing: nil, padding: .init(
+                top: 36, left: 0, bottom: 0, right: 0), size: .init(width: 280, height: 40))
         
-        picker2.backgroundColor = .clear
-        picker2.setValue(UIColor.black, forKey: "textColor")
-        picker2.delegate = self
-        picker2.dataSource = self
-        
-        contentView.addSubview(picker2)
-        picker2.anchor(
-            top: heightLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(
-                top: 0, left: 2, bottom: 0, right: 0), size: .init(width: 140, height: 100))
-        
-        picker3.backgroundColor = .clear
-        picker3.setValue(UIColor.black, forKey: "textColor")
-        picker3.delegate = self
-        picker3.dataSource = self
-        
-        contentView.addSubview(picker3)
-        picker3.anchor(
-            top: heightLabel.bottomAnchor, leading: picker.trailingAnchor, bottom: nil, trailing: nil, padding: .init(
-                top: 0, left: 10, bottom: 0, right: 0), size: .init(width: 140, height: 100))
-
+        customPicker(picker: picker2)
+        customPicker(picker: picker3)
+  
+        let heightPickerStack = createPickerStackView(withPickers: [picker2, picker3])
+        contentView.addSubview(heightPickerStack)
+        heightPickerStack.anchor(
+            top: heightLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, size: .init(width: 0, height: 150))
         
         let saveButton = UIButton(type: .system)
         saveButton.setTitle("Save", for: .normal)
@@ -219,31 +181,28 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         contentView.addSubview(saveButton)
         saveButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         saveButton.anchor(
-            top: picker2.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(
+            top: heightPickerStack.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(
                 top: 40, left: 40, bottom: 26, right: 40), size: .init(width: 160, height: 40))
-        
-        let endBottom = saveButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20) // Gerekli boşluk için sabiti ayarlayın
+
+        let endBottom = saveButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         endBottom.isActive = true
         endBottom.priority = UILayoutPriority(999)
     }
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+    fileprivate func createPickerStackView(withPickers pickers: [UIPickerView]) -> UIStackView {
+        let pickerStackView = UIStackView(arrangedSubviews: pickers)
+        pickerStackView.distribution = .fillEqually
+        pickerStackView.axis = .horizontal
+        pickerStackView.spacing = 8
+        pickerStackView.translatesAutoresizingMaskIntoConstraints = false
+        return pickerStackView
     }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        if pickerView == self.picker {
-            return String(pickerNumbers[row])
-        }else{
-            return String(picker1Numbers[row])
-        }
-    }
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == picker {
-            return pickerNumbers.count
-        }else{
-            return picker1Numbers.count
-        }
+    fileprivate func createPersonalLabel(text: String, textColor: UIColor) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.textColor = textColor
+        label.font = FontHelper.customFont(size: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
@@ -297,3 +256,47 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         view.endEditing(true)
     }
 }
+extension PersonalInformationView: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch pickerView {
+        case picker:
+            return String(pickerNumbers[row])
+        case picker1:
+            return String(picker1Numbers[row])
+        case picker2:
+            return String(picker2Numbers[row])
+        case picker3:
+            return String(picker3Numbers[row])
+        default:
+            return ""
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        switch pickerView {
+        case picker:
+            return pickerNumbers.count
+        case picker1:
+            return picker1Numbers.count
+        case picker2:
+            return picker2Numbers.count
+        case picker3:
+            return picker3Numbers.count
+        default:
+            return 0
+        }
+    }
+    func customPicker(picker: UIPickerView) {
+        picker.frame = CGRect(x: 0, y: 0, width: 60, height: 100)
+        picker.delegate = self
+        picker.dataSource = self
+        picker.backgroundColor = .clear
+        picker.setValue(UIColor.black, forKey: "textColor")
+    }
+}
+
+
+
