@@ -20,7 +20,7 @@ class OnboardingController: UIViewController {
         
         let isFirstLaunch = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
         
-        if isFirstLaunch {
+        if !isFirstLaunch {
             UserDefaults.standard.setValue(true, forKey: "hasLaunchedBefore")
             UserDefaults.standard.synchronize()
             
