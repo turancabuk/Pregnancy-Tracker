@@ -9,41 +9,101 @@ import UIKit
 
 class SafeAreaView: UIView {
     
-    var personelView: UIView!
+    let defaults = UserDefaults.standard
+    
+    lazy var safeAreaView: UIView = {
+        let safeAreaView = UIView()
+        safeAreaView.frame = CGRect(x: 24, y: 50, width: frame.width - 24 * 2 , height: frame.height - 50 * 2)
+        safeAreaView.backgroundColor = .white
+        safeAreaView.layer.cornerRadius = 16
+        safeAreaView.clipsToBounds = true
+        return safeAreaView
+    }()
+    lazy var personelView: UIView = {
+        personelView = UIView()
+        personelView.layer.cornerRadius = 12
+        personelView.clipsToBounds = true
+        return personelView
+    }()
+    lazy var profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .white
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 60 / 2
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
+        if let imageData = defaults.data(forKey: "profileImage") {
+            imageView.image = UIImage(data: imageData)
+        }else{
+            imageView.image = UIImage(named: "women")
+        }
+        return imageView
+    }()
+     
+    lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        let defaults = UserDefaults.standard
+        label.text = defaults.string(forKey: "userName") ?? ""
+        label.font = FontHelper.customFont(size: 16)
+        label.textAlignment = .center
+        return label
+    }()
+    lazy var weightLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Weight"
+        label.font = FontHelper.customFont(size: 16)
+        label.textAlignment = .center
+        label.textColor = .white
+        return label
+    }()
+    lazy var weightValueLabel: UILabel = {
+        let label = UILabel()
+        let kgValue = defaults.string(forKey: "kgValue") ?? ""
+        let gValue = defaults.string(forKey: "gValue") ?? ""
+        label.text = "\(kgValue).\(gValue) kg"
+        label.font = FontHelper.customFont(size: 16)
+        label.textAlignment = .center
+        return label
+    }()
+    lazy var heightLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Height"
+        label.font = FontHelper.customFont(size: 16)
+        label.textAlignment = .center
+        label.textColor = .white
+        return label
+    }()
+    lazy var heightValueLabel: UILabel = {
+        let label = UILabel()
+        let mValue = defaults.string(forKey: "mValue") ?? ""
+        let cmValue = defaults.string(forKey: "cmValue") ?? ""
+        label.text = "\(mValue).\(cmValue)cm"
+        label.font = FontHelper.customFont(size: 16)
+        label.textAlignment = .center
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        createSafeAreaView()
+        setupView()
     }
-    func createSafeAreaView() {
-        let safeAreaView = UIView()
+    func setupView() {
+
         addSubview(safeAreaView)
-
-        safeAreaView.frame = CGRect(x: 24, y: 60, width: frame.width - 24 * 2 , height: frame.height - 60 * 2)
-        safeAreaView.backgroundColor = UIColor(hex: "E2D6CD")
-        safeAreaView.layer.cornerRadius = 16
-        safeAreaView.clipsToBounds = true
-        
-        personelView = UIView()
         addSubview(personelView)
-        
-        personelView.layer.cornerRadius = 12
-        personelView.clipsToBounds = true
-        personelView.anchor(
-            top: safeAreaView.topAnchor, leading: safeAreaView.leadingAnchor, bottom: nil, trailing: safeAreaView.trailingAnchor, size: .init(width: 0, height: 280))
-        
-        let profileImageView = UIImageView()
-        profileImageView.backgroundColor = .white
         personelView.addSubview(profileImageView)
-        profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        profileImageView.layer.cornerRadius = 60 / 2
-        profileImageView.clipsToBounds = true
-        profileImageView.contentMode = .scaleAspectFill
-        profileImageView.image = UIImage(named: "women")
+        personelView.addSubview(nameLabel)
+        personelView.addSubview(weightLabel)
+        personelView.addSubview(weightValueLabel)
+        personelView.addSubview(heightLabel)
+        personelView.addSubview(heightValueLabel)
 
-        
-        let centerYConstraint = profileImageView.centerYAnchor.constraint(equalTo: personelView.centerYAnchor, constant: -60)
+        personelView.heightAnchor.constraint(equalTo: safeAreaView.heightAnchor, multiplier: 1/3).isActive = true
+        personelView.anchor(
+            top: safeAreaView.topAnchor, leading: safeAreaView.leadingAnchor, bottom: nil, trailing: safeAreaView.trailingAnchor)
+
+        let centerYConstraint = profileImageView.centerYAnchor.constraint(equalTo: personelView.centerYAnchor, constant: -50)
         centerYConstraint.isActive = true
         profileImageView.centerXAnchor.constraint(equalTo: personelView.centerXAnchor).isActive = true
 
@@ -52,53 +112,25 @@ class SafeAreaView: UIView {
             profileImageView.heightAnchor.constraint(equalToConstant: 80)
         ])
         
-        let nameLabel = UILabel()
-        personelView.addSubview(nameLabel)
-        nameLabel.text = "Your Name"
-        nameLabel.font = FontHelper.customFont(size: 16)
-        nameLabel.textAlignment = .center
-        
         nameLabel.centerXAnchor.constraint(equalTo: personelView.centerXAnchor).isActive = true
         nameLabel.anchor(
             top: profileImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(
-                top: 12, left: 10, bottom: 0, right: 0), size: .init(
+                top: 0, left: 10, bottom: 0, right: 0), size: .init(
                     width: 200, height: 40))
-        
-        let weightLabel = UILabel()
-        personelView.addSubview(weightLabel)
-        weightLabel.text = "Weight"
-        weightLabel.font = FontHelper.customFont(size: 16)
-        weightLabel.textAlignment = .center
         
         weightLabel.anchor(
             top: nameLabel.bottomAnchor, leading: safeAreaView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(
-                top: 4, left: 0, bottom: 0, right: 0), size: .init(width: 120, height: 28))
+                top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 120, height: 28))
         
-        let weightValueLabel = UILabel()
-        personelView.addSubview(weightValueLabel)
-        weightValueLabel.text = "0.00 kg"
-        weightValueLabel.font = FontHelper.customFont(size: 12)
-        weightValueLabel.textAlignment = .center
-        
+
         weightValueLabel.anchor(
             top: weightLabel.bottomAnchor, leading: safeAreaView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(
                 top: 4, left: 0, bottom: 0, right: 0), size: .init(width: 120, height: 28))
         
-        let heightLabel = UILabel()
-        personelView.addSubview(heightLabel)
-        heightLabel.text = "Height"
-        heightLabel.font = FontHelper.customFont(size: 16)
-        heightLabel.textAlignment = .center
-        
         heightLabel.anchor(
             top: nameLabel.bottomAnchor, leading: nil, bottom: nil, trailing: safeAreaView.trailingAnchor, padding: .init(
-                top: 4, left: 0, bottom: 0, right: 0), size: .init(width: 120, height: 28))
+                top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 120, height: 28))
         
-        let heightValueLabel = UILabel()
-        personelView.addSubview(heightValueLabel)
-        heightValueLabel.text = "0.00 cm"
-        heightValueLabel.font = FontHelper.customFont(size: 12)
-        heightValueLabel.textAlignment = .center
         
         heightValueLabel.anchor(
             top: heightLabel.bottomAnchor, leading: nil, bottom: nil, trailing: safeAreaView.trailingAnchor, padding: .init(
@@ -111,23 +143,4 @@ class SafeAreaView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    enum ColorOption {
-            case red, green, blue
-        }
-        
-        private var selectedColor: ColorOption?
-        
-        func selectColor(_ color: ColorOption) {
-            selectedColor = color
-            
-            switch color {
-            case .red:
-                backgroundColor = .red
-            case .green:
-                backgroundColor = .green
-            case .blue:
-                backgroundColor = .blue
-            }
-        }
 }
