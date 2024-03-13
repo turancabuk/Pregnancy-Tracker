@@ -17,13 +17,13 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        collection.layer.cornerRadius = 16
-        collection.clipsToBounds = true
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        collection.backgroundColor = UIColor(white: 0.9, alpha: 0.9)
-        return collection
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.layer.cornerRadius = 16
+        collectionView.clipsToBounds = true
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
+        return collectionView
     }()
     
     override func viewDidLoad() {
@@ -51,6 +51,36 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
             collectionView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor, constant: 30),
             collectionView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor, constant: -30),
             collectionView.heightAnchor.constraint(equalToConstant: 120)
+        ])
+        
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.isUserInteractionEnabled = true
+        scrollView.isScrollEnabled = true
+        safeAreaView.addSubview(scrollView)
+        
+        scrollView.topAnchor.constraint(equalTo: safeAreaView.topAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: safeAreaView.bottomAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor).isActive = true
+        
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.isUserInteractionEnabled = true
+        scrollView.addSubview(contentView)
+        
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        contentView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: safeAreaView.widthAnchor).isActive = true
+        
+        contentView.addSubview(collectionView)
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            collectionView.heightAnchor.constraint(equalToConstant: 120),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
