@@ -10,16 +10,6 @@ import UIKit
 
 class SettingsController: UIViewController {
     
-    let shareButton: SettingsPageButtons = {
-        let button = SettingsPageButtons()
-        button.setTitle("Bizi Paylaşın", for: .normal)
-        button.buttonState = .active
-        button.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-        button.setCornerRadius(radius: 12)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,37 +43,63 @@ class SettingsController: UIViewController {
                let buttonSpacing: CGFloat = 10
                let buttonY = CGFloat(index) * (buttonHeight + buttonSpacing) + 100 // 100 üstünden başlayarak alt alta sırala
                button.frame = CGRect(x: (screenWidth - buttonWidth) / 2, y: buttonY, width: buttonWidth, height: buttonHeight)
-               button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
 
+               switch name {
+               case "shareButton":
+                   button.addTarget(self, action: #selector(shareTapped), for: .touchUpInside)
+               case "rateButton":
+                   button.addTarget(self, action: #selector(rateTapped), for: .touchUpInside)
+               case "privacyButton":
+                   button.addTarget(self, action: #selector(privacyTapped), for: .touchUpInside)
+               case "contactButton":
+                   button.addTarget(self, action: #selector(contactTapped), for: .touchUpInside)
+               default:
+                   break
+               }
                // Butonu ekrana ekle
                view.addSubview(button)
            }
        }
     
     func setButtons() {
-            let screenWidth = UIScreen.main.bounds.width
-            let screenHeight = UIScreen.main.bounds.height
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        
+        let buttonHeight = screenHeight * 0.08 // Buton yüksekliğini azaltarak daha fazla yer açabilirsiniz
+        let buttonWidth = screenWidth * 0.8
+        let bottomMargin = screenHeight * 0.15
+        let buttonSpacing: CGFloat = 1 // Butonlar arasındaki boşluğu azalt
+        
+        let buttonNames = ["shareButton", "rateButton", "privacyButton", "contactButton"]
+        
+        for (index, name) in buttonNames.enumerated() {
+            let button = UIButton()
+            button.setImage(UIImage(named: name), for: .normal)
             
-            let buttonHeight = screenHeight * 0.1
-            let buttonWidth = screenWidth * 0.8
-            let bottomMargin = screenHeight * 0.15
-            
-            let shareButton = UIButton()
-            shareButton.setImage(UIImage(named: "shareButton"), for: .normal)
-            
-            // Buton boyutlarını ayarla
-            shareButton.frame = CGRect(x: (screenWidth - buttonWidth) / 2,
-                                       y: screenHeight - bottomMargin - buttonHeight,
-                                       width: buttonWidth,
-                                       height: buttonHeight)
+            // Buton boyutlarını ve konumunu ayarla
+            let buttonY = screenHeight - bottomMargin - buttonHeight * CGFloat(index + 1) - buttonSpacing * CGFloat(index)
+            button.frame = CGRect(x: (screenWidth - buttonWidth) / 2, y: buttonY, width: buttonWidth, height: buttonHeight)
             
             // Butonu ekrana ekle
-            view.addSubview(shareButton)
+            view.addSubview(button)
         }
+    }
+
     
-    @objc func buttonTapped(_ sender: UIButton) {
-        guard let title = sender.currentTitle else { return }
-        print("\(title) button tapped")
+    @objc func shareTapped() {
+        // Share butonuna tıklandığında yapılacak işlemler
+    }
+
+    @objc func rateTapped() {
+        // Rate butonuna tıklandığında yapılacak işlemler
+    }
+
+    @objc func privacyTapped() {
+        // Privacy butonuna tıklandığında yapılacak işlemler
+    }
+
+    @objc func contactTapped() {
+        // Contact butonuna tıklandığında yapılacak işlemler
     }
     
     @objc func shareButtonTapped() {

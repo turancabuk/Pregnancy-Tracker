@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		53372BD12B9A3A0C00F2F268 /* SettingsPageButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53372BD02B9A3A0B00F2F268 /* SettingsPageButtons.swift */; };
 		53372BD32B9B239B00F2F268 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53372BD22B9B239B00F2F268 /* CustomView.swift */; };
+		53BEF43B2BA1FA8900CB4817 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 53BEF43A2BA1FA8900CB4817 /* UIOnboarding */; };
 		5C01984C2B99BFF300AC22CB /* SafeAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */; };
 		5C0198502B9A0DFA00AC22CB /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984F2B9A0DFA00AC22CB /* UIFont.swift */; };
 		5C0198512B9A12B800AC22CB /* Kinoble.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C01984E2B9A0D9C00AC22CB /* Kinoble.ttf */; };
@@ -36,7 +37,6 @@
 		5CA9DEFD2B986EB4004FAD1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DEFB2B986EB4004FAD1D /* Main.storyboard */; };
 		5CA9DEFF2B986EB5004FAD1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */; };
 		5CA9DF022B986EB5004FAD1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DF002B986EB5004FAD1D /* LaunchScreen.storyboard */; };
-		5CD34CFC2BA0EAD90072321A /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5CD34CFB2BA0EAD90072321A /* UIOnboarding */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,7 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CD34CFC2BA0EAD90072321A /* UIOnboarding in Frameworks */,
+				53BEF43B2BA1FA8900CB4817 /* UIOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,7 +211,7 @@
 			);
 			name = "Pregnancy Tracker";
 			packageProductDependencies = (
-				5CD34CFB2BA0EAD90072321A /* UIOnboarding */,
+				53BEF43A2BA1FA8900CB4817 /* UIOnboarding */,
 			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
@@ -242,7 +242,7 @@
 			);
 			mainGroup = 5CA9DEE92B986EB4004FAD1D;
 			packageReferences = (
-				5CD34CFA2BA0EAD90072321A /* XCRemoteSwiftPackageReference "UIOnboarding" */,
+				53BEF4392BA1FA8900CB4817 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
 			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
@@ -521,9 +521,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5CD34CFA2BA0EAD90072321A /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
+		53BEF4392BA1FA8900CB4817 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lascic/UIOnboarding.git";
+			repositoryURL = "https://github.com/lascic/UIOnboarding";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.0.3;
@@ -532,9 +532,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5CD34CFB2BA0EAD90072321A /* UIOnboarding */ = {
+		53BEF43A2BA1FA8900CB4817 /* UIOnboarding */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5CD34CFA2BA0EAD90072321A /* XCRemoteSwiftPackageReference "UIOnboarding" */;
+			package = 53BEF4392BA1FA8900CB4817 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
 			productName = UIOnboarding;
 		};
 /* End XCSwiftPackageProductDependency section */
