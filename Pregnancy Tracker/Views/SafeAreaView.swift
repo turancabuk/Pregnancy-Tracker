@@ -17,8 +17,17 @@ class SafeAreaView: UIView {
         safeAreaView.backgroundColor = .white
         safeAreaView.layer.cornerRadius = 16
         safeAreaView.clipsToBounds = true
-        safeAreaView.backgroundColor = .orange
         return safeAreaView
+    }()
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    lazy var contentView: UIView = {
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        return contentView
     }()
     lazy var personelView: UIView = {
         personelView = UIView()
@@ -155,6 +164,8 @@ class SafeAreaView: UIView {
 
         addSubview(safeAreaView)
         addSubview(personelView)
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
         personelView.addSubview(profileImageView)
         personelView.addSubview(nameLabel)
         personelView.addSubview(weightLabel)
@@ -189,6 +200,15 @@ class SafeAreaView: UIView {
             personelView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
             personelView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
             personelView.heightAnchor.constraint(equalTo: safeAreaView.heightAnchor, multiplier: 1/3),
+            
+            scrollView.topAnchor.constraint(equalTo: personelView.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.heightAnchor.constraint(equalToConstant: 300),
             
             profileImageView.topAnchor.constraint(equalTo: personelView.topAnchor, constant: 40),
             profileImageView.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/3),
@@ -238,7 +258,8 @@ class SafeAreaView: UIView {
             birthDayLabel.bottomAnchor.constraint(equalTo: birthDayValue.topAnchor, constant: 12),
             birthDayLabel.trailingAnchor.constraint(equalTo: heightLabel.trailingAnchor),
             birthDayLabel.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
-            birthDayLabel.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/2)
+            birthDayLabel.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/2),
+           
         ])
     }
     func setPersonelView(backgroundColor: UIColor) {

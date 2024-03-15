@@ -10,15 +10,16 @@ import UIKit
 class HomeCell: UICollectionViewCell {
     
     let imageView = UIImageView()
-    var isSelectedState = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        imageView.layer.cornerRadius = 80 / 2
-        imageView.clipsToBounds = true
         imageView.constrainWidth(constant: 80)
         imageView.constrainHeight(constant: 80)
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 180
+        imageView.clipsToBounds = true
+        ShadowLayer.setShadow(imageView: imageView, color: .darkGray, opacity: 0.7, offset: CGSize(width: 5, height: 5), radius: 5)
         
         addSubview(imageView)
         imageView.fillSuperview()
@@ -27,10 +28,4 @@ class HomeCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-//    func updateBorder(selected: Bool) {
-//        isSelectedState = selected
-//        imageView.layer.borderWidth = selected ? 2 : 0 // Seçili ise 2, değilse 0 genişlikte kenarlık
-//        imageView.layer.borderColor = selected ? UIColor.blue.cgColor : UIColor.clear.cgColor
-//        imageView.clipsToBounds = true
-//    }
 }
