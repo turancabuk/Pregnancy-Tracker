@@ -37,6 +37,7 @@
 		5CA9DEFD2B986EB4004FAD1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DEFB2B986EB4004FAD1D /* Main.storyboard */; };
 		5CA9DEFF2B986EB5004FAD1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */; };
 		5CA9DF022B986EB5004FAD1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DF002B986EB5004FAD1D /* LaunchScreen.storyboard */; };
+		5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5CA9DF012B986EB5004FAD1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5CA9DF032B986EB5004FAD1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				53372BD02B9A3A0B00F2F268 /* SettingsPageButtons.swift */,
 				5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */,
 				5C86E61A2BA0611600FFB7A8 /* PaddedPlaceHolder.swift */,
+				5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				5C86E61B2BA0611600FFB7A8 /* PaddedPlaceHolder.swift in Sources */,
 				5C917A9D2B98C74500212267 /* HealthController.swift in Sources */,
 				5C917AA12B98C7FC00212267 /* InformationSourceController.swift in Sources */,
+				5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */,
 				53372BD12B9A3A0C00F2F268 /* SettingsPageButtons.swift in Sources */,
 				5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */,
 				5CA9DEFA2B986EB4004FAD1D /* ViewController.swift in Sources */,
