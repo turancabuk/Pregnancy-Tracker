@@ -237,11 +237,13 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         }
         
         let defaults = UserDefaults.standard
+        
         defaults.setValue(name, forKey: "userName")
         defaults.setValue(pickerNumbers[picker.selectedRow(inComponent: 0)], forKey: "kgValue")
         defaults.setValue(picker1Numbers[picker1.selectedRow(inComponent: 0)], forKey: "gValue")
         defaults.setValue(picker2Numbers[picker2.selectedRow(inComponent: 0)], forKey: "mValue")
         defaults.setValue(picker3Numbers[picker3.selectedRow(inComponent: 0)], forKey: "cmValue")
+        defaults.set(try? NSKeyedArchiver.archivedData(withRootObject: datePicker.date, requiringSecureCoding: false), forKey: "pregnancyDate")
         
         if let imageData = profileImage.jpegData(compressionQuality: 1.0) {
             defaults.set(imageData, forKey: "profileImage")

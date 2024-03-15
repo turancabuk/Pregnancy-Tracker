@@ -11,7 +11,6 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var personelView = PersonalInformationView()
 
-//    let personalCardColor = #colorLiteral(red: 0.9507680535, green: 0.7077944875, blue: 0.8335040212, alpha: 1)
     let collection = ["KATEGORİ 1", "KATEGORİ 2", "KATEGORİ 3", "KATEGORİ 4", "KATEGORİ 5", "KATEGORİ 6", "KATEGORİ 7", "KATEGORİ 8", "KATEGORİ 9"]
     
     lazy var collectionView: UICollectionView = {
@@ -21,18 +20,16 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.layer.cornerRadius = 16
         collectionView.clipsToBounds = true
-        collectionView.backgroundColor = UIColor(hex: "DEDAF3")
         return collectionView
     }()
-    
-    let selectedImageLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .left
-        label.textColor = .black
-        label.font = FontHelper.customFont(size: 24)
-        return label
-    }()
+//    let selectedImageLabel: UILabel = {
+//        let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.textAlignment = .left
+//        label.textColor = .black
+//        label.font = FontHelper.customFont(size: 24)
+//        return label
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,12 +89,12 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
         
-        view.addSubview(selectedImageLabel)
-        NSLayoutConstraint.activate([
-            selectedImageLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -10),
-            selectedImageLabel.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor, constant: 40),
-            selectedImageLabel.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor, constant: -20)
-        ])
+//        view.addSubview(selectedImageLabel)
+//        NSLayoutConstraint.activate([
+//            selectedImageLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -10),
+//            selectedImageLabel.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor, constant: 40),
+//            selectedImageLabel.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor, constant: -20)
+//        ])
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collection.count
@@ -116,26 +113,16 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 0, left: 18, bottom: 0, right: 18)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? HomeCell {
-            if cell.isSelectedState {
-                selectedImageLabel.text = ""
-                cell.updateBorder(selected: false)
-            } else {
-                let selectedItem = self.collection[indexPath.item]
-                selectedImageLabel.text = "\(selectedItem)"
-
-                cell.updateBorder(selected: true)
-            }
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? HomeCell {
-            cell.updateBorder(selected: false)
-            selectedImageLabel.text = ""
-        }
-    }
-    
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        if let index = selectedIndexes.firstIndex(of: indexPath) { // Eğer seçili indeks dizisinde bulunuyorsa
+//            selectedIndexes.remove(at: index) // Seçili indeksi kaldır
+//            selectedImageLabel.text = ""
+//        } else { // Eğer seçili indeks dizisinde bulunmuyorsa
+//            selectedIndexes.append(indexPath) // Seçili indeksi ekle
+//            let selectedItem = self.collection[indexPath.item]
+//            selectedImageLabel.text = "\(selectedItem)"
+//        }
+//        
+//        collectionView.reloadData() // Görünümü yeniden yükle
+//    }
 }
