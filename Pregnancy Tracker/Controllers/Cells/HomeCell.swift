@@ -27,12 +27,10 @@ class HomeCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    func updateBorder(selected: Bool) {
-        isSelectedState = selected
-        imageView.layer.borderWidth = selected ? 2 : 0 // Seçili ise 2, değilse 0 genişlikte kenarlık
-        imageView.layer.borderColor = selected ? UIColor.blue.cgColor : UIColor.clear.cgColor
-        imageView.clipsToBounds = true
-    }
+//    func updateBorder(selected: Bool) {
+//        isSelectedState = selected
+//        imageView.layer.borderWidth = selected ? 2 : 0 // Seçili ise 2, değilse 0 genişlikte kenarlık
+//        imageView.layer.borderColor = selected ? UIColor.blue.cgColor : UIColor.clear.cgColor
+//        imageView.clipsToBounds = true
+//    }
 }
