@@ -9,7 +9,6 @@ import UIKit
 
 class HomeController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    let safeAreaView = SafeAreaView()
     let scrollView = UIScrollView()
     let contentView = UIView()
 
@@ -31,30 +30,50 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
 
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: "cellId")
-        
-
-        
-
         setupLayout()
-        
         
     }
     fileprivate func setupLayout() {
-        view.backgroundColor = UIColor(white: 1, alpha: 0.8)
-        let safeAreaView = SafeAreaView(frame: view.bounds)
+        view.backgroundColor = .white
+        let safeAreaView = SafeAreaView()
         safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "DEDAF3"))
       
         view.addSubview(safeAreaView)
-        safeAreaView.addSubview(collectionView)
+        safeAreaView.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(collectionView)
+        
+        safeAreaView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            collectionView.centerYAnchor.constraint(equalTo: safeAreaView.centerYAnchor, constant: -50),
-            collectionView.centerXAnchor.constraint(equalTo: safeAreaView.centerXAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 120) // Yükseklik sabit kalabilir veya içeriğe bağlı olarak dinamik olabilir
+            
+            safeAreaView.topAnchor.constraint(equalTo: view.topAnchor),
+            safeAreaView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            safeAreaView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            safeAreaView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
+            safeAreaView.personelView.topAnchor.constraint(equalTo: safeAreaView.topAnchor, constant: 50),
+            safeAreaView.personelView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
+            safeAreaView.personelView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
+            
+            scrollView.topAnchor.constraint(equalTo: safeAreaView.personelView.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: safeAreaView.bottomAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            collectionView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collection.count
     }
@@ -66,15 +85,16 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let padding: CGFloat = 20
-        let minimumInteritemSpacing: CGFloat = 10
-
-        let availableWidth = UIScreen.main.bounds.width - padding - (minimumInteritemSpacing * 2)
-        let widthPerItem = availableWidth / 4.7
-        return CGSize(width: widthPerItem, height: widthPerItem)
+        return CGSize(width: 120, height: 120)
     }
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 0, left: 30, bottom: 0, right: 10)
+        return .init(top: 0, left: 10, bottom: 0, right: 10)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedItem = self.collection[indexPath.item]
+        let detailVC = CategoriesDetailVC()
+        detailVC.modalPresentationStyle = .fullScreen
+        detailVC.imageView.image = UIImage(named: selectedItem)
+        present(detailVC, animated: true)
     }
 }
