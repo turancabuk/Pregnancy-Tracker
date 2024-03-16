@@ -11,14 +11,6 @@ class SafeAreaView: UIView {
     
     let defaults = UserDefaults.standard
     
-    lazy var safeAreaView: UIView = {
-        let safeAreaView = UIView()
-        safeAreaView.frame = CGRect(x: 24, y: 50, width: frame.width - 24 * 2 , height: frame.height - 50 * 2)
-        safeAreaView.backgroundColor = .white
-        safeAreaView.layer.cornerRadius = 16
-        safeAreaView.clipsToBounds = true
-        return safeAreaView
-    }()
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -162,7 +154,6 @@ class SafeAreaView: UIView {
     }
     func setupView() {
 
-        addSubview(safeAreaView)
         addSubview(personelView)
         addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -177,7 +168,6 @@ class SafeAreaView: UIView {
         personelView.addSubview(birthDayLabel)
         personelView.addSubview(birthDayValue)
 
-        safeAreaView.translatesAutoresizingMaskIntoConstraints = false
         personelView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -191,24 +181,11 @@ class SafeAreaView: UIView {
         birthDayValue.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            safeAreaView.topAnchor.constraint(equalTo: topAnchor, constant: 50),
-            safeAreaView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            safeAreaView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50),
-            safeAreaView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
-            personelView.topAnchor.constraint(equalTo: safeAreaView.topAnchor),
-            personelView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
-            personelView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
-            personelView.heightAnchor.constraint(equalTo: safeAreaView.heightAnchor, multiplier: 1/3),
-            
-            scrollView.topAnchor.constraint(equalTo: personelView.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: 300),
+            personelView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            personelView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            personelView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            personelView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 1/3),
             
             profileImageView.topAnchor.constraint(equalTo: personelView.topAnchor, constant: 40),
             profileImageView.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/3),

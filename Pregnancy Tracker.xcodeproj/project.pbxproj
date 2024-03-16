@@ -38,6 +38,7 @@
 		5CA9DEFF2B986EB5004FAD1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */; };
 		5CA9DF022B986EB5004FAD1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DF002B986EB5004FAD1D /* LaunchScreen.storyboard */; };
 		5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */; };
+		5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		5CA9DF012B986EB5004FAD1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5CA9DF032B986EB5004FAD1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowLayer.swift; sourceTree = "<group>"; };
+		5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesDetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 				5C917AA22B98CA9B00212267 /* ProfileController.swift */,
 				5C917AA42B98CAD900212267 /* SettingsController.swift */,
 				5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */,
+				5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				5C917A9B2B98C6BE00212267 /* WeeklyController.swift in Sources */,
 				5C0198502B9A0DFA00AC22CB /* UIFont.swift in Sources */,
 				5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */,
+				5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */,
 				5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */,
 				5C1EEA542B9C72D000001ACF /* PersonelViewController.swift in Sources */,
 				5C917AA32B98CA9B00212267 /* ProfileController.swift in Sources */,

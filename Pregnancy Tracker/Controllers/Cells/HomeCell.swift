@@ -14,8 +14,6 @@ class HomeCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        imageView.constrainWidth(constant: 80)
-        imageView.constrainHeight(constant: 80)
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 180
         imageView.clipsToBounds = true
