@@ -13,10 +13,11 @@
 		5C01984C2B99BFF300AC22CB /* SafeAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */; };
 		5C0198502B9A0DFA00AC22CB /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984F2B9A0DFA00AC22CB /* UIFont.swift */; };
 		5C0198512B9A12B800AC22CB /* Kinoble.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C01984E2B9A0D9C00AC22CB /* Kinoble.ttf */; };
-		5C01985D2B9B7EDE00AC22CB /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01985C2B9B7EDE00AC22CB /* HomeCell.swift */; };
+		5C01985D2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01985C2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift */; };
 		5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198602B9B912D00AC22CB /* OnboardingController.swift */; };
 		5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */; };
 		5C1EEA542B9C72D000001ACF /* PersonelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */; };
+		5C7FA8E92BA6EFAE00AEC447 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */; };
 		5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C86E60C2B9DE80A00FFB7A8 /* PersonalInformationView.swift */; };
 		5C86E61B2BA0611600FFB7A8 /* PaddedPlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C86E61A2BA0611600FFB7A8 /* PaddedPlaceHolder.swift */; };
 		5C86E61E2BA0745000FFB7A8 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C86E61C2BA0745000FFB7A8 /* CoreData.xcdatamodeld */; };
@@ -47,10 +48,11 @@
 		5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaView.swift; sourceTree = "<group>"; };
 		5C01984E2B9A0D9C00AC22CB /* Kinoble.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Kinoble.ttf; sourceTree = "<group>"; };
 		5C01984F2B9A0DFA00AC22CB /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
-		5C01985C2B9B7EDE00AC22CB /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
+		5C01985C2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCategoriesCell.swift; sourceTree = "<group>"; };
 		5C0198602B9B912D00AC22CB /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
 		5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOnboardingHelper.swift; sourceTree = "<group>"; };
 		5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonelViewController.swift; sourceTree = "<group>"; };
+		5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C86E60C2B9DE80A00FFB7A8 /* PersonalInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationView.swift; sourceTree = "<group>"; };
 		5C86E61A2BA0611600FFB7A8 /* PaddedPlaceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedPlaceHolder.swift; sourceTree = "<group>"; };
 		5C86E61D2BA0745000FFB7A8 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -104,7 +106,8 @@
 		5C01985B2B9B7ED300AC22CB /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				5C01985C2B9B7EDE00AC22CB /* HomeCell.swift */,
+				5C01985C2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift */,
+				5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -282,7 +285,7 @@
 				5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */,
 				5C86E61E2BA0745000FFB7A8 /* CoreData.xcdatamodeld in Sources */,
 				5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */,
-				5C01985D2B9B7EDE00AC22CB /* HomeCell.swift in Sources */,
+				5C01985D2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift in Sources */,
 				53372BD32B9B239B00F2F268 /* CustomView.swift in Sources */,
 				5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */,
 				5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */,
@@ -291,6 +294,7 @@
 				5C917AA12B98C7FC00212267 /* InformationSourceController.swift in Sources */,
 				5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */,
 				53372BD12B9A3A0C00F2F268 /* SettingsPageButtons.swift in Sources */,
+				5C7FA8E92BA6EFAE00AEC447 /* MainCollectionViewCell.swift in Sources */,
 				5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */,
 				5CA9DEFA2B986EB4004FAD1D /* ViewController.swift in Sources */,
 				5C917A9F2B98C7A500212267 /* NutritionAndExerciseController.swift in Sources */,
