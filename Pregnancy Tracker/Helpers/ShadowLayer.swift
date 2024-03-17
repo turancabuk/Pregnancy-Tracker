@@ -8,11 +8,11 @@
 import UIKit
 
 class ShadowLayer {
-    static func setShadow(imageView: UIImageView, color: UIColor, opacity: Float, offset: CGSize, radius: CGFloat) {
-        imageView.layer.shadowColor = color.cgColor
-        imageView.layer.shadowOpacity = opacity
-        imageView.layer.shadowOffset = offset
-        imageView.layer.shadowRadius = radius
-        imageView.layer.masksToBounds = false
+    static func setShadow(view: UIView, color: UIColor, opacity: Float, offset: CGSize, radius: CGFloat) {
+        view.layer.shadowColor = color.cgColor
+        view.layer.shadowOpacity = opacity
+        view.layer.shadowOffset = offset
+        view.layer.shadowRadius = radius
+        view.layer.masksToBounds = false
     }
 }
