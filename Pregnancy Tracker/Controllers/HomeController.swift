@@ -9,12 +9,19 @@ import UIKit
 
 class HomeController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    let safeAreaView = SafeAreaView()
     let scrollView = UIScrollView()
     let contentView = UIView()
-
+    let advertView = AdvertView()
+    
     let headerCollection = ["development", "nutrition", "water", "mood"]
     let mainCollection = ["bag", "name", "notes"]
     let verticalCollection = ["development", "nutrition", "water", "mood"]
+    let verticalCollectionInfo = ["deneme deneme deneme deneme deneme deneme",
+                                  "deneme1 deneme1 deneme1 deneme1 deneme1 deneme1",
+                                  "deneme2 deneme2 deneme2 deneme2 deneme2 deneme2",
+                                  "deneme3 deneme3 deneme3 deneme3 deneme3 deneme3",
+    ]
     
     func createCollectionView(scrollDirection: UICollectionView.ScrollDirection, bg: UIColor, spacing: CGFloat) -> UICollectionView{
         let layout = UICollectionViewFlowLayout()
@@ -55,8 +62,7 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     fileprivate func setupLayout() {
         view.backgroundColor = .white
-        let safeAreaView = SafeAreaView()
-        safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "DEDAF3"))
+        safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "F2B5D4"))
         tabBarController?.tabBar.backgroundColor = .white
 
         view.addSubview(safeAreaView)
@@ -65,6 +71,7 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         scrollView.addSubview(contentView)
         contentView.addSubview(headerCollectionView)
         contentView.addSubview(mainCollectionView)
+        contentView.addSubview(advertView)
         contentView.addSubview(verticalCollectionView)
 
         safeAreaView.translatesAutoresizingMaskIntoConstraints = false
@@ -73,10 +80,11 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         contentView.translatesAutoresizingMaskIntoConstraints = false
         headerCollectionView.translatesAutoresizingMaskIntoConstraints = false
         mainCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        advertView.translatesAutoresizingMaskIntoConstraints = false
         verticalCollectionView.translatesAutoresizingMaskIntoConstraints = false
 
         scrollView.isScrollEnabled = true
-
+        
         NSLayoutConstraint.activate([
             safeAreaView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
             safeAreaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -108,7 +116,13 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
             mainCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             mainCollectionView.heightAnchor.constraint(equalToConstant: 300),
             
-            verticalCollectionView.topAnchor.constraint(equalTo: mainCollectionView.bottomAnchor),
+            advertView.topAnchor.constraint(equalTo: mainCollectionView.bottomAnchor),
+            advertView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor, constant: 10),
+            advertView.bottomAnchor.constraint(equalTo: verticalCollectionView.topAnchor, constant: -24),
+            advertView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor, constant: -10),
+            advertView.heightAnchor.constraint(equalToConstant: 40),
+            
+            verticalCollectionView.topAnchor.constraint(equalTo: advertView.bottomAnchor, constant: 6),
             verticalCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             verticalCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             verticalCollectionView.heightAnchor.constraint(equalToConstant: 480),
@@ -154,7 +168,9 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         case verticalCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "verticalCollectionViewCellId", for: indexPath) as! VerticalCollectionViewCell
             let selectedItem = self.verticalCollection[indexPath.item]
+//            let selectedInfo = self.verticalCollectionInfo[indexPath.item]
             cell.imageView.image = UIImage(named: selectedItem)
+            cell.infoLabel.text = self.verticalCollectionInfo[indexPath.item]
             return cell
         default:
             fatalError()
