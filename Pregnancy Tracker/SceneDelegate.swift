@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         window = .init(windowScene: windowScene)
-        window?.rootViewController = UINavigationController.init(rootViewController: HomeController.init())
+        window?.rootViewController = UINavigationController.init(rootViewController: OnboardingController.init())
         window?.overrideUserInterfaceStyle = .light
         window?.makeKeyAndVisible()
     }
