@@ -18,6 +18,7 @@
 		5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */; };
 		5C1EEA542B9C72D000001ACF /* PersonelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */; };
 		5C7FA8E92BA6EFAE00AEC447 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */; };
+		5C7FA8EB2BA7525400AEC447 /* VerticalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8EA2BA7525400AEC447 /* VerticalCollectionViewCell.swift */; };
 		5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C86E60C2B9DE80A00FFB7A8 /* PersonalInformationView.swift */; };
 		5C86E61B2BA0611600FFB7A8 /* PaddedPlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C86E61A2BA0611600FFB7A8 /* PaddedPlaceHolder.swift */; };
 		5C86E61E2BA0745000FFB7A8 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C86E61C2BA0745000FFB7A8 /* CoreData.xcdatamodeld */; };
@@ -53,6 +54,7 @@
 		5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOnboardingHelper.swift; sourceTree = "<group>"; };
 		5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonelViewController.swift; sourceTree = "<group>"; };
 		5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		5C7FA8EA2BA7525400AEC447 /* VerticalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C86E60C2B9DE80A00FFB7A8 /* PersonalInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationView.swift; sourceTree = "<group>"; };
 		5C86E61A2BA0611600FFB7A8 /* PaddedPlaceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedPlaceHolder.swift; sourceTree = "<group>"; };
 		5C86E61D2BA0745000FFB7A8 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			children = (
 				5C01985C2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift */,
 				5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */,
+				5C7FA8EA2BA7525400AEC447 /* VerticalCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				5C01984C2B99BFF300AC22CB /* SafeAreaView.swift in Sources */,
 				5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */,
 				5C86E61E2BA0745000FFB7A8 /* CoreData.xcdatamodeld in Sources */,
+				5C7FA8EB2BA7525400AEC447 /* VerticalCollectionViewCell.swift in Sources */,
 				5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */,
 				5C01985D2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift in Sources */,
 				53372BD32B9B239B00F2F268 /* CustomView.swift in Sources */,
