@@ -159,24 +159,16 @@ class SafeAreaView: UIView {
         scrollView.addSubview(contentView)
         personelView.addSubview(profileImageView)
         personelView.addSubview(nameLabel)
-        personelView.addSubview(weightLabel)
-        personelView.addSubview(weightValueLabel)
         personelView.addSubview(pregnancyWeekLabel)
         personelView.addSubview(pregnancyWeekValue)
-        personelView.addSubview(heightLabel)
-        personelView.addSubview(heightValueLabel)
         personelView.addSubview(birthDayLabel)
         personelView.addSubview(birthDayValue)
 
         personelView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        weightLabel.translatesAutoresizingMaskIntoConstraints = false
-        weightValueLabel.translatesAutoresizingMaskIntoConstraints = false
         pregnancyWeekLabel.translatesAutoresizingMaskIntoConstraints = false
         pregnancyWeekValue.translatesAutoresizingMaskIntoConstraints = false
-        heightLabel.translatesAutoresizingMaskIntoConstraints = false
-        heightValueLabel.translatesAutoresizingMaskIntoConstraints = false
         birthDayLabel.translatesAutoresizingMaskIntoConstraints = false
         birthDayValue.translatesAutoresizingMaskIntoConstraints = false
         
@@ -185,57 +177,37 @@ class SafeAreaView: UIView {
             personelView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             personelView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             personelView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            personelView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 1/3),
+            personelView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 1/6),
             
-            profileImageView.topAnchor.constraint(equalTo: personelView.topAnchor, constant: 40),
-            profileImageView.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/3),
-            profileImageView.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/4),
+            profileImageView.topAnchor.constraint(equalTo: personelView.topAnchor, constant: 8),
+            profileImageView.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 0.65/1),
+            profileImageView.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/5),
             profileImageView.centerXAnchor.constraint(equalTo: personelView.centerXAnchor),
             
             nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 4),
             nameLabel.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),
             nameLabel.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
-            nameLabel.centerXAnchor.constraint(equalTo: personelView.centerXAnchor),
+            nameLabel.centerXAnchor.constraint(equalTo: profileImageView.centerXAnchor),
             
-            weightLabel.topAnchor.constraint(equalTo: personelView.topAnchor, constant: 20),
-            weightLabel.leadingAnchor.constraint(equalTo: personelView.leadingAnchor, constant: 6),
-            weightLabel.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
-            weightLabel.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),
-            
-            weightValueLabel.topAnchor.constraint(equalTo: weightLabel.bottomAnchor, constant: -12),
-            weightValueLabel.leadingAnchor.constraint(equalTo: personelView.leadingAnchor, constant: 6),
-            weightValueLabel.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
-            weightValueLabel.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),
-            
-            heightLabel.topAnchor.constraint(equalTo: personelView.topAnchor, constant: 20),
-            heightLabel.trailingAnchor.constraint(equalTo: personelView.trailingAnchor, constant: -6),
-            heightLabel.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
-            heightLabel.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),
-            
-            heightValueLabel.topAnchor.constraint(equalTo: heightLabel.bottomAnchor, constant: -12),
-            heightValueLabel.trailingAnchor.constraint(equalTo: personelView.trailingAnchor, constant: -6),
-            heightValueLabel.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
-            heightValueLabel.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),
-            
-            pregnancyWeekValue.bottomAnchor.constraint(equalTo: personelView.bottomAnchor, constant: 6),
-            pregnancyWeekValue.leadingAnchor.constraint(equalTo: weightLabel.leadingAnchor),
-            pregnancyWeekValue.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
-            pregnancyWeekValue.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/2),
-            
-            pregnancyWeekLabel.bottomAnchor.constraint(equalTo: pregnancyWeekValue.topAnchor, constant: 12),
-            pregnancyWeekLabel.leadingAnchor.constraint(equalTo: weightLabel.leadingAnchor),
+            pregnancyWeekLabel.topAnchor.constraint(equalTo: personelView.topAnchor, constant: 12),
+            pregnancyWeekLabel.leadingAnchor.constraint(equalTo: personelView.leadingAnchor, constant: 8),
             pregnancyWeekLabel.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
-            pregnancyWeekLabel.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/2),
+            pregnancyWeekLabel.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),
             
-            birthDayValue.bottomAnchor.constraint(equalTo: personelView.bottomAnchor, constant: 6),
-            birthDayValue.trailingAnchor.constraint(equalTo: heightLabel.trailingAnchor),
-            birthDayValue.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
-            birthDayValue.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/2),
+            pregnancyWeekValue.topAnchor.constraint(equalTo: pregnancyWeekLabel.bottomAnchor),
+            pregnancyWeekValue.leadingAnchor.constraint(equalTo: pregnancyWeekLabel.leadingAnchor),
+            pregnancyWeekValue.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
+            pregnancyWeekValue.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),
             
-            birthDayLabel.bottomAnchor.constraint(equalTo: birthDayValue.topAnchor, constant: 12),
-            birthDayLabel.trailingAnchor.constraint(equalTo: heightLabel.trailingAnchor),
+            birthDayLabel.topAnchor.constraint(equalTo: personelView.topAnchor, constant: 12),
+            birthDayLabel.trailingAnchor.constraint(equalTo: personelView.trailingAnchor),
             birthDayLabel.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
-            birthDayLabel.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/2),
+            birthDayLabel.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),
+            
+            birthDayValue.topAnchor.constraint(equalTo: birthDayLabel.bottomAnchor),
+            birthDayValue.trailingAnchor.constraint(equalTo: personelView.trailingAnchor),
+            birthDayValue.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
+            birthDayValue.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),
            
         ])
     }
