@@ -7,103 +7,95 @@
 
 import UIKit
 
-
 class SettingsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         
-        view.backgroundColor = UIColor(white: 1, alpha: 0.8)
-        setCustomView()
-        addButtons()
-        
+        setupCustomViews()
     }
     
-    func setCustomView() {
-        let custumView = CustomView(frame: view.bounds)
-        custumView.backgroundColorOption = .settingsColor
-        view.addSubview(custumView)
+    func setupCustomViews() {
+        let items = [
+                ("shareIcon", "Bizi Paylaşın", #selector(shareTapped)),
+                ("rateIcon", "Bizi Oylayın", #selector(rateTapped)),
+                ("contactIcon", "Bize Ulaşın", #selector(contactTapped)),
+                ("privacyIcon", "Gizlilik İlkesi", #selector(privacyTapped))
+            ]
         
-    }
-    
-    func addButtons() {
-           let buttonNames = ["shareButton", "rateButton", "privacyButton", "contactButton"]
-           let buttonTitles = ["Share", "Rate", "Privacy", "Contact"]
-           
-           for (index, name) in buttonNames.enumerated() {
-               let button = UIButton()
-               button.setImage(UIImage(named: name), for: .normal)
-               button.setTitle(buttonTitles[index], for: .normal)
-               
-               // Buton boyutlarını ve konumunu ayarla
-               let screenWidth = UIScreen.main.bounds.width
-               let screenHeight = UIScreen.main.bounds.height
-               let buttonHeight = screenHeight * 0.1
-               let buttonWidth = screenWidth * 0.8
-               let buttonSpacing: CGFloat = 10
-               let buttonY = CGFloat(index) * (buttonHeight + buttonSpacing) + 100 // 100 üstünden başlayarak alt alta sırala
-               button.frame = CGRect(x: (screenWidth - buttonWidth) / 2, y: buttonY, width: buttonWidth, height: buttonHeight)
-
-               switch name {
-               case "shareButton":
-                   button.addTarget(self, action: #selector(shareTapped), for: .touchUpInside)
-               case "rateButton":
-                   button.addTarget(self, action: #selector(rateTapped), for: .touchUpInside)
-               case "privacyButton":
-                   button.addTarget(self, action: #selector(privacyTapped), for: .touchUpInside)
-               case "contactButton":
-                   button.addTarget(self, action: #selector(contactTapped), for: .touchUpInside)
-               default:
-                   break
-               }
-               // Butonu ekrana ekle
-               view.addSubview(button)
-           }
-       }
-    
-    func setButtons() {
-        let screenWidth = UIScreen.main.bounds.width
-        let screenHeight = UIScreen.main.bounds.height
+        var previousBottomAnchor = view.safeAreaLayoutGuide.topAnchor
         
-        let buttonHeight = screenHeight * 0.08 // Buton yüksekliğini azaltarak daha fazla yer açabilirsiniz
-        let buttonWidth = screenWidth * 0.8
-        let bottomMargin = screenHeight * 0.15
-        let buttonSpacing: CGFloat = 1 // Butonlar arasındaki boşluğu azalt
-        
-        let buttonNames = ["shareButton", "rateButton", "privacyButton", "contactButton"]
-        
-        for (index, name) in buttonNames.enumerated() {
-            let button = UIButton()
-            button.setImage(UIImage(named: name), for: .normal)
+        for (index, (iconName, title, selector)) in items.enumerated() {
+            let iconView = createCustomViewWith(iconName: iconName, title: title)
+            view.addSubview(iconView)
             
-            // Buton boyutlarını ve konumunu ayarla
-            let buttonY = screenHeight - bottomMargin - buttonHeight * CGFloat(index + 1) - buttonSpacing * CGFloat(index)
-            button.frame = CGRect(x: (screenWidth - buttonWidth) / 2, y: buttonY, width: buttonWidth, height: buttonHeight)
+            // UITapGestureRecognizer ekleniyor
+            let tapGesture = UITapGestureRecognizer(target: self, action: selector)
+            iconView.addGestureRecognizer(tapGesture)
+            iconView.isUserInteractionEnabled = true // Bu önemli, varsayılan olarak false
             
-            // Butonu ekrana ekle
-            view.addSubview(button)
+            iconView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                iconView.topAnchor.constraint(equalTo: previousBottomAnchor, constant: index == 0 ? 220 : 36), // İlk eleman için 20, diğerleri için 36 birim boşluk
+                iconView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                iconView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                iconView.heightAnchor.constraint(equalToConstant: 50) // Her bir view'in yüksekliği
+            ])
+            
+            previousBottomAnchor = iconView.bottomAnchor
         }
     }
-
+    
+    func createCustomViewWith(iconName: String, title: String) -> UIView {
+        let container = UIView()
+        container.backgroundColor = UIColor(hex: "DDBEA8")
+        container.layer.cornerRadius = 12
+        container.clipsToBounds = true
+        let imageView = UIImageView(image: UIImage(named: iconName))
+        imageView.contentMode = .scaleAspectFit
+        
+        let label = UILabel()
+        label.text = title
+        label.textColor = .white
+        label.font = FontHelper.customFont(size: 24)
+        
+        container.addSubview(imageView)
+        container.addSubview(label)
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 24),
+            imageView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 30),
+            imageView.heightAnchor.constraint(equalToConstant: 30),
+            
+            label.centerXAnchor.constraint(equalTo: container.centerXAnchor), // ImageView'ın sağ tarafından başlayarak
+            label.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            label.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor, constant: -24), // Container'ın sağ tarafına uygun bir boşluk bırakarak
+            label.widthAnchor.constraint(lessThanOrEqualTo: container.widthAnchor, multiplier: 3/4) // Label genişliği container'ın 3/4'ü kadar
+        ])
+        
+        
+        return container
+    }
     
     @objc func shareTapped() {
-        // Share butonuna tıklandığında yapılacak işlemler
-    }
+            print("Share tapped")
+        }
 
-    @objc func rateTapped() {
-        // Rate butonuna tıklandığında yapılacak işlemler
-    }
+        @objc func rateTapped() {
+            print("Rate tapped")
+        }
 
-    @objc func privacyTapped() {
-        // Privacy butonuna tıklandığında yapılacak işlemler
-    }
+        @objc func contactTapped() {
+            print("Contact tapped")
+        }
 
-    @objc func contactTapped() {
-        // Contact butonuna tıklandığında yapılacak işlemler
-    }
+        @objc func privacyTapped() {
+            print("Privacy tapped")
+        }
     
-    @objc func shareButtonTapped() {
-        print("share button tapped")
-        
-    }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		53372BD12B9A3A0C00F2F268 /* SettingsPageButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53372BD02B9A3A0B00F2F268 /* SettingsPageButtons.swift */; };
 		53372BD32B9B239B00F2F268 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53372BD22B9B239B00F2F268 /* CustomView.swift */; };
+		53534FA22BA3152A0084767A /* IconTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53534FA12BA3152A0084767A /* IconTextButton.swift */; };
 		53BEF43B2BA1FA8900CB4817 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 53BEF43A2BA1FA8900CB4817 /* UIOnboarding */; };
 		5C01984C2B99BFF300AC22CB /* SafeAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */; };
 		5C0198502B9A0DFA00AC22CB /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984F2B9A0DFA00AC22CB /* UIFont.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		53372BD02B9A3A0B00F2F268 /* SettingsPageButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPageButtons.swift; sourceTree = "<group>"; };
 		53372BD22B9B239B00F2F268 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		53534FA12BA3152A0084767A /* IconTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextButton.swift; sourceTree = "<group>"; };
 		5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaView.swift; sourceTree = "<group>"; };
 		5C01984E2B9A0D9C00AC22CB /* Kinoble.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Kinoble.ttf; sourceTree = "<group>"; };
 		5C01984F2B9A0DFA00AC22CB /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				53372BD02B9A3A0B00F2F268 /* SettingsPageButtons.swift */,
 				5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */,
 				5C86E61A2BA0611600FFB7A8 /* PaddedPlaceHolder.swift */,
+				53534FA12BA3152A0084767A /* IconTextButton.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				5C917A9F2B98C7A500212267 /* NutritionAndExerciseController.swift in Sources */,
 				5C917A992B98C61E00212267 /* CalendarController.swift in Sources */,
 				5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */,
+				53534FA22BA3152A0084767A /* IconTextButton.swift in Sources */,
 				5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */,
 				5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */,
 				5C917A9B2B98C6BE00212267 /* WeeklyController.swift in Sources */,
