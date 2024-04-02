@@ -13,7 +13,6 @@ class UIComponentsFactory {
         let button = UIButton()
         button.setTitle(title, for: state)
         button.setTitleColor(titleColor, for: .normal)
-//        button.backgroundColor = backgroundColor
         button.layer.borderColor = borderColor.cgColor
         button.layer.borderWidth = borderWidth
         button.layer.cornerRadius = cornerRadius
@@ -25,14 +24,19 @@ class UIComponentsFactory {
 
         return button
     }
+    
+    static func createCustomTextfield(placeHolder: String, fontSize: CGFloat, borderColor: UIColor, borderWidth: CGFloat, cornerRadius: CGFloat) -> UITextField{
+        let textfield = UITextField()
+        textfield.placeholder = placeHolder
+        textfield.font = FontHelper.customFont(size: fontSize)
+        textfield.backgroundColor = .white
+        textfield.textColor = .black
+        textfield.tintColor = .black
+        textfield.layer.borderColor = borderColor.cgColor
+        textfield.layer.borderWidth = borderWidth
+        textfield.layer.cornerRadius = cornerRadius
+        textfield.paddingLeft(padding: 10)
+        textfield.clipsToBounds = true
+        return textfield
+    }
 }
-
-//let saveButton = UIButton(type: .system)
-//saveButton.setTitle("Save", for: .normal)
-//saveButton.setTitleColor(.white, for: .normal)
-//saveButton.layer.borderColor = personalCardColor.cgColor
-//saveButton.layer.borderWidth = 3.0
-//saveButton.layer.cornerRadius = 16
-//saveButton.clipsToBounds = true
-//saveButton.translatesAutoresizingMaskIntoConstraints = false
-//saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
