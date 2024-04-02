@@ -6,11 +6,16 @@
 //
 
 import UIKit
+import CoreData
+import EventKit
 
 class CalendarController: UIViewController, UITextViewDelegate {
     
     let customColor = UIColor(hex: "F2B5D4")
-    
+    let eventStore = EKEventStore()
+    let entityName = "Doctor"
+    var managedObjectContext: NSManagedObjectContext?
+
     lazy var seperatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -54,22 +59,6 @@ class CalendarController: UIViewController, UITextViewDelegate {
         return timePicker
     }()
     
-    lazy var aboutTextfield: UITextField = {
-        let textfield = UITextField()
-        textfield.placeholder = "Note about"
-        textfield.font = FontHelper.customFont(size: 18)
-        textfield.backgroundColor = .white
-        textfield.textColor = .black
-        textfield.tintColor = .black
-        textfield.layer.borderColor = customColor.cgColor
-        textfield.layer.borderWidth = 2.0
-        textfield.layer.cornerRadius = 5.0
-        textfield.paddingLeft(padding: 10)
-        textfield.layer.cornerRadius = 12
-        textfield.clipsToBounds = true
-        return textfield
-    }()
-    
     lazy var noteView: UITextView = {
         let view = UITextView()
         view.delegate = self
@@ -96,17 +85,27 @@ class CalendarController: UIViewController, UITextViewDelegate {
         return label
     }()
     
-//    lazy var saveButton = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, backgroundColor: .white, titleColor: customColor, cornerRadius: 5, clipsToBounds: true)
+    lazy var aboutTextfield = UIComponentsFactory.createCustomTextfield(placeHolder: "Note About", fontSize: 18, borderColor: .white, borderWidth: 3.0, cornerRadius: 12)
     
-    lazy var saveButton = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .white, borderColor: .white, borderWidth: 3.0, cornerRadius: 16, clipsToBounds: true)
+    lazy var saveButton = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .white, borderColor: .white, borderWidth: 3.0, cornerRadius: 16, clipsToBounds: true, action: saveButtonTapped)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLayout()
         
-    }   
+        disableAutoResizingMaskConstraints(for: [seperatorView, scrollView, contentView, calendarContainerView, calendarView, timePicker, aboutTextfield, noteView, placeHolderLabel, saveButton])
+        
+    }
+    func disableAutoResizingMaskConstraints(for views: [UIView]) {
+        views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+    }
+    
+    func enableUserInteraction(for views: [UIView]) {
+        views.forEach { $0.isUserInteractionEnabled = true }
+    }
     fileprivate func setupLayout() {
+        
         tabBarController?.tabBar.backgroundColor = .white
         view.backgroundColor = customColor
         view.addSubview(seperatorView)
@@ -123,24 +122,6 @@ class CalendarController: UIViewController, UITextViewDelegate {
         if #available(iOS 13.4, *) {
             calendarView.preferredDatePickerStyle = .inline
         }
-        
-        seperatorView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        calendarContainerView.translatesAutoresizingMaskIntoConstraints = false
-        calendarView.translatesAutoresizingMaskIntoConstraints = false
-        timePicker.translatesAutoresizingMaskIntoConstraints = false
-        aboutTextfield.translatesAutoresizingMaskIntoConstraints = false
-        noteView.translatesAutoresizingMaskIntoConstraints = false
-        placeHolderLabel.translatesAutoresizingMaskIntoConstraints = false
-        saveButton.translatesAutoresizingMaskIntoConstraints = false
-        contentView.isUserInteractionEnabled = true
-        calendarView.isUserInteractionEnabled = true
-        timePicker.isUserInteractionEnabled = true
-        scrollView.isScrollEnabled = true
-        aboutTextfield.isUserInteractionEnabled = true
-        noteView.isUserInteractionEnabled = true
-        saveButton.isUserInteractionEnabled = true
         
         NSLayoutConstraint.activate([
             
@@ -204,6 +185,216 @@ class CalendarController: UIViewController, UITextViewDelegate {
     @objc fileprivate func dayTapped() {
         print("day tapped ")
     }
+    @objc fileprivate func saveButtonTapped() {
+        if #available(iOS 17.0, *) {
+            eventStore.requestWriteOnlyAccessToEvents { [weak self] granted, error in
+                guard let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    if granted, error == nil {
+                        // İzin verildi, işlemleri burada devam ettirin.
+                        if let aboutText = self.aboutTextfield.text, !aboutText.isEmpty,
+                           let noteText = self.noteView.text {
+                            
+                            // Seçilen tarih ve saat
+                            let selectedDate = self.calendarView.date
+                            let selectedTime = self.timePicker.date
+                            
+                            let calendar = Calendar.current
+                            let now = Date()
+                            let halfHourLater = calendar.date(byAdding: .minute, value: 30, to: now)!
+                            
+                            let dateComponents = calendar.dateComponents([.year, .month, .day], from: selectedDate)
+                            let timeComponents = calendar.dateComponents([.hour, .minute], from: selectedTime)
+                            let combinedComponents = DateComponents(year: dateComponents.year, month: dateComponents.month, day: dateComponents.day, hour: timeComponents.hour, minute: timeComponents.minute)
+                            
+                            if let eventDate = calendar.date(from: combinedComponents), eventDate >= halfHourLater {
+                                
+                                // Etkinliği takvime ekleme işlemi
+                                self.addEventToCalendar(title: aboutText, description: noteText, startDate: eventDate)
+                            } else {
+                                let alert = UIAlertController(title: "Eror", message: "Half hour Error", preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
+                                return
+                            }
+                            // Coredata'ya ekleme işlemi
+                            if let context = self.managedObjectContext, let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
+                                let newItem = NSManagedObject(entity: entity, insertInto: context)
+                                newItem.setValue(self.aboutTextfield.text, forKey: "about")
+                                newItem.setValue(self.noteView.text, forKey: "note")
+                                let dateIntValue = Int32(self.calendarView.date.timeIntervalSince1970)
+                                let timeIntValue = Int32(self.timePicker.date.timeIntervalSince1970)
+                                newItem.setValue(dateIntValue, forKey: "date")
+                                newItem.setValue(timeIntValue, forKey: "time")
+                                do {
+                                    try context.save()
+                                    if let doctorReminderViewController = self.presentingViewController as? HomeController {
+//                                        doctorReminderViewController.addDataToCollectionView(newItem)
+                                    }
+                                    self.dismiss(animated: true, completion: nil)
+                                } catch let _ as NSError {
+                                    // Hata yönetimi
+                                }
+                            }
+                        }
+                    } else {
+                        // İzin verilmedi veya hata oluştu, gerekli işlemleri burada yapın.
+                        print("Calendar access not granted or an error occurred: \(error?.localizedDescription ?? "Unknown error")")
+                        let alert = UIAlertController(title: "Error", message: "Grant Error", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+        } else {
+            // iOS 17 öncesi cihazlar için
+            eventStore.requestAccess(to: .event) { [weak self] granted, error in
+                guard let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    if granted, error == nil {
+                        // İzin verildi, işlemleri burada devam ettirin.
+                        if let aboutText = self.aboutTextfield.text, !aboutText.isEmpty,
+                           let noteText = self.noteView.text {
+                            
+                            // Seçilen tarih ve saat
+                            let selectedDate = self.calendarView.date
+                            let selectedTime = self.timePicker.date
+                            
+                            let calendar = Calendar.current
+                            let now = Date()
+                            let halfHourLater = calendar.date(byAdding: .minute, value: 30, to: now)!
+                            
+                            let dateComponents = calendar.dateComponents([.year, .month, .day], from: selectedDate)
+                            let timeComponents = calendar.dateComponents([.hour, .minute], from: selectedTime)
+                            let combinedComponents = DateComponents(year: dateComponents.year, month: dateComponents.month, day: dateComponents.day, hour: timeComponents.hour, minute: timeComponents.minute)
+                            
+                            if let eventDate = calendar.date(from: combinedComponents), eventDate >= halfHourLater {
+                                
+                                // Etkinliği takvime ekleme işlemi
+                                self.addEventToCalendar(title: aboutText, description: noteText, startDate: eventDate)
+                            } else {
+                                let alert = UIAlertController(title: "Error", message: "Half hour Error", preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
+                                return
+                            }
+                            // Coredata'ya ekleme işlemi
+                            if let context = self.managedObjectContext, let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
+                                let newItem = NSManagedObject(entity: entity, insertInto: context)
+                                newItem.setValue(self.aboutTextfield.text, forKey: "about")
+                                newItem.setValue(self.noteView.text, forKey: "note")
+                                let dateIntValue = Int32(self.calendarView.date.timeIntervalSince1970)
+                                let timeIntValue = Int32(self.timePicker.date.timeIntervalSince1970)
+                                newItem.setValue(dateIntValue, forKey: "date")
+                                newItem.setValue(timeIntValue, forKey: "time")
+                                do {
+                                    try context.save()
+                                    if let doctorReminderViewController = self.presentingViewController as? HomeController {
+//                                        doctorReminderViewController.addDataToCollectionView(newItem)
+                                    }
+                                    self.dismiss(animated: true, completion: nil)
+                                } catch let _ as NSError {
+                                    // Hata yönetimi
+                                }
+                            }
+                        }
+                    } else {
+                        // İzin verilmedi veya hata oluştu, gerekli işlemleri burada yapın.
+                        print("Calendar access not granted or an error occurred: \(error?.localizedDescription ?? "Unknown error")")
+                        let alert = UIAlertController(title: "Error", message: "Grant Alert", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+    }
+    func addEventToCalendar(title: String, description: String, startDate: Date) {
+        if #available(iOS 17.0, *) {
+            eventStore.requestWriteOnlyAccessToEvents { [weak self] granted, error in
+                guard let strongSelf = self else { return }
+                
+                DispatchQueue.main.async {
+                    if granted, error == nil {
+                        let event = EKEvent(eventStore: strongSelf.eventStore)
+                        event.title = title
+                        event.startDate = startDate
+                        event.endDate = Calendar.current.date(byAdding: .hour, value: 1, to: startDate)
+                        event.notes = description
+                        event.calendar = strongSelf.eventStore.defaultCalendarForNewEvents
+                        
+                        let alarm = EKAlarm(relativeOffset: -15 * 60)
+                        event.addAlarm(alarm)
+                        
+                        do {
+                            try strongSelf.eventStore.save(event, span: .thisEvent)
+                            // Hatırlatıcı başarıyla eklendi, kullanıcıya bilgi verebilirsiniz.
+                            let alert = UIAlertController(title: "Succes", message: "Reminder added", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                            strongSelf.present(alert, animated: true, completion: nil)
+                        } catch let error as NSError {
+                            print("Error saving event to calendar: \(error)")
+                            // Hata durumunda kullanıcıya bilgi verin
+                            let alert = UIAlertController(title: "Error", message: "Reminder Alert", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                            strongSelf.present(alert, animated: true, completion: nil)
+                        }
+                    } else {
+                        print("Calendar access not granted or an error occurred: \(error?.localizedDescription ?? "Unknown error")")
+                        // İzin verilmedi veya hata durumunda kullanıcıya bilgi verin
+                        let alert = UIAlertController(title: "Error", message: "Grant Error", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                        strongSelf.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+        } else {
+            // iOS 17 öncesi cihazlar için
+            addEventToCalendarForOldiOS(title: title, description: description, startDate: startDate)
+        }
+    }
+    func addEventToCalendarForOldiOS(title: String, description: String, startDate: Date) {
+        eventStore.requestAccess(to: .event) { [weak self] (granted, error) in
+            guard let strongSelf = self, granted, error == nil else {
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Hata", message: "Takvim erişim izni verilmedi.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Tamam", style: .cancel, handler: nil))
+                    self?.present(alert, animated: true, completion: nil)
+                }
+                return
+            }
+            
+            let event = EKEvent(eventStore: strongSelf.eventStore)
+            event.title = title
+            event.startDate = startDate
+            event.endDate = Calendar.current.date(byAdding: .hour, value: 1, to: startDate)
+            event.notes = description
+            event.calendar = strongSelf.eventStore.defaultCalendarForNewEvents
+            
+            let alarm = EKAlarm(relativeOffset: -15 * 60)
+            event.addAlarm(alarm)
+            
+            do {
+                try strongSelf.eventStore.save(event, span: .thisEvent)
+                DispatchQueue.main.async {
+                    // Hatırlatıcı başarıyla eklendi, kullanıcıya bilgi verebilirsiniz.
+                    let alert = UIAlertController(title: "Succes", message: "Reminder Alert", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    strongSelf.present(alert, animated: true, completion: nil)
+                }
+            } catch let error as NSError {
+                DispatchQueue.main.async {
+                    print("Error saving event to calendar: \(error)")
+                    // Hata durumunda kullanıcıya bilgi verin
+                    let alert = UIAlertController(title: "Error", message: "Reminder Alert", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    strongSelf.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
 }
 extension UITextField {
     func paddingLeft(padding: CGFloat) {
@@ -212,4 +403,4 @@ extension UITextField {
         self.leftViewMode = .always
     }
 }
-  
+

@@ -25,5 +25,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>To add a reminder to your calendar, you must provide transportation permission.</string>
 </dict>
 </plist>

@@ -13,7 +13,7 @@ class AdvertView: UIView {
     let imageView = UIImageView()
     let infoLabel = UILabel()
     let detailLabel = UILabel()
-    let getButton = UIButton()
+    lazy var getButton = UIComponentsFactory.createCustomButton(title: "GET", state: .normal, titleColor: .link, borderColor: .lightGray, borderWidth: 0.5, cornerRadius: 16, clipsToBounds: true, action: handleGetButton)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,10 +47,6 @@ class AdvertView: UIView {
         detailLabel.textColor = .lightGray
         detailLabel.font = FontHelper.customFont(size: 12)
         
-        getButton.setTitle("GET", for: .normal)
-        getButton.setTitleColor(UIColor.link, for: .normal)
-        getButton.addTarget(self, action: #selector(handleGetButton), for: .touchUpInside)
-        
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: topAnchor),
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 6),
@@ -72,8 +68,8 @@ class AdvertView: UIView {
             detailLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -46),
             detailLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 1/3),
             
-            getButton.leadingAnchor.constraint(equalTo: detailLabel.trailingAnchor, constant: -12),
-            getButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            getButton.leadingAnchor.constraint(equalTo: detailLabel.trailingAnchor, constant: -20),
+            getButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
             getButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
         ])
     }
