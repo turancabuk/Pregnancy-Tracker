@@ -96,22 +96,16 @@ class CalendarController: UIViewController, UITextViewDelegate {
         return label
     }()
     
-    lazy var saveButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("SAVE", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(customColor, for: .normal)
-        button.layer.cornerRadius = 5
-        button.clipsToBounds = true
-        return button
-    }()
+//    lazy var saveButton = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, backgroundColor: .white, titleColor: customColor, cornerRadius: 5, clipsToBounds: true)
+    
+    lazy var saveButton = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .white, borderColor: .white, borderWidth: 3.0, cornerRadius: 16, clipsToBounds: true)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLayout()
         
-    }
+    }   
     fileprivate func setupLayout() {
         tabBarController?.tabBar.backgroundColor = .white
         view.backgroundColor = customColor

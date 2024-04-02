@@ -56,7 +56,6 @@ class SettingsController: UIViewController {
                default:
                    break
                }
-               // Butonu ekrana ekle
                view.addSubview(button)
            }
        }
@@ -65,10 +64,10 @@ class SettingsController: UIViewController {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         
-        let buttonHeight = screenHeight * 0.08 // Buton yüksekliğini azaltarak daha fazla yer açabilirsiniz
+        let buttonHeight = screenHeight * 0.08
         let buttonWidth = screenWidth * 0.8
         let bottomMargin = screenHeight * 0.15
-        let buttonSpacing: CGFloat = 1 // Butonlar arasındaki boşluğu azalt
+        let buttonSpacing: CGFloat = 1
         
         let buttonNames = ["shareButton", "rateButton", "privacyButton", "contactButton"]
         
@@ -76,30 +75,28 @@ class SettingsController: UIViewController {
             let button = UIButton()
             button.setImage(UIImage(named: name), for: .normal)
             
-            // Buton boyutlarını ve konumunu ayarla
             let buttonY = screenHeight - bottomMargin - buttonHeight * CGFloat(index + 1) - buttonSpacing * CGFloat(index)
             button.frame = CGRect(x: (screenWidth - buttonWidth) / 2, y: buttonY, width: buttonWidth, height: buttonHeight)
             
-            // Butonu ekrana ekle
             view.addSubview(button)
         }
     }
 
     
     @objc func shareTapped() {
-        // Share butonuna tıklandığında yapılacak işlemler
+        
     }
 
     @objc func rateTapped() {
-        // Rate butonuna tıklandığında yapılacak işlemler
+       
     }
 
     @objc func privacyTapped() {
-        // Privacy butonuna tıklandığında yapılacak işlemler
+        
     }
 
     @objc func contactTapped() {
-        // Contact butonuna tıklandığında yapılacak işlemler
+        
     }
     
     @objc func shareButtonTapped() {
