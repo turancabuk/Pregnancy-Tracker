@@ -12,7 +12,7 @@ class MainTabbarController: UIViewController {
     let profileController = ProfileController()
     let homeController = HomeController()
     let settingsController = SettingsController()
-    let calendarController = CalendarController()
+    let calendarController = CalendarViewController()
     let MainBarController = UITabBarController()
     
 

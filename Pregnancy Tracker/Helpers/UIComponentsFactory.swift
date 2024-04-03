@@ -17,7 +17,7 @@ class UIComponentsFactory {
         button.layer.borderWidth = borderWidth
         button.layer.cornerRadius = cornerRadius
         button.clipsToBounds = clipsToBounds
-        
+        button.translatesAutoresizingMaskIntoConstraints = false
         if let action = action {
             button.addAction(UIAction { _ in action() }, for: .touchUpInside)
         }
@@ -38,5 +38,28 @@ class UIComponentsFactory {
         textfield.paddingLeft(padding: 10)
         textfield.clipsToBounds = true
         return textfield
+    }
+    static func createCustomCollectionView(scrollDirection: UICollectionView.ScrollDirection, bg: UIColor, spacing: CGFloat) -> UICollectionView{
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = scrollDirection
+        layout.minimumLineSpacing = spacing
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = bg
+        return collectionView
+    }
+    static func createCustomCalendarView() -> UIDatePicker{
+        let datePicker = UIDatePicker()
+        let currentDate = Date()
+        datePicker.minimumDate = currentDate
+        datePicker.maximumDate = Calendar.current.date(byAdding: .year, value: 1, to: currentDate)
+        datePicker.datePickerMode = .date
+        datePicker.isUserInteractionEnabled = true
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        
+        if #available(iOS 14.0, *) {
+            datePicker.preferredDatePickerStyle = .inline
+        }
+        return datePicker
     }
 }
