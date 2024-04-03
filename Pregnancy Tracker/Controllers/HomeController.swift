@@ -23,17 +23,6 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                   "deneme3 deneme3 deneme3 deneme3 deneme3 deneme3",
     ]
     
-    func createCollectionView(scrollDirection: UICollectionView.ScrollDirection, bg: UIColor, spacing: CGFloat) -> UICollectionView{
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = scrollDirection
-        layout.minimumLineSpacing = spacing
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.backgroundColor = bg
-        return collectionView
-    }
     let seperatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -41,13 +30,22 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }()
     
     lazy var headerCollectionView: UICollectionView = {
-        createCollectionView(scrollDirection: .horizontal, bg: .clear, spacing: 12)
+        let collectionView = UIComponentsFactory.createCustomCollectionView(scrollDirection: .horizontal, bg: .clear, spacing: 12)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
     }()
     lazy var mainCollectionView: UICollectionView = {
-        createCollectionView(scrollDirection: .horizontal, bg: .clear, spacing: 12)
+        let collectionView = UIComponentsFactory.createCustomCollectionView(scrollDirection: .horizontal, bg: .clear, spacing: 12)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
     }()
     lazy var verticalCollectionView: UICollectionView = {
-        createCollectionView(scrollDirection: .vertical, bg: .clear, spacing: 12)
+        let collectionView = UIComponentsFactory.createCustomCollectionView(scrollDirection: .vertical, bg: .clear, spacing: 12)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
     }()
     
     override func viewDidLoad() {
@@ -57,6 +55,7 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         headerCollectionView.register(HeaderCategoriesCell.self, forCellWithReuseIdentifier: "headerCategoriesCellId")
         mainCollectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: "mainCategoriesCellId")
         verticalCollectionView.register(VerticalCollectionViewCell.self, forCellWithReuseIdentifier: "verticalCollectionViewCellId")
+        
         setupLayout()
         
     }
@@ -74,14 +73,7 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         contentView.addSubview(advertView)
         contentView.addSubview(verticalCollectionView)
 
-        safeAreaView.translatesAutoresizingMaskIntoConstraints = false
-        seperatorView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        headerCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        mainCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        advertView.translatesAutoresizingMaskIntoConstraints = false
-        verticalCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        disableAutoResizingMaskConstraints(for: [safeAreaView, seperatorView, scrollView, contentView, headerCollectionView, mainCollectionView, advertView, verticalCollectionView])
 
         scrollView.isScrollEnabled = true
         
@@ -138,9 +130,9 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         safeAreaView.backgroundColor = .orange
     }
-
-
-
+    fileprivate func disableAutoResizingMaskConstraints(for views: [UIView]) {
+        views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case headerCollectionView:
@@ -168,7 +160,6 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         case verticalCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "verticalCollectionViewCellId", for: indexPath) as! VerticalCollectionViewCell
             let selectedItem = self.verticalCollection[indexPath.item]
-//            let selectedInfo = self.verticalCollectionInfo[indexPath.item]
             cell.imageView.image = UIImage(named: selectedItem)
             cell.infoLabel.text = self.verticalCollectionInfo[indexPath.item]
             return cell

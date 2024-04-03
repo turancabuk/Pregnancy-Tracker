@@ -18,6 +18,7 @@
 		5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */; };
 		5C1EEA542B9C72D000001ACF /* PersonelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */; };
 		5C34023C2BBC1F8E006C7063 /* UIComponentsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */; };
+		5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3402472BBD5446006C7063 /* CalendarViewController.swift */; };
 		5C7FA8E92BA6EFAE00AEC447 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */; };
 		5C7FA8EB2BA7525400AEC447 /* VerticalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8EA2BA7525400AEC447 /* VerticalCollectionViewCell.swift */; };
 		5C7FA8ED2BA8725100AEC447 /* AdvertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8EC2BA8725100AEC447 /* AdvertView.swift */; };
@@ -28,7 +29,7 @@
 		5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A8C2B98BF8400212267 /* HomeController.swift */; };
 		5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A942B98C0B200212267 /* UIView+Layout.swift */; };
 		5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A962B98C0BD00212267 /* VerticalStackView.swift */; };
-		5C917A992B98C61E00212267 /* CalendarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A982B98C61E00212267 /* CalendarController.swift */; };
+		5C917A992B98C61E00212267 /* CalendarDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A982B98C61E00212267 /* CalendarDetailController.swift */; };
 		5C917A9B2B98C6BE00212267 /* WeeklyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A9A2B98C6BE00212267 /* WeeklyController.swift */; };
 		5C917A9D2B98C74500212267 /* HealthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A9C2B98C74500212267 /* HealthController.swift */; };
 		5C917A9F2B98C7A500212267 /* NutritionAndExerciseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A9E2B98C7A500212267 /* NutritionAndExerciseController.swift */; };
@@ -57,6 +58,7 @@
 		5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOnboardingHelper.swift; sourceTree = "<group>"; };
 		5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonelViewController.swift; sourceTree = "<group>"; };
 		5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentsFactory.swift; sourceTree = "<group>"; };
+		5C3402472BBD5446006C7063 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C7FA8EA2BA7525400AEC447 /* VerticalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C7FA8EC2BA8725100AEC447 /* AdvertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertView.swift; sourceTree = "<group>"; };
@@ -67,7 +69,7 @@
 		5C917A8C2B98BF8400212267 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		5C917A942B98C0B200212267 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		5C917A962B98C0BD00212267 /* VerticalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
-		5C917A982B98C61E00212267 /* CalendarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarController.swift; sourceTree = "<group>"; };
+		5C917A982B98C61E00212267 /* CalendarDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailController.swift; sourceTree = "<group>"; };
 		5C917A9A2B98C6BE00212267 /* WeeklyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyController.swift; sourceTree = "<group>"; };
 		5C917A9C2B98C74500212267 /* HealthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthController.swift; sourceTree = "<group>"; };
 		5C917A9E2B98C7A500212267 /* NutritionAndExerciseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionAndExerciseController.swift; sourceTree = "<group>"; };
@@ -137,9 +139,10 @@
 				5C01984D2B99E35400AC22CB /* SubControllers */,
 				5C917A8C2B98BF8400212267 /* HomeController.swift */,
 				5C917AA22B98CA9B00212267 /* ProfileController.swift */,
-				5C917A982B98C61E00212267 /* CalendarController.swift */,
+				5C917A982B98C61E00212267 /* CalendarDetailController.swift */,
 				5C917AA42B98CAD900212267 /* SettingsController.swift */,
 				5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */,
+				5C3402472BBD5446006C7063 /* CalendarViewController.swift */,
 				5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */,
 			);
 			path = Controllers;
@@ -296,6 +299,7 @@
 				5C01984C2B99BFF300AC22CB /* SafeAreaView.swift in Sources */,
 				5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */,
 				5C7FA8ED2BA8725100AEC447 /* AdvertView.swift in Sources */,
+				5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */,
 				5C86E61E2BA0745000FFB7A8 /* CoreData.xcdatamodeld in Sources */,
 				5C7FA8EB2BA7525400AEC447 /* VerticalCollectionViewCell.swift in Sources */,
 				5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */,
@@ -314,7 +318,7 @@
 				5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */,
 				5CA9DEFA2B986EB4004FAD1D /* ViewController.swift in Sources */,
 				5C917A9F2B98C7A500212267 /* NutritionAndExerciseController.swift in Sources */,
-				5C917A992B98C61E00212267 /* CalendarController.swift in Sources */,
+				5C917A992B98C61E00212267 /* CalendarDetailController.swift in Sources */,
 				5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */,
 				5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */,
 				5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */,
@@ -484,6 +488,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -512,6 +517,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
