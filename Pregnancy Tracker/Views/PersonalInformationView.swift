@@ -22,7 +22,7 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
     var picker1 = UIPickerView()
     var picker2 = UIPickerView()
     var picker3 = UIPickerView()
-
+    lazy var saveButton = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .white, borderColor: personalCardColor, borderWidth: 3.0, cornerRadius: 16, clipsToBounds: true, action: handleSave)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -168,16 +168,7 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         heightPickerStack.anchor(
             top: heightLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, size: .init(width: 0, height: 150))
         
-        let saveButton = UIButton(type: .system)
-        saveButton.setTitle("Save", for: .normal)
-        saveButton.setTitleColor(.white, for: .normal)
-        saveButton.layer.borderColor = personalCardColor.cgColor
-        saveButton.layer.borderWidth = 3.0
-        saveButton.layer.cornerRadius = 16
-        saveButton.clipsToBounds = true
         saveButton.translatesAutoresizingMaskIntoConstraints = false
-        saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
-        
         contentView.addSubview(saveButton)
         saveButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         saveButton.anchor(

@@ -9,120 +9,210 @@ import UIKit
 
 class HomeController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    var personelView = PersonalInformationView()
-
-    let collection = ["KATEGORİ 1", "KATEGORİ 2", "KATEGORİ 3", "KATEGORİ 4", "KATEGORİ 5", "KATEGORİ 6", "KATEGORİ 7", "KATEGORİ 8", "KATEGORİ 9"]
+    let safeAreaView = SafeAreaView()
+    let scrollView = UIScrollView()
+    let contentView = UIView()
+    let advertView = AdvertView()
     
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.layer.cornerRadius = 16
-        collectionView.clipsToBounds = true
+    let headerCollection = ["development", "nutrition", "water", "mood"]
+    let mainCollection = ["bag", "name", "notes"]
+    let verticalCollection = ["development", "nutrition", "water", "mood"]
+    let verticalCollectionInfo = ["deneme deneme deneme deneme deneme deneme",
+                                  "deneme1 deneme1 deneme1 deneme1 deneme1 deneme1",
+                                  "deneme2 deneme2 deneme2 deneme2 deneme2 deneme2",
+                                  "deneme3 deneme3 deneme3 deneme3 deneme3 deneme3",
+    ]
+    
+    let seperatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    lazy var headerCollectionView: UICollectionView = {
+        let collectionView = UIComponentsFactory.createCustomCollectionView(scrollDirection: .horizontal, bg: .clear, spacing: 12)
+        collectionView.delegate = self
+        collectionView.dataSource = self
         return collectionView
     }()
-//    let selectedImageLabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.textAlignment = .left
-//        label.textColor = .black
-//        label.font = FontHelper.customFont(size: 24)
-//        return label
-//    }()
+    lazy var mainCollectionView: UICollectionView = {
+        let collectionView = UIComponentsFactory.createCustomCollectionView(scrollDirection: .horizontal, bg: .clear, spacing: 12)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
+    }()
+    lazy var verticalCollectionView: UICollectionView = {
+        let collectionView = UIComponentsFactory.createCustomCollectionView(scrollDirection: .vertical, bg: .clear, spacing: 12)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
+        headerCollectionView.register(HeaderCategoriesCell.self, forCellWithReuseIdentifier: "headerCategoriesCellId")
+        mainCollectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: "mainCategoriesCellId")
+        verticalCollectionView.register(VerticalCollectionViewCell.self, forCellWithReuseIdentifier: "verticalCollectionViewCellId")
+        
         setupLayout()
-        collectionView.register(HomeCell.self, forCellWithReuseIdentifier: "cellId")
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        
         
     }
-
-    
     fileprivate func setupLayout() {
-        view.backgroundColor = UIColor(white: 1, alpha: 0.8)
-        let safeAreaView = SafeAreaView(frame: view.bounds)
-        safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "DEDAF3"))
+        view.backgroundColor = .white
+        safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "F2B5D4"))
+        tabBarController?.tabBar.backgroundColor = .white
+
         view.addSubview(safeAreaView)
-        
-        safeAreaView.addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: safeAreaView.topAnchor, constant: 380),
-            collectionView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor, constant: 30),
-            collectionView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor, constant: -30),
-            collectionView.heightAnchor.constraint(equalToConstant: 120)
-        ])
-        
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.isUserInteractionEnabled = true
-        scrollView.isScrollEnabled = true
+        safeAreaView.addSubview(seperatorView)
         safeAreaView.addSubview(scrollView)
-        
-        scrollView.topAnchor.constraint(equalTo: safeAreaView.topAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: safeAreaView.bottomAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor).isActive = true
-        
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.isUserInteractionEnabled = true
         scrollView.addSubview(contentView)
+        contentView.addSubview(headerCollectionView)
+        contentView.addSubview(mainCollectionView)
+        contentView.addSubview(advertView)
+        contentView.addSubview(verticalCollectionView)
+
+        disableAutoResizingMaskConstraints(for: [safeAreaView, seperatorView, scrollView, contentView, headerCollectionView, mainCollectionView, advertView, verticalCollectionView])
+
+        scrollView.isScrollEnabled = true
         
-        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        contentView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor).isActive = true
-        contentView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor).isActive = true
-        contentView.widthAnchor.constraint(equalTo: safeAreaView.widthAnchor).isActive = true
-        
-        contentView.addSubview(collectionView)
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            collectionView.heightAnchor.constraint(equalToConstant: 100),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+            safeAreaView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+            safeAreaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            safeAreaView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            safeAreaView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
+            scrollView.topAnchor.constraint(equalTo: safeAreaView.personelView.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: safeAreaView.bottomAnchor),
+
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            headerCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            headerCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            headerCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            headerCollectionView.heightAnchor.constraint(equalToConstant: 140),
+            
+            seperatorView.topAnchor.constraint(equalTo: view.topAnchor),
+            seperatorView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
+            seperatorView.bottomAnchor.constraint(equalTo: safeAreaView.personelView.topAnchor),
+            seperatorView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
+
+            mainCollectionView.topAnchor.constraint(equalTo: headerCollectionView.bottomAnchor),
+            mainCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            mainCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            mainCollectionView.heightAnchor.constraint(equalToConstant: 300),
+            
+            advertView.topAnchor.constraint(equalTo: mainCollectionView.bottomAnchor),
+            advertView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor, constant: 10),
+            advertView.bottomAnchor.constraint(equalTo: verticalCollectionView.topAnchor, constant: -24),
+            advertView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor, constant: -10),
+            advertView.heightAnchor.constraint(equalToConstant: 40),
+            
+            verticalCollectionView.topAnchor.constraint(equalTo: advertView.bottomAnchor, constant: 6),
+            verticalCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            verticalCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            verticalCollectionView.heightAnchor.constraint(equalToConstant: 480),
+            
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+
         ])
         
-//        view.addSubview(selectedImageLabel)
-//        NSLayoutConstraint.activate([
-//            selectedImageLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -10),
-//            selectedImageLabel.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor, constant: 40),
-//            selectedImageLabel.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor, constant: -20)
-//        ])
+        if let lastView = contentView.subviews.last {
+            NSLayoutConstraint.activate([
+                lastView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            ])
+        }
+        safeAreaView.backgroundColor = .orange
+    }
+    fileprivate func disableAutoResizingMaskConstraints(for views: [UIView]) {
+        views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collection.count
+        switch collectionView {
+        case headerCollectionView:
+            return headerCollection.count
+        case mainCollectionView:
+            return mainCollection.count
+        case verticalCollectionView:
+            return verticalCollection.count
+        default:
+            return 0
+        }
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! HomeCell
-        let selectedItem = self.collection[indexPath.item]
-        cell.imageView.image = UIImage(named: selectedItem)
-        return cell
+        switch collectionView {
+        case headerCollectionView:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headerCategoriesCellId", for: indexPath) as! HeaderCategoriesCell
+            let selectedItem = self.headerCollection[indexPath.item]
+            cell.imageView.image = UIImage(named: selectedItem)
+            return cell
+        case mainCollectionView:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mainCategoriesCellId", for: indexPath) as! MainCollectionViewCell
+            let selectedItem = self.mainCollection[indexPath.item]
+            cell.imageView.image = UIImage(named: selectedItem)
+            return cell
+        case verticalCollectionView:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "verticalCollectionViewCellId", for: indexPath) as! VerticalCollectionViewCell
+            let selectedItem = self.verticalCollection[indexPath.item]
+            cell.imageView.image = UIImage(named: selectedItem)
+            cell.infoLabel.text = self.verticalCollectionInfo[indexPath.item]
+            return cell
+        default:
+            fatalError()
+        }
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: 80, height: 80)
+        switch collectionView {
+        case headerCollectionView:
+            return CGSize(width: 120, height: 120)
+        case mainCollectionView:
+            return CGSize(width: 240, height: 240)
+        case verticalCollectionView:
+            return CGSize(width: view.frame.width - 30, height: 100)
+        default:
+           fatalError()
+        }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 0, left: 18, bottom: 0, right: 18)
+        switch collectionView {
+        case headerCollectionView:
+            return .init(top: 0, left: 12, bottom: 0, right: 12)
+        case mainCollectionView:
+            return .init(top: 0, left: 12, bottom: 0, right: 12)
+        case verticalCollectionView:
+            return .init(top: 0, left: 18, bottom: 0, right: 18)
+        default:
+            fatalError()
+        }
     }
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if let index = selectedIndexes.firstIndex(of: indexPath) { // Eğer seçili indeks dizisinde bulunuyorsa
-//            selectedIndexes.remove(at: index) // Seçili indeksi kaldır
-//            selectedImageLabel.text = ""
-//        } else { // Eğer seçili indeks dizisinde bulunmuyorsa
-//            selectedIndexes.append(indexPath) // Seçili indeksi ekle
-//            let selectedItem = self.collection[indexPath.item]
-//            selectedImageLabel.text = "\(selectedItem)"
-//        }
-//        
-//        collectionView.reloadData() // Görünümü yeniden yükle
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView {
+        case headerCollectionView:
+            let selectedItem = self.headerCollection[indexPath.item]
+            let detailVC = CategoriesDetailVC()
+            detailVC.modalPresentationStyle = .fullScreen
+            detailVC.imageView.image = UIImage(named: selectedItem)
+            present(detailVC, animated: true)
+        case mainCollectionView:
+            let selectedItem = self.mainCollection[indexPath.item]
+            let detailVC = CategoriesDetailVC()
+            detailVC.modalPresentationStyle = .fullScreen
+            detailVC.imageView.image = UIImage(named: selectedItem)
+            present(detailVC, animated: true)
+        case verticalCollectionView:
+            let selectedItem = self.verticalCollection[indexPath.item]
+            let detailVC = CategoriesDetailVC()
+            detailVC.modalPresentationStyle = .fullScreen
+            detailVC.imageView.image = UIImage(named: selectedItem)
+            present(detailVC, animated: true)
+        default:
+            fatalError()
+        }
+    }
 }
