@@ -89,6 +89,9 @@ class CalendarDetailController: UIViewController, UITextViewDelegate {
         
         setupLayout()
         
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            managedObjectContext = appDelegate.persistentContainer.viewContext
+        }
         
     }
     func disableAutoResizingMaskConstraints(for views: [UIView]) {
@@ -114,6 +117,7 @@ class CalendarDetailController: UIViewController, UITextViewDelegate {
         contentView.addSubview(noteView)
         noteView.addSubview(placeHolderLabel)
         contentView.addSubview(saveButton)
+        self.setupBarButtonItem()
         
         if #available(iOS 13.4, *) {
             calendarView.preferredDatePickerStyle = .inline
@@ -390,12 +394,24 @@ class CalendarDetailController: UIViewController, UITextViewDelegate {
             }
         }
     }
+    @objc fileprivate func handleBackButton(){
+        self.dismiss(animated: true)
+    }
 }
 extension UITextField {
     func paddingLeft(padding: CGFloat) {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: self.frame.height))
         self.leftView = paddingView
         self.leftViewMode = .always
+    }
+}
+extension CalendarDetailController {
+    fileprivate func setupBarButtonItem() {
+        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 40, width: view.frame.width, height: 44))
+        view.addSubview(navigationBar)
+        let backButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleBackButton))
+        navigationItem.leftBarButtonItem = backButton
+        navigationBar.setItems([navigationItem], animated: false)
     }
 }
 

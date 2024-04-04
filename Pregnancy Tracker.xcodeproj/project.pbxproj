@@ -139,10 +139,10 @@
 				5C01984D2B99E35400AC22CB /* SubControllers */,
 				5C917A8C2B98BF8400212267 /* HomeController.swift */,
 				5C917AA22B98CA9B00212267 /* ProfileController.swift */,
-				5C917A982B98C61E00212267 /* CalendarDetailController.swift */,
 				5C917AA42B98CAD900212267 /* SettingsController.swift */,
 				5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */,
 				5C3402472BBD5446006C7063 /* CalendarViewController.swift */,
+				5C917A982B98C61E00212267 /* CalendarDetailController.swift */,
 				5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */,
 			);
 			path = Controllers;
@@ -488,7 +488,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -517,7 +517,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
