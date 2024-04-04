@@ -24,29 +24,34 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         return contentView
     }()
     
-    lazy var calendarView: UIDatePicker = {
-        let datePicker = UIComponentsFactory.createCustomCalendarView()
-        datePicker.addTarget(self, action: #selector(dayTapped), for: .valueChanged)
-        datePicker.backgroundColor = #colorLiteral(red: 0.9348524213, green: 0.9697603583, blue: 0.9648510814, alpha: 1)
-        return datePicker
+    lazy var calendarContainerLayerView: UIView = {
+       let view = UIView()
+        ShadowLayer.setShadow(view: view, color: .lightGray, opacity: 1.0, offset: .init(width: 0.5, height: 0.5), radius: 4)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
-    
     lazy var calendarContainerView: UIView = {
         let view = UIView()
-        view.layer.borderColor = UIColor.white.cgColor
-        view.layer.borderWidth = 3.0
+//        view.layer.borderColor = UIColor.white.cgColor
+//        view.layer.borderWidth = 3.0
         view.translatesAutoresizingMaskIntoConstraints = false
-        ShadowLayer.setShadow(view: view, color: .lightGray, opacity: 1, offset: .init(width: 0.5, height: 0.5), radius: 5)
+        ShadowLayer.setShadow(view: view, color: .black, opacity: 3.0, offset: .init(width: 1.0, height: 1.0), radius: 4)
         view.layer.cornerRadius = 12
         view.layer.masksToBounds = true
         return view
+    }()
+    
+    lazy var calendarView: UIDatePicker = {
+        let datePicker = UIComponentsFactory.createCustomCalendarView()
+        datePicker.addTarget(self, action: #selector(dayTapped), for: .valueChanged)
+        datePicker.backgroundColor = UIColor(hex: "ffc2b4")
+        return datePicker
     }()
 
     lazy var todoCollectionView: UICollectionView = {
         let collectionView = UIComponentsFactory.createCustomCollectionView(scrollDirection: .vertical, bg: .clear, spacing: 12)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .white
         return collectionView
     }()
     
@@ -59,7 +64,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         super.viewDidLoad()
         
         setupLayout()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(hex: "f79256")
         todoCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: "calendarCellId")
 
         
@@ -110,8 +115,10 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
 }
 extension CalendarViewController {
     fileprivate func setupLayout() {
+        view.backgroundColor = UIColor(hex: "f79256")
         
-        view.addSubview(calendarContainerView)
+        view.addSubview(calendarContainerLayerView)
+        calendarContainerLayerView.addSubview(calendarContainerView)
         calendarContainerView.addSubview(calendarView)
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -119,10 +126,15 @@ extension CalendarViewController {
         view.addSubview(plusButton)
         NSLayoutConstraint.activate([
             
-            calendarContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
-            calendarContainerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
-            calendarContainerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
-            calendarContainerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.7/3.5),
+            calendarContainerLayerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
+            calendarContainerLayerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
+            calendarContainerLayerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
+            calendarContainerLayerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.7/3.5),
+            
+            calendarContainerView.topAnchor.constraint(equalTo: calendarContainerLayerView.topAnchor),
+            calendarContainerView.leadingAnchor.constraint(equalTo: calendarContainerLayerView.leadingAnchor),
+            calendarContainerView.bottomAnchor.constraint(equalTo: calendarContainerLayerView.bottomAnchor),
+            calendarContainerView.trailingAnchor.constraint(equalTo: calendarContainerLayerView.trailingAnchor),
             
             calendarView.topAnchor.constraint(equalTo: calendarContainerView.topAnchor),
             calendarView.leadingAnchor.constraint(equalTo: calendarContainerView.leadingAnchor),

@@ -14,9 +14,9 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     let contentView = UIView()
     let advertView = AdvertView()
     
-    let headerCollection = ["development", "nutrition", "water", "mood"]
+    let headerCollection = ["nutrition", "water", "development", "mood"]
     let mainCollection = ["bag", "name", "notes"]
-    let verticalCollection = ["development", "nutrition", "water", "mood"]
+    let verticalCollection = ["development", "water", "nutrition", "mood"]
     let verticalCollectionInfo = ["deneme deneme deneme deneme deneme deneme",
                                   "deneme1 deneme1 deneme1 deneme1 deneme1 deneme1",
                                   "deneme2 deneme2 deneme2 deneme2 deneme2 deneme2",
@@ -25,7 +25,7 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     let seperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(hex: "f79256")
         return view
     }()
     
@@ -148,8 +148,8 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
 extension HomeController {
     fileprivate func setupLayout() {
         view.backgroundColor = .white
-        safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "F2B5D4"))
-        tabBarController?.tabBar.backgroundColor = .white
+        safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "f79256"))
+        tabBarController?.tabBar.backgroundColor = UIColor(hex: "f79256")
 
         view.addSubview(safeAreaView)
         safeAreaView.addSubview(seperatorView)

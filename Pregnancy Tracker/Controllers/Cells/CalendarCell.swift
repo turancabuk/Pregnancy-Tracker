@@ -17,14 +17,16 @@ class CalendarCell: UICollectionViewCell {
     
     lazy var aboutLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .red
+        label.backgroundColor = .lightGray
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var noteLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .yellow
+        label.backgroundColor = .white
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -39,6 +41,9 @@ class CalendarCell: UICollectionViewCell {
         addSubview(containerView)
         containerView.addSubview(aboutLabel)
         containerView.addSubview(noteLabel)
+        containerView.layer.borderWidth = 2
+        containerView.layer.borderColor = UIColor.black.cgColor
+        
         
         containerView.fillSuperview()
         
