@@ -26,7 +26,7 @@ class VerticalCollectionViewCell: UICollectionViewCell {
         
         containerLayerView.fillSuperview()
         
-        containerView.backgroundColor = .white
+        containerView.backgroundColor = UIColor(hex: "ffbc42")
         infoLabel.textColor = .black
         infoLabel.numberOfLines = 0
         
@@ -44,10 +44,6 @@ class VerticalCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         
         NSLayoutConstraint.activate([
-//            containerLayerView.topAnchor.constraint(equalTo: topAnchor),
-//            containerLayerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            containerLayerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-//            containerLayerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             containerView.topAnchor.constraint(equalTo: containerLayerView.topAnchor),
             containerView.leadingAnchor.constraint(equalTo: containerLayerView.leadingAnchor),
@@ -59,9 +55,9 @@ class VerticalCollectionViewCell: UICollectionViewCell {
             imageContainerView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2),
             imageContainerView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.3),
             
-            imageView.topAnchor.constraint(equalTo: imageContainerView.topAnchor, constant: 2),
+            imageView.topAnchor.constraint(equalTo: imageContainerView.topAnchor, constant: 8),
             imageView.leadingAnchor.constraint(equalTo: imageContainerView.leadingAnchor, constant: 2),
-            imageView.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant:  -2),
+            imageView.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant:  -8),
             imageView.trailingAnchor.constraint(equalTo: imageContainerView.trailingAnchor, constant: -2),
             
             infoLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12),
