@@ -11,16 +11,21 @@ class CalendarCell: UICollectionViewCell {
     
     lazy var containerView: UIView = {
         let view = UIView()
+        view.backgroundColor = .lightGray
         return view
     }()
     
     lazy var aboutLabel: UILabel = {
         let label = UILabel()
+        label.backgroundColor = .red
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var noteLabel: UILabel = {
         let label = UILabel()
+        label.backgroundColor = .yellow
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
