@@ -14,9 +14,9 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     let contentView = UIView()
     let advertView = AdvertView()
     
-    let headerCollection = ["development", "nutrition", "water", "mood"]
+    let headerCollection = ["nutrition", "water", "development", "mood"]
     let mainCollection = ["bag", "name", "notes"]
-    let verticalCollection = ["development", "nutrition", "water", "mood"]
+    let verticalCollection = ["development", "water", "nutrition", "mood"]
     let verticalCollectionInfo = ["deneme deneme deneme deneme deneme deneme",
                                   "deneme1 deneme1 deneme1 deneme1 deneme1 deneme1",
                                   "deneme2 deneme2 deneme2 deneme2 deneme2 deneme2",
@@ -25,7 +25,7 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     let seperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(hex: "f79256")
         return view
     }()
     
@@ -58,77 +58,6 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         setupLayout()
         
-    }
-    fileprivate func setupLayout() {
-        view.backgroundColor = .white
-        safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "F2B5D4"))
-        tabBarController?.tabBar.backgroundColor = .white
-
-        view.addSubview(safeAreaView)
-        safeAreaView.addSubview(seperatorView)
-        safeAreaView.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(headerCollectionView)
-        contentView.addSubview(mainCollectionView)
-        contentView.addSubview(advertView)
-        contentView.addSubview(verticalCollectionView)
-
-        disableAutoResizingMaskConstraints(for: [safeAreaView, seperatorView, scrollView, contentView, headerCollectionView, mainCollectionView, advertView, verticalCollectionView])
-
-        scrollView.isScrollEnabled = true
-        
-        NSLayoutConstraint.activate([
-            safeAreaView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-            safeAreaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            safeAreaView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            safeAreaView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            
-            scrollView.topAnchor.constraint(equalTo: safeAreaView.personelView.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: safeAreaView.bottomAnchor),
-
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            headerCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            headerCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            headerCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            headerCollectionView.heightAnchor.constraint(equalToConstant: 140),
-            
-            seperatorView.topAnchor.constraint(equalTo: view.topAnchor),
-            seperatorView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
-            seperatorView.bottomAnchor.constraint(equalTo: safeAreaView.personelView.topAnchor),
-            seperatorView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
-
-            mainCollectionView.topAnchor.constraint(equalTo: headerCollectionView.bottomAnchor),
-            mainCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            mainCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mainCollectionView.heightAnchor.constraint(equalToConstant: 300),
-            
-            advertView.topAnchor.constraint(equalTo: mainCollectionView.bottomAnchor),
-            advertView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor, constant: 10),
-            advertView.bottomAnchor.constraint(equalTo: verticalCollectionView.topAnchor, constant: -24),
-            advertView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor, constant: -10),
-            advertView.heightAnchor.constraint(equalToConstant: 40),
-            
-            verticalCollectionView.topAnchor.constraint(equalTo: advertView.bottomAnchor, constant: 6),
-            verticalCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            verticalCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            verticalCollectionView.heightAnchor.constraint(equalToConstant: 480),
-            
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-
-        ])
-        
-        if let lastView = contentView.subviews.last {
-            NSLayoutConstraint.activate([
-                lastView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            ])
-        }
-        safeAreaView.backgroundColor = .orange
     }
     fileprivate func disableAutoResizingMaskConstraints(for views: [UIView]) {
         views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
@@ -214,5 +143,78 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         default:
             fatalError()
         }
+    }
+}
+extension HomeController {
+    fileprivate func setupLayout() {
+        view.backgroundColor = .white
+        safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "f79256"))
+        tabBarController?.tabBar.backgroundColor = UIColor(hex: "f79256")
+
+        view.addSubview(safeAreaView)
+        safeAreaView.addSubview(seperatorView)
+        safeAreaView.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(headerCollectionView)
+        contentView.addSubview(mainCollectionView)
+        contentView.addSubview(advertView)
+        contentView.addSubview(verticalCollectionView)
+
+        disableAutoResizingMaskConstraints(for: [safeAreaView, seperatorView, scrollView, contentView, headerCollectionView, mainCollectionView, advertView, verticalCollectionView])
+
+        scrollView.isScrollEnabled = true
+        
+        NSLayoutConstraint.activate([
+            safeAreaView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+            safeAreaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            safeAreaView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            safeAreaView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
+            scrollView.topAnchor.constraint(equalTo: safeAreaView.personelView.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: safeAreaView.bottomAnchor),
+
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            headerCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            headerCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            headerCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            headerCollectionView.heightAnchor.constraint(equalToConstant: 140),
+            
+            seperatorView.topAnchor.constraint(equalTo: view.topAnchor),
+            seperatorView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
+            seperatorView.bottomAnchor.constraint(equalTo: safeAreaView.personelView.topAnchor),
+            seperatorView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
+
+            mainCollectionView.topAnchor.constraint(equalTo: headerCollectionView.bottomAnchor),
+            mainCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            mainCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            mainCollectionView.heightAnchor.constraint(equalToConstant: 300),
+            
+            advertView.topAnchor.constraint(equalTo: mainCollectionView.bottomAnchor),
+            advertView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor, constant: 10),
+            advertView.bottomAnchor.constraint(equalTo: verticalCollectionView.topAnchor, constant: -24),
+            advertView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor, constant: -10),
+            advertView.heightAnchor.constraint(equalToConstant: 40),
+            
+            verticalCollectionView.topAnchor.constraint(equalTo: advertView.bottomAnchor, constant: 6),
+            verticalCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            verticalCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            verticalCollectionView.heightAnchor.constraint(equalToConstant: 480),
+            
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+
+        ])
+        
+        if let lastView = contentView.subviews.last {
+            NSLayoutConstraint.activate([
+                lastView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            ])
+        }
+        safeAreaView.backgroundColor = .orange
     }
 }
