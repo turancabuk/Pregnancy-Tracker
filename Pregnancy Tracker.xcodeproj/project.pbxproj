@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		53372BD12B9A3A0C00F2F268 /* SettingsPageButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53372BD02B9A3A0B00F2F268 /* SettingsPageButtons.swift */; };
 		53372BD32B9B239B00F2F268 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53372BD22B9B239B00F2F268 /* CustomView.swift */; };
-		53BEF43B2BA1FA8900CB4817 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 53BEF43A2BA1FA8900CB4817 /* UIOnboarding */; };
 		5C01984C2B99BFF300AC22CB /* SafeAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */; };
 		5C0198502B9A0DFA00AC22CB /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984F2B9A0DFA00AC22CB /* UIFont.swift */; };
 		5C0198512B9A12B800AC22CB /* Kinoble.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C01984E2B9A0D9C00AC22CB /* Kinoble.ttf */; };
@@ -20,6 +19,7 @@
 		5C34023C2BBC1F8E006C7063 /* UIComponentsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */; };
 		5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3402472BBD5446006C7063 /* CalendarViewController.swift */; };
 		5C58CF1C2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */; };
+		5C58CF1F2BC1816900F9FBC4 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C58CF1E2BC1816900F9FBC4 /* UIOnboarding */; };
 		5C7FA8E92BA6EFAE00AEC447 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */; };
 		5C7FA8EB2BA7525400AEC447 /* VerticalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8EA2BA7525400AEC447 /* VerticalCollectionViewCell.swift */; };
 		5C7FA8ED2BA8725100AEC447 /* AdvertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8EC2BA8725100AEC447 /* AdvertView.swift */; };
@@ -94,7 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53BEF43B2BA1FA8900CB4817 /* UIOnboarding in Frameworks */,
+				5C58CF1F2BC1816900F9FBC4 /* UIOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,7 +235,7 @@
 			);
 			name = "Pregnancy Tracker";
 			packageProductDependencies = (
-				53BEF43A2BA1FA8900CB4817 /* UIOnboarding */,
+				5C58CF1E2BC1816900F9FBC4 /* UIOnboarding */,
 			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
@@ -266,7 +266,7 @@
 			);
 			mainGroup = 5CA9DEE92B986EB4004FAD1D;
 			packageReferences = (
-				53BEF4392BA1FA8900CB4817 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
+				5C58CF1D2BC1816900F9FBC4 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
 			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
@@ -555,9 +555,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		53BEF4392BA1FA8900CB4817 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
+		5C58CF1D2BC1816900F9FBC4 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lascic/UIOnboarding";
+			repositoryURL = "https://github.com/lascic/UIOnboarding.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.0.3;
@@ -566,9 +566,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		53BEF43A2BA1FA8900CB4817 /* UIOnboarding */ = {
+		5C58CF1E2BC1816900F9FBC4 /* UIOnboarding */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 53BEF4392BA1FA8900CB4817 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
+			package = 5C58CF1D2BC1816900F9FBC4 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
 			productName = UIOnboarding;
 		};
 /* End XCSwiftPackageProductDependency section */
