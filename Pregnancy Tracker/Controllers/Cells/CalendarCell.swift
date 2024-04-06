@@ -60,7 +60,6 @@ class CalendarCell: UICollectionViewCell {
         label.backgroundColor = .white
         label.textColor = .black
         label.textAlignment = .center
-//        label.backgroundColor = .red
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -110,6 +109,7 @@ class CalendarCell: UICollectionViewCell {
             seperatorView.widthAnchor.constraint(equalTo: dateTimeContainerView.widthAnchor, multiplier: 3/4),
             seperatorView.centerXAnchor.constraint(equalTo: dateTimeContainerView.centerXAnchor, constant: -12),
             seperatorView.bottomAnchor.constraint(equalTo: aboutLabel.topAnchor),
+            
             
             aboutLabel.topAnchor.constraint(equalTo: dateTimeContainerView.bottomAnchor, constant: 4),
             aboutLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 4),
