@@ -35,7 +35,6 @@ class UIComponentsFactory {
         textfield.layer.borderColor = borderColor.cgColor
         textfield.layer.borderWidth = borderWidth
         textfield.layer.cornerRadius = cornerRadius
-        textfield.paddingLeft(padding: 10)
         textfield.clipsToBounds = true
         return textfield
     }
@@ -61,5 +60,29 @@ class UIComponentsFactory {
             datePicker.preferredDatePickerStyle = .inline
         }
         return datePicker
+    }
+    static func createCustomTextView(textSize: CGFloat, borderColor: CGColor) -> UITextView {
+
+        let view = UITextView()
+        view.textColor = UIColor.black
+        view.font = FontHelper.customFont(size: textSize)
+        view.textContainerInset = UIEdgeInsets(top: 10, left: 6, bottom: 0, right: 0)
+        view.textColor = .black
+        view.tintColor = .black
+        view.textAlignment = .left
+        view.backgroundColor = .white
+        view.layer.borderColor = borderColor
+        view.layer.borderWidth = 2.0
+        view.layer.cornerRadius = 5.0
+        view.layer.cornerRadius = 12
+        view.clipsToBounds = true
+        return view
+    }
+    static func createCustomPlaceholderLabel(text: String, textColor: UIColor, isHidden: Bool) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.textColor = textColor
+        label.isHidden = isHidden
+        return label
     }
 }
