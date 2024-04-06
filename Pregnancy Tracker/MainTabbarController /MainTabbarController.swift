@@ -31,8 +31,8 @@ class MainTabbarController: UIViewController {
         
         MainBarController.selectedIndex = 1
         MainBarController.tabBar.barTintColor = .blue
-        MainBarController.tabBar.layer.cornerRadius = 12
-        MainBarController.tabBar.layer.masksToBounds = true
+//        MainBarController.tabBar.layer.cornerRadius = 12
+//        MainBarController.tabBar.layer.masksToBounds = true
         
        
     }

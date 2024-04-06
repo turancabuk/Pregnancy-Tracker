@@ -109,7 +109,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         
         if let timeData = data.value(forKey: "time") as? Int32 {
-            if let timeString = formattedDateAndTime(from: TimeInterval(timeData), style: .medium){
+            if let timeString = formattedDateAndTime(from: TimeInterval(timeData), style: .short){
                 cell.timeLabel.text = timeString
             }
         }
@@ -142,8 +142,8 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
 }
 extension CalendarViewController {
     fileprivate func setupLayout() {
-        view.backgroundColor = UIColor(hex: "f79256")
-        
+        view.backgroundColor = UIColor(hex: "fcefef")
+
         view.addSubview(calendarContainerLayerView)
         calendarContainerLayerView.addSubview(calendarContainerView)
         calendarContainerView.addSubview(calendarView)
