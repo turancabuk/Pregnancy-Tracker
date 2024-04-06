@@ -15,18 +15,36 @@ class CalendarCell: UICollectionViewCell {
         return view
     }()
     
-    lazy var aboutLabel: UILabel = {
+    lazy var dateTimeContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .yellow
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .lightGray
-        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.textColor = .black
+        label.font = FontHelper.customFont(size: 16)
         return label
     }()
     
-    lazy var noteLabel: UILabel = {
+    lazy var timeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
+        label.textAlignment = .left
+        label.font = FontHelper.customFont(size: 12)
+        return label
+    }()
+    
+    lazy var aboutLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -39,8 +57,10 @@ class CalendarCell: UICollectionViewCell {
     fileprivate func setupLayout(){
         
         addSubview(containerView)
+        containerView.addSubview(dateTimeContainerView)
+        dateTimeContainerView.addSubview(dateLabel)
+        dateTimeContainerView.addSubview(timeLabel)
         containerView.addSubview(aboutLabel)
-        containerView.addSubview(noteLabel)
         containerView.layer.borderWidth = 2
         containerView.layer.borderColor = UIColor.black.cgColor
         
@@ -48,15 +68,26 @@ class CalendarCell: UICollectionViewCell {
         containerView.fillSuperview()
         
         NSLayoutConstraint.activate([
-            aboutLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 4),
-            aboutLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 4),
-            aboutLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -4),
-            aboutLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 1/3),
+            dateTimeContainerView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 4),
+            dateTimeContainerView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 4),
+            dateTimeContainerView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -4),
+            dateTimeContainerView.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 1/3),
+            dateTimeContainerView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
             
-            noteLabel.topAnchor.constraint(equalTo: aboutLabel.bottomAnchor, constant: 4),
-            noteLabel.leadingAnchor.constraint(equalTo: aboutLabel.leadingAnchor),
-            noteLabel.trailingAnchor.constraint(equalTo: aboutLabel.trailingAnchor),
-            noteLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 2/3)
+            dateLabel.topAnchor.constraint(equalTo: dateTimeContainerView.topAnchor),
+            dateLabel.leadingAnchor.constraint(equalTo: dateTimeContainerView.leadingAnchor, constant: 12),
+            dateLabel.widthAnchor.constraint(equalTo: dateTimeContainerView.widthAnchor, multiplier: 1/2),
+            dateLabel.bottomAnchor.constraint(equalTo: dateTimeContainerView.bottomAnchor),
+            
+            timeLabel.topAnchor.constraint(equalTo: dateTimeContainerView.topAnchor),
+            timeLabel.trailingAnchor.constraint(equalTo: dateTimeContainerView.trailingAnchor, constant: -12),
+            timeLabel.widthAnchor.constraint(equalTo: dateTimeContainerView.widthAnchor, multiplier: 1/2),
+            timeLabel.bottomAnchor.constraint(equalTo: dateTimeContainerView.bottomAnchor),
+            
+            aboutLabel.topAnchor.constraint(equalTo: dateTimeContainerView.bottomAnchor, constant: 4),
+            aboutLabel.leadingAnchor.constraint(equalTo: dateTimeContainerView.leadingAnchor),
+            aboutLabel.trailingAnchor.constraint(equalTo: dateTimeContainerView.trailingAnchor),
+            aboutLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 2/3)
         ])
     }
     required init?(coder: NSCoder) {
