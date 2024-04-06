@@ -1,47 +1,34 @@
 //
-//  CalendarDetailController.swift
+//  AddEventPopUpViewController.swift
 //  Pregnancy Tracker
 //
-//  Created by Turan Çabuk on 6.03.2024.
+//  Created by Turan Çabuk on 5.04.2024.
 //
 
 import UIKit
 import CoreData
 import EventKit
 
-class CalendarDetailController: UIViewController, UITextViewDelegate {
+protocol AddEventPopUpViewControllerDelegate: AnyObject {
+    func didAddEvent()
+}
+class AddEventPopUpViewController: UIViewController, UITextViewDelegate, CalendarViewControllerDelegate {
     
-    let customColor = UIColor(hex: "F2B5D4")
+    
+    var selectedDateFromCalendar: Date?
     let eventStore = EKEventStore()
     let entityName = "Doctor"
     var managedObjectContext: NSManagedObjectContext?
-
-    lazy var seperatorView: UIView = {
+    var selectedDate: Date?
+    weak var delegate: AddEventPopUpViewControllerDelegate?
+    
+    
+    lazy var timePickerContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        return view
-    }()
-    
-    lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        return scrollView
-    }()
-    
-    let contentView: UIView = {
-        let contentView = UIView()
-        return contentView
-    }()
-    
-    lazy var calendarView: UIDatePicker = {
-        let datePicker = UIComponentsFactory.createCustomCalendarView()
-        datePicker.addTarget(self, action: #selector(dayTapped), for: .valueChanged)
-        return datePicker
-    }()
-    
-    lazy var calendarContainerView: UIView = {
-        let view = UIView()
-        view.layer.borderColor = UIColor.white.cgColor
-        view.layer.borderWidth = 3.0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 12
+        view.clipsToBounds = true
         return view
     }()
     
@@ -51,141 +38,114 @@ class CalendarDetailController: UIViewController, UITextViewDelegate {
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.layer.borderColor = UIColor.white.cgColor
         timePicker.layer.borderWidth = 3.0
+        timePicker.translatesAutoresizingMaskIntoConstraints = false
         return timePicker
     }()
     
-    lazy var noteView: UITextView = {
-        let view = UITextView()
-        view.delegate = self
-        view.textColor = .black
-        view.font = FontHelper.customFont(size: 16)
-        view.textContainerInset = UIEdgeInsets(top: 10, left: 6, bottom: 0, right: 0)
-        view.textColor = .black
-        view.tintColor = .black
-        view.textAlignment = .left
-        view.backgroundColor = .white
-        view.layer.borderColor = customColor.cgColor
-        view.layer.borderWidth = 2.0
-        view.layer.cornerRadius = 5.0
-        view.layer.cornerRadius = 12
-        view.clipsToBounds = true
-        return view
+    lazy var aboutTextfield: UITextField = {
+        let textfield = UIComponentsFactory.createCustomTextfield(placeHolder: "Note about", fontSize: 16, borderColor: .black, borderWidth: 2.0, cornerRadius: 12)
+        textfield.paddingLeft(padding: 12)
+        return textfield
     }()
     
-    lazy var placeHolderLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Your Notes"
-        label.textColor = .lightGray
-        label.isHidden = false
-        return label
+    lazy var noteTextview: UITextView = {
+        let textview = UIComponentsFactory.createCustomTextView(textSize: 16, borderColor: UIColor.black.cgColor)
+        textview.delegate = self
+        return textview
     }()
     
-    lazy var aboutTextfield = UIComponentsFactory.createCustomTextfield(placeHolder: "Note About", fontSize: 18, borderColor: .white, borderWidth: 3.0, cornerRadius: 12)
+    lazy var placeholderLabel: UILabel = {
+        let placeholder = UIComponentsFactory.createCustomPlaceholderLabel(text: "Your notes", textColor: .lightGray, isHidden: false)
+        return placeholder
+    }()
     
-    lazy var saveButton = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .white, borderColor: .white, borderWidth: 3.0, cornerRadius: 16, clipsToBounds: true, action: saveButtonTapped)
+    lazy var saveButton: UIButton = {
+        let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .lightGray, borderColor: .black, borderWidth: 1.0, cornerRadius: 6, clipsToBounds: true, action: handleSave)
+        return button
+    }()
+    
+    lazy var cancelButton: UIButton = {
+        let button = UIComponentsFactory.createCustomButton(title: "Cancel", state: .normal, titleColor: .lightGray, borderColor: .black, borderWidth: 1.0, cornerRadius: 4, clipsToBounds: true, action: handleCancel)
+        return button
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLayout()
         
+        self.preferredContentSize = CGSize(width: 320, height: 360)
+        
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             managedObjectContext = appDelegate.persistentContainer.viewContext
         }
-        
     }
-    func disableAutoResizingMaskConstraints(for views: [UIView]) {
-        views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+    func didSelectDate(date: Date) {
+        self.selectedDate = date
     }
-    
-    func enableUserInteraction(for views: [UIView]) {
-        views.forEach { $0.isUserInteractionEnabled = true }
-    }
-    fileprivate func setupLayout() {
+    fileprivate func setupLayout(){
+        view.addSubview(timePickerContainerView)
+        timePickerContainerView.addSubview(timePicker)
+        timePickerContainerView.addSubview(aboutTextfield)
+        timePickerContainerView.addSubview(noteTextview)
+        noteTextview.addSubview(placeholderLabel)
+        timePickerContainerView.addSubview(saveButton)
+        timePickerContainerView.addSubview(cancelButton)
         
-        disableAutoResizingMaskConstraints(for: [seperatorView, scrollView, contentView, calendarContainerView, calendarView, timePicker, aboutTextfield, noteView, placeHolderLabel, saveButton])
-        
-        tabBarController?.tabBar.backgroundColor = .white
-        view.backgroundColor = customColor
-        view.addSubview(seperatorView)
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(calendarContainerView)
-        calendarContainerView.addSubview(calendarView)
-        contentView.addSubview(timePicker)
-        contentView.addSubview(aboutTextfield)
-        contentView.addSubview(noteView)
-        noteView.addSubview(placeHolderLabel)
-        contentView.addSubview(saveButton)
-        self.setupBarButtonItem()
-        
-        if #available(iOS 13.4, *) {
-            calendarView.preferredDatePickerStyle = .inline
-        }
+        timePicker.translatesAutoresizingMaskIntoConstraints = false
+        aboutTextfield.translatesAutoresizingMaskIntoConstraints = false
+        noteTextview.translatesAutoresizingMaskIntoConstraints = false
+        placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
+            timePickerContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            timePickerContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            timePickerContainerView.widthAnchor.constraint(equalToConstant: preferredContentSize.width),
+            timePickerContainerView.heightAnchor.constraint(equalToConstant: preferredContentSize.height),
             
-            seperatorView.topAnchor.constraint(equalTo: view.topAnchor),
-            seperatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            seperatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            seperatorView.heightAnchor.constraint(equalToConstant: 50),
+            timePicker.topAnchor.constraint(equalTo: timePickerContainerView.topAnchor, constant: 6),
+            timePicker.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 1/3),
+            timePicker.heightAnchor.constraint(equalTo: timePickerContainerView.heightAnchor, multiplier: 1/3),
+            timePicker.centerXAnchor.constraint(equalTo: timePickerContainerView.centerXAnchor),
             
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            aboutTextfield.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 6),
+            aboutTextfield.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 2/3),
+            aboutTextfield.leadingAnchor.constraint(equalTo: timePickerContainerView.leadingAnchor, constant: 12),
+            aboutTextfield.heightAnchor.constraint(equalTo: timePickerContainerView.heightAnchor, multiplier: 1/6),
             
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            noteTextview.topAnchor.constraint(equalTo: aboutTextfield.bottomAnchor, constant:  6),
+            noteTextview.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 2/3),
+            noteTextview.leadingAnchor.constraint(equalTo: timePickerContainerView.leadingAnchor, constant: 12),
+            noteTextview.heightAnchor.constraint(equalTo: timePickerContainerView.heightAnchor, multiplier: 1/3),
             
-            calendarContainerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            calendarContainerView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            calendarContainerView.heightAnchor.constraint(equalToConstant: 400),
+            placeholderLabel.topAnchor.constraint(equalTo: noteTextview.topAnchor, constant: 4),
+            placeholderLabel.widthAnchor.constraint(equalTo: noteTextview.widthAnchor, multiplier: 2/3),
+            placeholderLabel.leadingAnchor.constraint(equalTo: noteTextview.leadingAnchor, constant: 8),
+            placeholderLabel.heightAnchor.constraint(equalTo: noteTextview.heightAnchor, multiplier: 1/3),
             
-            calendarView.topAnchor.constraint(equalTo: calendarContainerView.topAnchor),
-            calendarView.leadingAnchor.constraint(equalTo: calendarContainerView.leadingAnchor),
-            calendarView.bottomAnchor.constraint(equalTo: calendarContainerView.bottomAnchor),
-            calendarView.trailingAnchor.constraint(equalTo: calendarContainerView.trailingAnchor),
+            saveButton.topAnchor.constraint(equalTo: noteTextview.bottomAnchor, constant: 6),
+            saveButton.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 1/5),
+            saveButton.heightAnchor.constraint(equalToConstant: 30),
+            saveButton.centerXAnchor.constraint(equalTo: timePickerContainerView.centerXAnchor, constant: 48),
             
-            timePicker.topAnchor.constraint(equalTo: calendarContainerView.bottomAnchor, constant: 12),
-            timePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            timePicker.heightAnchor.constraint(equalToConstant: 200),
-            
-            aboutTextfield.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 12),
-            aboutTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            aboutTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 2/3),
-            aboutTextfield.heightAnchor.constraint(equalToConstant: 30),
-            
-            noteView.topAnchor.constraint(equalTo: aboutTextfield.bottomAnchor, constant: 12),
-            noteView.leadingAnchor.constraint(equalTo: aboutTextfield.leadingAnchor),
-            noteView.widthAnchor.constraint(equalTo: aboutTextfield.widthAnchor),
-            noteView.heightAnchor.constraint(equalToConstant: 100),
-            
-            placeHolderLabel.topAnchor.constraint(equalTo: noteView.topAnchor, constant: 8),
-            placeHolderLabel.leadingAnchor.constraint(equalTo: noteView.leadingAnchor, constant: 8),
-            placeHolderLabel.widthAnchor.constraint(equalTo: noteView.widthAnchor, multiplier: 1/2),
-            placeHolderLabel.heightAnchor.constraint(equalTo: noteView.heightAnchor, multiplier: 1/4),
-            
-            saveButton.topAnchor.constraint(equalTo: noteView.bottomAnchor, constant: 12),
-            saveButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/3),
-            saveButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            saveButton.heightAnchor.constraint(equalToConstant: 40),
-            
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            cancelButton.topAnchor.constraint(equalTo: noteTextview.bottomAnchor, constant: 6),
+            cancelButton.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 1/5),
+            cancelButton.heightAnchor.constraint(equalToConstant: 30),
+            cancelButton.centerXAnchor.constraint(equalTo: timePickerContainerView.centerXAnchor, constant: -48),
         ])
-        if let lastView = contentView.subviews.last {
-            NSLayoutConstraint.activate([
-                lastView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            ])
-        }
     }
     func textViewDidChange(_ textView: UITextView) {
-        placeHolderLabel.isHidden = !noteView.text.isEmpty
+        placeholderLabel.isHidden = !noteTextview.text.isEmpty
     }
-    @objc fileprivate func dayTapped() {
-        print("day tapped ")
+    @objc fileprivate func handleCancel() {
+        self.dismiss(animated: true)
     }
-    @objc fileprivate func saveButtonTapped() {
+    @objc fileprivate func handleSave() {
+        
+       
         if #available(iOS 17.0, *) {
             eventStore.requestWriteOnlyAccessToEvents { [weak self] granted, error in
                 guard let self = self else { return }
@@ -194,9 +154,9 @@ class CalendarDetailController: UIViewController, UITextViewDelegate {
                     if granted, error == nil {
                         // Granted, Contunie
                         if let aboutText = self.aboutTextfield.text, !aboutText.isEmpty,
-                           let noteText = self.noteView.text {
+                           let noteText = self.noteTextview.text {
                             
-                            let selectedDate = self.calendarView.date
+                            let selectedDate = self.selectedDate!
                             let selectedTime = self.timePicker.date
                             
                             let calendar = Calendar.current
@@ -221,8 +181,8 @@ class CalendarDetailController: UIViewController, UITextViewDelegate {
                             if let context = self.managedObjectContext, let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
                                 let newItem = NSManagedObject(entity: entity, insertInto: context)
                                 newItem.setValue(self.aboutTextfield.text, forKey: "about")
-                                newItem.setValue(self.noteView.text, forKey: "note")
-                                let dateIntValue = Int32(self.calendarView.date.timeIntervalSince1970)
+                                newItem.setValue(self.noteTextview.text, forKey: "note")
+                                let dateIntValue = Int32(self.selectedDate!.timeIntervalSince1970)
                                 let timeIntValue = Int32(self.timePicker.date.timeIntervalSince1970)
                                 newItem.setValue(dateIntValue, forKey: "date")
                                 newItem.setValue(timeIntValue, forKey: "time")
@@ -231,6 +191,7 @@ class CalendarDetailController: UIViewController, UITextViewDelegate {
                                     if let CalendarViewController = self.presentingViewController as? CalendarViewController {
                                         CalendarViewController.addDataToCollectionView(newItem)
                                     }
+                                    self.delegate?.didAddEvent()
                                     self.dismiss(animated: true, completion: nil)
                                 } catch let _ as NSError {
                                     // Hata yönetimi
@@ -255,10 +216,10 @@ class CalendarDetailController: UIViewController, UITextViewDelegate {
                     if granted, error == nil {
                         // İzin verildi, işlemleri burada devam ettirin.
                         if let aboutText = self.aboutTextfield.text, !aboutText.isEmpty,
-                           let noteText = self.noteView.text {
+                           let noteText = self.noteTextview.text {
                             
                             // Seçilen tarih ve saat
-                            let selectedDate = self.calendarView.date
+                            let selectedDate = self.selectedDate!
                             let selectedTime = self.timePicker.date
                             
                             let calendar = Calendar.current
@@ -283,8 +244,8 @@ class CalendarDetailController: UIViewController, UITextViewDelegate {
                             if let context = self.managedObjectContext, let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
                                 let newItem = NSManagedObject(entity: entity, insertInto: context)
                                 newItem.setValue(self.aboutTextfield.text, forKey: "about")
-                                newItem.setValue(self.noteView.text, forKey: "note")
-                                let dateIntValue = Int32(self.calendarView.date.timeIntervalSince1970)
+                                newItem.setValue(self.noteTextview.text, forKey: "note")
+                                let dateIntValue = Int32(self.selectedDate!.timeIntervalSince1970)
                                 let timeIntValue = Int32(self.timePicker.date.timeIntervalSince1970)
                                 newItem.setValue(dateIntValue, forKey: "date")
                                 newItem.setValue(timeIntValue, forKey: "time")
@@ -293,6 +254,7 @@ class CalendarDetailController: UIViewController, UITextViewDelegate {
                                     if let CalendarViewController = self.presentingViewController as? CalendarViewController {
                                         CalendarViewController.addDataToCollectionView(newItem)
                                     }
+                                    self.delegate?.didAddEvent()
                                     self.dismiss(animated: true, completion: nil)
                                 } catch let _ as NSError {
                                     // Hata yönetimi
@@ -394,9 +356,6 @@ class CalendarDetailController: UIViewController, UITextViewDelegate {
             }
         }
     }
-    @objc fileprivate func handleBackButton(){
-        self.dismiss(animated: true)
-    }
 }
 extension UITextField {
     func paddingLeft(padding: CGFloat) {
@@ -405,13 +364,3 @@ extension UITextField {
         self.leftViewMode = .always
     }
 }
-extension CalendarDetailController {
-    fileprivate func setupBarButtonItem() {
-        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 40, width: view.frame.width, height: 44))
-        view.addSubview(navigationBar)
-        let backButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleBackButton))
-        navigationItem.leftBarButtonItem = backButton
-        navigationBar.setItems([navigationItem], animated: false)
-    }
-}
-

@@ -8,13 +8,18 @@
 import UIKit
 import CoreData
 
-class CalendarViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+protocol CalendarViewControllerDelegate: AnyObject{
+    func didSelectDate(date: Date)
+}
+class CalendarViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AddEventPopUpViewControllerDelegate{
+    
     
     var savedData: [NSManagedObject] = []
-    var items = ["development", "nutrition", "water", "mood"]
     
     var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.layer.cornerRadius = 12
+        scrollView.clipsToBounds = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -32,8 +37,6 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     }()
     lazy var calendarContainerView: UIView = {
         let view = UIView()
-//        view.layer.borderColor = UIColor.white.cgColor
-//        view.layer.borderWidth = 3.0
         view.translatesAutoresizingMaskIntoConstraints = false
         ShadowLayer.setShadow(view: view, color: .black, opacity: 3.0, offset: .init(width: 1.0, height: 1.0), radius: 4)
         view.layer.cornerRadius = 12
@@ -43,7 +46,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     lazy var calendarView: UIDatePicker = {
         let datePicker = UIComponentsFactory.createCustomCalendarView()
-        datePicker.addTarget(self, action: #selector(dayTapped), for: .valueChanged)
+        datePicker.addTarget(self, action: #selector(dayTapped(selectedDate:)), for: .valueChanged)
         datePicker.backgroundColor = UIColor(hex: "ffc2b4")
         return datePicker
     }()
@@ -55,16 +58,12 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         return collectionView
     }()
     
-    lazy var plusButton: UIButton = {
-        let button = UIComponentsFactory.createCustomButton(title: "", state: .normal, titleColor: .clear, borderColor: .clear, borderWidth: 0.0, cornerRadius: 0, clipsToBounds: false, action: plusButtonTapped)
-        button.setImage(UIImage(named: "plus"), for: .normal)
-        return button
-    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLayout()
-        view.backgroundColor = UIColor(hex: "f79256")
         todoCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: "calendarCellId")
 
         
@@ -74,6 +73,10 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         fetchDataFromCoredata()
         self.todoCollectionView.reloadData()
+        didAddEvent()
+    }
+    func didAddEvent() {
+        fetchDataFromCoredata()
     }
     func addDataToCollectionView(_ data: NSManagedObject) {
         savedData.append(data)
@@ -95,22 +98,46 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         return savedData.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let data = self.savedData[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCellId", for: indexPath) as! CalendarCell
+        
+        let data = self.savedData[indexPath.item]
+        
+        if let dateData = data.value(forKey: "date") as? Int32 {
+            if let dateString = formattedDateAndTime(from: TimeInterval(dateData), style: .medium){
+                cell.dateLabel.text = dateString
+            }
+        }
+        
+        if let timeData = data.value(forKey: "time") as? Int32 {
+            if let timeString = formattedDateAndTime(from: TimeInterval(timeData), style: .medium){
+                cell.timeLabel.text = timeString
+            }
+        }
+        
         cell.aboutLabel.text = data.value(forKey: "about") as? String
-        cell.noteLabel.text = data.value(forKey: "note") as? String
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: view.frame.width, height: 80)
     }
-    @objc fileprivate func dayTapped() {
-        print("day tapped ")
-    }
-    @objc fileprivate func plusButtonTapped() {
-        let calendarDetailVC = CalendarDetailController()
-        calendarDetailVC.modalPresentationStyle = .fullScreen
-        present(calendarDetailVC, animated: true)
+    @objc fileprivate func dayTapped(selectedDate: UIDatePicker) {
+       
+        let selectedDate = selectedDate.date
+        
+        let popupViewController = AddEventPopUpViewController()
+        popupViewController.modalPresentationStyle = .popover
+        popupViewController.selectedDate = selectedDate
+        popupViewController.delegate = self
+        
+        if let popupVC = popupViewController.popoverPresentationController {
+            
+            popupVC.sourceView = self.view
+            popupVC.sourceRect = CGRect(x: self.view.bounds.minX, y: self.view.bounds.minY, width: 0, height: 0)
+            popupVC.permittedArrowDirections = []
+            popupViewController.preferredContentSize = CGSize(width: 320, height: 360)
+            
+        }
+        self.present(popupViewController, animated: true, completion: nil)
     }
 }
 extension CalendarViewController {
@@ -123,7 +150,6 @@ extension CalendarViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(todoCollectionView)
-        view.addSubview(plusButton)
         NSLayoutConstraint.activate([
             
             calendarContainerLayerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
@@ -144,7 +170,7 @@ extension CalendarViewController {
             scrollView.topAnchor.constraint(equalTo: calendarContainerView.bottomAnchor, constant: 8),
             scrollView.leadingAnchor.constraint(equalTo: calendarContainerView.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: calendarContainerView.trailingAnchor),
-            scrollView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.3/5),
+            scrollView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 2/5),
             
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
@@ -155,14 +181,17 @@ extension CalendarViewController {
             todoCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             todoCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             todoCollectionView.heightAnchor.constraint(equalToConstant: 220),
-            todoCollectionView.bottomAnchor.constraint(equalTo: plusButton.topAnchor),
+            todoCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             contentView.bottomAnchor.constraint(equalTo: todoCollectionView.bottomAnchor),
-                        
-            plusButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
-            plusButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
-            plusButton.heightAnchor.constraint(equalToConstant: 60),
-            plusButton.widthAnchor.constraint(equalToConstant: 60),
         ])
+    }
+}
+extension CalendarViewController {
+    fileprivate func formattedDateAndTime(from timeInterval: TimeInterval, style: DateFormatter.Style) -> String? {
+        let date = Date(timeIntervalSince1970: timeInterval)
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate(style == .short  ? "HH:mm" : "MMM d, yyyy")
+        return formatter.string(from: date)
     }
 }
