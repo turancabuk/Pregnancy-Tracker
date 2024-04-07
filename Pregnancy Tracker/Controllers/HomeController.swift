@@ -149,7 +149,7 @@ extension HomeController {
     fileprivate func setupLayout() {
         view.backgroundColor = .white
         safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "f79256"))
-        tabBarController?.tabBar.backgroundColor = UIColor(hex: "f79256")
+        tabBarController?.tabBar.backgroundColor = .white
 
         view.addSubview(safeAreaView)
         safeAreaView.addSubview(seperatorView)

@@ -25,7 +25,7 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
     
     lazy var timePickerContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(hex: "ffc2b4")
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 12
         view.clipsToBounds = true
@@ -36,8 +36,6 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
         let timePicker = UIDatePicker()
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .wheels
-        timePicker.layer.borderColor = UIColor.white.cgColor
-        timePicker.layer.borderWidth = 3.0
         timePicker.translatesAutoresizingMaskIntoConstraints = false
         return timePicker
     }()
@@ -61,11 +59,13 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
     
     lazy var saveButton: UIButton = {
         let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .lightGray, borderColor: .black, borderWidth: 1.0, cornerRadius: 6, clipsToBounds: true, action: handleSave)
+        button.backgroundColor = .white
         return button
     }()
     
     lazy var cancelButton: UIButton = {
         let button = UIComponentsFactory.createCustomButton(title: "Cancel", state: .normal, titleColor: .lightGray, borderColor: .black, borderWidth: 1.0, cornerRadius: 4, clipsToBounds: true, action: handleCancel)
+        button.backgroundColor = .white
         return button
     }()
     
@@ -75,8 +75,6 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
         
         setupLayout()
         
-        self.preferredContentSize = CGSize(width: 320, height: 360)
-        
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             managedObjectContext = appDelegate.persistentContainer.viewContext
         }
@@ -85,6 +83,7 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
         self.selectedDate = date
     }
     fileprivate func setupLayout(){
+        self.preferredContentSize = CGSize(width: 320, height: 360)
         view.addSubview(timePickerContainerView)
         timePickerContainerView.addSubview(timePicker)
         timePickerContainerView.addSubview(aboutTextfield)
