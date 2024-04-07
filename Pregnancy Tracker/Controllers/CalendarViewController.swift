@@ -109,13 +109,55 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         
         if let timeData = data.value(forKey: "time") as? Int32 {
-            if let timeString = formattedDateAndTime(from: TimeInterval(timeData), style: .medium){
+            if let timeString = formattedDateAndTime(from: TimeInterval(timeData), style: .short){
                 cell.timeLabel.text = timeString
             }
         }
-        
+        cell.onDeleteButtonTapped = { [weak self] in
+            guard let self = self else { return }
+            let dataToDelete = self.savedData[indexPath.row]
+            if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
+                context.delete(dataToDelete)
+                do {
+                    try context.save()
+
+                    self.savedData.remove(at: indexPath.row)
+
+                    self.todoCollectionView.performBatchUpdates({
+                        self.todoCollectionView.deleteItems(at: [indexPath])
+                    })
+                } catch let error as NSError {
+                    print("Silme işlemi sırasında hata oluştu: \(error), \(error.userInfo)")
+                }
+            }
+        }
+
         cell.aboutLabel.text = data.value(forKey: "about") as? String
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let selectedItem = self.savedData[indexPath.row]
+        let readEventVC = ReadEventPopUpViewController()
+    
+        if let dateData = selectedItem.value(forKey: "date") as? Int32 {
+            if let dateString = formattedDateAndTime(from: TimeInterval(dateData), style: .medium) {
+                readEventVC.dateLabel.text = dateString
+            }
+        }
+        
+        if let timeData = selectedItem.value(forKey: "time") as? Int32 {
+            if let timeString = formattedDateAndTime(from: TimeInterval(timeData), style: .short) {
+                readEventVC.timeLabel.text = timeString
+            }
+        }
+        
+        readEventVC.aboutLabel.text = selectedItem.value(forKey: "about") as? String
+        readEventVC.noteLabel.text = selectedItem.value(forKey: "note") as? String
+        
+        readEventVC.preferredContentSize = CGSize(width: 320, height: 360)
+        readEventVC.modalPresentationStyle = .popover
+        self.present(readEventVC, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: view.frame.width, height: 80)
@@ -142,8 +184,8 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
 }
 extension CalendarViewController {
     fileprivate func setupLayout() {
-        view.backgroundColor = UIColor(hex: "f79256")
-        
+        view.backgroundColor = UIColor(hex: "fcefef")
+
         view.addSubview(calendarContainerLayerView)
         calendarContainerLayerView.addSubview(calendarContainerView)
         calendarContainerView.addSubview(calendarView)

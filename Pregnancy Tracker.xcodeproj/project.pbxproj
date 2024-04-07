@@ -18,6 +18,7 @@
 		5C1EEA542B9C72D000001ACF /* PersonelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */; };
 		5C34023C2BBC1F8E006C7063 /* UIComponentsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */; };
 		5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3402472BBD5446006C7063 /* CalendarViewController.swift */; };
+		5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */; };
 		5C58CF1C2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */; };
 		5C58CF222BC1823300F9FBC4 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C58CF212BC1823300F9FBC4 /* UIOnboarding */; };
 		5C7FA8E92BA6EFAE00AEC447 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */; };
@@ -59,6 +60,7 @@
 		5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonelViewController.swift; sourceTree = "<group>"; };
 		5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentsFactory.swift; sourceTree = "<group>"; };
 		5C3402472BBD5446006C7063 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadEventPopUpViewController.swift; sourceTree = "<group>"; };
 		5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventPopUpViewController.swift; sourceTree = "<group>"; };
 		5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C7FA8EA2BA7525400AEC447 /* VerticalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				5C3402472BBD5446006C7063 /* CalendarViewController.swift */,
 				5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */,
 				5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */,
+				5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */,
 				5CA9DEFA2B986EB4004FAD1D /* ViewController.swift in Sources */,
 				5C917A9F2B98C7A500212267 /* NutritionAndExerciseController.swift in Sources */,
+				5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */,
 				5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */,
 				5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */,
 				5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */,
