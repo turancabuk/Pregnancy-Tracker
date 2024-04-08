@@ -65,8 +65,6 @@ class VerticalCollectionViewCell: UICollectionViewCell {
             infoLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -4),
             infoLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12)
         ])
-//        ShadowLayer.setShadow(view: imageView, color: .darkGray, opacity: 1.0, offset: .init(width: 0.5, height: 0.5), radius: 5)
-//        ShadowLayer.setShadow(view: containerView, color: .darkGray, opacity: 1.0, offset: .init(width: 0.0, height: 0.3), radius: 5)
         ShadowLayer.setShadow(view: containerLayerView, color: .darkGray, opacity: 1.0, offset: .init(width: 0.5, height: 0.5), radius: 3)
         ShadowLayer.setShadow(view: imageContainerView, color: .lightGray, opacity: 1.0, offset: .init(width: 0.5, height: 0.5), radius: 5)
     }

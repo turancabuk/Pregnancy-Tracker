@@ -9,10 +9,18 @@ import UIKit
 
 class HomeController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    enum Section: Int, CaseIterable {
+        case header
+        case main
+        case vertical
+    }
+    
     let safeAreaView = SafeAreaView()
     let scrollView = UIScrollView()
     let contentView = UIView()
     let advertView = AdvertView()
+    
+    // Alışveriş listesi, günlük değişim albümü
     
     let headerCollection = ["nutrition", "water", "development", "mood"]
     let mainCollection = ["bag", "name", "notes"]
@@ -29,64 +37,72 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return view
     }()
     
-    lazy var headerCollectionView: UICollectionView = {
-        let collectionView = UIComponentsFactory.createCustomCollectionView(scrollDirection: .horizontal, bg: .clear, spacing: 12)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        return collectionView
-    }()
-    lazy var mainCollectionView: UICollectionView = {
-        let collectionView = UIComponentsFactory.createCustomCollectionView(scrollDirection: .horizontal, bg: .clear, spacing: 12)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        return collectionView
-    }()
-    lazy var verticalCollectionView: UICollectionView = {
-        let collectionView = UIComponentsFactory.createCustomCollectionView(scrollDirection: .vertical, bg: .clear, spacing: 12)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        return collectionView
-    }()
+    var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
 
-        headerCollectionView.register(HeaderCategoriesCell.self, forCellWithReuseIdentifier: "headerCategoriesCellId")
-        mainCollectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: "mainCategoriesCellId")
-        verticalCollectionView.register(VerticalCollectionViewCell.self, forCellWithReuseIdentifier: "verticalCollectionViewCellId")
-        
-        setupLayout()
+        setupCollectionView()
         
     }
-    fileprivate func disableAutoResizingMaskConstraints(for views: [UIView]) {
-        views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+    private func setupCollectionView() {
+        
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .orange
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        setupLayout()
+
+        collectionView.register(HeaderCategoriesCell.self, forCellWithReuseIdentifier: "headerCategoriesCellId")
+        collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: "mainCategoriesCellId")
+        collectionView.register(VerticalCollectionViewCell.self, forCellWithReuseIdentifier: "verticalCollectionViewCellId")
+    }
+    private func createCompositionalLayout() -> UICollectionViewLayout {
+        
+        return UICollectionViewCompositionalLayout { [weak self] (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            guard let self = self else {return nil}
+            guard let section = Section(rawValue: sectionIndex) else {return nil}
+            
+            switch section {
+            case .header:
+                return self.createHorizontalSection(height: 120, itemCount: self.headerCollection.count)
+            case .main:
+                return self.createHorizontalSection(height: 240, itemCount: self.mainCollection.count)
+            case .vertical:
+                return self.createVerticalSection(itemHeight: 100, itemCount: self.verticalCollection.count)
+            }
+        }
+    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return Section.allCases.count
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch collectionView {
-        case headerCollectionView:
+        switch Section(rawValue: section)! {
+        case .header:
             return headerCollection.count
-        case mainCollectionView:
+        case .main:
             return mainCollection.count
-        case verticalCollectionView:
+        case .vertical:
             return verticalCollection.count
         default:
             return 0
         }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch collectionView {
-        case headerCollectionView:
+        switch Section(rawValue: indexPath.section)! {
+        case .header:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headerCategoriesCellId", for: indexPath) as! HeaderCategoriesCell
             let selectedItem = self.headerCollection[indexPath.item]
             cell.imageView.image = UIImage(named: selectedItem)
             return cell
-        case mainCollectionView:
+        case .main:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mainCategoriesCellId", for: indexPath) as! MainCollectionViewCell
             let selectedItem = self.mainCollection[indexPath.item]
             cell.imageView.image = UIImage(named: selectedItem)
             return cell
-        case verticalCollectionView:
+        case .vertical:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "verticalCollectionViewCellId", for: indexPath) as! VerticalCollectionViewCell
             let selectedItem = self.verticalCollection[indexPath.item]
             cell.imageView.image = UIImage(named: selectedItem)
@@ -96,45 +112,21 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
             fatalError()
         }
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        switch collectionView {
-        case headerCollectionView:
-            return CGSize(width: 120, height: 120)
-        case mainCollectionView:
-            return CGSize(width: 240, height: 240)
-        case verticalCollectionView:
-            return CGSize(width: view.frame.width - 30, height: 100)
-        default:
-           fatalError()
-        }
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        switch collectionView {
-        case headerCollectionView:
-            return .init(top: 0, left: 12, bottom: 0, right: 12)
-        case mainCollectionView:
-            return .init(top: 0, left: 12, bottom: 0, right: 12)
-        case verticalCollectionView:
-            return .init(top: 0, left: 18, bottom: 0, right: 18)
-        default:
-            fatalError()
-        }
-    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch collectionView {
-        case headerCollectionView:
+        switch Section(rawValue: indexPath.section)! {
+        case .header:
             let selectedItem = self.headerCollection[indexPath.item]
             let detailVC = CategoriesDetailVC()
             detailVC.modalPresentationStyle = .fullScreen
             detailVC.imageView.image = UIImage(named: selectedItem)
             present(detailVC, animated: true)
-        case mainCollectionView:
+        case .main:
             let selectedItem = self.mainCollection[indexPath.item]
             let detailVC = CategoriesDetailVC()
             detailVC.modalPresentationStyle = .fullScreen
             detailVC.imageView.image = UIImage(named: selectedItem)
             present(detailVC, animated: true)
-        case verticalCollectionView:
+        case .vertical:
             let selectedItem = self.verticalCollection[indexPath.item]
             let detailVC = CategoriesDetailVC()
             detailVC.modalPresentationStyle = .fullScreen
@@ -147,20 +139,18 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
 }
 extension HomeController {
     fileprivate func setupLayout() {
-        view.backgroundColor = .white
+
         safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "f79256"))
-        tabBarController?.tabBar.backgroundColor = UIColor(hex: "f79256")
+        tabBarController?.tabBar.backgroundColor = .white
 
         view.addSubview(safeAreaView)
         safeAreaView.addSubview(seperatorView)
         safeAreaView.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(headerCollectionView)
-        contentView.addSubview(mainCollectionView)
+        contentView.addSubview(collectionView)
         contentView.addSubview(advertView)
-        contentView.addSubview(verticalCollectionView)
-
-        disableAutoResizingMaskConstraints(for: [safeAreaView, seperatorView, scrollView, contentView, headerCollectionView, mainCollectionView, advertView, verticalCollectionView])
+        
+        disableAutoResizingMaskConstraints(for: [safeAreaView, seperatorView, scrollView, contentView, advertView, collectionView])
 
         scrollView.isScrollEnabled = true
         
@@ -180,31 +170,20 @@ extension HomeController {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            headerCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            headerCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            headerCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            headerCollectionView.heightAnchor.constraint(equalToConstant: 140),
-            
             seperatorView.topAnchor.constraint(equalTo: view.topAnchor),
             seperatorView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
             seperatorView.bottomAnchor.constraint(equalTo: safeAreaView.personelView.topAnchor),
             seperatorView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
-
-            mainCollectionView.topAnchor.constraint(equalTo: headerCollectionView.bottomAnchor),
-            mainCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            mainCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mainCollectionView.heightAnchor.constraint(equalToConstant: 300),
             
-            advertView.topAnchor.constraint(equalTo: mainCollectionView.bottomAnchor),
-            advertView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor, constant: 10),
-            advertView.bottomAnchor.constraint(equalTo: verticalCollectionView.topAnchor, constant: -24),
-            advertView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor, constant: -10),
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 700),
+            
+            advertView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 12),
+            advertView.widthAnchor.constraint(equalTo: collectionView.widthAnchor, constant: -6),
+            advertView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
             advertView.heightAnchor.constraint(equalToConstant: 40),
-            
-            verticalCollectionView.topAnchor.constraint(equalTo: advertView.bottomAnchor, constant: 6),
-            verticalCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            verticalCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            verticalCollectionView.heightAnchor.constraint(equalToConstant: 480),
             
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
 
@@ -217,4 +196,38 @@ extension HomeController {
         }
         safeAreaView.backgroundColor = .orange
     }
+    fileprivate func disableAutoResizingMaskConstraints(for views: [UIView]) {
+        views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+    }
 }
+extension HomeController {
+    private func createHorizontalSection(height: CGFloat, itemCount: Int) -> NSCollectionLayoutSection {
+        
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0 / CGFloat(itemCount)), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.4), heightDimension: .absolute(height))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 10
+        section.orthogonalScrollingBehavior = .continuous
+        return section
+    }
+    private func createVerticalSection(itemHeight: CGFloat, itemCount: Int) -> NSCollectionLayoutSection {
+        
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.98), heightDimension: .absolute(itemHeight))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(itemHeight * CGFloat(itemCount)))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        return section
+    }
+}
+
