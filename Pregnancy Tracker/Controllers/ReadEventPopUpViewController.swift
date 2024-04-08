@@ -9,8 +9,15 @@ import UIKit
 
 class ReadEventPopUpViewController: UIViewController{
     
-    private func createCustomLabel() -> UILabel {
+    private func createCustomLabel(fontSize: CGFloat) -> UILabel {
         let label = UILabel()
+        label.layer.borderColor = UIColor.white.cgColor
+        label.layer.borderWidth = 1.0
+        label.layer.cornerRadius = 8
+        label.clipsToBounds = true
+        label.textColor = .white
+        label.font = FontHelper.customFont(size: fontSize)
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
@@ -40,40 +47,28 @@ class ReadEventPopUpViewController: UIViewController{
     }()
     
     lazy var dateLabel: UILabel = {
-        let label = createCustomLabel()
+        let label = UILabel()
         label.textAlignment = .right
         label.font = FontHelper.customFont(size: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var timeLabel: UILabel = {
-        let label = createCustomLabel()
+        let label = UILabel()
         label.textAlignment = .center
         label.font = FontHelper.customFont(size: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var aboutLabel: UILabel = {
-        let label = createCustomLabel()
-        label.layer.borderColor = UIColor.white.cgColor
-        label.layer.borderWidth = 1.0
-        label.layer.cornerRadius = 8
-        label.clipsToBounds = true
-        label.textColor = .white
-        label.font = FontHelper.customFont(size: 16)
-        label.textAlignment = .center
+        let label = createCustomLabel(fontSize: 16)
         return label
     }()
     
     lazy var noteLabel: UILabel = {
-        let label = createCustomLabel()
-        label.layer.borderColor = UIColor.white.cgColor
-        label.layer.borderWidth = 1.0
-        label.layer.cornerRadius = 8
-        label.clipsToBounds = true
-        label.textColor = .white
-        label.font = FontHelper.customFont(size: 14)
-        label.textAlignment = .center
+        let label = createCustomLabel(fontSize: 14)
         return label
     }()
     
@@ -82,6 +77,12 @@ class ReadEventPopUpViewController: UIViewController{
         
         setupLayout()
     }
+    @objc func handleClose() {
+        self.dismiss(animated: true)
+        print("close button tapped")
+    }
+}
+extension ReadEventPopUpViewController {
     fileprivate func setupLayout() {
         self.preferredContentSize = CGSize(width: 320, height: 360)
         view.addSubview(containerView)
@@ -128,9 +129,5 @@ class ReadEventPopUpViewController: UIViewController{
             noteLabel.leadingAnchor.constraint(equalTo: aboutLabel.leadingAnchor),
             noteLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 2/4)
         ])
-    }
-    @objc func handleClose() {
-        self.dismiss(animated: true)
-        print("close button tapped")
     }
 }

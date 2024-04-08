@@ -123,9 +123,11 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
 
                     self.savedData.remove(at: indexPath.row)
 
-                    self.todoCollectionView.performBatchUpdates({
-                        self.todoCollectionView.deleteItems(at: [indexPath])
-                    })
+                    self.todoCollectionView.reloadData()
+                    
+//                    self.todoCollectionView.performBatchUpdates({
+//                        self.todoCollectionView.delete
+//                    })
                 } catch let error as NSError {
                     print("Silme işlemi sırasında hata oluştu: \(error), \(error.userInfo)")
                 }

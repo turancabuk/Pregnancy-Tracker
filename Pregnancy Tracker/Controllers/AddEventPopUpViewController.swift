@@ -58,30 +58,66 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
     }()
     
     lazy var saveButton: UIButton = {
-        let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .lightGray, borderColor: .black, borderWidth: 1.0, cornerRadius: 6, clipsToBounds: true, action: handleSave)
-        button.backgroundColor = .white
+        let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .white, borderColor: .black, borderWidth: 1.0, cornerRadius: 6, clipsToBounds: true, action: handleSave)
         return button
     }()
     
     lazy var cancelButton: UIButton = {
-        let button = UIComponentsFactory.createCustomButton(title: "Cancel", state: .normal, titleColor: .lightGray, borderColor: .black, borderWidth: 1.0, cornerRadius: 4, clipsToBounds: true, action: handleCancel)
-        button.backgroundColor = .white
+        let button = UIComponentsFactory.createCustomButton(title: "Cancel", state: .normal, titleColor: .white, borderColor: .black, borderWidth: 1.0, cornerRadius: 4, clipsToBounds: true, action: handleCancel)
         return button
     }()
-    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLayout()
-        
+        registerKeyboardNotifications()
+                
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             managedObjectContext = appDelegate.persistentContainer.viewContext
         }
+        
+    }
+    private func registerKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     func didSelectDate(date: Date) {
         self.selectedDate = date
     }
+    func textViewDidChange(_ textView: UITextView) {
+        placeholderLabel.isHidden = !noteTextview.text.isEmpty
+    }
+    @objc fileprivate func handleCancel() {
+        self.dismiss(animated: true)
+    }
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        var shouldMoveViewUp = false
+
+        let bottomOfTextField = aboutTextfield.convert(aboutTextfield.bounds, to: self.view).maxY
+        let bottomOfTextView = noteTextview.convert(noteTextview.bounds, to: self.view).maxY
+        let topOfKeyboard = self.view.frame.height - keyboardSize.height
+
+        if aboutTextfield.isFirstResponder && bottomOfTextField > topOfKeyboard {
+            shouldMoveViewUp = true
+        } else if noteTextview.isFirstResponder && bottomOfTextView > topOfKeyboard {
+            shouldMoveViewUp = true
+        }
+        if shouldMoveViewUp {
+            self.view.frame.origin.y = 0 - keyboardSize.height / 2
+        }
+    }
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y = 0
+    }
+}
+extension AddEventPopUpViewController {
     fileprivate func setupLayout(){
         self.preferredContentSize = CGSize(width: 320, height: 360)
         view.addSubview(timePickerContainerView)
@@ -111,16 +147,16 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
             timePicker.centerXAnchor.constraint(equalTo: timePickerContainerView.centerXAnchor),
             
             aboutTextfield.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 6),
-            aboutTextfield.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 2/3),
+            aboutTextfield.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 3/4),
             aboutTextfield.leadingAnchor.constraint(equalTo: timePickerContainerView.leadingAnchor, constant: 12),
             aboutTextfield.heightAnchor.constraint(equalTo: timePickerContainerView.heightAnchor, multiplier: 1/6),
             
             noteTextview.topAnchor.constraint(equalTo: aboutTextfield.bottomAnchor, constant:  6),
-            noteTextview.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 2/3),
+            noteTextview.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 3/4),
             noteTextview.leadingAnchor.constraint(equalTo: timePickerContainerView.leadingAnchor, constant: 12),
             noteTextview.heightAnchor.constraint(equalTo: timePickerContainerView.heightAnchor, multiplier: 1/3),
             
-            placeholderLabel.topAnchor.constraint(equalTo: noteTextview.topAnchor, constant: 4),
+            placeholderLabel.topAnchor.constraint(equalTo: noteTextview.topAnchor),
             placeholderLabel.widthAnchor.constraint(equalTo: noteTextview.widthAnchor, multiplier: 2/3),
             placeholderLabel.leadingAnchor.constraint(equalTo: noteTextview.leadingAnchor, constant: 8),
             placeholderLabel.heightAnchor.constraint(equalTo: noteTextview.heightAnchor, multiplier: 1/3),
@@ -136,15 +172,9 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
             cancelButton.centerXAnchor.constraint(equalTo: timePickerContainerView.centerXAnchor, constant: -48),
         ])
     }
-    func textViewDidChange(_ textView: UITextView) {
-        placeholderLabel.isHidden = !noteTextview.text.isEmpty
-    }
-    @objc fileprivate func handleCancel() {
-        self.dismiss(animated: true)
-    }
+}
+extension AddEventPopUpViewController {
     @objc fileprivate func handleSave() {
-        
-       
         if #available(iOS 17.0, *) {
             eventStore.requestWriteOnlyAccessToEvents { [weak self] granted, error in
                 guard let self = self else { return }
@@ -160,21 +190,15 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
                             
                             let calendar = Calendar.current
                             let now = Date()
-                            let halfHourLater = calendar.date(byAdding: .minute, value: 30, to: now)!
                             
                             let dateComponents = calendar.dateComponents([.year, .month, .day], from: selectedDate)
                             let timeComponents = calendar.dateComponents([.hour, .minute], from: selectedTime)
                             let combinedComponents = DateComponents(year: dateComponents.year, month: dateComponents.month, day: dateComponents.day, hour: timeComponents.hour, minute: timeComponents.minute)
                             
-                            if let eventDate = calendar.date(from: combinedComponents), eventDate >= halfHourLater {
+                            if let eventDate = calendar.date(from: combinedComponents){
                                 
                                 // Add Event to Calendar
                                 self.addEventToCalendar(title: aboutText, description: noteText, startDate: eventDate)
-                            } else {
-                                let alert = UIAlertController(title: "Eror", message: "Half hour Error", preferredStyle: .alert)
-                                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                                self.present(alert, animated: true, completion: nil)
-                                return
                             }
                             // Add to Coredata
                             if let context = self.managedObjectContext, let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
@@ -193,12 +217,12 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
                                     self.delegate?.didAddEvent()
                                     self.dismiss(animated: true, completion: nil)
                                 } catch let _ as NSError {
-                                    // Hata yönetimi
+                                   
                                 }
                             }
                         }
                     } else {
-                        // İzin verilmedi veya hata oluştu, gerekli işlemleri burada yapın.
+                        // not granted
                         print("Calendar access not granted or an error occurred: \(error?.localizedDescription ?? "Unknown error")")
                         let alert = UIAlertController(title: "Error", message: "Grant Error", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -207,39 +231,32 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
                 }
             }
         } else {
-            // iOS 17 öncesi cihazlar için
+            // before iOS 17
             eventStore.requestAccess(to: .event) { [weak self] granted, error in
                 guard let self = self else { return }
                 
                 DispatchQueue.main.async {
                     if granted, error == nil {
-                        // İzin verildi, işlemleri burada devam ettirin.
+                        // granted
                         if let aboutText = self.aboutTextfield.text, !aboutText.isEmpty,
                            let noteText = self.noteTextview.text {
                             
-                            // Seçilen tarih ve saat
                             let selectedDate = self.selectedDate!
                             let selectedTime = self.timePicker.date
                             
                             let calendar = Calendar.current
                             let now = Date()
-                            let halfHourLater = calendar.date(byAdding: .minute, value: 30, to: now)!
                             
                             let dateComponents = calendar.dateComponents([.year, .month, .day], from: selectedDate)
                             let timeComponents = calendar.dateComponents([.hour, .minute], from: selectedTime)
                             let combinedComponents = DateComponents(year: dateComponents.year, month: dateComponents.month, day: dateComponents.day, hour: timeComponents.hour, minute: timeComponents.minute)
                             
-                            if let eventDate = calendar.date(from: combinedComponents), eventDate >= halfHourLater {
+                            if let eventDate = calendar.date(from: combinedComponents) {
                                 
-                                // Etkinliği takvime ekleme işlemi
+                                // add to calendar
                                 self.addEventToCalendar(title: aboutText, description: noteText, startDate: eventDate)
-                            } else {
-                                let alert = UIAlertController(title: "Error", message: "Half hour Error", preferredStyle: .alert)
-                                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                                self.present(alert, animated: true, completion: nil)
-                                return
                             }
-                            // Coredata'ya ekleme işlemi
+                            // add to coredata
                             if let context = self.managedObjectContext, let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
                                 let newItem = NSManagedObject(entity: entity, insertInto: context)
                                 newItem.setValue(self.aboutTextfield.text, forKey: "about")
@@ -256,12 +273,12 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
                                     self.delegate?.didAddEvent()
                                     self.dismiss(animated: true, completion: nil)
                                 } catch let _ as NSError {
-                                    // Hata yönetimi
+                                    
                                 }
                             }
                         }
                     } else {
-                        // İzin verilmedi veya hata oluştu, gerekli işlemleri burada yapın.
+                        // not granted
                         print("Calendar access not granted or an error occurred: \(error?.localizedDescription ?? "Unknown error")")
                         let alert = UIAlertController(title: "Error", message: "Grant Alert", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -290,20 +307,16 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
                         
                         do {
                             try strongSelf.eventStore.save(event, span: .thisEvent)
-                            // Hatırlatıcı başarıyla eklendi, kullanıcıya bilgi verebilirsiniz.
-                            let alert = UIAlertController(title: "Succes", message: "Reminder added", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                            strongSelf.present(alert, animated: true, completion: nil)
                         } catch let error as NSError {
                             print("Error saving event to calendar: \(error)")
-                            // Hata durumunda kullanıcıya bilgi verin
+                            
                             let alert = UIAlertController(title: "Error", message: "Reminder Alert", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                             strongSelf.present(alert, animated: true, completion: nil)
                         }
                     } else {
                         print("Calendar access not granted or an error occurred: \(error?.localizedDescription ?? "Unknown error")")
-                        // İzin verilmedi veya hata durumunda kullanıcıya bilgi verin
+                        // not granted
                         let alert = UIAlertController(title: "Error", message: "Grant Error", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                         strongSelf.present(alert, animated: true, completion: nil)
@@ -311,7 +324,7 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
                 }
             }
         } else {
-            // iOS 17 öncesi cihazlar için
+            // before iOS 17
             addEventToCalendarForOldiOS(title: title, description: description, startDate: startDate)
         }
     }
@@ -338,16 +351,10 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
             
             do {
                 try strongSelf.eventStore.save(event, span: .thisEvent)
-                DispatchQueue.main.async {
-                    // Hatırlatıcı başarıyla eklendi, kullanıcıya bilgi verebilirsiniz.
-                    let alert = UIAlertController(title: "Succes", message: "Reminder Alert", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    strongSelf.present(alert, animated: true, completion: nil)
-                }
             } catch let error as NSError {
                 DispatchQueue.main.async {
                     print("Error saving event to calendar: \(error)")
-                    // Hata durumunda kullanıcıya bilgi verin
+
                     let alert = UIAlertController(title: "Error", message: "Reminder Alert", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                     strongSelf.present(alert, animated: true, completion: nil)
