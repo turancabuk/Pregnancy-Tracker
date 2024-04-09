@@ -7,24 +7,23 @@
 
 import UIKit
 
-class HomeController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class HomeController: UIViewController, UICollectionViewDelegate {
+        
+    let safeAreaView = SafeAreaView()
+    let scrollView = UIScrollView()
+    let contentView = UIView()
+    let advertView = AdvertView()
+    var dataSource: UICollectionViewDiffableDataSource<Section, String>!
     
     enum Section: Int, CaseIterable {
         case header
         case main
         case vertical
     }
-    
-    let safeAreaView = SafeAreaView()
-    let scrollView = UIScrollView()
-    let contentView = UIView()
-    let advertView = AdvertView()
-    
-    // Alışveriş listesi, günlük değişim albümü
-    
-    let headerCollection = ["nutrition", "water", "development", "mood"]
+        
+    let headerCollection = ["development", "water", "nutrition", "mood"]
     let mainCollection = ["bag", "name", "notes"]
-    let verticalCollection = ["development", "water", "nutrition", "mood"]
+    let verticalCollection = ["1", "2", "3", "4"]
     let verticalCollectionInfo = ["deneme deneme deneme deneme deneme deneme",
                                   "deneme1 deneme1 deneme1 deneme1 deneme1 deneme1",
                                   "deneme2 deneme2 deneme2 deneme2 deneme2 deneme2",
@@ -44,13 +43,12 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
 
         setupCollectionView()
+        collectionView.delegate = self
         
     }
     private func setupCollectionView() {
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
-        collectionView.delegate = self
-        collectionView.dataSource = self
         collectionView.backgroundColor = .orange
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         setupLayout()
@@ -58,6 +56,42 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collectionView.register(HeaderCategoriesCell.self, forCellWithReuseIdentifier: "headerCategoriesCellId")
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: "mainCategoriesCellId")
         collectionView.register(VerticalCollectionViewCell.self, forCellWithReuseIdentifier: "verticalCollectionViewCellId")
+        
+        dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView){
+            (collectionView: UICollectionView, indexPath: IndexPath, identifier: String) -> UICollectionViewCell? in
+            
+            switch Section(rawValue: indexPath.section)! {
+            case .header:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headerCategoriesCellId", for: indexPath) as! HeaderCategoriesCell
+                cell.imageView.image = UIImage(named: identifier)
+                return cell
+            case .main:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mainCategoriesCellId", for: indexPath) as! MainCollectionViewCell
+                cell.imageView.image = UIImage(named: identifier)
+                return cell
+            case .vertical:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "verticalCollectionViewCellId", for: indexPath) as! VerticalCollectionViewCell
+                cell.imageView.image = UIImage(named: identifier)
+                cell.infoLabel.text = self.verticalCollectionInfo[indexPath.item]
+                return cell
+            }
+        }
+        applyInitialSnapshot()
+    }
+    private func applyInitialSnapshot(){
+        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+        Section.allCases.forEach { section in
+            snapshot.appendSections([section])
+            switch section {
+            case .header:
+                snapshot.appendItems(headerCollection, toSection: .header)
+            case .main:
+                snapshot.appendItems(mainCollection, toSection: .main)
+            case .vertical:
+                snapshot.appendItems(verticalCollection, toSection: .vertical)
+            }
+        }
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
     private func createCompositionalLayout() -> UICollectionViewLayout {
         
@@ -75,66 +109,27 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
             }
         }
     }
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return Section.allCases.count
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch Section(rawValue: section)! {
-        case .header:
-            return headerCollection.count
-        case .main:
-            return mainCollection.count
-        case .vertical:
-            return verticalCollection.count
-        default:
-            return 0
-        }
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch Section(rawValue: indexPath.section)! {
-        case .header:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headerCategoriesCellId", for: indexPath) as! HeaderCategoriesCell
-            let selectedItem = self.headerCollection[indexPath.item]
-            cell.imageView.image = UIImage(named: selectedItem)
-            return cell
-        case .main:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mainCategoriesCellId", for: indexPath) as! MainCollectionViewCell
-            let selectedItem = self.mainCollection[indexPath.item]
-            cell.imageView.image = UIImage(named: selectedItem)
-            return cell
-        case .vertical:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "verticalCollectionViewCellId", for: indexPath) as! VerticalCollectionViewCell
-            let selectedItem = self.verticalCollection[indexPath.item]
-            cell.imageView.image = UIImage(named: selectedItem)
-            cell.infoLabel.text = self.verticalCollectionInfo[indexPath.item]
-            return cell
-        default:
-            fatalError()
-        }
-    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         switch Section(rawValue: indexPath.section)! {
         case .header:
-            let selectedItem = self.headerCollection[indexPath.item]
-            let detailVC = CategoriesDetailVC()
-            detailVC.modalPresentationStyle = .fullScreen
-            detailVC.imageView.image = UIImage(named: selectedItem)
-            present(detailVC, animated: true)
+            let selectedItem = headerCollection[indexPath.row]
+            uniqueSelectedItem(selectedItem)
         case .main:
-            let selectedItem = self.mainCollection[indexPath.item]
-            let detailVC = CategoriesDetailVC()
-            detailVC.modalPresentationStyle = .fullScreen
-            detailVC.imageView.image = UIImage(named: selectedItem)
-            present(detailVC, animated: true)
+            let selectedItem = mainCollection[indexPath.row]
+            uniqueSelectedItem(selectedItem)
         case .vertical:
-            let selectedItem = self.verticalCollection[indexPath.item]
-            let detailVC = CategoriesDetailVC()
-            detailVC.modalPresentationStyle = .fullScreen
-            detailVC.imageView.image = UIImage(named: selectedItem)
-            present(detailVC, animated: true)
+            let selectedItem = verticalCollection[indexPath.row]
+            uniqueSelectedItem(selectedItem)
         default:
             fatalError()
         }
+    }
+    fileprivate func uniqueSelectedItem(_ selectedItem: String) {
+        let detailVC = CategoriesDetailVC()
+        detailVC.imageView.image = UIImage(named: selectedItem)
+        detailVC.modalPresentationStyle = .fullScreen
+        present(detailVC, animated: true)
     }
 }
 extension HomeController {
