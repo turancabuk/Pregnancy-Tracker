@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -22,6 +23,7 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
     var picker1 = UIPickerView()
     var picker2 = UIPickerView()
     var picker3 = UIPickerView()
+    let hud = JGProgressHUD(style: .dark)
     lazy var saveButton = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .white, borderColor: personalCardColor, borderWidth: 3.0, cornerRadius: 16, clipsToBounds: true, action: handleSave)
     
     override func viewDidLoad() {
@@ -212,7 +214,10 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.sourceType = .photoLibrary
+        hud.textLabel.text = "select a photo"
+        hud.show(in: view)
         present(picker, animated: true)
+        hud.dismiss()
     }
     @objc fileprivate func handleDatePicker() {
         print("select a date")

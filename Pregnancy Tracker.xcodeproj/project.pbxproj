@@ -19,6 +19,8 @@
 		5C34023C2BBC1F8E006C7063 /* UIComponentsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */; };
 		5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3402472BBD5446006C7063 /* CalendarViewController.swift */; };
 		5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */; };
+		5C4F81592BC58A320012F709 /* UICollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F81582BC58A320012F709 /* UICollectionViewCompositionalLayout.swift */; };
+		5C5495352BCC689C00720C48 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5C5495342BCC689C00720C48 /* JGProgressHUD */; };
 		5C58CF1C2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */; };
 		5C58CF222BC1823300F9FBC4 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C58CF212BC1823300F9FBC4 /* UIOnboarding */; };
 		5C7FA8E92BA6EFAE00AEC447 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */; };
@@ -61,6 +63,7 @@
 		5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentsFactory.swift; sourceTree = "<group>"; };
 		5C3402472BBD5446006C7063 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadEventPopUpViewController.swift; sourceTree = "<group>"; };
+		5C4F81582BC58A320012F709 /* UICollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCompositionalLayout.swift; sourceTree = "<group>"; };
 		5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventPopUpViewController.swift; sourceTree = "<group>"; };
 		5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C7FA8EA2BA7525400AEC447 /* VerticalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C5495352BCC689C00720C48 /* JGProgressHUD in Frameworks */,
 				5C58CF222BC1823300F9FBC4 /* UIOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -131,6 +135,14 @@
 				5C0198602B9B912D00AC22CB /* OnboardingController.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		5C4F81572BC58A190012F709 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5C4F81582BC58A320012F709 /* UICollectionViewCompositionalLayout.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		5C917A8B2B98BF7400212267 /* Controllers */ = {
@@ -205,6 +217,7 @@
 		5CA9DEF42B986EB4004FAD1D /* Pregnancy Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				5C4F81572BC58A190012F709 /* Utilities */,
 				5C917AA92B98D91B00212267 /* Views */,
 				5C917AA62B98CB1300212267 /* MainTabbarController  */,
 				5C917A8B2B98BF7400212267 /* Controllers */,
@@ -239,6 +252,7 @@
 			name = "Pregnancy Tracker";
 			packageProductDependencies = (
 				5C58CF212BC1823300F9FBC4 /* UIOnboarding */,
+				5C5495342BCC689C00720C48 /* JGProgressHUD */,
 			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
@@ -270,6 +284,7 @@
 			mainGroup = 5CA9DEE92B986EB4004FAD1D;
 			packageReferences = (
 				5C58CF202BC1823300F9FBC4 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
+				5C5495332BCC689C00720C48 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
 			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
@@ -311,6 +326,7 @@
 				53372BD32B9B239B00F2F268 /* CustomView.swift in Sources */,
 				5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */,
 				5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */,
+				5C4F81592BC58A320012F709 /* UICollectionViewCompositionalLayout.swift in Sources */,
 				5C86E61B2BA0611600FFB7A8 /* PaddedPlaceHolder.swift in Sources */,
 				5C917A9D2B98C74500212267 /* HealthController.swift in Sources */,
 				5C917AA12B98C7FC00212267 /* InformationSourceController.swift in Sources */,
@@ -559,6 +575,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5C5495332BCC689C00720C48 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
 		5C58CF202BC1823300F9FBC4 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lascic/UIOnboarding.git";
@@ -570,6 +594,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5C5495342BCC689C00720C48 /* JGProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C5495332BCC689C00720C48 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
+		};
 		5C58CF212BC1823300F9FBC4 /* UIOnboarding */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5C58CF202BC1823300F9FBC4 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
