@@ -36,6 +36,7 @@ class UIComponentsFactory {
         textfield.layer.borderWidth = borderWidth
         textfield.layer.cornerRadius = cornerRadius
         textfield.clipsToBounds = true
+        textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
     }
     static func createCustomCollectionView(scrollDirection: UICollectionView.ScrollDirection, bg: UIColor, spacing: CGFloat) -> UICollectionView{
