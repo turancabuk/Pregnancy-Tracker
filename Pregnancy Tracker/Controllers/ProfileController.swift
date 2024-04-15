@@ -71,7 +71,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         let label = UILabel()
         label.text = "Select your last Menstrual Period"
         label.font = FontHelper.customFont(size: 16)
-        label.textColor = UIColor.purple
+        label.textColor = UIColor.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -87,24 +87,11 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         return datePicker
     }()
     
-    // UIPicker constraints
-//    let datePickerContainer = UIView()
-//    datePickerContainer.translatesAutoresizingMaskIntoConstraints = false
-//    contentView.addSubview(datePickerContainer)
-//    datePickerContainer.anchor(
-//        top: dateLabel.bottomAnchor, leading: dateLabel.leadingAnchor, bottom: nil, trailing: nil, padding: .init(
-//            top: 6, left: 0, bottom: 0, right: 0), size: .init(width: 180, height: 40))
-//    
-//    datePicker.isUserInteractionEnabled = true
-//    datePicker.translatesAutoresizingMaskIntoConstraints = false
-//    let currentDate = Date()
-//    datePicker.minimumDate = Calendar.current.date(byAdding: .year, value: -1, to: currentDate)
-//    datePicker.maximumDate = currentDate
-//    datePicker.datePickerMode = .date
-//    datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
-//    datePickerContainer.addSubview(datePicker)
-    
-    
+    lazy var heightLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Your Height"
+        return label
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         
