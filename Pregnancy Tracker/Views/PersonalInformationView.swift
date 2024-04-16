@@ -67,9 +67,9 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         datePicker.minimumDate = Calendar.current.date(byAdding: .year, value: -1, to: currentDate)
         datePicker.maximumDate = currentDate
         datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .inline
-//        datePicker.layer.cornerRadius = 16
-//        datePicker.clipsToBounds = true
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.layer.cornerRadius = 16
+        datePicker.clipsToBounds = true
         datePicker.isUserInteractionEnabled = true
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
@@ -87,6 +87,67 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
 
     }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.profileImageView.image = chosenImage
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    fileprivate func showAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: Button Confgs.
+    @objc fileprivate func handlePicker() {
+        hud.textLabel.text = "select a photo"
+        hud.show(in: view)
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true)
+        hud.dismiss()
+    }
+    @objc fileprivate func handleDatePicker() {
+        let selectedDate = datePicker.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: selectedDate)
+        print("select a date\(dateString)")
+    }
+    @objc fileprivate func handleSave() {
+        
+        guard let name = nameTextfield.text, !name.isEmpty else {
+            self.showAlert(message: "please enter your name")
+            return
+        }
+        guard let profileImage = profileImageView.image, profileImage != UIImage(systemName: "person.crop.circle.badge.plus") else {
+            self.showAlert(message: "Please select a profile image")
+            return
+        }
+        
+        if let imageData = profileImage.jpegData(compressionQuality: 1.0) {
+            defaults.set(imageData, forKey: "profileImage")
+        }else{
+            showAlert(message: "please select a profile image")
+        }
+        
+        defaults.set(name, forKey: "userName")
+        
+        let pregnancyDateData = try? NSKeyedArchiver.archivedData(withRootObject: datePicker.date, requiringSecureCoding: false)
+        defaults.set(pregnancyDateData, forKey: "pregnancyDate")
+//        defaults.set(try? NSKeyedArchiver.archivedData(withRootObject: datePicker.date, requiringSecureCoding: false), forKey: "pregnancyDate")
+        
+
+        defaults.synchronize()
+        self.dismiss(animated: true)
+    }
+    @objc fileprivate func handleDismiss() {
+        view.endEditing(true)
+    }
+}
+extension PersonalInformationView {
     fileprivate func setupView() {
         
         view.backgroundColor = personalCardColor
@@ -98,7 +159,6 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         safeAreaView.addSubview(dateLabel)
         view.addSubview(datePicker)
         safeAreaView.addSubview(saveButton)
-        
         
         NSLayoutConstraint.activate([
             safeAreaView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -129,7 +189,7 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
             datePicker.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 12),
             datePicker.widthAnchor.constraint(equalTo: safeAreaView.widthAnchor, constant: -24),
             datePicker.centerXAnchor.constraint(equalTo: safeAreaView.centerXAnchor),
-            datePicker.heightAnchor.constraint(equalToConstant: 450),
+            datePicker.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -24),
             
             saveButton.bottomAnchor.constraint(equalTo: safeAreaView.bottomAnchor, constant: -24),
             saveButton.heightAnchor.constraint(equalToConstant: 40),
@@ -137,92 +197,4 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
             saveButton.centerXAnchor.constraint(equalTo: safeAreaView.centerXAnchor),
         ])
     }
-    
-    // MARK: Button Confgs.
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.profileImageView.image = chosenImage
-        }
-        dismiss(animated: true, completion: nil)
-    }
-    @objc fileprivate func handlePicker() {
-        print("select a photo")
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .photoLibrary
-        hud.textLabel.text = "select a photo"
-        hud.show(in: view)
-        present(picker, animated: true)
-        hud.dismiss()
-    }
-    @objc fileprivate func handleDatePicker() {
-        let selectedDate = datePicker.date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let dateString = dateFormatter.string(from: selectedDate)
-        print("select a date\(dateString)")
-    }
-    fileprivate func showAlert(message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-        present(alert, animated: true, completion: nil)
-    }
-    @objc fileprivate func handleSave() {
-        guard let name = nameTextfield.text, !name.isEmpty else {
-            self.showAlert(message: "please enter your name")
-            return
-        }
-        guard let profileImage = profileImageView.image, profileImage != UIImage(systemName: "person.crop.circle.badge.plus") else {
-            self.showAlert(message: "Please select a profile image")
-            return
-        }
-        
-        defaults.setValue(name, forKey: "userName")
-        defaults.set(try? NSKeyedArchiver.archivedData(withRootObject: datePicker.date, requiringSecureCoding: false), forKey: "pregnancyDate")
-        
-        if let imageData = profileImage.jpegData(compressionQuality: 1.0) {
-            defaults.set(imageData, forKey: "profileImage")
-        }else{
-            showAlert(message: "please select a profile image")
-        }
-        defaults.synchronize()
-        
-        self.dismiss(animated: true)
-    }
-    @objc fileprivate func handleDismiss() {
-        view.endEditing(true)
-    }
 }
-
-
-
-
-//        safeAreaView.anchor(
-//            top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(
-//                top: 50, left: 24, bottom: 10, right: 24))
-//
-//        profileImageView.centerXAnchor.constraint(equalTo: safeAreaView.centerXAnchor).isActive = true
-//        profileImageView.anchor(
-//            top: safeAreaView.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(
-//                top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 80, height: 80))
-//
-//        photoDesLabel.anchor(
-//            top: profileImageView.bottomAnchor, leading: safeAreaView.leadingAnchor, bottom: nil, trailing: safeAreaView.trailingAnchor, padding: .init(
-//                top: 4, left: 60, bottom: 0, right: 60), size: .init(width: 120, height: 40))
-//
-//        nameTextfield.anchor(
-//            top: photoDesLabel.bottomAnchor, leading: safeAreaView.leadingAnchor, bottom: nil, trailing: safeAreaView.trailingAnchor, padding: .init(
-//                top: 36, left: 12, bottom: 0, right: 10), size: .init(width: safeAreaView.frame.width, height: 30))
-//
-//        dateLabel.anchor(
-//            top: nameTextfield.bottomAnchor, leading: safeAreaView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(
-//                top: 36, left: 12, bottom: 0, right: 0), size: .init(width: 280, height: 36))
-//
-//        datePicker.anchor(
-//            top: dateLabel.bottomAnchor, leading: safeAreaView.leadingAnchor, bottom: nil, trailing: safeAreaView.trailingAnchor, padding: .init(
-//                top: 6, left: 6, bottom: 0, right: 6), size: .init(width: 0, height: 300))
-//
-//        saveButton.centerXAnchor.constraint(equalTo: safeAreaView.centerXAnchor).isActive = true
-//        saveButton.anchor(
-//            top: nil, leading: nil, bottom: safeAreaView.bottomAnchor, trailing: nil, padding: .init(
-//                top: 0, left: 40, bottom: 26, right: 40), size: .init(width: 160, height: 40))

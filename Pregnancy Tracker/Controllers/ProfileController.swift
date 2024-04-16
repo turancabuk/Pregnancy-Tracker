@@ -86,12 +86,6 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
-    
-    lazy var heightLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Your Height"
-        return label
-    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -159,6 +153,16 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         hud.show(in: view)
         present(imagePicker, animated: true)
         hud.dismiss()
+    }
+    func updateProfilePhoto() {
+        DispatchQueue.main.async {
+            if let imageData = self.defaults.data(forKey: "profileImage") {
+                self.imageView.image = UIImage(data: imageData)
+            }else{
+                self.imageView.image = UIImage(named: "women")
+            }
+            self.nameTextfield.text = self.defaults.string(forKey: "userName") ?? "Enter your name"
+        }
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {

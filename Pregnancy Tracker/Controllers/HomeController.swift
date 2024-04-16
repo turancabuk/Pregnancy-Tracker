@@ -10,6 +10,7 @@ import UIKit
 class HomeController: UIViewController, UICollectionViewDelegate {
         
     let safeAreaView = SafeAreaView()
+    let profileController = ProfileController()
     let scrollView = UIScrollView()
     let contentView = UIView()
     let advertView = AdvertView()
@@ -44,14 +45,20 @@ class HomeController: UIViewController, UICollectionViewDelegate {
 
         setupCollectionView()
         collectionView.delegate = self
+        setupLayout()
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        safeAreaView.updateUserInfo()
     }
     private func setupCollectionView() {
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
         collectionView.backgroundColor = .orange
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        setupLayout()
+        
 
         collectionView.register(HeaderCategoriesCell.self, forCellWithReuseIdentifier: "headerCategoriesCellId")
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: "mainCategoriesCellId")
@@ -134,11 +141,11 @@ class HomeController: UIViewController, UICollectionViewDelegate {
 }
 extension HomeController {
     fileprivate func setupLayout() {
-
+        view.addSubview(safeAreaView)
         safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "f79256"))
         tabBarController?.tabBar.backgroundColor = .white
 
-        view.addSubview(safeAreaView)
+        
         safeAreaView.addSubview(seperatorView)
         safeAreaView.addSubview(scrollView)
         scrollView.addSubview(contentView)
