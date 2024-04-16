@@ -93,11 +93,6 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         }
         dismiss(animated: true, completion: nil)
     }
-    fileprivate func showAlert(message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-        present(alert, animated: true, completion: nil)
-    }
     
     // MARK: Button Confgs.
     @objc fileprivate func handlePicker() {
@@ -118,29 +113,9 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
     }
     @objc fileprivate func handleSave() {
         
-        guard let name = nameTextfield.text, !name.isEmpty else {
-            self.showAlert(message: "please enter your name")
-            return
-        }
-        guard let profileImage = profileImageView.image, profileImage != UIImage(systemName: "person.crop.circle.badge.plus") else {
-            self.showAlert(message: "Please select a profile image")
-            return
-        }
+        let profilerManager = ProfileManager()
+        profilerManager.userDefaultsProfileManager(from: self, nameTextfield: nameTextfield, profileImageView: profileImageView, datePicker: datePicker)
         
-        if let imageData = profileImage.jpegData(compressionQuality: 1.0) {
-            defaults.set(imageData, forKey: "profileImage")
-        }else{
-            showAlert(message: "please select a profile image")
-        }
-        
-        defaults.set(name, forKey: "userName")
-        
-        let pregnancyDateData = try? NSKeyedArchiver.archivedData(withRootObject: datePicker.date, requiringSecureCoding: false)
-        defaults.set(pregnancyDateData, forKey: "pregnancyDate")
-//        defaults.set(try? NSKeyedArchiver.archivedData(withRootObject: datePicker.date, requiringSecureCoding: false), forKey: "pregnancyDate")
-        
-
-        defaults.synchronize()
         self.dismiss(animated: true)
     }
     @objc fileprivate func handleDismiss() {

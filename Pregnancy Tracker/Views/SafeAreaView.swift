@@ -48,7 +48,59 @@ class SafeAreaView: UIView {
         super.init(frame: frame)
         
         setupView()
+        
+        
     }
+    func setPersonelView(backgroundColor: UIColor) {
+        personelView.backgroundColor = backgroundColor
+    }
+    func updateUserInfo() {
+        
+        DispatchQueue.main.async {
+            if let imageData = self.defaults.data(forKey: "profileImage") {
+                self.profileImageView.image = UIImage(data: imageData)
+            } else {
+                self.profileImageView.image = UIImage(named: "women")
+            }
+            self.nameLabel.text = self.defaults.string(forKey: "userName") ?? "Unknown User"
+            self.updatePregnancyWeek()
+            self.updateBirthday()
+        }
+    }
+    private func updatePregnancyWeek(){
+        if let savedData = defaults.data(forKey: "pregnancyDate"),
+           let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? Date {
+            let weeks = Calendar.current.dateComponents([.weekOfYear], from: savedDate, to: Date()).weekOfYear ?? 0
+            pregnancyWeekValue.text = "\(weeks + 1) weeks"
+        }
+    }
+    private func updateBirthday() {
+        if let savedDateData = defaults.data(forKey: "pregnancyDate"),
+           let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedDateData) as? Date {
+
+            let calendar = Calendar.current
+            var components = DateComponents()
+            components.month = 9
+            components.day = 10
+            if let futureDate = calendar.date(byAdding: components, to: savedDate) {
+
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd/MM/yyyy"
+                let futureDateString = dateFormatter.string(from: futureDate)
+                
+                birthDayValue.text = "\(futureDateString)❤️"
+            } else {
+                birthDayValue.text = "Pregnancy Date?"
+            }
+        } else {
+            birthDayValue.text = "Pregnancy Date?"
+        }
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+extension SafeAreaView {
     func setupView() {
 
         addSubview(personelView)
@@ -105,55 +157,5 @@ class SafeAreaView: UIView {
             birthDayValue.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),
            
         ])
-    }
-    func updateUserInfo() {
-        
-        DispatchQueue.main.async {
-            if let imageData = self.defaults.data(forKey: "profileImage") {
-                self.profileImageView.image = UIImage(data: imageData)
-            } else {
-                self.profileImageView.image = UIImage(named: "women")
-            }
-            
-            self.nameLabel.text = self.defaults.string(forKey: "userName") ?? "Unknown User"
-            self.updatePregnancyWeek()
-            self.updateBirthday()
-        }
-    }
-
-    private func updatePregnancyWeek(){
-        if let savedData = defaults.data(forKey: "pregnancyDate"),
-           let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? Date {
-            let weeks = Calendar.current.dateComponents([.weekOfYear], from: savedDate, to: Date()).weekOfYear ?? 0
-            pregnancyWeekValue.text = "\(weeks + 1) weeks"
-        }
-    }
-    private func updateBirthday() {
-        if let savedDateData = defaults.data(forKey: "pregnancyDate"),
-           let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedDateData) as? Date {
-
-            let calendar = Calendar.current
-            var components = DateComponents()
-            components.month = 9
-            components.day = 10
-            if let futureDate = calendar.date(byAdding: components, to: savedDate) {
-
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "dd/MM/yyyy"
-                let futureDateString = dateFormatter.string(from: futureDate)
-                
-                birthDayValue.text = "\(futureDateString)❤️"
-            } else {
-                birthDayValue.text = "Pregnancy Date?"
-            }
-        } else {
-            birthDayValue.text = "Pregnancy Date?"
-        }
-    }
-    func setPersonelView(backgroundColor: UIColor) {
-        personelView.backgroundColor = backgroundColor
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
