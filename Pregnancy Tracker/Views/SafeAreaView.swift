@@ -11,118 +11,71 @@ class SafeAreaView: UIView {
     
     let defaults = UserDefaults.standard
     
-    lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-    lazy var contentView: UIView = {
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        return contentView
-    }()
     lazy var personelView: UIView = {
         personelView = UIView()
         personelView.layer.cornerRadius = 12
         personelView.clipsToBounds = true
+        personelView.translatesAutoresizingMaskIntoConstraints = false
         return personelView
     }()
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 60 / 2
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
-        if let imageData = defaults.data(forKey: "profileImage") {
-            imageView.image = UIImage(data: imageData)
-        }else{
-            imageView.image = UIImage(named: "women")
-        }
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    lazy var nameLabel: UILabel = {
+    
+    private func createCustomLabel(fontSize: CGFloat, text: String? = nil, textColor: UIColor) -> UILabel {
         let label = UILabel()
-        let defaults = UserDefaults.standard
-        label.text = defaults.string(forKey: "userName") ?? ""
-        label.font = FontHelper.customFont(size: 16)
+        label.font = FontHelper.customFont(size: fontSize)
         label.textAlignment = .center
+        label.text = text
+        label.textColor = textColor
         return label
-    }()
-    lazy var weightLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Weight"
-        label.font = FontHelper.customFont(size: 16)
-        label.textAlignment = .center
-        label.textColor = .white
-        return label
-    }()
-    lazy var weightValueLabel: UILabel = {
-        let label = UILabel()
-        let kgValue = defaults.string(forKey: "kgValue") ?? ""
-        let gValue = defaults.string(forKey: "gValue") ?? ""
-        label.text = "\(kgValue).\(gValue) kg"
-        label.font = FontHelper.customFont(size: 16)
-        label.textAlignment = .center
-        return label
-    }()
-    lazy var pregnancyWeekLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Pregnancy Week"
-        label.font = FontHelper.customFont(size: 16)
-        label.textAlignment = .center
-        label.textColor = .white
-        return label
-    }()
-    lazy var pregnancyWeekValue: UILabel = {
-        let label = UILabel()
+    }
+
+    lazy var nameLabel = createCustomLabel(fontSize: 16, textColor: .black)
+    lazy var pregnancyWeekLabel: UILabel = createCustomLabel(fontSize: 16, text: "Pregnancy Week", textColor: .white)
+    lazy var pregnancyWeekValue = createCustomLabel(fontSize: 16, textColor: .black)
+    lazy var birthDayLabel = createCustomLabel(fontSize: 16,text: "Birth Day", textColor: .white)
+    lazy var birthDayValue = createCustomLabel(fontSize: 16, textColor: .systemPink)
+    
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupView()
+        
+        
+    }
+    func setPersonelView(backgroundColor: UIColor) {
+        personelView.backgroundColor = backgroundColor
+    }
+    func updateUserInfo() {
+        
+        DispatchQueue.main.async {
+            if let imageData = self.defaults.data(forKey: "profileImage") {
+                self.profileImageView.image = UIImage(data: imageData)
+            } else {
+                self.profileImageView.image = UIImage(named: "women")
+            }
+            self.nameLabel.text = self.defaults.string(forKey: "userName") ?? "Unknown User"
+            self.updatePregnancyWeek()
+            self.updateBirthday()
+        }
+    }
+    private func updatePregnancyWeek(){
         if let savedData = defaults.data(forKey: "pregnancyDate"),
            let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? Date {
-            
-            let today = Date()
-            let calendar = Calendar.current
-            let difference = calendar.dateComponents([.weekOfYear], from: savedDate, to: today)
-            
-            if let weeks = difference.weekOfYear {
-                label.text = "\(weeks + 1). week"
-            }else{
-                label.text = "Unknowned"
-            }
-        }else{
-            label.text = "hesaplanamadı"
+            let weeks = Calendar.current.dateComponents([.weekOfYear], from: savedDate, to: Date()).weekOfYear ?? 0
+            pregnancyWeekValue.text = "\(weeks + 1) weeks"
         }
-        label.font = FontHelper.customFont(size: 16)
-        label.textAlignment = .center
-        return label
-    }()
-    lazy var heightLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Height"
-        label.font = FontHelper.customFont(size: 16)
-        label.textAlignment = .center
-        label.textColor = .white
-        return label
-    }()
-    lazy var heightValueLabel: UILabel = {
-        let label = UILabel()
-        let mValue = defaults.string(forKey: "mValue") ?? ""
-        let cmValue = defaults.string(forKey: "cmValue") ?? ""
-        label.text = "\(mValue).\(cmValue)cm"
-        label.font = FontHelper.customFont(size: 16)
-        label.textAlignment = .center
-        return label
-    }()
-    lazy var birthDayLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Birth Day"
-        label.font = FontHelper.customFont(size: 16)
-        label.textAlignment = .center
-        label.textColor = .white
-        return label
-    }()
-    lazy var birthDayValue: UILabel = {
-        let label = UILabel()
-        if let savedDateData = UserDefaults.standard.data(forKey: "pregnancyDate"),
+    }
+    private func updateBirthday() {
+        if let savedDateData = defaults.data(forKey: "pregnancyDate"),
            let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedDateData) as? Date {
 
             let calendar = Calendar.current
@@ -135,28 +88,22 @@ class SafeAreaView: UIView {
                 dateFormatter.dateFormat = "dd/MM/yyyy"
                 let futureDateString = dateFormatter.string(from: futureDate)
                 
-                label.text = "\(futureDateString)❤️"
+                birthDayValue.text = "\(futureDateString)❤️"
             } else {
-                label.text = "Pregnancy Date?"
+                birthDayValue.text = "Pregnancy Date?"
             }
         } else {
-            label.text = "Pregnancy Date?"
+            birthDayValue.text = "Pregnancy Date?"
         }
-        label.font = FontHelper.customFont(size: 16)
-        label.textAlignment = .center
-        label.textColor = .systemPink
-        return label
-    }()
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setupView()
     }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+extension SafeAreaView {
     func setupView() {
 
         addSubview(personelView)
-        addSubview(scrollView)
-        scrollView.addSubview(contentView)
         personelView.addSubview(profileImageView)
         personelView.addSubview(nameLabel)
         personelView.addSubview(pregnancyWeekLabel)
@@ -210,11 +157,5 @@ class SafeAreaView: UIView {
             birthDayValue.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),
            
         ])
-    }
-    func setPersonelView(backgroundColor: UIColor) {
-        personelView.backgroundColor = backgroundColor
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

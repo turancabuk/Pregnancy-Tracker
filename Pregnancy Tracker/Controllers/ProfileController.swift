@@ -34,7 +34,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         return view
     }()
     
-    lazy var imageView: UIImageView = {
+    lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +52,8 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     lazy var changeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "change")
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChange)))
+        imageView.isUserInteractionEnabled = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -61,7 +63,6 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         let textfield = UIComponentsFactory.createCustomTextfield(placeHolder: "\(name ?? "enter your name")", fontSize: 16, borderColor: UIColor.white, borderWidth: 3.0, cornerRadius: 12)
         textfield.backgroundColor = UIColor.orange
         textfield.textColor = UIColor.black
-        textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.paddingLeft(padding: 12)
         textfield.textAlignment = .center
         return textfield
@@ -82,74 +83,30 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         datePicker.minimumDate = Calendar.current.date(byAdding: .year, value: -1, to: currentDate)
         datePicker.maximumDate = currentDate
         datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .inline
+        datePicker.backgroundColor = UIColor(hex: "ffbc42")
+        datePicker.layer.cornerRadius = 16
+        datePicker.clipsToBounds = true
         datePicker.isUserInteractionEnabled = true
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
     
-    lazy var heightLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Your Height"
-        return label
+    lazy var saveButton: UIButton = {
+        let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: UIColor.orange, borderColor: .white, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleSave)
+        button.setTitleColor(UIColor.white, for: .normal)
+        return button
     }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLayout()
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleChange))
-        changeImageView.isUserInteractionEnabled = true
-        changeImageView.addGestureRecognizer(tapGestureRecognizer)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         
-    }
-    private func setupLayout() {
         
-        view.addSubview(topView)
-        view.addSubview(seperatorView)
-        view.addSubview(bottomView)
-        view.addSubview(imageView)
-        view.addSubview(changeImageView)
-        view.addSubview(nameTextfield)
-        view.addSubview(datePickerLabel)
-        view.addSubview(datePicker)
-        
-        NSLayoutConstraint.activate([
-            topView.topAnchor.constraint(equalTo: view.topAnchor),
-            topView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/5),
-            
-            seperatorView.topAnchor.constraint(equalTo: topView.bottomAnchor),
-            seperatorView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            seperatorView.heightAnchor.constraint(equalToConstant: 2),
-            
-            bottomView.topAnchor.constraint(equalTo: seperatorView.bottomAnchor),
-            bottomView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            imageView.centerXAnchor.constraint(equalTo: seperatorView.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: seperatorView.centerYAnchor),
-            imageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/5),
-            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 2.5/6),
-            
-            changeImageView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -4),
-            changeImageView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1/5),
-            changeImageView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -6),
-            changeImageView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1/5),
-            
-            nameTextfield.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
-            nameTextfield.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/2),
-            nameTextfield.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-            nameTextfield.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/25),
-            
-            datePickerLabel.topAnchor.constraint(equalTo: nameTextfield.bottomAnchor, constant: 24),
-            datePickerLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 2/3),
-            datePickerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            datePickerLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/30),
-            
-            datePicker.topAnchor.constraint(equalTo: datePickerLabel.bottomAnchor, constant: 12),
-            datePicker.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/4),
-            datePicker.leadingAnchor.constraint(equalTo: datePickerLabel.leadingAnchor),
-            datePicker.heightAnchor.constraint(equalTo: datePickerLabel.heightAnchor)
-        ])
     }
     @objc func handleChange() {
         let imagePicker = UIImagePickerController()
@@ -160,13 +117,97 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         present(imagePicker, animated: true)
         hud.dismiss()
     }
+    func updateProfilePhoto() {
+        DispatchQueue.main.async {
+            if let imageData = self.defaults.data(forKey: "profileImage") {
+                self.profileImageView.image = UIImage(data: imageData)
+            }else{
+                self.profileImageView.image = UIImage(named: "women")
+            }
+            self.nameTextfield.text = self.defaults.string(forKey: "userName") ?? "Enter your name"
+        }
+    }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
-            imageView.image = selectedImage
+            profileImageView.image = selectedImage
             dismiss(animated: true)
         }
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true)
+    }
+    @objc func handleSave() {
+        
+        let profileManager = ProfileManager()
+        profileManager.userDefaultsProfileManager(from: self, nameTextfield: nameTextfield, profileImageView: profileImageView, datePicker: datePicker)
+        
+        if let tabBarController = self.tabBarController {
+            tabBarController.selectedIndex = 1
+        }
+
+    }
+    @objc fileprivate func handleDismiss(){
+        view.endEditing(true)
+    }
+    @objc fileprivate func handleDatePicker() {
+        print("date selected")
+    }
+}
+extension ProfileController {
+    private func setupLayout() {
+        
+        view.addSubview(topView)
+        view.addSubview(seperatorView)
+        view.addSubview(bottomView)
+        view.addSubview(profileImageView)
+        view.addSubview(changeImageView)
+        view.addSubview(nameTextfield)
+        view.addSubview(datePickerLabel)
+        view.addSubview(datePicker)
+        view.addSubview(saveButton)
+        
+        NSLayoutConstraint.activate([
+            topView.topAnchor.constraint(equalTo: view.topAnchor),
+            topView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            topView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/6.5),
+            
+            seperatorView.topAnchor.constraint(equalTo: topView.bottomAnchor),
+            seperatorView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            seperatorView.heightAnchor.constraint(equalToConstant: 2),
+            
+            bottomView.topAnchor.constraint(equalTo: seperatorView.bottomAnchor),
+            bottomView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            profileImageView.centerXAnchor.constraint(equalTo: seperatorView.centerXAnchor),
+            profileImageView.centerYAnchor.constraint(equalTo: seperatorView.centerYAnchor),
+            profileImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/5),
+            profileImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 2.5/6),
+            
+            changeImageView.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: -4),
+            changeImageView.widthAnchor.constraint(equalTo: profileImageView.widthAnchor, multiplier: 1/7),
+            changeImageView.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: -6),
+            changeImageView.heightAnchor.constraint(equalTo: profileImageView.heightAnchor, multiplier: 1/7),
+            
+            nameTextfield.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 12),
+            nameTextfield.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/2),
+            nameTextfield.centerXAnchor.constraint(equalTo: profileImageView.centerXAnchor),
+            nameTextfield.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/25),
+            
+            datePickerLabel.topAnchor.constraint(equalTo: nameTextfield.bottomAnchor, constant: 24),
+            datePickerLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 2/3),
+            datePickerLabel.leadingAnchor.constraint(equalTo: datePicker.leadingAnchor),
+            datePickerLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/30),
+            
+            datePicker.topAnchor.constraint(equalTo: datePickerLabel.bottomAnchor, constant: 12),
+            datePicker.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/10),
+            datePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            datePicker.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -12),
+            
+            saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+            saveButton.heightAnchor.constraint(equalToConstant: 40),
+            saveButton.widthAnchor.constraint(equalToConstant: 160),
+            saveButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+        ])
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 class HomeController: UIViewController, UICollectionViewDelegate {
         
     let safeAreaView = SafeAreaView()
+    let profileController = ProfileController()
     let scrollView = UIScrollView()
     let contentView = UIView()
     let advertView = AdvertView()
@@ -44,14 +45,20 @@ class HomeController: UIViewController, UICollectionViewDelegate {
 
         setupCollectionView()
         collectionView.delegate = self
+        setupLayout()
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        safeAreaView.updateUserInfo()
     }
     private func setupCollectionView() {
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
         collectionView.backgroundColor = .orange
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        setupLayout()
+        
 
         collectionView.register(HeaderCategoriesCell.self, forCellWithReuseIdentifier: "headerCategoriesCellId")
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: "mainCategoriesCellId")
@@ -133,12 +140,42 @@ class HomeController: UIViewController, UICollectionViewDelegate {
     }
 }
 extension HomeController {
+    private func createHorizontalSection(height: CGFloat, itemCount: Int) -> NSCollectionLayoutSection {
+        
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0 / CGFloat(itemCount)), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.4), heightDimension: .absolute(height))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 10
+        section.orthogonalScrollingBehavior = .continuous
+        return section
+    }
+    private func createVerticalSection(itemHeight: CGFloat, itemCount: Int) -> NSCollectionLayoutSection {
+        
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.98), heightDimension: .absolute(itemHeight))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(itemHeight * CGFloat(itemCount)))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        return section
+    }
+}
+extension HomeController {
     fileprivate func setupLayout() {
-
+        view.addSubview(safeAreaView)
         safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "f79256"))
         tabBarController?.tabBar.backgroundColor = .white
 
-        view.addSubview(safeAreaView)
+        
         safeAreaView.addSubview(seperatorView)
         safeAreaView.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -193,36 +230,6 @@ extension HomeController {
     }
     fileprivate func disableAutoResizingMaskConstraints(for views: [UIView]) {
         views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-    }
-}
-extension HomeController {
-    private func createHorizontalSection(height: CGFloat, itemCount: Int) -> NSCollectionLayoutSection {
-        
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0 / CGFloat(itemCount)), heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.4), heightDimension: .absolute(height))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 10
-        section.orthogonalScrollingBehavior = .continuous
-        return section
-    }
-    private func createVerticalSection(itemHeight: CGFloat, itemCount: Int) -> NSCollectionLayoutSection {
-        
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.98), heightDimension: .absolute(itemHeight))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(itemHeight * CGFloat(itemCount)))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        return section
     }
 }
 
