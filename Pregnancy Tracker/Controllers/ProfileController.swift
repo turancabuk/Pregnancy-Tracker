@@ -115,7 +115,6 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         hud.textLabel.text = "select a photo"
         hud.show(in: view)
         present(imagePicker, animated: true)
-        hud.dismiss()
     }
     func updateProfilePhoto() {
         DispatchQueue.main.async {
@@ -130,11 +129,15 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
             profileImageView.image = selectedImage
-            dismiss(animated: true)
+            dismiss(animated: true) {
+                self.hud.dismiss()
+            }
         }
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true)
+        dismiss(animated: true) {
+            self.hud.dismiss()
+        }
     }
     @objc func handleSave() {
         

@@ -67,7 +67,7 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         datePicker.minimumDate = Calendar.current.date(byAdding: .year, value: -1, to: currentDate)
         datePicker.maximumDate = currentDate
         datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.preferredDatePickerStyle = .inline
         datePicker.layer.cornerRadius = 16
         datePicker.clipsToBounds = true
         datePicker.isUserInteractionEnabled = true
@@ -87,12 +87,6 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
 
     }
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.profileImageView.image = chosenImage
-        }
-        dismiss(animated: true, completion: nil)
-    }
     
     // MARK: Button Confgs.
     @objc fileprivate func handlePicker() {
@@ -102,7 +96,19 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         picker.delegate = self
         picker.sourceType = .photoLibrary
         present(picker, animated: true)
-        hud.dismiss()
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.profileImageView.image = chosenImage
+        }
+        dismiss(animated: true) {
+            self.hud.dismiss()
+        }
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true) {
+            self.hud.dismiss()
+        }
     }
     @objc fileprivate func handleDatePicker() {
         let selectedDate = datePicker.date
