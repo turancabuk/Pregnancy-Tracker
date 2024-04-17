@@ -20,6 +20,7 @@ class HomeController: UIViewController, UICollectionViewDelegate {
         case header
         case main
         case vertical
+        case foodDiet
     }
         
     let headerCollection = ["development", "water", "nutrition", "mood"]
@@ -30,6 +31,7 @@ class HomeController: UIViewController, UICollectionViewDelegate {
                                   "deneme2 deneme2 deneme2 deneme2 deneme2 deneme2",
                                   "deneme3 deneme3 deneme3 deneme3 deneme3 deneme3",
     ]
+    let foodAndDietCollection = ["diet", "food"]
     
     let seperatorView: UIView = {
         let view = UIView()
@@ -63,6 +65,7 @@ class HomeController: UIViewController, UICollectionViewDelegate {
         collectionView.register(HeaderCategoriesCell.self, forCellWithReuseIdentifier: "headerCategoriesCellId")
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: "mainCategoriesCellId")
         collectionView.register(VerticalCollectionViewCell.self, forCellWithReuseIdentifier: "verticalCollectionViewCellId")
+        collectionView.register(FoodandDietCell.self, forCellWithReuseIdentifier: "foodAndDietCell")
         
         dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView){
             (collectionView: UICollectionView, indexPath: IndexPath, identifier: String) -> UICollectionViewCell? in
@@ -81,6 +84,10 @@ class HomeController: UIViewController, UICollectionViewDelegate {
                 cell.imageView.image = UIImage(named: identifier)
                 cell.infoLabel.text = self.verticalCollectionInfo[indexPath.item]
                 return cell
+            case .foodDiet:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "foodAndDietCell", for: indexPath) as! FoodandDietCell
+                cell.imageView.image = UIImage(named: identifier)
+                return cell
             }
         }
         applyInitialSnapshot()
@@ -96,6 +103,8 @@ class HomeController: UIViewController, UICollectionViewDelegate {
                 snapshot.appendItems(mainCollection, toSection: .main)
             case .vertical:
                 snapshot.appendItems(verticalCollection, toSection: .vertical)
+            case .foodDiet:
+                snapshot.appendItems(foodAndDietCollection, toSection: .foodDiet)
             }
         }
         dataSource.apply(snapshot, animatingDifferences: false)
@@ -113,6 +122,8 @@ class HomeController: UIViewController, UICollectionViewDelegate {
                 return self.createHorizontalSection(height: 240, itemCount: self.mainCollection.count)
             case .vertical:
                 return self.createVerticalSection(itemHeight: 100, itemCount: self.verticalCollection.count)
+            case .foodDiet:
+                return self.createHorizontalSection(height: 200, itemCount: self.foodAndDietCollection.count)
             }
         }
     }
