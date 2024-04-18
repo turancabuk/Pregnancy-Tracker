@@ -15,6 +15,8 @@ class HomeController: UIViewController, UICollectionViewDelegate {
     let contentView = UIView()
     let advertView = AdvertView()
     var dataSource: UICollectionViewDiffableDataSource<Section, String>!
+    var collectionView: UICollectionView!
+    
     
     enum Section: Int, CaseIterable {
         case header
@@ -39,7 +41,7 @@ class HomeController: UIViewController, UICollectionViewDelegate {
         return view
     }()
     
-    var collectionView: UICollectionView!
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,6 +141,20 @@ class HomeController: UIViewController, UICollectionViewDelegate {
         case .vertical:
             let selectedItem = verticalCollection[indexPath.row]
             uniqueSelectedItem(selectedItem)
+        case .foodDiet:
+            let selectedItem = foodAndDietCollection[indexPath.row]
+            let detVC = FoodAndDietView()
+            if selectedItem == "diet" {
+                detVC.imageView.image = UIImage(named: "diet")
+                let dietDetail = DietAndFoodInfoProvider.shared.getDietDescription(for: .diet)
+                detVC.foodDietLabel.text = dietDetail
+            }else{
+                detVC.imageView.image = UIImage(named: "food")
+                let foodDetail = DietAndFoodInfoProvider.shared.getDietDescription(for: .food)
+                detVC.foodDietLabel.text = foodDetail
+            }
+            detVC.modalPresentationStyle = .fullScreen
+            present(detVC, animated: true)
         default:
             fatalError()
         }
@@ -243,4 +259,5 @@ extension HomeController {
         views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
 }
+
 
