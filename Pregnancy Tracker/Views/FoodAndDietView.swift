@@ -33,7 +33,6 @@ class FoodAndDietView: UIViewController {
     
     lazy var imageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .red
         view.contentMode = .scaleAspectFill
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
