@@ -10,97 +10,138 @@ import UIKit
 
 class SettingsController: UIViewController {
     
+   
+    var customColour = UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1.0)
+    let customColour1 = UIColor(red: 0.8667, green: 0.7451, blue: 0.6588, alpha: 0.4)
+    let backgroundColor = UIColor(hex: "ddbea8")
+    lazy var advertView = AdvertView()
+    
+    lazy var safeAreaView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0.8667, green: 0.7451, blue: 0.6588, alpha: 0.4)
+        view.layer.cornerRadius = 16
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "contactImage")
+        imageView.contentMode = .scaleAspectFit
+        ShadowLayer.setShadow(view: imageView, color: UIColor.darkGray, opacity: 1.0, offset: .init(width: 0.5, height: 0.5), radius: 5)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    
+    lazy var shareButton = createCustomSettingsButton(title: "Share Us", image: UIImage(named: "shareButton")!, action: #selector(shareTapped))
+    lazy var rateButton = createCustomSettingsButton(title: "Rate Us", image: UIImage(named: "rateButton")!, action: #selector(rateTapped))
+    lazy var contactButton = createCustomSettingsButton(title: "Contact Us", image: UIImage(named: "contactButton")!, action: #selector(contactTapped))
+    lazy var privacyButton = createCustomSettingsButton(title: "Privacy Policy", image: UIImage(named: "privacyButton")!, action: #selector(privacyTapped))
+    
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [shareButton, rateButton, contactButton, privacyButton])
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 12
+        stackView.isUserInteractionEnabled = true
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(white: 1, alpha: 0.8)
-        setCustomView()
-        addButtons()
-        
-    }
-    
-    func setCustomView() {
-        let custumView = CustomView(frame: view.bounds)
-        custumView.backgroundColorOption = .settingsColor
-        view.addSubview(custumView)
-        
-    }
-    
-    func addButtons() {
-           let buttonNames = ["shareButton", "rateButton", "privacyButton", "contactButton"]
-           let buttonTitles = ["Share", "Rate", "Privacy", "Contact"]
-           
-           for (index, name) in buttonNames.enumerated() {
-               let button = UIButton()
-               button.setImage(UIImage(named: name), for: .normal)
-               button.setTitle(buttonTitles[index], for: .normal)
-               
-               // Buton boyutlarını ve konumunu ayarla
-               let screenWidth = UIScreen.main.bounds.width
-               let screenHeight = UIScreen.main.bounds.height
-               let buttonHeight = screenHeight * 0.1
-               let buttonWidth = screenWidth * 0.8
-               let buttonSpacing: CGFloat = 10
-               let buttonY = CGFloat(index) * (buttonHeight + buttonSpacing) + 100 // 100 üstünden başlayarak alt alta sırala
-               button.frame = CGRect(x: (screenWidth - buttonWidth) / 2, y: buttonY, width: buttonWidth, height: buttonHeight)
+        setupLayout()
 
-               switch name {
-               case "shareButton":
-                   button.addTarget(self, action: #selector(shareTapped), for: .touchUpInside)
-               case "rateButton":
-                   button.addTarget(self, action: #selector(rateTapped), for: .touchUpInside)
-               case "privacyButton":
-                   button.addTarget(self, action: #selector(privacyTapped), for: .touchUpInside)
-               case "contactButton":
-                   button.addTarget(self, action: #selector(contactTapped), for: .touchUpInside)
-               default:
-                   break
-               }
-               view.addSubview(button)
-           }
-       }
-    
-    func setButtons() {
-        let screenWidth = UIScreen.main.bounds.width
-        let screenHeight = UIScreen.main.bounds.height
         
-        let buttonHeight = screenHeight * 0.08
-        let buttonWidth = screenWidth * 0.8
-        let bottomMargin = screenHeight * 0.15
-        let buttonSpacing: CGFloat = 1
-        
-        let buttonNames = ["shareButton", "rateButton", "privacyButton", "contactButton"]
-        
-        for (index, name) in buttonNames.enumerated() {
-            let button = UIButton()
-            button.setImage(UIImage(named: name), for: .normal)
-            
-            let buttonY = screenHeight - bottomMargin - buttonHeight * CGFloat(index + 1) - buttonSpacing * CGFloat(index)
-            button.frame = CGRect(x: (screenWidth - buttonWidth) / 2, y: buttonY, width: buttonWidth, height: buttonHeight)
-            
-            view.addSubview(button)
-        }
     }
-
-    
+    fileprivate func setupLayout(){
+        view.backgroundColor = UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1.0)
+        view.addSubview(safeAreaView)
+        view.addSubview(stackView)
+        safeAreaView.addSubview(imageView)
+        safeAreaView.addSubview(advertView)
+        
+        advertView.translatesAutoresizingMaskIntoConstraints = false
+        ShadowLayer.setShadow(view: advertView, color: .darkGray, opacity: 1.0, offset: .init(width: 0.5, height: 0.5), radius: 5)
+        
+        NSLayoutConstraint.activate([
+            
+            safeAreaView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 54),
+            safeAreaView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
+            safeAreaView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
+            safeAreaView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
+            
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
+            imageView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 3/5),
+            imageView.widthAnchor.constraint(equalTo: safeAreaView.widthAnchor, multiplier: 3/5),
+            imageView.centerXAnchor.constraint(equalTo: safeAreaView.centerXAnchor),
+            
+            stackView.bottomAnchor.constraint(equalTo: advertView.topAnchor, constant: -24),
+            stackView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/3),
+            stackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 4/5),
+            stackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            
+            advertView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -54),
+            advertView.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/6),
+            advertView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
+            advertView.centerXAnchor.constraint(equalTo: stackView.centerXAnchor)
+            
+        ])
+    }
+    private func createCustomSettingsButton(title: String, image: UIImage, action: Selector) -> UIButton {
+        
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let titleLabel = UILabel()
+        titleLabel.text = title
+        titleLabel.font = FontHelper.customFont(size: 18)
+        titleLabel.textColor = .darkGray
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        let button = UIButton()
+        button.addSubview(imageView)
+        button.addSubview(titleLabel)
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: button.topAnchor, constant: 7),
+            imageView.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: -7),
+            imageView.widthAnchor.constraint(equalTo: button.widthAnchor, multiplier: 0.4),
+            imageView.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 10),
+            
+            titleLabel.topAnchor.constraint(equalTo: button.topAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: button.bottomAnchor),
+            titleLabel.widthAnchor.constraint(equalTo: button.widthAnchor, multiplier: 0.6),
+            titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -10)
+            
+        ])
+        button.layer.cornerRadius = 16
+        button.clipsToBounds = true
+        ShadowLayer.setShadow(view: button, color: .darkGray, opacity: 1.0, offset: .init(width: 0.5, height: 0.5), radius: 5)
+        button.backgroundColor = UIColor(hex: "ddbea8")
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
     @objc func shareTapped() {
-        
+        print("share button tapped")
     }
 
     @objc func rateTapped() {
-       
-    }
-
-    @objc func privacyTapped() {
-        
+        print("rate button tapped")
     }
 
     @objc func contactTapped() {
-        
+        print("contact button tapped")
     }
     
-    @objc func shareButtonTapped() {
-        print("share button tapped")
-        
+    @objc func privacyTapped() {
+        print("privacy button tapped")
     }
+
 }
+
