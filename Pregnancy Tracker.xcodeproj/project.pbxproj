@@ -8,18 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		53372BD12B9A3A0C00F2F268 /* SettingsPageButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53372BD02B9A3A0B00F2F268 /* SettingsPageButtons.swift */; };
-		53372BD32B9B239B00F2F268 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53372BD22B9B239B00F2F268 /* CustomView.swift */; };
 		5C01984C2B99BFF300AC22CB /* SafeAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */; };
 		5C0198502B9A0DFA00AC22CB /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01984F2B9A0DFA00AC22CB /* UIFont.swift */; };
 		5C0198512B9A12B800AC22CB /* Kinoble.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C01984E2B9A0D9C00AC22CB /* Kinoble.ttf */; };
 		5C01985D2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01985C2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift */; };
 		5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198602B9B912D00AC22CB /* OnboardingController.swift */; };
 		5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */; };
-		5C1EEA542B9C72D000001ACF /* PersonelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */; };
 		5C34023C2BBC1F8E006C7063 /* UIComponentsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */; };
 		5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3402472BBD5446006C7063 /* CalendarViewController.swift */; };
 		5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */; };
-		5C4F81592BC58A320012F709 /* UICollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F81582BC58A320012F709 /* UICollectionViewCompositionalLayout.swift */; };
 		5C54953D2BCF095C00720C48 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54953C2BCF095C00720C48 /* ProfileManager.swift */; };
 		5C5495422BD0057F00720C48 /* FoodandDietCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5495412BD0057F00720C48 /* FoodandDietCell.swift */; };
 		5C54954B2BD00C6E00720C48 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C54954A2BD00C6E00720C48 /* UIOnboarding */; };
@@ -36,11 +33,6 @@
 		5C86E61E2BA0745000FFB7A8 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C86E61C2BA0745000FFB7A8 /* CoreData.xcdatamodeld */; };
 		5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A8C2B98BF8400212267 /* HomeController.swift */; };
 		5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A942B98C0B200212267 /* UIView+Layout.swift */; };
-		5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A962B98C0BD00212267 /* VerticalStackView.swift */; };
-		5C917A9B2B98C6BE00212267 /* WeeklyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A9A2B98C6BE00212267 /* WeeklyController.swift */; };
-		5C917A9D2B98C74500212267 /* HealthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A9C2B98C74500212267 /* HealthController.swift */; };
-		5C917A9F2B98C7A500212267 /* NutritionAndExerciseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917A9E2B98C7A500212267 /* NutritionAndExerciseController.swift */; };
-		5C917AA12B98C7FC00212267 /* InformationSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA02B98C7FC00212267 /* InformationSourceController.swift */; };
 		5C917AA32B98CA9B00212267 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA22B98CA9B00212267 /* ProfileController.swift */; };
 		5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA42B98CAD900212267 /* SettingsController.swift */; };
 		5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA72B98CB3300212267 /* MainTabbarController.swift */; };
@@ -50,24 +42,22 @@
 		5CA9DEFD2B986EB4004FAD1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DEFB2B986EB4004FAD1D /* Main.storyboard */; };
 		5CA9DEFF2B986EB5004FAD1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */; };
 		5CA9DF022B986EB5004FAD1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DF002B986EB5004FAD1D /* LaunchScreen.storyboard */; };
+		5CB65FB42BD2B02100A4A913 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB65FB32BD2B02100A4A913 /* CustomButton.swift */; };
 		5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */; };
 		5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		53372BD02B9A3A0B00F2F268 /* SettingsPageButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPageButtons.swift; sourceTree = "<group>"; };
-		53372BD22B9B239B00F2F268 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaView.swift; sourceTree = "<group>"; };
 		5C01984E2B9A0D9C00AC22CB /* Kinoble.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Kinoble.ttf; sourceTree = "<group>"; };
 		5C01984F2B9A0DFA00AC22CB /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		5C01985C2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCategoriesCell.swift; sourceTree = "<group>"; };
 		5C0198602B9B912D00AC22CB /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
 		5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOnboardingHelper.swift; sourceTree = "<group>"; };
-		5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonelViewController.swift; sourceTree = "<group>"; };
 		5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentsFactory.swift; sourceTree = "<group>"; };
 		5C3402472BBD5446006C7063 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadEventPopUpViewController.swift; sourceTree = "<group>"; };
-		5C4F81582BC58A320012F709 /* UICollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCompositionalLayout.swift; sourceTree = "<group>"; };
 		5C54953C2BCF095C00720C48 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		5C5495412BD0057F00720C48 /* FoodandDietCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodandDietCell.swift; sourceTree = "<group>"; };
 		5C54954F2BD0426500720C48 /* FoodAndDietView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodAndDietView.swift; sourceTree = "<group>"; };
@@ -82,11 +72,6 @@
 		5C86E61D2BA0745000FFB7A8 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		5C917A8C2B98BF8400212267 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		5C917A942B98C0B200212267 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
-		5C917A962B98C0BD00212267 /* VerticalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
-		5C917A9A2B98C6BE00212267 /* WeeklyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyController.swift; sourceTree = "<group>"; };
-		5C917A9C2B98C74500212267 /* HealthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthController.swift; sourceTree = "<group>"; };
-		5C917A9E2B98C7A500212267 /* NutritionAndExerciseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionAndExerciseController.swift; sourceTree = "<group>"; };
-		5C917AA02B98C7FC00212267 /* InformationSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationSourceController.swift; sourceTree = "<group>"; };
 		5C917AA22B98CA9B00212267 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		5C917AA42B98CAD900212267 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		5C917AA72B98CB3300212267 /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
@@ -98,6 +83,7 @@
 		5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5CA9DF012B986EB5004FAD1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5CA9DF032B986EB5004FAD1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CB65FB32BD2B02100A4A913 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowLayer.swift; sourceTree = "<group>"; };
 		5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesDetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,17 +101,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5C01984D2B99E35400AC22CB /* SubControllers */ = {
-			isa = PBXGroup;
-			children = (
-				5C917A9A2B98C6BE00212267 /* WeeklyController.swift */,
-				5C917A9C2B98C74500212267 /* HealthController.swift */,
-				5C917A9E2B98C7A500212267 /* NutritionAndExerciseController.swift */,
-				5C917AA02B98C7FC00212267 /* InformationSourceController.swift */,
-			);
-			path = SubControllers;
-			sourceTree = "<group>";
-		};
 		5C01985B2B9B7ED300AC22CB /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,7 +124,6 @@
 		5C4F81572BC58A190012F709 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				5C4F81582BC58A320012F709 /* UICollectionViewCompositionalLayout.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -159,15 +133,13 @@
 			children = (
 				5C01985F2B9B911900AC22CB /* Onboarding */,
 				5C01985B2B9B7ED300AC22CB /* Cells */,
-				5C01984D2B99E35400AC22CB /* SubControllers */,
-				5C917A8C2B98BF8400212267 /* HomeController.swift */,
 				5C917AA22B98CA9B00212267 /* ProfileController.swift */,
-				5C917AA42B98CAD900212267 /* SettingsController.swift */,
-				5C1EEA532B9C72D000001ACF /* PersonelViewController.swift */,
+				5C917A8C2B98BF8400212267 /* HomeController.swift */,
 				5C3402472BBD5446006C7063 /* CalendarViewController.swift */,
+				5C917AA42B98CAD900212267 /* SettingsController.swift */,
 				5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */,
-				5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */,
 				5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */,
+				5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -176,7 +148,6 @@
 			isa = PBXGroup;
 			children = (
 				5C01984E2B9A0D9C00AC22CB /* Kinoble.ttf */,
-				5C917A962B98C0BD00212267 /* VerticalStackView.swift */,
 				5C917A942B98C0B200212267 /* UIView+Layout.swift */,
 				5C01984F2B9A0DFA00AC22CB /* UIFont.swift */,
 				53372BD02B9A3A0B00F2F268 /* SettingsPageButtons.swift */,
@@ -202,10 +173,10 @@
 			isa = PBXGroup;
 			children = (
 				5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */,
-				53372BD22B9B239B00F2F268 /* CustomView.swift */,
 				5C86E60C2B9DE80A00FFB7A8 /* PersonalInformationView.swift */,
 				5C7FA8EC2BA8725100AEC447 /* AdvertView.swift */,
 				5C54954F2BD0426500720C48 /* FoodAndDietView.swift */,
+				5CB65FB32BD2B02100A4A913 /* CustomButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -233,10 +204,10 @@
 				5C917AA92B98D91B00212267 /* Views */,
 				5C917AA62B98CB1300212267 /* MainTabbarController  */,
 				5C917A8B2B98BF7400212267 /* Controllers */,
-				5CA9DEF52B986EB4004FAD1D /* AppDelegate.swift */,
-				5CA9DEF72B986EB4004FAD1D /* SceneDelegate.swift */,
-				5CA9DEF92B986EB4004FAD1D /* ViewController.swift */,
 				5C917A932B98C0A800212267 /* Helpers */,
+				5CA9DEF72B986EB4004FAD1D /* SceneDelegate.swift */,
+				5CA9DEF52B986EB4004FAD1D /* AppDelegate.swift */,
+				5CA9DEF92B986EB4004FAD1D /* ViewController.swift */,
 				5CA9DEFB2B986EB4004FAD1D /* Main.storyboard */,
 				5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */,
 				5CA9DF002B986EB5004FAD1D /* LaunchScreen.storyboard */,
@@ -330,40 +301,33 @@
 				5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */,
 				5C7FA8ED2BA8725100AEC447 /* AdvertView.swift in Sources */,
 				5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */,
+				5CB65FB42BD2B02100A4A913 /* CustomButton.swift in Sources */,
 				5C86E61E2BA0745000FFB7A8 /* CoreData.xcdatamodeld in Sources */,
 				5C7FA8EB2BA7525400AEC447 /* VerticalCollectionViewCell.swift in Sources */,
 				5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */,
 				5C54953D2BCF095C00720C48 /* ProfileManager.swift in Sources */,
 				5C01985D2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift in Sources */,
 				5C7FA8EF2BA9E17700AEC447 /* CalendarCell.swift in Sources */,
-				53372BD32B9B239B00F2F268 /* CustomView.swift in Sources */,
 				5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */,
 				5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */,
-				5C4F81592BC58A320012F709 /* UICollectionViewCompositionalLayout.swift in Sources */,
 				5C5495522BD1309500720C48 /* DietAndFoodInfoProvider.swift in Sources */,
 				5C86E61B2BA0611600FFB7A8 /* PaddedPlaceHolder.swift in Sources */,
-				5C917A9D2B98C74500212267 /* HealthController.swift in Sources */,
-				5C917AA12B98C7FC00212267 /* InformationSourceController.swift in Sources */,
 				5C5495422BD0057F00720C48 /* FoodandDietCell.swift in Sources */,
 				5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */,
 				53372BD12B9A3A0C00F2F268 /* SettingsPageButtons.swift in Sources */,
 				5C34023C2BBC1F8E006C7063 /* UIComponentsFactory.swift in Sources */,
 				5C7FA8E92BA6EFAE00AEC447 /* MainCollectionViewCell.swift in Sources */,
-				5C917A972B98C0BD00212267 /* VerticalStackView.swift in Sources */,
 				5CA9DEFA2B986EB4004FAD1D /* ViewController.swift in Sources */,
 				5C5495502BD0426500720C48 /* FoodAndDietView.swift in Sources */,
-				5C917A9F2B98C7A500212267 /* NutritionAndExerciseController.swift in Sources */,
 				5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */,
 				5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */,
 				5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */,
 				5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */,
 				5C58CF1C2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift in Sources */,
-				5C917A9B2B98C6BE00212267 /* WeeklyController.swift in Sources */,
 				5C0198502B9A0DFA00AC22CB /* UIFont.swift in Sources */,
 				5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */,
 				5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */,
 				5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */,
-				5C1EEA542B9C72D000001ACF /* PersonelViewController.swift in Sources */,
 				5C917AA32B98CA9B00212267 /* ProfileController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
