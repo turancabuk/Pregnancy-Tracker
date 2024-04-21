@@ -29,7 +29,7 @@ class SettingsController: UIViewController {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "contactImage")
         imageView.contentMode = .scaleAspectFit
-        ShadowLayer.setShadow(view: imageView, color: UIColor.darkGray, opacity: 1.0, offset: .init(width: 0.5, height: 0.5), radius: 5)
+        ShadowLayer.setShadow(view: imageView, color: UIColor.black, opacity: 1.0, offset: .init(width: 0.5, height: 0.5), radius: 5)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -82,12 +82,12 @@ class SettingsController: UIViewController {
             
             stackView.bottomAnchor.constraint(equalTo: advertView.topAnchor, constant: -24),
             stackView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/3),
-            stackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 4/5),
+            stackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 5/6),
             stackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             
             advertView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -54),
-            advertView.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/6),
-            advertView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
+            advertView.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/5),
+            advertView.widthAnchor.constraint(equalTo: stackView.widthAnchor, constant: 12),
             advertView.centerXAnchor.constraint(equalTo: stackView.centerXAnchor)
             
         ])
@@ -100,9 +100,10 @@ class SettingsController: UIViewController {
         
         let titleLabel = UILabel()
         titleLabel.text = title
-        titleLabel.font = FontHelper.customFont(size: 18)
+        titleLabel.font = FontHelper.customFont(size: 22)
         titleLabel.textColor = .darkGray
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         let button = UIButton()
         button.addSubview(imageView)
         button.addSubview(titleLabel)
@@ -129,18 +130,24 @@ class SettingsController: UIViewController {
     }
     @objc func shareTapped() {
         print("share button tapped")
+        // Appstore'dan adres alındıktan sonra güncellenecek.
     }
 
     @objc func rateTapped() {
         print("rate button tapped")
+        // Appstore'dan adres alındıktan sonra güncellenecek.
     }
 
     @objc func contactTapped() {
-        print("contact button tapped")
+        if let url = URL(string: "https://www.linkedin.com/in/turancabuk/") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
     @objc func privacyTapped() {
-        print("privacy button tapped")
+        if let url = URL(string: "https://www.freeprivacypolicy.com/live/aa86aece-5f15-4c8f-9a43-41e3f8fe8859") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
 
 }

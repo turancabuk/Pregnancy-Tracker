@@ -9,7 +9,11 @@ import UIKit
 
 class SafeAreaView: UIView {
     
-    let defaults = UserDefaults.standard
+    var viewModel: SafeAreaViewModel? {
+        didSet {
+            updateUI()
+        }
+    }
     
     lazy var personelView: UIView = {
         personelView = UIView()
@@ -40,7 +44,7 @@ class SafeAreaView: UIView {
     lazy var nameLabel = createCustomLabel(fontSize: 16, textColor: .black)
     lazy var pregnancyWeekLabel: UILabel = createCustomLabel(fontSize: 16, text: "Pregnancy Week", textColor: .white)
     lazy var pregnancyWeekValue = createCustomLabel(fontSize: 16, textColor: .black)
-    lazy var birthDayLabel = createCustomLabel(fontSize: 16,text: "Birth Day", textColor: .white)
+    lazy var birthDayLabel = createCustomLabel(fontSize: 16,text: "Birth Day ❤️", textColor: .white)
     lazy var birthDayValue = createCustomLabel(fontSize: 16, textColor: .systemPink)
     
 
@@ -54,47 +58,23 @@ class SafeAreaView: UIView {
     func setPersonelView(backgroundColor: UIColor) {
         personelView.backgroundColor = backgroundColor
     }
-    func updateUserInfo() {
+    func updateUI() {
+        guard let viewModel = viewModel else { return }
         
-        DispatchQueue.main.async {
-            if let imageData = self.defaults.data(forKey: "profileImage") {
-                self.profileImageView.image = UIImage(data: imageData)
-            } else {
-                self.profileImageView.image = UIImage(named: "women")
-            }
-            self.nameLabel.text = self.defaults.string(forKey: "userName") ?? "Unknown User"
-            self.updatePregnancyWeek()
-            self.updateBirthday()
+        nameLabel.text = viewModel.model?.userName
+        profileImageView.image = viewModel.model?.profileImage
+        
+        if let week = viewModel.model?.pregnancyWeek {
+            pregnancyWeekValue.text = "\(week)"
+        }else{
+            pregnancyWeekValue.text = "Not set"
         }
-    }
-    private func updatePregnancyWeek(){
-        if let savedData = defaults.data(forKey: "pregnancyDate"),
-           let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? Date {
-            let weeks = Calendar.current.dateComponents([.weekOfYear], from: savedDate, to: Date()).weekOfYear ?? 0
-            pregnancyWeekValue.text = "\(weeks + 1) weeks"
+        if let birtdate = viewModel.model?.birthDate {
+            birthDayValue.text = "\(birtdate)"
+        }else{
+            birthDayValue.text = "Not set"
         }
-    }
-    private func updateBirthday() {
-        if let savedDateData = defaults.data(forKey: "pregnancyDate"),
-           let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedDateData) as? Date {
-
-            let calendar = Calendar.current
-            var components = DateComponents()
-            components.month = 9
-            components.day = 10
-            if let futureDate = calendar.date(byAdding: components, to: savedDate) {
-
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "dd/MM/yyyy"
-                let futureDateString = dateFormatter.string(from: futureDate)
-                
-                birthDayValue.text = "\(futureDateString)❤️"
-            } else {
-                birthDayValue.text = "Pregnancy Date?"
-            }
-        } else {
-            birthDayValue.text = "Pregnancy Date?"
-        }
+        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
