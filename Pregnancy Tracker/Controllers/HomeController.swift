@@ -50,12 +50,13 @@ class HomeController: UIViewController, UICollectionViewDelegate {
         setupCollectionView()
         collectionView.delegate = self
         setupLayout()
+        safeAreaView.viewModel = SafeAreaViewModel()
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        safeAreaView.updateUserInfo()
+        safeAreaView.updateUI()
     }
     private func setupCollectionView() {
         
