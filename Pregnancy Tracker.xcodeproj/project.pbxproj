@@ -16,6 +16,8 @@
 		5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */; };
 		5C34023C2BBC1F8E006C7063 /* UIComponentsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */; };
 		5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3402472BBD5446006C7063 /* CalendarViewController.swift */; };
+		5C3E175C2BD5394C00C92FC4 /* SafeAreaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3E175B2BD5394C00C92FC4 /* SafeAreaModel.swift */; };
+		5C3E175F2BD53AA600C92FC4 /* SafeAreaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */; };
 		5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */; };
 		5C54953D2BCF095C00720C48 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54953C2BCF095C00720C48 /* ProfileManager.swift */; };
 		5C5495422BD0057F00720C48 /* FoodandDietCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5495412BD0057F00720C48 /* FoodandDietCell.swift */; };
@@ -42,7 +44,6 @@
 		5CA9DEFD2B986EB4004FAD1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DEFB2B986EB4004FAD1D /* Main.storyboard */; };
 		5CA9DEFF2B986EB5004FAD1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */; };
 		5CA9DF022B986EB5004FAD1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DF002B986EB5004FAD1D /* LaunchScreen.storyboard */; };
-		5CB65FB42BD2B02100A4A913 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB65FB32BD2B02100A4A913 /* CustomButton.swift */; };
 		5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */; };
 		5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,8 @@
 		5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOnboardingHelper.swift; sourceTree = "<group>"; };
 		5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentsFactory.swift; sourceTree = "<group>"; };
 		5C3402472BBD5446006C7063 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		5C3E175B2BD5394C00C92FC4 /* SafeAreaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaModel.swift; sourceTree = "<group>"; };
+		5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaViewModel.swift; sourceTree = "<group>"; };
 		5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadEventPopUpViewController.swift; sourceTree = "<group>"; };
 		5C54953C2BCF095C00720C48 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		5C5495412BD0057F00720C48 /* FoodandDietCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodandDietCell.swift; sourceTree = "<group>"; };
@@ -83,7 +86,6 @@
 		5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5CA9DF012B986EB5004FAD1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5CA9DF032B986EB5004FAD1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5CB65FB32BD2B02100A4A913 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowLayer.swift; sourceTree = "<group>"; };
 		5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesDetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,6 +121,22 @@
 				5C0198602B9B912D00AC22CB /* OnboardingController.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		5C3E175A2BD5393E00C92FC4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5C3E175B2BD5394C00C92FC4 /* SafeAreaModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5C3E175D2BD53A7C00C92FC4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */,
+			);
+			name = ViewModel;
 			sourceTree = "<group>";
 		};
 		5C4F81572BC58A190012F709 /* Utilities */ = {
@@ -176,7 +194,6 @@
 				5C86E60C2B9DE80A00FFB7A8 /* PersonalInformationView.swift */,
 				5C7FA8EC2BA8725100AEC447 /* AdvertView.swift */,
 				5C54954F2BD0426500720C48 /* FoodAndDietView.swift */,
-				5CB65FB32BD2B02100A4A913 /* CustomButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -200,8 +217,10 @@
 		5CA9DEF42B986EB4004FAD1D /* Pregnancy Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				5C4F81572BC58A190012F709 /* Utilities */,
+				5C3E175A2BD5393E00C92FC4 /* Model */,
 				5C917AA92B98D91B00212267 /* Views */,
+				5C3E175D2BD53A7C00C92FC4 /* ViewModel */,
+				5C4F81572BC58A190012F709 /* Utilities */,
 				5C917AA62B98CB1300212267 /* MainTabbarController  */,
 				5C917A8B2B98BF7400212267 /* Controllers */,
 				5C917A932B98C0A800212267 /* Helpers */,
@@ -301,13 +320,13 @@
 				5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */,
 				5C7FA8ED2BA8725100AEC447 /* AdvertView.swift in Sources */,
 				5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */,
-				5CB65FB42BD2B02100A4A913 /* CustomButton.swift in Sources */,
 				5C86E61E2BA0745000FFB7A8 /* CoreData.xcdatamodeld in Sources */,
 				5C7FA8EB2BA7525400AEC447 /* VerticalCollectionViewCell.swift in Sources */,
 				5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */,
 				5C54953D2BCF095C00720C48 /* ProfileManager.swift in Sources */,
 				5C01985D2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift in Sources */,
 				5C7FA8EF2BA9E17700AEC447 /* CalendarCell.swift in Sources */,
+				5C3E175F2BD53AA600C92FC4 /* SafeAreaViewModel.swift in Sources */,
 				5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */,
 				5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */,
 				5C5495522BD1309500720C48 /* DietAndFoodInfoProvider.swift in Sources */,
@@ -321,6 +340,7 @@
 				5C5495502BD0426500720C48 /* FoodAndDietView.swift in Sources */,
 				5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */,
 				5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */,
+				5C3E175C2BD5394C00C92FC4 /* SafeAreaModel.swift in Sources */,
 				5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */,
 				5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */,
 				5C58CF1C2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift in Sources */,
