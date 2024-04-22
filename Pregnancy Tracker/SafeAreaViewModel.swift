@@ -34,6 +34,8 @@ class SafeAreaViewModel {
             birthDate = updateBirthday(date: savedDate)
         }
         self.model = UserInfoModel(userName: userName, profileImage: profileImage, pregnancyWeek: pregnancyWeek ?? "0", birthDate: birthDate)
+        
+        
     }
     private func updateBirthday(date: Date) -> String {
 

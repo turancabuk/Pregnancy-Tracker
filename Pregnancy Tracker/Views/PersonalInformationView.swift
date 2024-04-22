@@ -75,16 +75,28 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         return datePicker
     }()
     
-    
     lazy var saveButton = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .white, borderColor: personalCardColor, borderWidth: 3.0, cornerRadius: 16, clipsToBounds: true, action: handleSave)
+    
+    
+    init(userInfoModel: UserInfoModel, profileManager: ProfileManager) {
+        super.init(nibName: nil, bundle: nil)
+        viewModel = PersonalInformationViewModel(
+            personalInformationModel: userInfoModel,
+            profileManager: profileManager,
+            showError: { [weak self] error in
+                self?.showError(message: error)
+            }
+        )
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let model = UserInfoModel(userName: "", profileImage: nil, lastMenstrualPeriod: nil, pregnancyWeek: nil, birthDate: nil)
-        viewModel = PersonalInformationViewModel(personalInformationModel: model, profileManager: ProfileManager(), showError: { error in
-            self.viewModel.showError(error)
-        })
+        
         
         setupView()
 
@@ -92,17 +104,10 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
 
     }
-    private func setupBindings() {
-        
-    }
-    // MARK: Button Confgs.
-    @objc fileprivate func handlePicker() {
-        hud.textLabel.text = "select a photo"
-        hud.show(in: view)
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .photoLibrary
-        present(picker, animated: true)
+    private func showError(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
@@ -116,6 +121,15 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         dismiss(animated: true) {
             self.hud.dismiss()
         }
+    }
+    // MARK: Button Confgs.
+    @objc fileprivate func handlePicker() {
+        hud.textLabel.text = "select a photo"
+        hud.show(in: view)
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true)
     }
     @objc fileprivate func handleDatePicker() {
         let selectedDate = datePicker.date

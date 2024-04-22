@@ -29,7 +29,7 @@ class OnboardingController: UIViewController {
     }
     fileprivate func showPersonalInfoView() {
 
-        let personalInfoView = PersonalInformationView()
+        let personalInfoView = PersonalInformationView(userInfoModel: UserInfoModel(), profileManager: ProfileManager())
         personalInfoView.modalPresentationStyle = .fullScreen
         self.present(personalInfoView, animated: true, completion: nil)
     }

@@ -9,7 +9,7 @@ import UIKit
 
 class MainTabbarController: UIViewController {
     
-    let profileController = ProfileController()
+    let profileController = ProfileController(viewModel: ProfileViewModel(profileManager: ProfileManager()))
     let homeController = HomeController()
     let settingsController = SettingsController()
     let calendarController = CalendarViewController()
