@@ -1,5 +1,5 @@
 //
-//  SafeAreaModel.swift
+//  UserInfoModel.swift
 //  Pregnancy Tracker
 //
 //  Created by Turan Çabuk on 21.04.2024.
@@ -7,10 +7,11 @@
 
 import UIKit
 
-struct SafeAreaModel {
+struct UserInfoModel {
     
-    var userName: String
+    var userName: String?
     var profileImage: UIImage?
-    var pregnancyWeek: String
+    var lastMenstrualPeriod: Date?
+    var pregnancyWeek: String?
     var birthDate: String?
 }

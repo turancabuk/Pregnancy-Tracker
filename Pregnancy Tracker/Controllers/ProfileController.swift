@@ -140,13 +140,13 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     @objc func handleSave() {
-        
-        let profileManager = ProfileManager()
-        profileManager.userDefaultsProfileManager(from: self, nameTextfield: nameTextfield, profileImageView: profileImageView, datePicker: datePicker)
-        
-        if let tabBarController = self.tabBarController {
-            tabBarController.selectedIndex = 1
-        }
+//        
+//        let profileManager = ProfileManager()
+//        profileManager.userDefaultsProfileManager(from: self, nameTextfield: nameTextfield, profileImageView: profileImageView, datePicker: datePicker)
+//        
+//        if let tabBarController = self.tabBarController {
+//            tabBarController.selectedIndex = 1
+//        }
 
     }
     @objc fileprivate func handleDismiss(){

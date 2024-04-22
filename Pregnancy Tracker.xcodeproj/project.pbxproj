@@ -16,7 +16,7 @@
 		5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */; };
 		5C34023C2BBC1F8E006C7063 /* UIComponentsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */; };
 		5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3402472BBD5446006C7063 /* CalendarViewController.swift */; };
-		5C3E175C2BD5394C00C92FC4 /* SafeAreaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3E175B2BD5394C00C92FC4 /* SafeAreaModel.swift */; };
+		5C3E175C2BD5394C00C92FC4 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3E175B2BD5394C00C92FC4 /* UserInfoModel.swift */; };
 		5C3E175F2BD53AA600C92FC4 /* SafeAreaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */; };
 		5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */; };
 		5C54953D2BCF095C00720C48 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54953C2BCF095C00720C48 /* ProfileManager.swift */; };
@@ -26,6 +26,7 @@
 		5C5495502BD0426500720C48 /* FoodAndDietView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54954F2BD0426500720C48 /* FoodAndDietView.swift */; };
 		5C5495522BD1309500720C48 /* DietAndFoodInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5495512BD1309500720C48 /* DietAndFoodInfoProvider.swift */; };
 		5C58CF1C2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */; };
+		5C76EC022BD5945700286311 /* PersonalInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C76EC012BD5945700286311 /* PersonalInformationViewModel.swift */; };
 		5C7FA8E92BA6EFAE00AEC447 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */; };
 		5C7FA8EB2BA7525400AEC447 /* VerticalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8EA2BA7525400AEC447 /* VerticalCollectionViewCell.swift */; };
 		5C7FA8ED2BA8725100AEC447 /* AdvertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8EC2BA8725100AEC447 /* AdvertView.swift */; };
@@ -58,7 +59,7 @@
 		5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOnboardingHelper.swift; sourceTree = "<group>"; };
 		5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentsFactory.swift; sourceTree = "<group>"; };
 		5C3402472BBD5446006C7063 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		5C3E175B2BD5394C00C92FC4 /* SafeAreaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaModel.swift; sourceTree = "<group>"; };
+		5C3E175B2BD5394C00C92FC4 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaViewModel.swift; sourceTree = "<group>"; };
 		5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadEventPopUpViewController.swift; sourceTree = "<group>"; };
 		5C54953C2BCF095C00720C48 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
@@ -66,6 +67,7 @@
 		5C54954F2BD0426500720C48 /* FoodAndDietView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodAndDietView.swift; sourceTree = "<group>"; };
 		5C5495512BD1309500720C48 /* DietAndFoodInfoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietAndFoodInfoProvider.swift; sourceTree = "<group>"; };
 		5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventPopUpViewController.swift; sourceTree = "<group>"; };
+		5C76EC012BD5945700286311 /* PersonalInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationViewModel.swift; sourceTree = "<group>"; };
 		5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C7FA8EA2BA7525400AEC447 /* VerticalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C7FA8EC2BA8725100AEC447 /* AdvertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertView.swift; sourceTree = "<group>"; };
@@ -126,7 +128,7 @@
 		5C3E175A2BD5393E00C92FC4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5C3E175B2BD5394C00C92FC4 /* SafeAreaModel.swift */,
+				5C3E175B2BD5394C00C92FC4 /* UserInfoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */,
+				5C76EC012BD5945700286311 /* PersonalInformationViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -339,8 +342,9 @@
 				5CA9DEFA2B986EB4004FAD1D /* ViewController.swift in Sources */,
 				5C5495502BD0426500720C48 /* FoodAndDietView.swift in Sources */,
 				5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */,
+				5C76EC022BD5945700286311 /* PersonalInformationViewModel.swift in Sources */,
 				5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */,
-				5C3E175C2BD5394C00C92FC4 /* SafeAreaModel.swift in Sources */,
+				5C3E175C2BD5394C00C92FC4 /* UserInfoModel.swift in Sources */,
 				5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */,
 				5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */,
 				5C58CF1C2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift in Sources */,

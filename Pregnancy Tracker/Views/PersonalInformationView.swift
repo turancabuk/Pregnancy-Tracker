@@ -10,7 +10,7 @@ import JGProgressHUD
 
 class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    let defaults = UserDefaults.standard
+    var viewModel: PersonalInformationViewModel!
     let personalCardColor = #colorLiteral(red: 0.970778048, green: 0.8382893801, blue: 0.8796723485, alpha: 1)
     let personalCardColor1 = #colorLiteral(red: 0.9507680535, green: 0.7077944875, blue: 0.8335040212, alpha: 1)
     let hud = JGProgressHUD(style: .dark)
@@ -81,13 +81,20 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let model = UserInfoModel(userName: "", profileImage: nil, lastMenstrualPeriod: nil, pregnancyWeek: nil, birthDate: nil)
+        viewModel = PersonalInformationViewModel(personalInformationModel: model, profileManager: ProfileManager(), showError: { error in
+            self.viewModel.showError(error)
+        })
         
         setupView()
+
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
 
     }
-    
+    private func setupBindings() {
+        
+    }
     // MARK: Button Confgs.
     @objc fileprivate func handlePicker() {
         hud.textLabel.text = "select a photo"
@@ -119,9 +126,7 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
     }
     @objc fileprivate func handleSave() {
         
-        let profilerManager = ProfileManager()
-        profilerManager.userDefaultsProfileManager(from: self, nameTextfield: nameTextfield, profileImageView: profileImageView, datePicker: datePicker)
-        
+        viewModel.saveProfile(name: nameTextfield.text, profileImage: profileImageView.image, date: datePicker.date)
         self.dismiss(animated: true)
     }
     @objc fileprivate func handleDismiss() {
