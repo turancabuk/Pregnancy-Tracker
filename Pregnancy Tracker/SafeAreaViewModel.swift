@@ -10,7 +10,7 @@ import UIKit
 class SafeAreaViewModel {
     
     private let userDefaults = UserDefaults.standard
-    var model: SafeAreaModel?
+    var model: UserInfoModel?
     
     init() {
         loadUserData()
@@ -33,7 +33,7 @@ class SafeAreaViewModel {
            let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedDateData) as? Date {
             birthDate = updateBirthday(date: savedDate)
         }
-        self.model = SafeAreaModel(userName: userName, profileImage: profileImage, pregnancyWeek: pregnancyWeek ?? "0", birthDate: birthDate)
+        self.model = UserInfoModel(userName: userName, profileImage: profileImage, pregnancyWeek: pregnancyWeek ?? "0", birthDate: birthDate)
     }
     private func updateBirthday(date: Date) -> String {
 
