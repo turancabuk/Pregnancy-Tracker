@@ -10,7 +10,7 @@ import UIKit
 class HomeController: UIViewController, UICollectionViewDelegate {
         
     let safeAreaView = SafeAreaView()
-    let profileController = ProfileController()
+    let profileController = ProfileController(viewModel: ProfileViewModel(profileManager: ProfileManager()))
     let scrollView = UIScrollView()
     let contentView = UIView()
     let advertView = AdvertView()

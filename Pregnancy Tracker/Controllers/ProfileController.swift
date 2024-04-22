@@ -10,7 +10,7 @@ import JGProgressHUD
 
 class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var defaults = UserDefaults.standard
+    var viewModel: ProfileViewModel
     let hud = JGProgressHUD(style: .dark)
     
     lazy var topView: UIView = {
@@ -41,11 +41,6 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         imageView.layer.cornerRadius = 60 / 2
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
-        if let imageData = defaults.data(forKey: "profileImage") {
-            imageView.image = UIImage(data: imageData)
-        }else{
-            imageView.image = UIImage(named: "women")
-        }
         return imageView
     }()
 
@@ -59,8 +54,8 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     }()
     
     lazy var nameTextfield: UITextField = {
-        let name = defaults.value(forKey: "userName")
-        let textfield = UIComponentsFactory.createCustomTextfield(placeHolder: "\(name ?? "enter your name")", fontSize: 16, borderColor: UIColor.white, borderWidth: 3.0, cornerRadius: 12)
+
+        let textfield = UIComponentsFactory.createCustomTextfield(placeHolder: "", fontSize: 16, borderColor: UIColor.white, borderWidth: 3.0, cornerRadius: 12)
         textfield.backgroundColor = UIColor.orange
         textfield.textColor = UIColor.black
         textfield.paddingLeft(padding: 12)
@@ -93,20 +88,47 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     }()
     
     lazy var saveButton: UIButton = {
-        let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: UIColor.orange, borderColor: .white, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleSave)
+        let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: UIColor.orange, borderColor: .white, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true)
         button.setTitleColor(UIColor.white, for: .normal)
         return button
     }()
     
+    init(viewModel: ProfileViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
+        bindViewModel()
         setupLayout()
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-        datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.loadUserProfile { [weak self] in
+            self?.updateUI()
+        }
+    }
+    private func bindViewModel() {
+        viewModel.updateUI = { [weak self] in
+            DispatchQueue.main.async {
+                self?.updateUI()
+            }
+        }
+    }
+
+    private func updateUI() {
+        profileImageView.image = viewModel.userInfo.profileImage
+        nameTextfield.text = viewModel.userInfo.userName
+        datePicker.date = viewModel.userInfo.lastMenstrualPeriod ?? Date()
     }
     @objc func handleChange() {
         let imagePicker = UIImagePickerController()
@@ -115,16 +137,6 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         hud.textLabel.text = "select a photo"
         hud.show(in: view)
         present(imagePicker, animated: true)
-    }
-    func updateProfilePhoto() {
-        DispatchQueue.main.async {
-            if let imageData = self.defaults.data(forKey: "profileImage") {
-                self.profileImageView.image = UIImage(data: imageData)
-            }else{
-                self.profileImageView.image = UIImage(named: "women")
-            }
-            self.nameTextfield.text = self.defaults.string(forKey: "userName") ?? "Enter your name"
-        }
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
@@ -139,16 +151,6 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
             self.hud.dismiss()
         }
     }
-    @objc func handleSave() {
-//        
-//        let profileManager = ProfileManager()
-//        profileManager.userDefaultsProfileManager(from: self, nameTextfield: nameTextfield, profileImageView: profileImageView, datePicker: datePicker)
-//        
-//        if let tabBarController = self.tabBarController {
-//            tabBarController.selectedIndex = 1
-//        }
-
-    }
     @objc fileprivate func handleDismiss(){
         view.endEditing(true)
     }
@@ -158,6 +160,9 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
 }
 extension ProfileController {
     private func setupLayout() {
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         
         view.addSubview(topView)
         view.addSubview(seperatorView)
