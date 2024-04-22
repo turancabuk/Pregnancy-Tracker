@@ -74,7 +74,6 @@ class SafeAreaView: UIView {
         }else{
             birthDayValue.text = "Not set"
         }
-        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
