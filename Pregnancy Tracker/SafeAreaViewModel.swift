@@ -14,6 +14,13 @@ class SafeAreaViewModel {
     
     init() {
         loadUserData()
+        NotificationCenter.default.addObserver(self, selector: #selector(userDataDidUpdate), name: .userDataDidUpdate, object: nil)
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    @objc func userDataDidUpdate() {
+        loadUserData()
     }
     private func loadUserData() {
         let userDefaults = UserDefaults.standard

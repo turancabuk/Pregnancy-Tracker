@@ -9,20 +9,28 @@ import UIKit
 
 class ProfileViewModel {
     
-    var defaults = UserDefaults.standard
-    var userInfo: UserInfoModel {
-        didSet{
-            updateUI?()
-        }
-    }
-    var profileManager: ProfileManager
+
+    var profileManager: ProfileManager = ProfileManager()
+    var userInfo: UserInfoModel = UserInfoModel()
     var updateUI: (() -> Void)?
     
-    init(profileManager: ProfileManager) {
-        self.profileManager = profileManager
+    init() {
+        self.profileManager = ProfileManager()
         self.userInfo =  UserInfoModel()
-        loadUserProfile {
-            self.updateUI?()
+    }
+    func saveUserProfile(userName: String?, profileImage: UIImage?, date: Date?) {
+        
+        self.userInfo.userName = userName
+        self.userInfo.profileImage = profileImage
+        self.userInfo.lastMenstrualPeriod = date
+        
+        self.profileManager.saveUserProfile(model: self.userInfo) { [weak self] succes in
+            DispatchQueue.main.async {
+                if succes {
+                    self?.updateUI?()
+                    NotificationCenter.default.post(name: .userDataDidUpdate, object: nil)
+                }
+            }
         }
     }
     func loadUserProfile(completion: @escaping () -> Void ) {
@@ -34,4 +42,7 @@ class ProfileViewModel {
             }
         }
     }
+}
+extension Notification.Name {
+    static let userDataDidUpdate = Notification.Name("userDataDidUpdate")
 }

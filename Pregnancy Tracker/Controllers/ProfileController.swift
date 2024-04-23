@@ -88,15 +88,14 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     }()
     
     lazy var saveButton: UIButton = {
-        let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: UIColor.orange, borderColor: .white, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true)
+        let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: UIColor.orange, borderColor: .white, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleSave)
         button.setTitleColor(UIColor.white, for: .normal)
         return button
     }()
     
-    init(viewModel: ProfileViewModel) {
-        self.viewModel = viewModel
+    init() {
+        self.viewModel = ProfileViewModel()
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     required init?(coder: NSCoder) {
@@ -126,9 +125,13 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     }
 
     private func updateUI() {
-        profileImageView.image = viewModel.userInfo.profileImage
-        nameTextfield.text = viewModel.userInfo.userName
-        datePicker.date = viewModel.userInfo.lastMenstrualPeriod ?? Date()
+        DispatchQueue.main.async {
+            self.profileImageView.image = self.viewModel.userInfo.profileImage
+            self.nameTextfield.text = self.viewModel.userInfo.userName
+            if let date = self.viewModel.userInfo.lastMenstrualPeriod {
+                self.datePicker.date = date
+            }
+        }
     }
     @objc func handleChange() {
         let imagePicker = UIImagePickerController()
@@ -156,6 +159,19 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     }
     @objc fileprivate func handleDatePicker() {
         print("date selected")
+    }
+    @objc func handleSave() {
+
+        DispatchQueue.main.async {
+            let userName = self.nameTextfield.text
+            let profileImage = self.profileImageView.image
+            let date = self.datePicker.date
+            
+            self.viewModel.saveUserProfile(userName: userName, profileImage: profileImage, date: date)
+        }
+        if let tabBarController = self.tabBarController {
+            tabBarController.selectedIndex = 1
+        }
     }
 }
 extension ProfileController {

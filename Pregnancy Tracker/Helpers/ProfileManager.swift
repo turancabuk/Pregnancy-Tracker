@@ -43,11 +43,3 @@ class ProfileManager {
 }
 
 
-//yukarıda verdiğin bilgiler ve önerilere dayanarak ProfileController class'ımı MVVM mimarisine çevirdim.
-//
-//Bu sayede PersonalInformation'da kullanıcının girdiği değerleri userDefaults'a kaydedip, ProfileController'daki imageView ve nameTextfield değerlerini doldurup kullanıcıyı gösterebiliyorum.
-//
-//Şimdi senden isteğim şu:
-//Kullanıcı ProfileController'da userDefaults'dan çekip gösterdiğim değerleri (userName, profileImage, lastMenstrualPeriod)  güncelleyebilisin.
-//
-//işte ProfileController class'ımın güncel ve tam hali:
