@@ -10,7 +10,7 @@ import UIKit
 class HomeController: UIViewController, UICollectionViewDelegate {
         
     let safeAreaView = SafeAreaView()
-    let profileController = ProfileController(viewModel: ProfileViewModel(profileManager: ProfileManager()))
+    let profileController = ProfileController()
     let scrollView = UIScrollView()
     let contentView = UIView()
     let advertView = AdvertView()
@@ -56,7 +56,9 @@ class HomeController: UIViewController, UICollectionViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        safeAreaView.updateUI()
+        DispatchQueue.main.async {
+            self.safeAreaView.updateUI()
+        }
     }
     private func setupCollectionView() {
         
