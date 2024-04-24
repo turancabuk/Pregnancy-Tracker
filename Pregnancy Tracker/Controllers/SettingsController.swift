@@ -104,7 +104,7 @@ class SettingsController: UIViewController {
         titleLabel.textColor = .darkGray
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.addSubview(imageView)
         button.addSubview(titleLabel)
         

@@ -14,7 +14,7 @@ protocol AddEventPopUpViewControllerDelegate: AnyObject {
 }
 class AddEventPopUpViewController: UIViewController, UITextViewDelegate, CalendarViewControllerDelegate {
     
-    
+    var viewModel: CalendarViewModel?
     var selectedDateFromCalendar: Date?
     let eventStore = EKEventStore()
     let entityName = "Doctor"
@@ -118,62 +118,6 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
     }
 }
 extension AddEventPopUpViewController {
-    fileprivate func setupLayout(){
-        self.preferredContentSize = CGSize(width: 320, height: 360)
-        view.addSubview(timePickerContainerView)
-        timePickerContainerView.addSubview(timePicker)
-        timePickerContainerView.addSubview(aboutTextfield)
-        timePickerContainerView.addSubview(noteTextview)
-        noteTextview.addSubview(placeholderLabel)
-        timePickerContainerView.addSubview(saveButton)
-        timePickerContainerView.addSubview(cancelButton)
-        
-        timePicker.translatesAutoresizingMaskIntoConstraints = false
-        aboutTextfield.translatesAutoresizingMaskIntoConstraints = false
-        noteTextview.translatesAutoresizingMaskIntoConstraints = false
-        placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
-        saveButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            timePickerContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            timePickerContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            timePickerContainerView.widthAnchor.constraint(equalToConstant: preferredContentSize.width),
-            timePickerContainerView.heightAnchor.constraint(equalToConstant: preferredContentSize.height),
-            
-            timePicker.topAnchor.constraint(equalTo: timePickerContainerView.topAnchor, constant: 6),
-            timePicker.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 1/3),
-            timePicker.heightAnchor.constraint(equalTo: timePickerContainerView.heightAnchor, multiplier: 1/3),
-            timePicker.centerXAnchor.constraint(equalTo: timePickerContainerView.centerXAnchor),
-            
-            aboutTextfield.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 6),
-            aboutTextfield.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 3/4),
-            aboutTextfield.leadingAnchor.constraint(equalTo: timePickerContainerView.leadingAnchor, constant: 12),
-            aboutTextfield.heightAnchor.constraint(equalTo: timePickerContainerView.heightAnchor, multiplier: 1/6),
-            
-            noteTextview.topAnchor.constraint(equalTo: aboutTextfield.bottomAnchor, constant:  6),
-            noteTextview.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 3/4),
-            noteTextview.leadingAnchor.constraint(equalTo: timePickerContainerView.leadingAnchor, constant: 12),
-            noteTextview.heightAnchor.constraint(equalTo: timePickerContainerView.heightAnchor, multiplier: 1/3),
-            
-            placeholderLabel.topAnchor.constraint(equalTo: noteTextview.topAnchor),
-            placeholderLabel.widthAnchor.constraint(equalTo: noteTextview.widthAnchor, multiplier: 2/3),
-            placeholderLabel.leadingAnchor.constraint(equalTo: noteTextview.leadingAnchor, constant: 8),
-            placeholderLabel.heightAnchor.constraint(equalTo: noteTextview.heightAnchor, multiplier: 1/3),
-            
-            saveButton.topAnchor.constraint(equalTo: noteTextview.bottomAnchor, constant: 6),
-            saveButton.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 1/5),
-            saveButton.heightAnchor.constraint(equalToConstant: 30),
-            saveButton.centerXAnchor.constraint(equalTo: timePickerContainerView.centerXAnchor, constant: 48),
-            
-            cancelButton.topAnchor.constraint(equalTo: noteTextview.bottomAnchor, constant: 6),
-            cancelButton.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 1/5),
-            cancelButton.heightAnchor.constraint(equalToConstant: 30),
-            cancelButton.centerXAnchor.constraint(equalTo: timePickerContainerView.centerXAnchor, constant: -48),
-        ])
-    }
-}
-extension AddEventPopUpViewController {
     @objc fileprivate func handleSave() {
         if #available(iOS 17.0, *) {
             eventStore.requestWriteOnlyAccessToEvents { [weak self] granted, error in
@@ -211,9 +155,7 @@ extension AddEventPopUpViewController {
                                 newItem.setValue(timeIntValue, forKey: "time")
                                 do {
                                     try context.save()
-                                    if let CalendarViewController = self.presentingViewController as? CalendarViewController {
-                                        CalendarViewController.addDataToCollectionView(newItem)
-                                    }
+                                    self.viewModel?.addDataToCollectionView(newItem)
                                     self.delegate?.didAddEvent()
                                     self.dismiss(animated: true, completion: nil)
                                 } catch let _ as NSError {
@@ -267,9 +209,7 @@ extension AddEventPopUpViewController {
                                 newItem.setValue(timeIntValue, forKey: "time")
                                 do {
                                     try context.save()
-                                    if let CalendarViewController = self.presentingViewController as? CalendarViewController {
-                                        CalendarViewController.addDataToCollectionView(newItem)
-                                    }
+                                    self.viewModel?.addDataToCollectionView(newItem)
                                     self.delegate?.didAddEvent()
                                     self.dismiss(animated: true, completion: nil)
                                 } catch let _ as NSError {
@@ -368,5 +308,61 @@ extension UITextField {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: self.frame.height))
         self.leftView = paddingView
         self.leftViewMode = .always
+    }
+}
+extension AddEventPopUpViewController {
+    fileprivate func setupLayout(){
+        self.preferredContentSize = CGSize(width: 320, height: 360)
+        view.addSubview(timePickerContainerView)
+        timePickerContainerView.addSubview(timePicker)
+        timePickerContainerView.addSubview(aboutTextfield)
+        timePickerContainerView.addSubview(noteTextview)
+        noteTextview.addSubview(placeholderLabel)
+        timePickerContainerView.addSubview(saveButton)
+        timePickerContainerView.addSubview(cancelButton)
+        
+        timePicker.translatesAutoresizingMaskIntoConstraints = false
+        aboutTextfield.translatesAutoresizingMaskIntoConstraints = false
+        noteTextview.translatesAutoresizingMaskIntoConstraints = false
+        placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            timePickerContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            timePickerContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            timePickerContainerView.widthAnchor.constraint(equalToConstant: preferredContentSize.width),
+            timePickerContainerView.heightAnchor.constraint(equalToConstant: preferredContentSize.height),
+            
+            timePicker.topAnchor.constraint(equalTo: timePickerContainerView.topAnchor, constant: 6),
+            timePicker.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 1/3),
+            timePicker.heightAnchor.constraint(equalTo: timePickerContainerView.heightAnchor, multiplier: 1/3),
+            timePicker.centerXAnchor.constraint(equalTo: timePickerContainerView.centerXAnchor),
+            
+            aboutTextfield.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 6),
+            aboutTextfield.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 3/4),
+            aboutTextfield.leadingAnchor.constraint(equalTo: timePickerContainerView.leadingAnchor, constant: 12),
+            aboutTextfield.heightAnchor.constraint(equalTo: timePickerContainerView.heightAnchor, multiplier: 1/6),
+            
+            noteTextview.topAnchor.constraint(equalTo: aboutTextfield.bottomAnchor, constant:  6),
+            noteTextview.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 3/4),
+            noteTextview.leadingAnchor.constraint(equalTo: timePickerContainerView.leadingAnchor, constant: 12),
+            noteTextview.heightAnchor.constraint(equalTo: timePickerContainerView.heightAnchor, multiplier: 1/3),
+            
+            placeholderLabel.topAnchor.constraint(equalTo: noteTextview.topAnchor),
+            placeholderLabel.widthAnchor.constraint(equalTo: noteTextview.widthAnchor, multiplier: 2/3),
+            placeholderLabel.leadingAnchor.constraint(equalTo: noteTextview.leadingAnchor, constant: 8),
+            placeholderLabel.heightAnchor.constraint(equalTo: noteTextview.heightAnchor, multiplier: 1/3),
+            
+            saveButton.topAnchor.constraint(equalTo: noteTextview.bottomAnchor, constant: 6),
+            saveButton.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 1/5),
+            saveButton.heightAnchor.constraint(equalToConstant: 30),
+            saveButton.centerXAnchor.constraint(equalTo: timePickerContainerView.centerXAnchor, constant: 48),
+            
+            cancelButton.topAnchor.constraint(equalTo: noteTextview.bottomAnchor, constant: 6),
+            cancelButton.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 1/5),
+            cancelButton.heightAnchor.constraint(equalToConstant: 30),
+            cancelButton.centerXAnchor.constraint(equalTo: timePickerContainerView.centerXAnchor, constant: -48),
+        ])
     }
 }
