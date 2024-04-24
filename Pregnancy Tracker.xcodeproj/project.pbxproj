@@ -26,7 +26,9 @@
 		5C5495502BD0426500720C48 /* FoodAndDietView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54954F2BD0426500720C48 /* FoodAndDietView.swift */; };
 		5C5495522BD1309500720C48 /* DietAndFoodInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5495512BD1309500720C48 /* DietAndFoodInfoProvider.swift */; };
 		5C58CF1C2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */; };
+		5C6E312F2BD917AF00C2476C /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E312E2BD917AF00C2476C /* CalendarViewModel.swift */; };
 		5C76EC022BD5945700286311 /* PersonalInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C76EC012BD5945700286311 /* PersonalInformationViewModel.swift */; };
+		5C76EC0A2BD6994500286311 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C76EC092BD6994500286311 /* ProfileViewModel.swift */; };
 		5C7FA8E92BA6EFAE00AEC447 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */; };
 		5C7FA8EB2BA7525400AEC447 /* VerticalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8EA2BA7525400AEC447 /* VerticalCollectionViewCell.swift */; };
 		5C7FA8ED2BA8725100AEC447 /* AdvertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7FA8EC2BA8725100AEC447 /* AdvertView.swift */; };
@@ -67,7 +69,9 @@
 		5C54954F2BD0426500720C48 /* FoodAndDietView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodAndDietView.swift; sourceTree = "<group>"; };
 		5C5495512BD1309500720C48 /* DietAndFoodInfoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietAndFoodInfoProvider.swift; sourceTree = "<group>"; };
 		5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventPopUpViewController.swift; sourceTree = "<group>"; };
+		5C6E312E2BD917AF00C2476C /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		5C76EC012BD5945700286311 /* PersonalInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationViewModel.swift; sourceTree = "<group>"; };
+		5C76EC092BD6994500286311 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		5C7FA8E82BA6EFAE00AEC447 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C7FA8EA2BA7525400AEC447 /* VerticalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C7FA8EC2BA8725100AEC447 /* AdvertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertView.swift; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 			children = (
 				5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */,
 				5C76EC012BD5945700286311 /* PersonalInformationViewModel.swift */,
+				5C76EC092BD6994500286311 /* ProfileViewModel.swift */,
+				5C6E312E2BD917AF00C2476C /* CalendarViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -343,6 +349,7 @@
 				5C5495502BD0426500720C48 /* FoodAndDietView.swift in Sources */,
 				5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */,
 				5C76EC022BD5945700286311 /* PersonalInformationViewModel.swift in Sources */,
+				5C6E312F2BD917AF00C2476C /* CalendarViewModel.swift in Sources */,
 				5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */,
 				5C3E175C2BD5394C00C92FC4 /* UserInfoModel.swift in Sources */,
 				5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */,
@@ -353,6 +360,7 @@
 				5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */,
 				5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */,
 				5C917AA32B98CA9B00212267 /* ProfileController.swift in Sources */,
+				5C76EC0A2BD6994500286311 /* ProfileViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -56,7 +56,9 @@ class HomeController: UIViewController, UICollectionViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        safeAreaView.updateUI()
+        DispatchQueue.main.async {
+            self.safeAreaView.updateUI()
+        }
     }
     private func setupCollectionView() {
         

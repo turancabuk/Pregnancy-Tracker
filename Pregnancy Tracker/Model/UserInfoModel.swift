@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct UserInfoModel {
+struct UserInfoModel: Equatable {
     
     var userName: String?
     var profileImage: UIImage?

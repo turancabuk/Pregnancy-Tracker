@@ -14,26 +14,38 @@ class SafeAreaViewModel {
     
     init() {
         loadUserData()
+        NotificationCenter.default.addObserver(self, selector: #selector(userDataDidUpdate), name: .userDataDidUpdate, object: nil)
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    @objc func userDataDidUpdate() {
+        DispatchQueue.main.async {
+            self.loadUserData()
+        }
     }
     private func loadUserData() {
-        let userDefaults = UserDefaults.standard
-        let userName = userDefaults.string(forKey: "userName") ?? "Unknown User"
-        let profileImageData = userDefaults.data(forKey: "profileImage")
-        let profileImage = profileImageData != nil ? UIImage(data: profileImageData!) : nil
         
-        var pregnancyWeek: String?
-        if let dateData = userDefaults.data(forKey: "pregnancyDate"),
-           let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(dateData) as? Date {
-            let weeks = Calendar.current.dateComponents([.weekOfYear], from: savedDate, to: Date()).weekOfYear ?? 0
-            pregnancyWeek = "\(weeks + 1) weeks"
+        DispatchQueue.main.async {
+            
+            let userName = self.userDefaults.string(forKey: "userName") ?? "Unknown User"
+            let profileImageData = self.userDefaults.data(forKey: "profileImage")
+            let profileImage = profileImageData != nil ? UIImage(data: profileImageData!) : nil
+            
+            var pregnancyWeek: String?
+            if let dateData = self.userDefaults.data(forKey: "pregnancyDate"),
+               let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(dateData) as? Date {
+                let weeks = Calendar.current.dateComponents([.weekOfYear], from: savedDate, to: Date()).weekOfYear ?? 0
+                pregnancyWeek = "\(weeks + 1) weeks"
+            }
+            
+            var birthDate: String?
+            if let savedDateData = self.userDefaults.data(forKey: "pregnancyDate"),
+               let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedDateData) as? Date {
+                birthDate = self.updateBirthday(date: savedDate)
+            }
+            self.model = UserInfoModel(userName: userName, profileImage: profileImage, pregnancyWeek: pregnancyWeek, birthDate: birthDate)
         }
-        
-        var birthDate: String?
-        if let savedDateData = userDefaults.data(forKey: "pregnancyDate"),
-           let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedDateData) as? Date {
-            birthDate = updateBirthday(date: savedDate)
-        }
-        self.model = UserInfoModel(userName: userName, profileImage: profileImage, pregnancyWeek: pregnancyWeek ?? "0", birthDate: birthDate)
     }
     private func updateBirthday(date: Date) -> String {
 

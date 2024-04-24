@@ -61,18 +61,20 @@ class SafeAreaView: UIView {
     func updateUI() {
         guard let viewModel = viewModel else { return }
         
-        nameLabel.text = viewModel.model?.userName
-        profileImageView.image = viewModel.model?.profileImage
-        
-        if let week = viewModel.model?.pregnancyWeek {
-            pregnancyWeekValue.text = "\(week)"
-        }else{
-            pregnancyWeekValue.text = "Not set"
-        }
-        if let birtdate = viewModel.model?.birthDate {
-            birthDayValue.text = "\(birtdate)"
-        }else{
-            birthDayValue.text = "Not set"
+        DispatchQueue.main.async {
+            self.nameLabel.text = viewModel.model?.userName
+            self.profileImageView.image = viewModel.model?.profileImage
+            
+            if let week = viewModel.model?.pregnancyWeek {
+                self.pregnancyWeekValue.text = "\(week)"
+            }else{
+                self.pregnancyWeekValue.text = "Not set"
+            }
+            if let birtdate = viewModel.model?.birthDate {
+                self.birthDayValue.text = "\(birtdate)"
+            }else{
+                self.birthDayValue.text = "Not set"
+            }
         }
     }
     required init?(coder: NSCoder) {

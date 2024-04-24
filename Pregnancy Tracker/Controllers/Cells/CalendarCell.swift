@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CalendarCell: UICollectionViewCell {
     
@@ -146,5 +147,10 @@ class CalendarCell: UICollectionViewCell {
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+extension CalendarCell {
+    func configure(with data: NSManagedObject) {
+        
     }
 }

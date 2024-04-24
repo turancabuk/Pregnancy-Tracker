@@ -33,11 +33,13 @@ class PersonalInformationViewModel {
         personalInformationModel.userName = name
         personalInformationModel.profileImage = profileImage
         personalInformationModel.lastMenstrualPeriod = date
-        
-        profileManager.saveUserProfile(model: personalInformationModel) { [weak self] succes in
-            
-            if !succes {
-                self?.showError("Profile not save")
+
+        DispatchQueue.main.async {
+            self.profileManager.saveUserProfile(model: self.personalInformationModel) { [weak self] succes in
+                
+                if !succes {
+                    self?.showError("Profile not save")
+                }
             }
         }
     }

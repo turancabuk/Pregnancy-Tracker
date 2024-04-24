@@ -10,7 +10,7 @@ import JGProgressHUD
 
 class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var defaults = UserDefaults.standard
+    var viewModel: ProfileViewModel
     let hud = JGProgressHUD(style: .dark)
     
     lazy var topView: UIView = {
@@ -41,11 +41,6 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         imageView.layer.cornerRadius = 60 / 2
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
-        if let imageData = defaults.data(forKey: "profileImage") {
-            imageView.image = UIImage(data: imageData)
-        }else{
-            imageView.image = UIImage(named: "women")
-        }
         return imageView
     }()
 
@@ -59,8 +54,8 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     }()
     
     lazy var nameTextfield: UITextField = {
-        let name = defaults.value(forKey: "userName")
-        let textfield = UIComponentsFactory.createCustomTextfield(placeHolder: "\(name ?? "enter your name")", fontSize: 16, borderColor: UIColor.white, borderWidth: 3.0, cornerRadius: 12)
+
+        let textfield = UIComponentsFactory.createCustomTextfield(placeHolder: "", fontSize: 16, borderColor: UIColor.white, borderWidth: 3.0, cornerRadius: 12)
         textfield.backgroundColor = UIColor.orange
         textfield.textColor = UIColor.black
         textfield.paddingLeft(padding: 12)
@@ -98,15 +93,48 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         return button
     }()
     
+    init() {
+        self.viewModel = ProfileViewModel()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
+        bindViewModel()
         setupLayout()
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-        datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+
+        DispatchQueue.main.async {
+            self.viewModel.loadUserProfile { [weak self] in
+                self?.updateUI()
+            }
+        }
+    }
+    private func bindViewModel() {
+        viewModel.updateUI = { [weak self] in
+            DispatchQueue.main.async {
+                self?.updateUI()
+            }
+        }
+    }
+
+    private func updateUI() {
+        DispatchQueue.main.async {
+            self.profileImageView.image = self.viewModel.userInfo.profileImage
+            self.nameTextfield.text = self.viewModel.userInfo.userName
+            if let date = self.viewModel.userInfo.lastMenstrualPeriod {
+                self.datePicker.date = date
+            }
+        }
     }
     @objc func handleChange() {
         let imagePicker = UIImagePickerController()
@@ -115,16 +143,6 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         hud.textLabel.text = "select a photo"
         hud.show(in: view)
         present(imagePicker, animated: true)
-    }
-    func updateProfilePhoto() {
-        DispatchQueue.main.async {
-            if let imageData = self.defaults.data(forKey: "profileImage") {
-                self.profileImageView.image = UIImage(data: imageData)
-            }else{
-                self.profileImageView.image = UIImage(named: "women")
-            }
-            self.nameTextfield.text = self.defaults.string(forKey: "userName") ?? "Enter your name"
-        }
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
@@ -139,25 +157,39 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
             self.hud.dismiss()
         }
     }
-    @objc func handleSave() {
-//        
-//        let profileManager = ProfileManager()
-//        profileManager.userDefaultsProfileManager(from: self, nameTextfield: nameTextfield, profileImageView: profileImageView, datePicker: datePicker)
-//        
-//        if let tabBarController = self.tabBarController {
-//            tabBarController.selectedIndex = 1
-//        }
-
-    }
     @objc fileprivate func handleDismiss(){
         view.endEditing(true)
     }
     @objc fileprivate func handleDatePicker() {
         print("date selected")
     }
+    @objc func handleSave() {
+        
+        let userName = self.nameTextfield.text
+        let profileImage = self.profileImageView.image
+        let date = self.datePicker.date
+        
+        DispatchQueue.main.async {
+            self.viewModel.saveUserProfile(userName: userName, profileImage: profileImage, date: date)
+        }
+        
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Saving"
+        hud.show(in: self.view)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            hud.dismiss()
+            if let tabBarController = self.tabBarController {
+                tabBarController.selectedIndex = 1
+            }
+        }
+    }
 }
 extension ProfileController {
     private func setupLayout() {
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         
         view.addSubview(topView)
         view.addSubview(seperatorView)
