@@ -13,8 +13,7 @@ protocol CalendarViewControllerDelegate: AnyObject{
 }
 class CalendarViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AddEventPopUpViewControllerDelegate{
     
-    
-    var savedData: [NSManagedObject] = []
+    var viewModel: CalendarViewModel
     
     var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -58,11 +57,21 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         return collectionView
     }()
     
+    init() {
+        self.viewModel = CalendarViewModel()
+        super.init(nibName: nil, bundle: nil)
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.fetchData {
+            self.todoCollectionView.reloadData()
+        }
         setupLayout()
         todoCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: "calendarCellId")
 
@@ -70,97 +79,50 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        fetchDataFromCoredata()
-        self.todoCollectionView.reloadData()
         didAddEvent()
     }
     func didAddEvent() {
-        fetchDataFromCoredata()
-    }
-    func addDataToCollectionView(_ data: NSManagedObject) {
-        savedData.append(data)
-        self.todoCollectionView.reloadData()
-    }
-    fileprivate func fetchDataFromCoredata() {
-        guard let context = (UIApplication.shared.delegate as? AppDelegate)? .persistentContainer.viewContext else {
-            return
-        }
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Doctor")
-        do{
-            savedData = try context.fetch(fetchRequest)
-            todoCollectionView.reloadData()
-        }catch{
-            
+        viewModel.fetchData {
+            self.todoCollectionView.reloadData()
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return savedData.count
+        return viewModel.numberOfItemsInSection()
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+       
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCellId", for: indexPath) as! CalendarCell
         
-        let data = self.savedData[indexPath.item]
+        viewModel.configureCell(cell: cell, at: indexPath)
         
-        if let dateData = data.value(forKey: "date") as? Int32 {
-            if let dateString = formattedDateAndTime(from: TimeInterval(dateData), style: .medium){
-                cell.dateLabel.text = dateString
-            }
-        }
-        
-        if let timeData = data.value(forKey: "time") as? Int32 {
-            if let timeString = formattedDateAndTime(from: TimeInterval(timeData), style: .short){
-                cell.timeLabel.text = timeString
-            }
-        }
-        cell.onDeleteButtonTapped = { [weak self] in
-            guard let self = self else { return }
-            let dataToDelete = self.savedData[indexPath.row]
-            if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
-                context.delete(dataToDelete)
-                do {
-                    try context.save()
-
-                    self.savedData.remove(at: indexPath.row)
-
-                    self.todoCollectionView.reloadData()
-                    
-//                    self.todoCollectionView.performBatchUpdates({
-//                        self.todoCollectionView.delete
-//                    })
-                } catch let error as NSError {
-                    print("Silme işlemi sırasında hata oluştu: \(error), \(error.userInfo)")
-                }
-            }
-        }
-
-        cell.aboutLabel.text = data.value(forKey: "about") as? String
         return cell
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let selectedItem = self.savedData[indexPath.row]
-        let readEventVC = ReadEventPopUpViewController()
-    
-        if let dateData = selectedItem.value(forKey: "date") as? Int32 {
-            if let dateString = formattedDateAndTime(from: TimeInterval(dateData), style: .medium) {
-                readEventVC.dateLabel.text = dateString
-            }
-        }
-        
-        if let timeData = selectedItem.value(forKey: "time") as? Int32 {
-            if let timeString = formattedDateAndTime(from: TimeInterval(timeData), style: .short) {
-                readEventVC.timeLabel.text = timeString
-            }
-        }
-        
-        readEventVC.aboutLabel.text = selectedItem.value(forKey: "about") as? String
-        readEventVC.noteLabel.text = selectedItem.value(forKey: "note") as? String
-        
-        readEventVC.preferredContentSize = CGSize(width: 320, height: 360)
-        readEventVC.modalPresentationStyle = .popover
-        self.present(readEventVC, animated: true)
-    }
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        
+//        let selectedItem = viewModel.selectItem(at: indexPath)
+//        let selectedItem = self.savedData[indexPath.row]
+//        let readEventVC = ReadEventPopUpViewController()
+//    
+//        if let dateData = selectedItem.value(forKey: "date") as? Int32 {
+//            if let dateString = formattedDateAndTime(from: TimeInterval(dateData), style: .medium) {
+//                readEventVC.dateLabel.text = dateString
+//            }
+//        }
+//        
+//        if let timeData = selectedItem.value(forKey: "time") as? Int32 {
+//            if let timeString = formattedDateAndTime(from: TimeInterval(timeData), style: .short) {
+//                readEventVC.timeLabel.text = timeString
+//            }
+//        }
+//        
+//        readEventVC.aboutLabel.text = selectedItem.value(forKey: "about") as? String
+//        readEventVC.noteLabel.text = selectedItem.value(forKey: "note") as? String
+//        
+//        readEventVC.preferredContentSize = CGSize(width: 320, height: 360)
+//        readEventVC.modalPresentationStyle = .popover
+//        self.present(readEventVC, animated: true)
+//    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: view.frame.width, height: 80)
     }
@@ -231,11 +193,4 @@ extension CalendarViewController {
         ])
     }
 }
-extension CalendarViewController {
-    fileprivate func formattedDateAndTime(from timeInterval: TimeInterval, style: DateFormatter.Style) -> String? {
-        let date = Date(timeIntervalSince1970: timeInterval)
-        let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate(style == .short  ? "HH:mm" : "MMM d, yyyy")
-        return formatter.string(from: date)
-    }
-}
+

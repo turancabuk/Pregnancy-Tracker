@@ -112,8 +112,11 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         
     }
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.loadUserProfile { [weak self] in
-            self?.updateUI()
+
+        DispatchQueue.main.async {
+            self.viewModel.loadUserProfile { [weak self] in
+                self?.updateUI()
+            }
         }
     }
     private func bindViewModel() {
@@ -161,16 +164,24 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         print("date selected")
     }
     @objc func handleSave() {
-
+        
+        let userName = self.nameTextfield.text
+        let profileImage = self.profileImageView.image
+        let date = self.datePicker.date
+        
         DispatchQueue.main.async {
-            let userName = self.nameTextfield.text
-            let profileImage = self.profileImageView.image
-            let date = self.datePicker.date
-            
             self.viewModel.saveUserProfile(userName: userName, profileImage: profileImage, date: date)
         }
-        if let tabBarController = self.tabBarController {
-            tabBarController.selectedIndex = 1
+        
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Saving"
+        hud.show(in: self.view)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            hud.dismiss()
+            if let tabBarController = self.tabBarController {
+                tabBarController.selectedIndex = 1
+            }
         }
     }
 }

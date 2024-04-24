@@ -34,12 +34,10 @@ class ProfileViewModel {
         }
     }
     func loadUserProfile(completion: @escaping () -> Void ) {
-        DispatchQueue.global(qos: .background).async {
-            let loadedProfile = self.profileManager.loadUserProfile()
-            DispatchQueue.main.async {
-                self.userInfo = loadedProfile
-                completion()
-            }
+        let loadedProfile = self.profileManager.loadUserProfile()
+        DispatchQueue.main.async {
+            self.userInfo = loadedProfile
+            completion()
         }
     }
 }
