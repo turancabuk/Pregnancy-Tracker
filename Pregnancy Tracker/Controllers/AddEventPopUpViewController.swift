@@ -156,9 +156,11 @@ extension AddEventPopUpViewController {
                                 do {
                                     try context.save()
                                     self.viewModel?.addDataToCollectionView(newItem)
-                                    self.delegate?.didAddEvent()
-                                    self.dismiss(animated: true, completion: nil)
-                                } catch let _ as NSError {
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.delegate?.didAddEvent()
+                                        self?.dismiss(animated: true, completion: nil)
+                                    }
+                                }catch{
                                    
                                 }
                             }
@@ -210,10 +212,12 @@ extension AddEventPopUpViewController {
                                 do {
                                     try context.save()
                                     self.viewModel?.addDataToCollectionView(newItem)
-                                    self.delegate?.didAddEvent()
-                                    self.dismiss(animated: true, completion: nil)
-                                } catch let _ as NSError {
-                                    
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.delegate?.didAddEvent()
+                                        self?.dismiss(animated: true, completion: nil)
+                                    }
+                                }catch{
+                                   
                                 }
                             }
                         }

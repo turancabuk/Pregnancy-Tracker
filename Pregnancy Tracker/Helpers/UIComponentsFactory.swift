@@ -11,7 +11,7 @@ import JGProgressHUD
 class UIComponentsFactory {
     
     static func createCustomButton(title: String, state: UIControl.State, titleColor: UIColor, borderColor: UIColor, borderWidth: CGFloat, cornerRadius:  CGFloat, clipsToBounds: Bool, action: (() -> Void)? = nil) -> UIButton {
-        let button = UIButton(type: .system)
+        let button = UIButton()
         button.setTitle(title, for: state)
         button.setTitleColor(titleColor, for: .normal)
         button.layer.borderColor = borderColor.cgColor
