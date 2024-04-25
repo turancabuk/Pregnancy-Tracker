@@ -62,6 +62,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         super.init(nibName: nil, bundle: nil)
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -69,20 +70,21 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.fetchData {
-            self.todoCollectionView.reloadData()
+        viewModel.reloadCollectionView = { [weak self] in
+            DispatchQueue.main.async {
+                self?.todoCollectionView.reloadData()
+            }
         }
+        
+        viewModel.fetchData()
         setupLayout()
         todoCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: "calendarCellId")
 
         
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        didAddEvent()
-    }
     func didAddEvent() {
-        viewModel.fetchData {
+        viewModel.fetchData()
+        DispatchQueue.main.async {
             self.todoCollectionView.reloadData()
         }
     }
@@ -90,39 +92,20 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         return viewModel.numberOfItemsInSection()
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCellId", for: indexPath) as! CalendarCell
         
-        viewModel.configureCell(cell: cell, at: indexPath)
-        
+        DispatchQueue.main.async {
+            self.viewModel.configureCell(cell: cell, at: indexPath)
+        }
         return cell
     }
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        
-//        let selectedItem = viewModel.selectItem(at: indexPath)
-//        let selectedItem = self.savedData[indexPath.row]
-//        let readEventVC = ReadEventPopUpViewController()
-//    
-//        if let dateData = selectedItem.value(forKey: "date") as? Int32 {
-//            if let dateString = formattedDateAndTime(from: TimeInterval(dateData), style: .medium) {
-//                readEventVC.dateLabel.text = dateString
-//            }
-//        }
-//        
-//        if let timeData = selectedItem.value(forKey: "time") as? Int32 {
-//            if let timeString = formattedDateAndTime(from: TimeInterval(timeData), style: .short) {
-//                readEventVC.timeLabel.text = timeString
-//            }
-//        }
-//        
-//        readEventVC.aboutLabel.text = selectedItem.value(forKey: "about") as? String
-//        readEventVC.noteLabel.text = selectedItem.value(forKey: "note") as? String
-//        
-//        readEventVC.preferredContentSize = CGSize(width: 320, height: 360)
-//        readEventVC.modalPresentationStyle = .popover
-//        self.present(readEventVC, animated: true)
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let selectedItem = viewModel.selectItem(at: indexPath)
+        let readEventVC = viewModel.readEventVC
+        self.present(readEventVC, animated: true)
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: view.frame.width, height: 80)
     }
@@ -136,7 +119,6 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         popupViewController.delegate = self
         
         if let popupVC = popupViewController.popoverPresentationController {
-            
             popupVC.sourceView = self.view
             popupVC.sourceRect = CGRect(x: self.view.bounds.minX, y: self.view.bounds.minY, width: 0, height: 0)
             popupVC.permittedArrowDirections = []
