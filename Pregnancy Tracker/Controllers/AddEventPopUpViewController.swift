@@ -12,9 +12,11 @@ import EventKit
 protocol AddEventPopUpViewControllerDelegate: AnyObject {
     func didAddEvent()
 }
-class AddEventPopUpViewController: UIViewController, UITextViewDelegate, CalendarViewControllerDelegate {
+class AddEventPopUpViewController: UIViewController, UITextViewDelegate, AddEventViewModelDelegate {
     
-    var viewModel: CalendarViewModel?
+    
+    
+    var viewModel = AddEventViewModel()
     var selectedDateFromCalendar: Date?
     let eventStore = EKEventStore()
     let entityName = "Doctor"
@@ -52,20 +54,10 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
         return textview
     }()
     
-    lazy var placeholderLabel: UILabel = {
-        let placeholder = UIComponentsFactory.createCustomPlaceholderLabel(text: "Your notes", textColor: .lightGray, isHidden: false)
-        return placeholder
-    }()
+    lazy var placeholderLabel = UIComponentsFactory.createCustomPlaceholderLabel(text: "Your notes", textColor: .lightGray, isHidden: false)
+    lazy var saveButton = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .white, borderColor: .black, borderWidth: 1.0, cornerRadius: 6, clipsToBounds: true, action: handleSave)
+    lazy var cancelButton = UIComponentsFactory.createCustomButton(title: "Cancel", state: .normal, titleColor: .white, borderColor: .black, borderWidth: 1.0, cornerRadius: 4, clipsToBounds: true, action: handleCancel)
     
-    lazy var saveButton: UIButton = {
-        let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .white, borderColor: .black, borderWidth: 1.0, cornerRadius: 6, clipsToBounds: true, action: handleSave)
-        return button
-    }()
-    
-    lazy var cancelButton: UIButton = {
-        let button = UIComponentsFactory.createCustomButton(title: "Cancel", state: .normal, titleColor: .white, borderColor: .black, borderWidth: 1.0, cornerRadius: 4, clipsToBounds: true, action: handleCancel)
-        return button
-    }()
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -73,20 +65,28 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.delegate = self
         setupLayout()
         registerKeyboardNotifications()
-                
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            managedObjectContext = appDelegate.persistentContainer.viewContext
-        }
+        delegate?.didAddEvent()
+
         
+    }
+    func dismiss() {
+        dismiss(animated: true)
+    }
+    func didAddEvent() {
+        delegate?.didAddEvent()
+        
+        dismiss(animated: true)
     }
     private func registerKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     func didSelectDate(date: Date) {
-        self.selectedDate = date
+        
+        viewModel.selectedDate = date
     }
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !noteTextview.text.isEmpty
@@ -116,197 +116,25 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, Calenda
     @objc private func keyboardWillHide(notification: NSNotification) {
         self.view.frame.origin.y = 0
     }
-}
-extension AddEventPopUpViewController {
+    func showAlert(title: String, describe: String) {
+        let alert = UIAlertController(title: title, message: describe, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        present(alert, animated: true)
+    }
+    func didFailWithError(message: String) {
+        showAlert(title: "Error", describe: message)
+    }
     @objc fileprivate func handleSave() {
-        if #available(iOS 17.0, *) {
-            eventStore.requestWriteOnlyAccessToEvents { [weak self] granted, error in
-                guard let self = self else { return }
-                
-                DispatchQueue.main.async {
-                    if granted, error == nil {
-                        // Granted, Contunie
-                        if let aboutText = self.aboutTextfield.text, !aboutText.isEmpty,
-                           let noteText = self.noteTextview.text {
-                            
-                            let selectedDate = self.selectedDate!
-                            let selectedTime = self.timePicker.date
-                            
-                            let calendar = Calendar.current
-                            let now = Date()
-                            
-                            let dateComponents = calendar.dateComponents([.year, .month, .day], from: selectedDate)
-                            let timeComponents = calendar.dateComponents([.hour, .minute], from: selectedTime)
-                            let combinedComponents = DateComponents(year: dateComponents.year, month: dateComponents.month, day: dateComponents.day, hour: timeComponents.hour, minute: timeComponents.minute)
-                            
-                            if let eventDate = calendar.date(from: combinedComponents){
-                                
-                                // Add Event to Calendar
-                                self.addEventToCalendar(title: aboutText, description: noteText, startDate: eventDate)
-                            }
-                            // Add to Coredata
-                            if let context = self.managedObjectContext, let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-                                let newItem = NSManagedObject(entity: entity, insertInto: context)
-                                newItem.setValue(self.aboutTextfield.text, forKey: "about")
-                                newItem.setValue(self.noteTextview.text, forKey: "note")
-                                let dateIntValue = Int32(self.selectedDate!.timeIntervalSince1970)
-                                let timeIntValue = Int32(self.timePicker.date.timeIntervalSince1970)
-                                newItem.setValue(dateIntValue, forKey: "date")
-                                newItem.setValue(timeIntValue, forKey: "time")
-                                do {
-                                    try context.save()
-                                    self.viewModel?.addDataToCollectionView(newItem)
-                                    DispatchQueue.main.async { [weak self] in
-                                        self?.delegate?.didAddEvent()
-                                        self?.dismiss(animated: true, completion: nil)
-                                    }
-                                }catch{
-                                   
-                                }
-                            }
-                        }
-                    } else {
-                        // not granted
-                        print("Calendar access not granted or an error occurred: \(error?.localizedDescription ?? "Unknown error")")
-                        let alert = UIAlertController(title: "Error", message: "Grant Error", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                }
-            }
-        } else {
-            // before iOS 17
-            eventStore.requestAccess(to: .event) { [weak self] granted, error in
-                guard let self = self else { return }
-                
-                DispatchQueue.main.async {
-                    if granted, error == nil {
-                        // granted
-                        if let aboutText = self.aboutTextfield.text, !aboutText.isEmpty,
-                           let noteText = self.noteTextview.text {
-                            
-                            let selectedDate = self.selectedDate!
-                            let selectedTime = self.timePicker.date
-                            
-                            let calendar = Calendar.current
-                            let now = Date()
-                            
-                            let dateComponents = calendar.dateComponents([.year, .month, .day], from: selectedDate)
-                            let timeComponents = calendar.dateComponents([.hour, .minute], from: selectedTime)
-                            let combinedComponents = DateComponents(year: dateComponents.year, month: dateComponents.month, day: dateComponents.day, hour: timeComponents.hour, minute: timeComponents.minute)
-                            
-                            if let eventDate = calendar.date(from: combinedComponents) {
-                                
-                                // add to calendar
-                                self.addEventToCalendar(title: aboutText, description: noteText, startDate: eventDate)
-                            }
-                            // add to coredata
-                            if let context = self.managedObjectContext, let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-                                let newItem = NSManagedObject(entity: entity, insertInto: context)
-                                newItem.setValue(self.aboutTextfield.text, forKey: "about")
-                                newItem.setValue(self.noteTextview.text, forKey: "note")
-                                let dateIntValue = Int32(self.selectedDate!.timeIntervalSince1970)
-                                let timeIntValue = Int32(self.timePicker.date.timeIntervalSince1970)
-                                newItem.setValue(dateIntValue, forKey: "date")
-                                newItem.setValue(timeIntValue, forKey: "time")
-                                do {
-                                    try context.save()
-                                    self.viewModel?.addDataToCollectionView(newItem)
-                                    DispatchQueue.main.async { [weak self] in
-                                        self?.delegate?.didAddEvent()
-                                        self?.dismiss(animated: true, completion: nil)
-                                    }
-                                }catch{
-                                   
-                                }
-                            }
-                        }
-                    } else {
-                        // not granted
-                        print("Calendar access not granted or an error occurred: \(error?.localizedDescription ?? "Unknown error")")
-                        let alert = UIAlertController(title: "Error", message: "Grant Alert", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                }
-            }
+        
+        guard let aboutText = aboutTextfield.text, !aboutText.isEmpty,
+              let noteText = noteTextview.text, !noteText.isEmpty else {
+            showAlert(title: "Error", describe: "Lütfen Tüm alanları doldurun")
+            return
         }
-    }
-    func addEventToCalendar(title: String, description: String, startDate: Date) {
-        if #available(iOS 17.0, *) {
-            eventStore.requestWriteOnlyAccessToEvents { [weak self] granted, error in
-                guard let strongSelf = self else { return }
-                
-                DispatchQueue.main.async {
-                    if granted, error == nil {
-                        let event = EKEvent(eventStore: strongSelf.eventStore)
-                        event.title = title
-                        event.startDate = startDate
-                        event.endDate = Calendar.current.date(byAdding: .hour, value: 1, to: startDate)
-                        event.notes = description
-                        event.calendar = strongSelf.eventStore.defaultCalendarForNewEvents
-                        
-                        let alarm = EKAlarm(relativeOffset: -15 * 60)
-                        event.addAlarm(alarm)
-                        
-                        do {
-                            try strongSelf.eventStore.save(event, span: .thisEvent)
-                        } catch let error as NSError {
-                            print("Error saving event to calendar: \(error)")
-                            
-                            let alert = UIAlertController(title: "Error", message: "Reminder Alert", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                            strongSelf.present(alert, animated: true, completion: nil)
-                        }
-                    } else {
-                        print("Calendar access not granted or an error occurred: \(error?.localizedDescription ?? "Unknown error")")
-                        // not granted
-                        let alert = UIAlertController(title: "Error", message: "Grant Error", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                        strongSelf.present(alert, animated: true, completion: nil)
-                    }
-                }
-            }
-        } else {
-            // before iOS 17
-            addEventToCalendarForOldiOS(title: title, description: description, startDate: startDate)
-        }
-    }
-    func addEventToCalendarForOldiOS(title: String, description: String, startDate: Date) {
-        eventStore.requestAccess(to: .event) { [weak self] (granted, error) in
-            guard let strongSelf = self, granted, error == nil else {
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Hata", message: "Takvim erişim izni verilmedi.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Tamam", style: .cancel, handler: nil))
-                    self?.present(alert, animated: true, completion: nil)
-                }
-                return
-            }
-            
-            let event = EKEvent(eventStore: strongSelf.eventStore)
-            event.title = title
-            event.startDate = startDate
-            event.endDate = Calendar.current.date(byAdding: .hour, value: 1, to: startDate)
-            event.notes = description
-            event.calendar = strongSelf.eventStore.defaultCalendarForNewEvents
-            
-            let alarm = EKAlarm(relativeOffset: -15 * 60)
-            event.addAlarm(alarm)
-            
-            do {
-                try strongSelf.eventStore.save(event, span: .thisEvent)
-            } catch let error as NSError {
-                DispatchQueue.main.async {
-                    print("Error saving event to calendar: \(error)")
-
-                    let alert = UIAlertController(title: "Error", message: "Reminder Alert", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    strongSelf.present(alert, animated: true, completion: nil)
-                }
-            }
-        }
+        viewModel.addEvent(aboutText: aboutText, noteText: noteText, selectedTime: timePicker.date)
     }
 }
+
 extension UITextField {
     func paddingLeft(padding: CGFloat) {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: self.frame.height))
