@@ -33,6 +33,7 @@ class CalendarViewModel {
     func addDataToCollectionView(_ item: NSManagedObject) {
         savedData.append(item)
         fetchData()
+        reloadCollectionView?()
     }
     
     func numberOfItemsInSection() -> Int {

@@ -76,17 +76,16 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             }
         }
         
-        viewModel.fetchData()
         setupLayout()
-        todoCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: "calendarCellId")
+
 
         
     }
     func didAddEvent() {
         viewModel.fetchData()
-        DispatchQueue.main.async {
-            self.todoCollectionView.reloadData()
-        }
+//        DispatchQueue.main.async {
+//            self.todoCollectionView.reloadData()
+//        }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfItemsInSection()
@@ -115,7 +114,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let popupViewController = AddEventPopUpViewController()
         popupViewController.modalPresentationStyle = .popover
-        popupViewController.selectedDate = selectedDate
+        popupViewController.viewModel.selectedDate = selectedDate
         popupViewController.delegate = self
         
         if let popupVC = popupViewController.popoverPresentationController {
@@ -130,8 +129,8 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
 }
 extension CalendarViewController {
     fileprivate func setupLayout() {
+        todoCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: "calendarCellId")
         view.backgroundColor = UIColor(hex: "fcefef")
-
         view.addSubview(calendarContainerLayerView)
         calendarContainerLayerView.addSubview(calendarContainerView)
         calendarContainerView.addSubview(calendarView)
