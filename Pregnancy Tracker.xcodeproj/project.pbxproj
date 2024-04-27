@@ -47,6 +47,7 @@
 		5CA9DEFD2B986EB4004FAD1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DEFB2B986EB4004FAD1D /* Main.storyboard */; };
 		5CA9DEFF2B986EB5004FAD1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */; };
 		5CA9DF022B986EB5004FAD1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DF002B986EB5004FAD1D /* LaunchScreen.storyboard */; };
+		5CAA089D2BDA86AF0042E3A8 /* AddEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */; };
 		5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */; };
 		5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */; };
 /* End PBXBuildFile section */
@@ -92,6 +93,7 @@
 		5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5CA9DF012B986EB5004FAD1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5CA9DF032B986EB5004FAD1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewModel.swift; sourceTree = "<group>"; };
 		5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowLayer.swift; sourceTree = "<group>"; };
 		5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesDetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,15 +146,9 @@
 				5C76EC012BD5945700286311 /* PersonalInformationViewModel.swift */,
 				5C76EC092BD6994500286311 /* ProfileViewModel.swift */,
 				5C6E312E2BD917AF00C2476C /* CalendarViewModel.swift */,
+				5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */,
 			);
 			name = ViewModel;
-			sourceTree = "<group>";
-		};
-		5C4F81572BC58A190012F709 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utilities;
 			sourceTree = "<group>";
 		};
 		5C917A8B2B98BF7400212267 /* Controllers */ = {
@@ -229,7 +225,6 @@
 				5C3E175A2BD5393E00C92FC4 /* Model */,
 				5C917AA92B98D91B00212267 /* Views */,
 				5C3E175D2BD53A7C00C92FC4 /* ViewModel */,
-				5C4F81572BC58A190012F709 /* Utilities */,
 				5C917AA62B98CB1300212267 /* MainTabbarController  */,
 				5C917A8B2B98BF7400212267 /* Controllers */,
 				5C917A932B98C0A800212267 /* Helpers */,
@@ -333,6 +328,7 @@
 				5C7FA8EB2BA7525400AEC447 /* VerticalCollectionViewCell.swift in Sources */,
 				5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */,
 				5C54953D2BCF095C00720C48 /* ProfileManager.swift in Sources */,
+				5CAA089D2BDA86AF0042E3A8 /* AddEventViewModel.swift in Sources */,
 				5C01985D2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift in Sources */,
 				5C7FA8EF2BA9E17700AEC447 /* CalendarCell.swift in Sources */,
 				5C3E175F2BD53AA600C92FC4 /* SafeAreaViewModel.swift in Sources */,
