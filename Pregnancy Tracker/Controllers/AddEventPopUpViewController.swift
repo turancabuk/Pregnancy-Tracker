@@ -17,7 +17,6 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, AddEven
     
     
     var viewModel = AddEventViewModel()
-    var selectedDateFromCalendar: Date?
     let eventStore = EKEventStore()
     let entityName = "Doctor"
     var managedObjectContext: NSManagedObjectContext?
@@ -65,15 +64,12 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, AddEven
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.delegate = self
         setupLayout()
         registerKeyboardNotifications()
+        viewModel.delegate = self
         delegate?.didAddEvent()
 
         
-    }
-    func dismiss() {
-        dismiss(animated: true)
     }
     func didAddEvent() {
         delegate?.didAddEvent()
@@ -83,6 +79,9 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, AddEven
     private func registerKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    func dismiss() {
+        dismiss(animated: true)
     }
     func didSelectDate(date: Date) {
         
