@@ -93,6 +93,7 @@ class AddEventViewModel {
         newItem.setValue(NSNumber(value: time.timeIntervalSince1970), forKey: "time")
         do {
             try context.save()
+            NotificationCenter.default.post(name: .eventAdded, object: newItem)
         } catch {
             delegate?.didFailWithError(message: "Failed to save event to CoreData.")
         }

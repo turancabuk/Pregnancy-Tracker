@@ -62,7 +62,9 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         super.init(nibName: nil, bundle: nil)
     }
     
-    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -76,16 +78,20 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             }
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEventAddedNotification(_:)), name: .eventAdded, object: nil)
         setupLayout()
-
+        didAddEvent()
 
         
     }
     func didAddEvent() {
         viewModel.fetchData()
-//        DispatchQueue.main.async {
-//            self.todoCollectionView.reloadData()
-//        }
+        DispatchQueue.main.async {
+            self.todoCollectionView.reloadData()
+        }
+    }
+    @objc func handleEventAddedNotification(_ notification: Notification) {
+        viewModel.fetchData()
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfItemsInSection()
@@ -93,10 +99,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCellId", for: indexPath) as! CalendarCell
-        
-        DispatchQueue.main.async {
-            self.viewModel.configureCell(cell: cell, at: indexPath)
-        }
+        viewModel.configureCell(cell: cell, at: indexPath)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
