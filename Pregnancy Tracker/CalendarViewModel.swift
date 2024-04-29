@@ -18,7 +18,6 @@ class CalendarViewModel {
     
     
     func fetchData() {
-        
         guard let context = context else {return}
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Doctor")
         
@@ -30,11 +29,7 @@ class CalendarViewModel {
         }
     }
     
-    func addDataToCollectionView(_ item: NSManagedObject) {
-        savedData.append(item)
-        fetchData()
-        reloadCollectionView?()
-    }
+
     
     func numberOfItemsInSection() -> Int {
         return savedData.count
@@ -96,6 +91,9 @@ class CalendarViewModel {
         
         return savedData[indexPath.row]
     }
+}
+extension Notification.Name {
+    static let eventAdded = Notification.Name("eventAdded")
 }
 extension CalendarViewModel {
     fileprivate func formattedDateAndTime(from timeInterval: TimeInterval, style: DateFormatter.Style) -> String? {
