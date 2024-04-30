@@ -61,13 +61,13 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         self.viewModel = CalendarViewModel()
         super.init(nibName: nil, bundle: nil)
     }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +93,23 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     @objc func handleEventAddedNotification(_ notification: Notification) {
         viewModel.fetchData()
     }
+    @objc fileprivate func dayTapped(selectedDate: UIDatePicker) {
+        let selectedDate = selectedDate.date
+        let popupViewController = AddEventPopUpViewController()
+        popupViewController.modalPresentationStyle = .popover
+        popupViewController.viewModel.selectedDate = selectedDate
+        popupViewController.delegate = self
+        
+        if let popupVC = popupViewController.popoverPresentationController {
+            popupVC.sourceView = self.view
+            popupVC.sourceRect = CGRect(x: self.view.bounds.minX, y: self.view.bounds.minY, width: 0, height: 0)
+            popupVC.permittedArrowDirections = []
+            popupViewController.preferredContentSize = CGSize(width: 320, height: 360)
+            
+        }
+        self.present(popupViewController, animated: true, completion: nil)
+    }
+    // MARK: CollectionView Confgs.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfItemsInSection()
     }
@@ -110,24 +127,6 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: view.frame.width, height: 80)
-    }
-    @objc fileprivate func dayTapped(selectedDate: UIDatePicker) {
-       
-        let selectedDate = selectedDate.date
-        
-        let popupViewController = AddEventPopUpViewController()
-        popupViewController.modalPresentationStyle = .popover
-        popupViewController.viewModel.selectedDate = selectedDate
-        popupViewController.delegate = self
-        
-        if let popupVC = popupViewController.popoverPresentationController {
-            popupVC.sourceView = self.view
-            popupVC.sourceRect = CGRect(x: self.view.bounds.minX, y: self.view.bounds.minY, width: 0, height: 0)
-            popupVC.permittedArrowDirections = []
-            popupViewController.preferredContentSize = CGSize(width: 320, height: 360)
-            
-        }
-        self.present(popupViewController, animated: true, completion: nil)
     }
 }
 extension CalendarViewController {
