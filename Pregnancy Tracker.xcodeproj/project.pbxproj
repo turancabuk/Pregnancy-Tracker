@@ -49,6 +49,7 @@
 		5CA9DF022B986EB5004FAD1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA9DF002B986EB5004FAD1D /* LaunchScreen.storyboard */; };
 		5CAA089D2BDA86AF0042E3A8 /* AddEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */; };
 		5CAA08A52BE1034F0042E3A8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */; };
+		5CAA08A72BE287920042E3A8 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */; };
 		5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */; };
 		5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */; };
 /* End PBXBuildFile section */
@@ -96,6 +97,7 @@
 		5CA9DF032B986EB5004FAD1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewModel.swift; sourceTree = "<group>"; };
 		5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowLayer.swift; sourceTree = "<group>"; };
 		5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesDetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,12 +146,13 @@
 		5C3E175D2BD53A7C00C92FC4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */,
 				5C76EC012BD5945700286311 /* PersonalInformationViewModel.swift */,
+				5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */,
 				5C76EC092BD6994500286311 /* ProfileViewModel.swift */,
 				5C6E312E2BD917AF00C2476C /* CalendarViewModel.swift */,
 				5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */,
 				5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */,
+				5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				5C58CF1C2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift in Sources */,
 				5C0198502B9A0DFA00AC22CB /* UIFont.swift in Sources */,
 				5C917A952B98C0B200212267 /* UIView+Layout.swift in Sources */,
+				5CAA08A72BE287920042E3A8 /* HomeViewModel.swift in Sources */,
 				5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */,
 				5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */,
 				5C917AA32B98CA9B00212267 /* ProfileController.swift in Sources */,
