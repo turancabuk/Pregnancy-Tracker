@@ -48,7 +48,7 @@ class SafeAreaViewModel {
         }
     }
     private func updateBirthday(date: Date) -> String {
-
+ 
         var components = DateComponents()
         components.month = 9
         components.day = 10

@@ -179,9 +179,9 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             hud.dismiss()
-            if let tabBarController = self.tabBarController {
-                tabBarController.selectedIndex = 1
-            }
+//            if let tabBarController = self.tabBarController {
+//                tabBarController.selectedIndex = 1
+//            }
         }
     }
 }
