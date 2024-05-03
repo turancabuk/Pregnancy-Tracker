@@ -10,8 +10,8 @@ import UIKit
 class ProfileViewModel {
     
 
-    var profileManager: ProfileManager = ProfileManager()
-    var userInfo: UserInfoModel = UserInfoModel()
+    var profileManager: ProfileManager
+    var userInfo: UserInfoModel 
     var updateUI: (() -> Void)?
     
     init() {

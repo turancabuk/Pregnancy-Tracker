@@ -28,9 +28,7 @@ class CalendarViewModel {
             print("errror: \(error.localizedDescription)")
         }
     }
-    
-
-    
+    // MARK: CollectionView Confgs.
     func numberOfItemsInSection() -> Int {
         return savedData.count
     }

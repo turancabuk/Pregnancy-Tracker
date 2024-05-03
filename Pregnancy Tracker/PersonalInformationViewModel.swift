@@ -29,16 +29,17 @@ class PersonalInformationViewModel {
             showError("please select a photo")
             return
         }
-        
-        personalInformationModel.userName = name
-        personalInformationModel.profileImage = profileImage
-        personalInformationModel.lastMenstrualPeriod = date
-
         DispatchQueue.main.async {
+            self.personalInformationModel.userName = name
+            self.personalInformationModel.profileImage = profileImage
+            self.personalInformationModel.lastMenstrualPeriod = date
+            
             self.profileManager.saveUserProfile(model: self.personalInformationModel) { [weak self] succes in
                 
                 if !succes {
                     self?.showError("Profile not save")
+                }else{
+                    print("error:")
                 }
             }
         }
