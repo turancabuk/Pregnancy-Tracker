@@ -12,7 +12,7 @@ class HomeViewModel {
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, String>!
 
-    
+    let foodAndDietCollection = ["diet", "food"]
     let headerCollection = ["development", "water", "nutrition", "mood"]
     let mainCollection = ["bag", "name", "notes"]
     let verticalCollection = ["1", "2", "3", "4"]
@@ -21,7 +21,6 @@ class HomeViewModel {
                                   "deneme2 deneme2 deneme2 deneme2 deneme2 deneme2",
                                   "deneme3 deneme3 deneme3 deneme3 deneme3 deneme3",
     ]
-    let foodAndDietCollection = ["diet", "food"]
     
     enum Section: Int, CaseIterable {
         case header
@@ -85,7 +84,6 @@ class HomeViewModel {
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     func createCompositionalLayout() -> UICollectionViewLayout {
-        
         return UICollectionViewCompositionalLayout { [weak self] (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             guard let self = self else {return nil}
             guard let section = Section(rawValue: sectionIndex) else {return nil}

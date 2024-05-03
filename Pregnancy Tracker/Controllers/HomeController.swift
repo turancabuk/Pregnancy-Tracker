@@ -10,11 +10,11 @@ import UIKit
 class HomeController: UIViewController, UICollectionViewDelegate {
         
     var viewModel: HomeViewModel
-    let safeAreaView = SafeAreaView()
-    let profileController = ProfileController()
+    let safeAreaView: SafeAreaView
+    let profileController: ProfileController
+    let advertView: AdvertView
     let scrollView = UIScrollView()
     let contentView = UIView()
-    let advertView = AdvertView()
     var collectionView: UICollectionView!
     
     let seperatorView: UIView = {
@@ -25,6 +25,9 @@ class HomeController: UIViewController, UICollectionViewDelegate {
     
     init() {
         self.viewModel = HomeViewModel()
+        self.safeAreaView = SafeAreaView()
+        self.profileController = ProfileController()
+        self.advertView = AdvertView()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,7 +41,6 @@ class HomeController: UIViewController, UICollectionViewDelegate {
         
 
         setupCollectionView()
-        collectionView.delegate = self
         setupLayout()
         safeAreaView.viewModel = SafeAreaViewModel()
         
@@ -54,6 +56,7 @@ class HomeController: UIViewController, UICollectionViewDelegate {
 
         viewModel.setupCollectionView(controller: self)
         collectionView = viewModel.collectionView
+        collectionView.delegate = self
     }
     private func applyInitialSnapshot(){
         
@@ -69,7 +72,7 @@ extension HomeController {
         view.addSubview(safeAreaView)
         safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "f79256"))
         tabBarController?.tabBar.backgroundColor = .white
-
+        scrollView.isScrollEnabled = true
         
         safeAreaView.addSubview(seperatorView)
         safeAreaView.addSubview(scrollView)
@@ -78,8 +81,6 @@ extension HomeController {
         contentView.addSubview(advertView)
         
         disableAutoResizingMaskConstraints(for: [safeAreaView, seperatorView, scrollView, contentView, advertView, collectionView])
-
-        scrollView.isScrollEnabled = true
         
         NSLayoutConstraint.activate([
             safeAreaView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
