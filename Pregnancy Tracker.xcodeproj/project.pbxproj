@@ -149,10 +149,10 @@
 				5C76EC012BD5945700286311 /* PersonalInformationViewModel.swift */,
 				5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */,
 				5C76EC092BD6994500286311 /* ProfileViewModel.swift */,
+				5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */,
 				5C6E312E2BD917AF00C2476C /* CalendarViewModel.swift */,
 				5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */,
 				5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */,
-				5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -201,8 +201,8 @@
 		5C917AA92B98D91B00212267 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */,
 				5C86E60C2B9DE80A00FFB7A8 /* PersonalInformationView.swift */,
+				5C01984B2B99BFF300AC22CB /* SafeAreaView.swift */,
 				5C7FA8EC2BA8725100AEC447 /* AdvertView.swift */,
 				5C54954F2BD0426500720C48 /* FoodAndDietView.swift */,
 			);
