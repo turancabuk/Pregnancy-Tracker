@@ -100,6 +100,47 @@ class HomeViewModel {
             }
         }
     }
+    func didSelect(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath, viewController: UIViewController) {
+        
+        switch Section(rawValue: indexPath.section)! {
+        case .header:
+            let selectedItem = headerCollection[indexPath.row]
+            uniqueSelectedItem(selectedItem, viewController: viewController)
+        case .main:
+            let selectedItem = mainCollection[indexPath.row]
+            uniqueSelectedItem(selectedItem, viewController: viewController)
+        case .vertical:
+            let selectedItem = verticalCollection[indexPath.row]
+            uniqueSelectedItem(selectedItem, viewController: viewController)
+        case .foodDiet:
+            let selectedItem = foodAndDietCollection[indexPath.row]
+            let detVC = FoodAndDietView()
+            if selectedItem == "diet" {
+                detVC.imageView.image = UIImage(named: "diet")
+                let dietDetail = DietAndFoodInfoProvider.shared.getDietDescription(for: .diet)
+                detVC.foodDietLabel.text = dietDetail
+            }else{
+                detVC.imageView.image = UIImage(named: "food")
+                let foodDetail = DietAndFoodInfoProvider.shared.getDietDescription(for: .food)
+                detVC.foodDietLabel.text = foodDetail
+            }
+            detVC.modalPresentationStyle = .fullScreen
+            viewController.present(detVC, animated: true)
+        default:
+            fatalError()
+        }
+    }
+    fileprivate func uniqueSelectedItem(_ selectedItem: String, viewController: UIViewController) {
+        let detailVC = CategoriesDetailVC()
+        detailVC.imageView.image = UIImage(named: selectedItem)
+        detailVC.modalPresentationStyle = .fullScreen
+        viewController.present(detailVC, animated: true)
+    }
+    func advertViewContact() {
+        if let url = URL(string: "https://apps.apple.com/us/app/little-steps-development/id6474306976") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
 }
 extension HomeViewModel {
     func createHorizontalSection(height: CGFloat, itemCount: Int) -> NSCollectionLayoutSection {

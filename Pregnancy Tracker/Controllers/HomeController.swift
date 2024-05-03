@@ -66,6 +66,14 @@ class HomeController: UIViewController, UICollectionViewDelegate {
         
         viewModel.createCompositionalLayout()
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        viewModel.didSelect(collectionView, didSelectItemAt: indexPath, viewController: self)
+    }
+    @objc private func getButtonTapped() {
+        
+        viewModel.advertViewContact()
+    }
 }
 extension HomeController {
     fileprivate func setupLayout() {
@@ -73,6 +81,7 @@ extension HomeController {
         safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "f79256"))
         tabBarController?.tabBar.backgroundColor = .white
         scrollView.isScrollEnabled = true
+        advertView.getButton.addTarget(self, action: #selector(getButtonTapped), for: .touchUpInside)
         
         safeAreaView.addSubview(seperatorView)
         safeAreaView.addSubview(scrollView)
