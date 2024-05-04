@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class HomeViewModel {
     
@@ -105,13 +106,14 @@ class HomeViewModel {
         switch Section(rawValue: indexPath.section)! {
         case .header:
             let selectedItem = headerCollection[indexPath.row]
-            uniqueSelectedItem(selectedItem, viewController: viewController)
+            let swiftUIController = UIHostingController(rootView: WaterReminderView())
+            uniqueSelectedItem(selectedItem, controller: viewController, detailController: swiftUIController, backgroundColor: .red)
         case .main:
             let selectedItem = mainCollection[indexPath.row]
-            uniqueSelectedItem(selectedItem, viewController: viewController)
+            uniqueSelectedItem(selectedItem, controller: viewController, detailController: CategoriesDetailVC(), backgroundColor: .blue)
         case .vertical:
             let selectedItem = verticalCollection[indexPath.row]
-            uniqueSelectedItem(selectedItem, viewController: viewController)
+            uniqueSelectedItem(selectedItem, controller: viewController, detailController: CategoriesDetailVC(), backgroundColor: .yellow)
         case .foodDiet:
             let selectedItem = foodAndDietCollection[indexPath.row]
             let detVC = FoodAndDietView()
@@ -130,11 +132,11 @@ class HomeViewModel {
             fatalError()
         }
     }
-    fileprivate func uniqueSelectedItem(_ selectedItem: String, viewController: UIViewController) {
-        let detailVC = CategoriesDetailVC()
-        detailVC.imageView.image = UIImage(named: selectedItem)
+    fileprivate func uniqueSelectedItem(_ selectedItem: String, controller: UIViewController, detailController: UIViewController, backgroundColor: UIColor) {
+        let detailVC = detailController
+        detailVC.view.backgroundColor = backgroundColor
         detailVC.modalPresentationStyle = .fullScreen
-        viewController.present(detailVC, animated: true)
+        controller.present(detailVC, animated: true)
     }
     func advertViewContact() {
         if let url = URL(string: "https://apps.apple.com/us/app/little-steps-development/id6474306976") {
