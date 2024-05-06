@@ -19,7 +19,7 @@ class HomeController: UIViewController, UICollectionViewDelegate {
     
     let seperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(hex: "f79256")
+        view.backgroundColor = #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1)
         return view
     }()
     
@@ -78,7 +78,8 @@ class HomeController: UIViewController, UICollectionViewDelegate {
 extension HomeController {
     fileprivate func setupLayout() {
         view.addSubview(safeAreaView)
-        safeAreaView.setPersonelView(backgroundColor: UIColor(hex: "f79256"))
+        let color = #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1)
+        safeAreaView.setPersonelView(backgroundColor: color)
         tabBarController?.tabBar.backgroundColor = .white
         scrollView.isScrollEnabled = true
         advertView.getButton.addTarget(self, action: #selector(getButtonTapped), for: .touchUpInside)
@@ -131,7 +132,7 @@ extension HomeController {
                 lastView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             ])
         }
-        safeAreaView.backgroundColor = .orange
+        safeAreaView.backgroundColor = .white
     }
     fileprivate func disableAutoResizingMaskConstraints(for views: [UIView]) {
         views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }

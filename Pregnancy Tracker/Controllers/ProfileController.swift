@@ -15,14 +15,14 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     
     lazy var topView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(hex: "ffbc42")
+        view.backgroundColor = #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     lazy var bottomView: UIView = {
         let view = UIView()
-        view.backgroundColor = .orange
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -79,7 +79,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         datePicker.maximumDate = currentDate
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .inline
-        datePicker.backgroundColor = UIColor(hex: "ffbc42")
+        datePicker.backgroundColor = #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1)
         datePicker.layer.cornerRadius = 16
         datePicker.clipsToBounds = true
         datePicker.isUserInteractionEnabled = true
