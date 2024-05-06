@@ -107,7 +107,7 @@ extension SafeAreaView {
             personelView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             personelView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 1/5.5),
             
-            profileImageView.topAnchor.constraint(equalTo: personelView.topAnchor),
+            profileImageView.topAnchor.constraint(equalTo: personelView.topAnchor, constant: 6),
             profileImageView.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/5),
             profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor),
             profileImageView.centerXAnchor.constraint(equalTo: personelView.centerXAnchor),

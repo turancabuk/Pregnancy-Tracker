@@ -13,7 +13,7 @@ class FoodandDietCell: UICollectionViewCell {
         let view = UIView()
         view.layer.cornerRadius = 12
         view.clipsToBounds = true
-        view.backgroundColor = UIColor(hex: "f79256")
+        view.backgroundColor = #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
