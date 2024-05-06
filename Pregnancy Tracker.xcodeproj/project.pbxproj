@@ -21,8 +21,6 @@
 		5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */; };
 		5C54953D2BCF095C00720C48 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54953C2BCF095C00720C48 /* ProfileManager.swift */; };
 		5C5495422BD0057F00720C48 /* FoodandDietCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5495412BD0057F00720C48 /* FoodandDietCell.swift */; };
-		5C54954B2BD00C6E00720C48 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C54954A2BD00C6E00720C48 /* UIOnboarding */; };
-		5C54954E2BD00C7A00720C48 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5C54954D2BD00C7A00720C48 /* JGProgressHUD */; };
 		5C5495502BD0426500720C48 /* FoodAndDietView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54954F2BD0426500720C48 /* FoodAndDietView.swift */; };
 		5C5495522BD1309500720C48 /* DietAndFoodInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5495512BD1309500720C48 /* DietAndFoodInfoProvider.swift */; };
 		5C58CF1C2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */; };
@@ -52,6 +50,11 @@
 		5CAA08A72BE287920042E3A8 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */; };
 		5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */; };
 		5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */; };
+		5CEB19252BE65F0D00E0B546 /* WaterReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEB19242BE65F0D00E0B546 /* WaterReminderView.swift */; };
+		5CEB19272BE66B5A00E0B546 /* WaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */; };
+		5CEB19292BE670DB00E0B546 /* WaterReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEB19282BE670DB00E0B546 /* WaterReminderViewModel.swift */; };
+		5CEB192E2BE7C48000E0B546 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5CEB192D2BE7C48000E0B546 /* JGProgressHUD */; };
+		5CEB19312BE7C48A00E0B546 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5CEB19302BE7C48A00E0B546 /* UIOnboarding */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +103,9 @@
 		5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowLayer.swift; sourceTree = "<group>"; };
 		5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesDetailVC.swift; sourceTree = "<group>"; };
+		5CEB19242BE65F0D00E0B546 /* WaterReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterReminderView.swift; sourceTree = "<group>"; };
+		5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewController.swift; sourceTree = "<group>"; };
+		5CEB19282BE670DB00E0B546 /* WaterReminderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterReminderViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +113,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C54954E2BD00C7A00720C48 /* JGProgressHUD in Frameworks */,
-				5C54954B2BD00C6E00720C48 /* UIOnboarding in Frameworks */,
+				5CEB192E2BE7C48000E0B546 /* JGProgressHUD in Frameworks */,
+				5CEB19312BE7C48A00E0B546 /* UIOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +159,7 @@
 				5C6E312E2BD917AF00C2476C /* CalendarViewModel.swift */,
 				5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */,
 				5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */,
+				5CEB19282BE670DB00E0B546 /* WaterReminderViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -169,6 +176,8 @@
 				5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */,
 				5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */,
 				5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */,
+				5CEB19242BE65F0D00E0B546 /* WaterReminderView.swift */,
+				5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -263,8 +272,8 @@
 			);
 			name = "Pregnancy Tracker";
 			packageProductDependencies = (
-				5C54954A2BD00C6E00720C48 /* UIOnboarding */,
-				5C54954D2BD00C7A00720C48 /* JGProgressHUD */,
+				5CEB192D2BE7C48000E0B546 /* JGProgressHUD */,
+				5CEB19302BE7C48A00E0B546 /* UIOnboarding */,
 			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
@@ -295,8 +304,8 @@
 			);
 			mainGroup = 5CA9DEE92B986EB4004FAD1D;
 			packageReferences = (
-				5C5495492BD00C6E00720C48 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
-				5C54954C2BD00C7A00720C48 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				5CEB192C2BE7C48000E0B546 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				5CEB192F2BE7C48A00E0B546 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
 			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
@@ -330,6 +339,7 @@
 				5C917A8D2B98BF8400212267 /* HomeController.swift in Sources */,
 				5C7FA8ED2BA8725100AEC447 /* AdvertView.swift in Sources */,
 				5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */,
+				5CEB19292BE670DB00E0B546 /* WaterReminderViewModel.swift in Sources */,
 				5C86E61E2BA0745000FFB7A8 /* CoreData.xcdatamodeld in Sources */,
 				5CAA08A52BE1034F0042E3A8 /* SettingsViewModel.swift in Sources */,
 				5C7FA8EB2BA7525400AEC447 /* VerticalCollectionViewCell.swift in Sources */,
@@ -340,6 +350,7 @@
 				5C7FA8EF2BA9E17700AEC447 /* CalendarCell.swift in Sources */,
 				5C3E175F2BD53AA600C92FC4 /* SafeAreaViewModel.swift in Sources */,
 				5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */,
+				5CEB19252BE65F0D00E0B546 /* WaterReminderView.swift in Sources */,
 				5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */,
 				5C5495522BD1309500720C48 /* DietAndFoodInfoProvider.swift in Sources */,
 				5C86E61B2BA0611600FFB7A8 /* PaddedPlaceHolder.swift in Sources */,
@@ -354,6 +365,7 @@
 				5C76EC022BD5945700286311 /* PersonalInformationViewModel.swift in Sources */,
 				5C6E312F2BD917AF00C2476C /* CalendarViewModel.swift in Sources */,
 				5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */,
+				5CEB19272BE66B5A00E0B546 /* WaterViewController.swift in Sources */,
 				5C3E175C2BD5394C00C92FC4 /* UserInfoModel.swift in Sources */,
 				5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */,
 				5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */,
@@ -591,15 +603,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5C5495492BD00C6E00720C48 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lascic/UIOnboarding.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.3;
-			};
-		};
-		5C54954C2BD00C7A00720C48 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+		5CEB192C2BE7C48000E0B546 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
 			requirement = {
@@ -607,18 +611,26 @@
 				minimumVersion = 2.2.0;
 			};
 		};
+		5CEB192F2BE7C48A00E0B546 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lascic/UIOnboarding.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5C54954A2BD00C6E00720C48 /* UIOnboarding */ = {
+		5CEB192D2BE7C48000E0B546 /* JGProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5C5495492BD00C6E00720C48 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
-			productName = UIOnboarding;
-		};
-		5C54954D2BD00C7A00720C48 /* JGProgressHUD */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5C54954C2BD00C7A00720C48 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			package = 5CEB192C2BE7C48000E0B546 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
 			productName = JGProgressHUD;
+		};
+		5CEB19302BE7C48A00E0B546 /* UIOnboarding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CEB192F2BE7C48A00E0B546 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
+			productName = UIOnboarding;
 		};
 /* End XCSwiftPackageProductDependency section */
 

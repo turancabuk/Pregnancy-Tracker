@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class HomeViewModel {
     
@@ -13,8 +14,8 @@ class HomeViewModel {
     var dataSource: UICollectionViewDiffableDataSource<Section, String>!
 
     let foodAndDietCollection = ["diet", "food"]
-    let headerCollection = ["development", "water", "nutrition", "mood"]
-    let mainCollection = ["bag", "name", "notes"]
+    let headerCollection = ["development", "water", "nutrition"]
+    let mainCollection = ["yuri", "zoran", "dolga"]
     let verticalCollection = ["1", "2", "3", "4"]
     let verticalCollectionInfo = ["deneme deneme deneme deneme deneme deneme",
                                   "deneme1 deneme1 deneme1 deneme1 deneme1 deneme1",
@@ -28,11 +29,9 @@ class HomeViewModel {
         case vertical
         case foodDiet
     }
-    
-
     func setupCollectionView(controller: HomeController) {
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
-        collectionView.backgroundColor = .orange
+        collectionView.backgroundColor = .white
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         controller.viewModel.collectionView = self.collectionView
 
@@ -105,13 +104,15 @@ class HomeViewModel {
         switch Section(rawValue: indexPath.section)! {
         case .header:
             let selectedItem = headerCollection[indexPath.row]
-            uniqueSelectedItem(selectedItem, viewController: viewController)
+//            let swiftUIController = UIHostingController(rootView: WaterReminderView())
+            let color = #colorLiteral(red: 0.9032072425, green: 0.9181379676, blue: 0.9221801758, alpha: 1)
+            uniqueSelectedItem(selectedItem, controller: viewController, detailController: WaterViewController(), backgroundColor: color )
         case .main:
             let selectedItem = mainCollection[indexPath.row]
-            uniqueSelectedItem(selectedItem, viewController: viewController)
+            uniqueSelectedItem(selectedItem, controller: viewController, detailController: CategoriesDetailVC(), backgroundColor: .blue)
         case .vertical:
             let selectedItem = verticalCollection[indexPath.row]
-            uniqueSelectedItem(selectedItem, viewController: viewController)
+            uniqueSelectedItem(selectedItem, controller: viewController, detailController: CategoriesDetailVC(), backgroundColor: .yellow)
         case .foodDiet:
             let selectedItem = foodAndDietCollection[indexPath.row]
             let detVC = FoodAndDietView()
@@ -130,11 +131,11 @@ class HomeViewModel {
             fatalError()
         }
     }
-    fileprivate func uniqueSelectedItem(_ selectedItem: String, viewController: UIViewController) {
-        let detailVC = CategoriesDetailVC()
-        detailVC.imageView.image = UIImage(named: selectedItem)
+    fileprivate func uniqueSelectedItem(_ selectedItem: String, controller: UIViewController, detailController: UIViewController, backgroundColor: UIColor) {
+        let detailVC = detailController
+        detailVC.view.backgroundColor = backgroundColor
         detailVC.modalPresentationStyle = .fullScreen
-        viewController.present(detailVC, animated: true)
+        controller.present(detailVC, animated: true)
     }
     func advertViewContact() {
         if let url = URL(string: "https://apps.apple.com/us/app/little-steps-development/id6474306976") {
