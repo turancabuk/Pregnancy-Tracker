@@ -48,6 +48,7 @@
 		5CAA089D2BDA86AF0042E3A8 /* AddEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */; };
 		5CAA08A52BE1034F0042E3A8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */; };
 		5CAA08A72BE287920042E3A8 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */; };
+		5CBF71B02BEB891C00C0B304 /* AddWaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF71AF2BEB891C00C0B304 /* AddWaterViewController.swift */; };
 		5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */; };
 		5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */; };
 		5CEB19252BE65F0D00E0B546 /* WaterReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEB19242BE65F0D00E0B546 /* WaterReminderView.swift */; };
@@ -101,6 +102,7 @@
 		5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewModel.swift; sourceTree = "<group>"; };
 		5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		5CBF71AF2BEB891C00C0B304 /* AddWaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWaterViewController.swift; sourceTree = "<group>"; };
 		5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowLayer.swift; sourceTree = "<group>"; };
 		5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesDetailVC.swift; sourceTree = "<group>"; };
 		5CEB19242BE65F0D00E0B546 /* WaterReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterReminderView.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */,
 				5CEB19242BE65F0D00E0B546 /* WaterReminderView.swift */,
 				5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */,
+				5CBF71AF2BEB891C00C0B304 /* AddWaterViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				5C7FA8EF2BA9E17700AEC447 /* CalendarCell.swift in Sources */,
 				5C3E175F2BD53AA600C92FC4 /* SafeAreaViewModel.swift in Sources */,
 				5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */,
+				5CBF71B02BEB891C00C0B304 /* AddWaterViewController.swift in Sources */,
 				5CEB19252BE65F0D00E0B546 /* WaterReminderView.swift in Sources */,
 				5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */,
 				5C5495522BD1309500720C48 /* DietAndFoodInfoProvider.swift in Sources */,
