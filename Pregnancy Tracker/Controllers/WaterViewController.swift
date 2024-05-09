@@ -8,10 +8,12 @@
 import UIKit
 import CoreData
 
-class WaterViewController: UIViewController {
+class WaterViewController: UIViewController, AddWaterViewControllerDelegate {
     
 
     var viewModel: WaterReminderViewModel
+    var blurEffectView: UIVisualEffectView?
+    
     let categories = ["water1", "coffee", "tea", "juice"]
     
     lazy var nameLabel: UILabel = {
@@ -71,9 +73,18 @@ class WaterViewController: UIViewController {
         return button
     }()
     
-    lazy var alertButton : UIButton = {
+    lazy var alertButton: UIButton = {
         let button = createCustomButton(buttonImage: "reminder")
         button.addTarget(self, action: #selector(handleAlert), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var backButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -85,6 +96,8 @@ class WaterViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -97,19 +110,24 @@ class WaterViewController: UIViewController {
         let addWaterViewController = AddWaterViewController()
         addWaterViewController.modalPresentationStyle = .overFullScreen
         addWaterViewController.modalTransitionStyle = .crossDissolve
+        addWaterViewController.delegate = self
         
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = UIScreen.main.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(blurEffectView)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView?.frame = view.bounds
+        blurEffectView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView!)
         
         present(addWaterViewController, animated: true)
     }
-
-
+    func handleCancel() {
+        blurEffectView?.removeFromSuperview()
+    }
     @objc fileprivate func handleAlert() {
         print("alert button tapped")
+    }
+    @objc private func handleBack() {
+        dismiss(animated: true)
     }
 }
 extension WaterViewController {
@@ -141,6 +159,7 @@ extension WaterViewController {
 extension WaterViewController {
     private func setupLayout() {
         
+        view.addSubview(backButton)
         view.addSubview(nameLabel)
         view.addSubview(dateLabel)
         view.addSubview(graphicContainerView)
@@ -154,6 +173,12 @@ extension WaterViewController {
         
         
         NSLayoutConstraint.activate([
+            
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            backButton.widthAnchor.constraint(equalToConstant: 32),
+            backButton.heightAnchor.constraint(equalToConstant: 32),
+            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 6),
+            
             nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
             nameLabel.heightAnchor.constraint(equalToConstant: 36),
             nameLabel.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1/2),
