@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class WaterViewController: UIViewController, AddWaterViewControllerDelegate {
+class WaterViewController: UIViewController {
     
 
     var viewModel: WaterReminderViewModel
@@ -62,10 +62,10 @@ class WaterViewController: UIViewController, AddWaterViewControllerDelegate {
         return view
     }()
     
-    lazy var waterItem = createItems(labelImage: UIImage(named: "water2")!, labelText: "200 ml")
-    lazy var juiceItem = createItems(labelImage: UIImage(named: "juice1")!, labelText: "200 ml")
-    lazy var coffeeItem = createItems(labelImage: UIImage(named: "coffee1")!, labelText: "200 ml")
-    lazy var teaItem = createItems(labelImage: UIImage(named: "tea1")!, labelText: "200 ml")
+    lazy var waterItem = createItems(labelImage: UIImage(named: "water2")!, labelText: "0 ml")
+    lazy var juiceItem = createItems(labelImage: UIImage(named: "juice1")!, labelText: "0 ml")
+    lazy var coffeeItem = createItems(labelImage: UIImage(named: "coffee1")!, labelText: "0 ml")
+    lazy var teaItem = createItems(labelImage: UIImage(named: "tea1")!, labelText: "0 ml")
     
     lazy var plusButton: UIButton = {
         let button = createCustomButton(buttonImage: "plus")
@@ -120,9 +120,6 @@ class WaterViewController: UIViewController, AddWaterViewControllerDelegate {
         
         present(addWaterViewController, animated: true)
     }
-    func handleCancel() {
-        blurEffectView?.removeFromSuperview()
-    }
     @objc fileprivate func handleAlert() {
         print("alert button tapped")
     }
@@ -154,6 +151,29 @@ extension WaterViewController {
         button.setImage(UIImage(named: buttonImage), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }
+}
+extension WaterViewController: AddWaterViewControllerDelegate {
+    func updateDrinkQuantity(type: String, quantity: Int) {
+        let text = "\(quantity) ml"
+        switch type {
+        case "water":
+            (waterItem.viewWithTag(100) as? UILabel)?.text = text
+        case "coffee":
+            (coffeeItem.viewWithTag(100) as? UILabel)?.text = text
+        case "juice":
+            (juiceItem.viewWithTag(100) as? UILabel)?.text = text
+        case "tea":
+            (teaItem.viewWithTag(100) as? UILabel)?.text = text
+        default:
+            print("Unexpected drink type")
+            return
+        }
+        print("Updated \(type) quantity to \(quantity) ml")
+        blurEffectView?.removeFromSuperview()
+    }
+    func handleCancel() {
+        blurEffectView?.removeFromSuperview()
     }
 }
 extension WaterViewController {
@@ -224,10 +244,10 @@ extension WaterViewController {
             plusButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
             plusButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1/3),
             
-            alertButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            alertButton.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/8),
-            alertButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1/3),
-            alertButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24)
+            alertButton.bottomAnchor.constraint(equalTo: graphicContainerView.bottomAnchor),
+            alertButton.heightAnchor.constraint(equalToConstant: 72),
+            alertButton.widthAnchor.constraint(equalToConstant: 84),
+            alertButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18)
         ])
     }
 }

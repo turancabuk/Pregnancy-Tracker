@@ -9,12 +9,15 @@ import UIKit
 
 
 protocol AddWaterViewControllerDelegate: AnyObject {
+    func updateDrinkQuantity(type: String, quantity: Int)
     func handleCancel()
     
 }
 class AddWaterViewController: UIViewController {
     
     weak var delegate: AddWaterViewControllerDelegate?
+    var selectedDrinkType: String?
+    var drinkQuantity: Int = 0
     
     lazy var containerView: UIView = {
         let view = UIView()
@@ -37,10 +40,10 @@ class AddWaterViewController: UIViewController {
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
-        let waterItem = createItemLabel(itemImage: UIImage(named: "water1")!)
-        let coffeeItem = createItemLabel(itemImage: UIImage(named: "coffee")!)
-        let juiceItem = createItemLabel(itemImage: UIImage(named: "juice")!)
-        let teaItem = createItemLabel(itemImage: UIImage(named: "tea")!)
+        let waterItem = createItemLabel(itemImage: UIImage(named: "water1")!, action: #selector(waterItemTapped))
+        let coffeeItem = createItemLabel(itemImage: UIImage(named: "coffee")!, action: #selector(coffeeItemTapped))
+        let juiceItem = createItemLabel(itemImage: UIImage(named: "juice")!, action: #selector(juiceItemTapped))
+        let teaItem = createItemLabel(itemImage: UIImage(named: "tea")!, action: #selector(teaItemTapped))
         
         stackView.addArrangedSubview(waterItem)
         stackView.addArrangedSubview(coffeeItem)
@@ -85,13 +88,23 @@ class AddWaterViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+  
     lazy var addButton: UIButton = {
-        let button = UIComponentsFactory.createCustomButton(title: "ADD", state: .normal, titleColor: UIColor.white, borderColor: UIColor.clear, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleAdd)
-        button.titleLabel?.font = FontHelper.customFont(size: 12)
-        button.backgroundColor = #colorLiteral(red: 0.0004648703907, green: 0.5735016465, blue: 0.9910971522, alpha: 1)
+        let button = UIButton()
+        button.setTitle("ADD", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.backgroundColor = UIColor.blue
+        button.addTarget(self, action: #selector(handleAdd), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+//    lazy var addButton: UIButton = {
+//        let button = UIComponentsFactory.createCustomButton(title: "ADD", state: .normal, titleColor: UIColor.white, borderColor: UIColor.clear, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleAdd)
+//        button.titleLabel?.font = FontHelper.customFont(size: 12)
+//        button.backgroundColor = #colorLiteral(red: 0.0004648703907, green: 0.5735016465, blue: 0.9910971522, alpha: 1)
+//        return button
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +115,7 @@ class AddWaterViewController: UIViewController {
         
     }
     @objc private func handleSlider(_ sender: UISlider) {
+        drinkQuantity = Int(sender.value)
         unitLabel.text = "\(Int(sender.value)) ml"
     }
     @objc private func handleCancel() {
@@ -109,7 +123,25 @@ class AddWaterViewController: UIViewController {
         dismiss(animated: true)
     }
     @objc private func handleAdd() {
-        print("added")
+        guard let type = selectedDrinkType, drinkQuantity > 0 else {return}
+        delegate?.updateDrinkQuantity(type: type, quantity: drinkQuantity)
+        dismiss(animated: true)
+    }
+    @objc private func waterItemTapped() {
+        selectedDrinkType = "water"
+        print("water item tapped")
+    }
+    @objc private func coffeeItemTapped() {
+        selectedDrinkType = "coffee"
+        print("coffee item tapped")
+    }
+    @objc private func juiceItemTapped() {
+        selectedDrinkType = "juice"
+        print("juice item tapped")
+    }
+    @objc private func teaItemTapped() {
+        selectedDrinkType = "tea"
+        print("tea item tapped")
     }
 }
 extension AddWaterViewController {
@@ -121,9 +153,11 @@ extension AddWaterViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
-    private func createItemLabel(itemImage: UIImage) -> UIView {
+    private func createItemLabel(itemImage: UIImage, action: Selector) -> UIView {
         let imageView = UIImageView()
         imageView.image = itemImage
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: action))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }

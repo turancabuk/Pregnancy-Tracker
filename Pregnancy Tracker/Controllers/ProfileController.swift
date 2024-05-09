@@ -56,7 +56,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     lazy var nameTextfield: UITextField = {
 
         let textfield = UIComponentsFactory.createCustomTextfield(placeHolder: "", fontSize: 16, borderColor: UIColor.white, borderWidth: 3.0, cornerRadius: 12)
-        textfield.backgroundColor = UIColor.orange
+        textfield.backgroundColor = #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1)
         textfield.textColor = UIColor.black
         textfield.paddingLeft(padding: 12)
         textfield.textAlignment = .center
@@ -179,9 +179,6 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             hud.dismiss()
-//            if let tabBarController = self.tabBarController {
-//                tabBarController.selectedIndex = 1
-//            }
         }
     }
 }
@@ -220,9 +217,9 @@ extension ProfileController {
             profileImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 2.5/6),
             
             changeImageView.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: -4),
-            changeImageView.widthAnchor.constraint(equalTo: profileImageView.widthAnchor, multiplier: 1/7),
-            changeImageView.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: -6),
-            changeImageView.heightAnchor.constraint(equalTo: profileImageView.heightAnchor, multiplier: 1/7),
+            changeImageView.widthAnchor.constraint(equalToConstant: 48),
+            changeImageView.heightAnchor.constraint(equalToConstant: 54),
+            changeImageView.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor),
             
             nameTextfield.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 12),
             nameTextfield.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/2),
