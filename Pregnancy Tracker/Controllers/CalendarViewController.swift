@@ -14,6 +14,7 @@ protocol CalendarViewControllerDelegate: AnyObject{
 class CalendarViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AddEventPopUpViewControllerDelegate{
     
     var viewModel: CalendarViewModel
+    var blurEffectView: UIVisualEffectView?
     
     var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -84,12 +85,6 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
 
         
     }
-    func didAddEvent() {
-        viewModel.fetchData()
-        DispatchQueue.main.async {
-            self.todoCollectionView.reloadData()
-        }
-    }
     @objc func handleEventAddedNotification(_ notification: Notification) {
         viewModel.fetchData()
     }
@@ -100,14 +95,29 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         popupViewController.viewModel.selectedDate = selectedDate
         popupViewController.delegate = self
         
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView?.frame = view.bounds
+        blurEffectView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView!)
+        
         if let popupVC = popupViewController.popoverPresentationController {
             popupVC.sourceView = self.view
             popupVC.sourceRect = CGRect(x: self.view.bounds.minX, y: self.view.bounds.minY, width: 0, height: 0)
             popupVC.permittedArrowDirections = []
             popupViewController.preferredContentSize = CGSize(width: 320, height: 360)
-            
         }
         self.present(popupViewController, animated: true, completion: nil)
+    }
+    func didAddEvent() {
+        viewModel.fetchData()
+        DispatchQueue.main.async {
+            self.todoCollectionView.reloadData()
+            self.blurEffectView?.removeFromSuperview()
+        }
+    }
+    func didCancelEvent() {
+        blurEffectView?.removeFromSuperview()
     }
     // MARK: CollectionView Confgs.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
