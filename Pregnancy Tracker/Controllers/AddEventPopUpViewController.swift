@@ -11,10 +11,9 @@ import EventKit
 
 protocol AddEventPopUpViewControllerDelegate: AnyObject {
     func didAddEvent()
+    func didCancelEvent()
 }
 class AddEventPopUpViewController: UIViewController, UITextViewDelegate, AddEventViewModelDelegate {
-    
-    
     
     var viewModel = AddEventViewModel()
     let eventStore = EKEventStore()
@@ -67,20 +66,12 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, AddEven
         setupLayout()
         registerKeyboardNotifications()
         viewModel.delegate = self
-        delegate?.didAddEvent()
+        
 
         
     }
     func didAddEvent() {
         delegate?.didAddEvent()
-        
-        dismiss(animated: true)
-    }
-    private func registerKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    func dismiss() {
         dismiss(animated: true)
     }
     func didSelectDate(date: Date) {
@@ -90,8 +81,9 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, AddEven
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !noteTextview.text.isEmpty
     }
-    @objc fileprivate func handleCancel() {
-        self.dismiss(animated: true)
+    private func registerKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     @objc private func keyboardWillShow(notification: NSNotification) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
@@ -123,6 +115,10 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, AddEven
     func didFailWithError(message: String) {
         showAlert(title: "Error", describe: message)
     }
+    @objc fileprivate func handleCancel() {
+        delegate?.didCancelEvent()
+        self.dismiss(animated: true)
+    }
     @objc fileprivate func handleSave() {
         
         guard let aboutText = aboutTextfield.text, !aboutText.isEmpty,
@@ -131,6 +127,8 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, AddEven
             return
         }
         viewModel.addEvent(aboutText: aboutText, noteText: noteText, selectedTime: timePicker.date)
+        delegate?.didAddEvent()
+        dismiss(animated: true)
     }
 }
 

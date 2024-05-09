@@ -12,6 +12,8 @@ class WaterViewController: UIViewController {
     
 
     var viewModel: WaterReminderViewModel
+    var blurEffectView: UIVisualEffectView?
+    
     let categories = ["water1", "coffee", "tea", "juice"]
     
     lazy var nameLabel: UILabel = {
@@ -60,28 +62,31 @@ class WaterViewController: UIViewController {
         return view
     }()
     
-    lazy var waterItem = createItems(labelImage: UIImage(named: "water2")!, labelText: "200 ml")
-    lazy var juiceItem = createItems(labelImage: UIImage(named: "juice1")!, labelText: "200 ml")
-    lazy var coffeeItem = createItems(labelImage: UIImage(named: "coffee1")!, labelText: "200 ml")
-    lazy var teaItem = createItems(labelImage: UIImage(named: "tea1")!, labelText: "200 ml")
+    lazy var waterItem = createItems(labelImage: UIImage(named: "water2")!, labelText: "0 ml")
+    lazy var juiceItem = createItems(labelImage: UIImage(named: "juice1")!, labelText: "0 ml")
+    lazy var coffeeItem = createItems(labelImage: UIImage(named: "coffee1")!, labelText: "0 ml")
+    lazy var teaItem = createItems(labelImage: UIImage(named: "tea1")!, labelText: "0 ml")
     
-    private func createItems(labelImage: UIImage, labelText: String) -> UIView{
-        let imageView = UIImageView(image: labelImage)
-        let label = UILabel()
-        label.text = labelText
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        imageView.addSubview(label)
-        NSLayoutConstraint.activate([
-            label.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 2/3),
-            label.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 20),
-            label.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1/2.5),
-            label.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
-        ])
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }
+    lazy var plusButton: UIButton = {
+        let button = createCustomButton(buttonImage: "plus")
+        button.addTarget(self, action: #selector(handlePlus), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var alertButton: UIButton = {
+        let button = createCustomButton(buttonImage: "reminder")
+        button.addTarget(self, action: #selector(handleAlert), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var backButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     init() {
         self.viewModel = WaterReminderViewModel()
@@ -91,6 +96,8 @@ class WaterViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -99,10 +106,80 @@ class WaterViewController: UIViewController {
         
         
     }
+    @objc fileprivate func handlePlus() {
+        let addWaterViewController = AddWaterViewController()
+        addWaterViewController.modalPresentationStyle = .overFullScreen
+        addWaterViewController.modalTransitionStyle = .crossDissolve
+        addWaterViewController.delegate = self
+        
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView?.frame = view.bounds
+        blurEffectView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView!)
+        
+        present(addWaterViewController, animated: true)
+    }
+    @objc fileprivate func handleAlert() {
+        print("alert button tapped")
+    }
+    @objc private func handleBack() {
+        dismiss(animated: true)
+    }
+}
+extension WaterViewController {
+    private func createItems(labelImage: UIImage, labelText: String) -> UIView{
+        let imageView = UIImageView(image: labelImage)
+        let label = UILabel()
+        label.text = labelText
+        label.textColor = .black
+        label.font = FontHelper.customFont(size: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        imageView.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 2/3),
+            label.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 20),
+            label.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1/2.5),
+            label.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 2)
+        ])
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }
+    private func createCustomButton(buttonImage: String) -> UIButton {
+        let button = UIButton()
+        button.setImage(UIImage(named: buttonImage), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
+}
+extension WaterViewController: AddWaterViewControllerDelegate {
+    func updateDrinkQuantity(type: String, quantity: Int) {
+        let text = "\(quantity) ml"
+        switch type {
+        case "water":
+            (waterItem.viewWithTag(100) as? UILabel)?.text = text
+        case "coffee":
+            (coffeeItem.viewWithTag(100) as? UILabel)?.text = text
+        case "juice":
+            (juiceItem.viewWithTag(100) as? UILabel)?.text = text
+        case "tea":
+            (teaItem.viewWithTag(100) as? UILabel)?.text = text
+        default:
+            print("Unexpected drink type")
+            return
+        }
+        print("Updated \(type) quantity to \(quantity) ml")
+        blurEffectView?.removeFromSuperview()
+    }
+    func handleCancel() {
+        blurEffectView?.removeFromSuperview()
+    }
 }
 extension WaterViewController {
     private func setupLayout() {
         
+        view.addSubview(backButton)
         view.addSubview(nameLabel)
         view.addSubview(dateLabel)
         view.addSubview(graphicContainerView)
@@ -111,8 +188,17 @@ extension WaterViewController {
         containerView.addSubview(teaItem)
         containerView.addSubview(juiceItem)
         containerView.addSubview(coffeeItem)
+        view.addSubview(plusButton)
+        view.addSubview(alertButton)
+        
         
         NSLayoutConstraint.activate([
+            
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            backButton.widthAnchor.constraint(equalToConstant: 32),
+            backButton.heightAnchor.constraint(equalToConstant: 32),
+            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 6),
+            
             nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
             nameLabel.heightAnchor.constraint(equalToConstant: 36),
             nameLabel.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1/2),
@@ -152,6 +238,16 @@ extension WaterViewController {
             coffeeItem.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -24),
             coffeeItem.widthAnchor.constraint(equalTo: waterItem.widthAnchor),
             coffeeItem.heightAnchor.constraint(equalTo: waterItem.heightAnchor),
+            
+            plusButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
+            plusButton.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/6),
+            plusButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            plusButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1/3),
+            
+            alertButton.bottomAnchor.constraint(equalTo: graphicContainerView.bottomAnchor),
+            alertButton.heightAnchor.constraint(equalToConstant: 72),
+            alertButton.widthAnchor.constraint(equalToConstant: 84),
+            alertButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18)
         ])
     }
 }
