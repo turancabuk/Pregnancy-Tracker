@@ -13,8 +13,18 @@ class WaterViewController: UIViewController {
 
     var viewModel: WaterReminderViewModel
     var blurEffectView: UIVisualEffectView?
-    
     let categories = ["water1", "coffee", "tea", "juice"]
+    
+    var waterLabel: UILabel!
+    var coffeeLabel: UILabel!
+    var juiceLabel: UILabel!
+    var teaLabel: UILabel!
+
+    // Item referansları
+    var waterItem: UIView!
+    var coffeeItem: UIView!
+    var juiceItem: UIView!
+    var teaItem: UIView!
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
@@ -62,11 +72,6 @@ class WaterViewController: UIViewController {
         return view
     }()
     
-    lazy var waterItem = createItems(labelImage: UIImage(named: "water2")!, labelText: "0 ml")
-    lazy var juiceItem = createItems(labelImage: UIImage(named: "juice1")!, labelText: "0 ml")
-    lazy var coffeeItem = createItems(labelImage: UIImage(named: "coffee1")!, labelText: "0 ml")
-    lazy var teaItem = createItems(labelImage: UIImage(named: "tea1")!, labelText: "0 ml")
-    
     lazy var plusButton: UIButton = {
         let button = createCustomButton(buttonImage: "plus")
         button.addTarget(self, action: #selector(handlePlus), for: .touchUpInside)
@@ -101,10 +106,16 @@ class WaterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        setupItems()
         setupLayout()
         
         
+    }
+    func setupItems() {
+        (waterItem, waterLabel) = createItems(labelImage: UIImage(named: "water2")!, labelText: "0 ml")
+        (juiceItem, juiceLabel) = createItems(labelImage: UIImage(named: "juice1")!, labelText: "0 ml")
+        (coffeeItem, coffeeLabel) = createItems(labelImage: UIImage(named: "coffee1")!, labelText: "0 ml")
+        (teaItem, teaLabel) = createItems(labelImage: UIImage(named: "tea1")!, labelText: "0 ml")
     }
     @objc fileprivate func handlePlus() {
         let addWaterViewController = AddWaterViewController()
@@ -128,23 +139,21 @@ class WaterViewController: UIViewController {
     }
 }
 extension WaterViewController {
-    private func createItems(labelImage: UIImage, labelText: String) -> UIView{
+    private func createItems(labelImage: UIImage, labelText: String) -> (UIView, UILabel) {
         let imageView = UIImageView(image: labelImage)
         let label = UILabel()
         label.text = labelText
         label.textColor = .black
         label.font = FontHelper.customFont(size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
-        
+
         imageView.addSubview(label)
         NSLayoutConstraint.activate([
-            label.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 2/3),
             label.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 20),
-            label.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1/2.5),
             label.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 2)
         ])
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+        return (imageView, label)
     }
     private func createCustomButton(buttonImage: String) -> UIButton {
         let button = UIButton()
@@ -158,13 +167,13 @@ extension WaterViewController: AddWaterViewControllerDelegate {
         let text = "\(quantity) ml"
         switch type {
         case "water":
-            (waterItem.viewWithTag(100) as? UILabel)?.text = text
+            waterLabel.text = text
         case "coffee":
-            (coffeeItem.viewWithTag(100) as? UILabel)?.text = text
+            coffeeLabel.text = text
         case "juice":
-            (juiceItem.viewWithTag(100) as? UILabel)?.text = text
+            juiceLabel.text = text
         case "tea":
-            (teaItem.viewWithTag(100) as? UILabel)?.text = text
+            teaLabel.text = text
         default:
             print("Unexpected drink type")
             return
@@ -184,10 +193,12 @@ extension WaterViewController {
         view.addSubview(dateLabel)
         view.addSubview(graphicContainerView)
         view.addSubview(containerView)
+        
         containerView.addSubview(waterItem)
         containerView.addSubview(teaItem)
         containerView.addSubview(juiceItem)
         containerView.addSubview(coffeeItem)
+
         view.addSubview(plusButton)
         view.addSubview(alertButton)
         
