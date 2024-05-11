@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 protocol AddWaterViewControllerDelegate: AnyObject {
     func updateDrinkQuantity(type: String, quantity: Int)
     func handleCancel()
@@ -18,6 +17,12 @@ class AddWaterViewController: UIViewController {
     weak var delegate: AddWaterViewControllerDelegate?
     var selectedDrinkType: String?
     var drinkQuantity: Int = 0
+    
+    var defaultImages: [String: UIImage] = [:]
+    var waterItemImageView: UIImageView!
+    var coffeeItemImageView: UIImageView!
+    var juiceItemImageView: UIImageView!
+    var teaItemImageView: UIImageView!
     
     lazy var containerView: UIView = {
         let view = UIView()
@@ -40,15 +45,15 @@ class AddWaterViewController: UIViewController {
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
-        let waterItem = createItemLabel(itemImage: UIImage(named: "water1")!, action: #selector(waterItemTapped))
-        let coffeeItem = createItemLabel(itemImage: UIImage(named: "coffee")!, action: #selector(coffeeItemTapped))
-        let juiceItem = createItemLabel(itemImage: UIImage(named: "juice")!, action: #selector(juiceItemTapped))
-        let teaItem = createItemLabel(itemImage: UIImage(named: "tea")!, action: #selector(teaItemTapped))
+        waterItemImageView = createItemLabel(itemImage: UIImage(named: "water1")!, action: #selector(waterItemTapped)) as? UIImageView
+        coffeeItemImageView = createItemLabel(itemImage: UIImage(named: "coffee")!, action: #selector(coffeeItemTapped)) as? UIImageView
+        juiceItemImageView = createItemLabel(itemImage: UIImage(named: "juice")!, action: #selector(juiceItemTapped)) as? UIImageView
+        teaItemImageView = createItemLabel(itemImage: UIImage(named: "tea")!, action: #selector(teaItemTapped)) as? UIImageView
         
-        stackView.addArrangedSubview(waterItem)
-        stackView.addArrangedSubview(coffeeItem)
-        stackView.addArrangedSubview(juiceItem)
-        stackView.addArrangedSubview(teaItem)
+        stackView.addArrangedSubview(waterItemImageView)
+        stackView.addArrangedSubview(coffeeItemImageView)
+        stackView.addArrangedSubview(juiceItemImageView)
+        stackView.addArrangedSubview(teaItemImageView)
         return stackView
     }()
     
@@ -88,23 +93,13 @@ class AddWaterViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-  
-    lazy var addButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("ADD", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        button.backgroundColor = UIColor.blue
-        button.addTarget(self, action: #selector(handleAdd), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
     
-//    lazy var addButton: UIButton = {
-//        let button = UIComponentsFactory.createCustomButton(title: "ADD", state: .normal, titleColor: UIColor.white, borderColor: UIColor.clear, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleAdd)
-//        button.titleLabel?.font = FontHelper.customFont(size: 12)
-//        button.backgroundColor = #colorLiteral(red: 0.0004648703907, green: 0.5735016465, blue: 0.9910971522, alpha: 1)
-//        return button
-//    }()
+    lazy var addButton: UIButton = {
+    let button = UIComponentsFactory.createCustomButton(title: "ADD", state: .normal, titleColor: UIColor.white, borderColor: UIColor.clear, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleAdd)
+    button.titleLabel?.font = FontHelper.customFont(size: 12)
+    button.backgroundColor = #colorLiteral(red: 0.0004648703907, green: 0.5735016465, blue: 0.9910971522, alpha: 1)
+    return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,20 +123,34 @@ class AddWaterViewController: UIViewController {
         dismiss(animated: true)
     }
     @objc private func waterItemTapped() {
-        selectedDrinkType = "water"
-        print("water item tapped")
+        updateSelection(newType: "water", imageView: waterItemImageView, newImageName: "water3")
     }
     @objc private func coffeeItemTapped() {
-        selectedDrinkType = "coffee"
-        print("coffee item tapped")
+        updateSelection(newType: "coffee", imageView: coffeeItemImageView, newImageName: "coffee3")
     }
     @objc private func juiceItemTapped() {
-        selectedDrinkType = "juice"
-        print("juice item tapped")
+        updateSelection(newType: "juice", imageView: juiceItemImageView, newImageName: "juice3")
     }
     @objc private func teaItemTapped() {
-        selectedDrinkType = "tea"
-        print("tea item tapped")
+        updateSelection(newType: "tea", imageView: teaItemImageView, newImageName: "tea3")
+    }
+    private func updateSelection(newType: String, imageView: UIImageView, newImageName: String) {
+        if let previousype = selectedDrinkType, previousype != newType {
+            switch previousype {
+            case "water":
+                waterItemImageView.image = UIImage(named: "water1")
+            case "coffee":
+                coffeeItemImageView.image = UIImage(named: "coffee")
+            case "juice":
+                juiceItemImageView.image = UIImage(named: "juice")
+            case "tea":
+                teaItemImageView.image = UIImage(named: "tea")
+            default:
+                break
+            }
+        }
+        imageView.image = UIImage(named: newImageName)
+        selectedDrinkType = newType
     }
 }
 extension AddWaterViewController {

@@ -41,6 +41,8 @@
 		5C917AA32B98CA9B00212267 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA22B98CA9B00212267 /* ProfileController.swift */; };
 		5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA42B98CAD900212267 /* SettingsController.swift */; };
 		5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA72B98CB3300212267 /* MainTabbarController.swift */; };
+		5C9227F52BEE4D7700B1512D /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 5C9227F42BEE4D7700B1512D /* DGCharts */; };
+		5C9227F72BEE4D7700B1512D /* DGChartsDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 5C9227F62BEE4D7700B1512D /* DGChartsDynamic */; };
 		5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF52B986EB4004FAD1D /* AppDelegate.swift */; };
 		5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF72B986EB4004FAD1D /* SceneDelegate.swift */; };
 		5CA9DEFA2B986EB4004FAD1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF92B986EB4004FAD1D /* ViewController.swift */; };
@@ -115,7 +117,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C9227F72BEE4D7700B1512D /* DGChartsDynamic in Frameworks */,
 				5C47FBDD2BED5A9D00A3624B /* JGProgressHUD in Frameworks */,
+				5C9227F52BEE4D7700B1512D /* DGCharts in Frameworks */,
 				5C47FBDA2BED5A9800A3624B /* UIOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,6 +281,8 @@
 			packageProductDependencies = (
 				5C47FBD92BED5A9800A3624B /* UIOnboarding */,
 				5C47FBDC2BED5A9D00A3624B /* JGProgressHUD */,
+				5C9227F42BEE4D7700B1512D /* DGCharts */,
+				5C9227F62BEE4D7700B1512D /* DGChartsDynamic */,
 			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
@@ -309,6 +315,7 @@
 			packageReferences = (
 				5C47FBD82BED5A9800A3624B /* XCRemoteSwiftPackageReference "UIOnboarding" */,
 				5C47FBDB2BED5A9D00A3624B /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				5C9227F32BEE4D7700B1512D /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
@@ -623,6 +630,14 @@
 				minimumVersion = 2.2.0;
 			};
 		};
+		5C9227F32BEE4D7700B1512D /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ChartsOrg/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -635,6 +650,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5C47FBDB2BED5A9D00A3624B /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
 			productName = JGProgressHUD;
+		};
+		5C9227F42BEE4D7700B1512D /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C9227F32BEE4D7700B1512D /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
+		};
+		5C9227F62BEE4D7700B1512D /* DGChartsDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C9227F32BEE4D7700B1512D /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGChartsDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 
