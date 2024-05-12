@@ -7,20 +7,20 @@
 
 import UIKit
 import CoreData
+import DGCharts
 
 class WaterViewController: UIViewController {
     
 
-    var viewModel: WaterReminderViewModel
+    var viewModel: WaterViewModel
+    var pieChartView: PieChartView
     var blurEffectView: UIVisualEffectView?
-    let categories = ["water1", "coffee", "tea", "juice"]
     
     var waterLabel: UILabel!
     var coffeeLabel: UILabel!
     var juiceLabel: UILabel!
     var teaLabel: UILabel!
 
-    // Item referansları
     var waterItem: UIView!
     var coffeeItem: UIView!
     var juiceItem: UIView!
@@ -39,18 +39,12 @@ class WaterViewController: UIViewController {
    
     lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "Today, \(getCurrentDate())"
+        label.text = "Today, \(viewModel.getCurrentDate())"
         label.font = FontHelper.customFont(size: 16)
         label.textColor = .darkGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    func getCurrentDate() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        return dateFormatter.string(from: Date())
-    }
     
     lazy var graphicContainerView: UIView = {
         let view = UIView()
@@ -72,29 +66,13 @@ class WaterViewController: UIViewController {
         return view
     }()
     
-    lazy var plusButton: UIButton = {
-        let button = createCustomButton(buttonImage: "plus")
-        button.addTarget(self, action: #selector(handlePlus), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var alertButton: UIButton = {
-        let button = createCustomButton(buttonImage: "reminder")
-        button.addTarget(self, action: #selector(handleAlert), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var backButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        button.tintColor = .black
-        button.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    lazy var plusButton = createCustomButton(buttonImage: UIImage(named: "plus")!, selector: #selector(handlePlus))
+    lazy var alertButton = createCustomButton(buttonImage: UIImage(named: "reminder")!, selector: #selector(handleAlert))
+    lazy var backButton = createCustomButton(buttonImage: UIImage(systemName: "chevron.backward")!, selector: #selector(handleBack))
     
     init() {
-        self.viewModel = WaterReminderViewModel()
+        self.viewModel = WaterViewModel()
+        self.pieChartView = PieChartView()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -106,16 +84,71 @@ class WaterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
         setupItems()
         setupLayout()
         
         
     }
-    func setupItems() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadDrinkQunatities()
+        setupDailyResetTimer()
+        updateLabels()
+        updateChartData()
+    }
+    final func saveDrinkQuantities() {
+        
+        viewModel.saveDrinkQuantities()
+    }
+    final func loadDrinkQunatities() {
+        
+        viewModel.loadDrinkQunatities()
+    }
+    final func updateLabels() {
+        waterLabel.text = "\(viewModel.drinkQunatities["water", default: 0]) ml"
+        coffeeLabel.text = "\(viewModel.drinkQunatities["coffee", default: 0]) ml"
+        juiceLabel.text = "\(viewModel.drinkQunatities["juice", default: 0]) ml"
+        teaLabel.text = "\(viewModel.drinkQunatities["tea", default: 0]) ml"
+    }
+    final func setupItems() {
         (waterItem, waterLabel) = createItems(labelImage: UIImage(named: "water2")!, labelText: "0 ml")
         (juiceItem, juiceLabel) = createItems(labelImage: UIImage(named: "juice1")!, labelText: "0 ml")
         (coffeeItem, coffeeLabel) = createItems(labelImage: UIImage(named: "coffee1")!, labelText: "0 ml")
         (teaItem, teaLabel) = createItems(labelImage: UIImage(named: "tea1")!, labelText: "0 ml")
+    }
+    final func setupDailyResetTimer() {
+        
+        DispatchQueue.main.async {
+            self.viewModel.setupDailyResetTimer()
+        }
+    }
+    final func resetDrinkQuantities() {
+        
+        viewModel.resetDrinkQuantities()
+        saveDrinkQuantities()
+    }
+    private func updateChartData() {
+        let drinkTypes = ["water", "coffee", "juice", "tea"]
+        var dataEntries: [PieChartDataEntry] = []
+
+        for type in drinkTypes {
+            let value = Double(viewModel.drinkQunatities[type, default: 0])
+            let entry = PieChartDataEntry(value: value, label: type.capitalized)
+            dataEntries.append(entry)
+        }
+
+        let dataSet = PieChartDataSet(entries: dataEntries, label: "")
+        let waterColor = #colorLiteral(red: 0.2051374316, green: 0.5963311195, blue: 0.8612344861, alpha: 1)
+        let coffeeColor = #colorLiteral(red: 0.182844013, green: 0.7996165156, blue: 0.4433076978, alpha: 1)
+        let juiceColor = #colorLiteral(red: 0.9074830413, green: 0.2954654694, blue: 0.2339037955, alpha: 1)
+        let teaColor = #colorLiteral(red: 0.9463655353, green: 0.7656276822, blue: 0.06403773278, alpha: 1)
+        dataSet.colors = [waterColor, coffeeColor, teaColor, juiceColor]
+        let data = PieChartData(dataSets: [dataSet])
+
+        pieChartView.data = data
+        pieChartView.notifyDataSetChanged()
+        ShadowLayer.setShadow(view: pieChartView, color: .black, opacity: 12, offset: .init(width: 0.5, height: 0.5), radius: 5)
     }
     @objc fileprivate func handlePlus() {
         let addWaterViewController = AddWaterViewController()
@@ -138,6 +171,38 @@ class WaterViewController: UIViewController {
         dismiss(animated: true)
     }
 }
+extension WaterViewController: AddWaterViewControllerDelegate {
+    
+    func updateDrinkQuantity(type: String, quantity: Int) {
+        loadDrinkQunatities()
+        let previousQuntity = viewModel.drinkQunatities[type] ?? 0
+        let newQunatity = previousQuntity + quantity
+        viewModel.drinkQunatities[type] = newQunatity
+        saveDrinkQuantities()
+        updateLabels()
+        updateChartData()
+        
+        let text = "\(newQunatity) ml"
+        switch type {
+        case "water":
+            waterLabel.text = text
+        case "coffee":
+            coffeeLabel.text = text
+        case "juice":
+            juiceLabel.text = text
+        case "tea":
+            teaLabel.text = text
+        default:
+            print("Unexpected drink type")
+            return
+        }
+        blurEffectView?.removeFromSuperview()
+        
+    }
+    func handleCancel() {
+        blurEffectView?.removeFromSuperview()
+    }
+}
 extension WaterViewController {
     private func createItems(labelImage: UIImage, labelText: String) -> (UIView, UILabel) {
         let imageView = UIImageView(image: labelImage)
@@ -155,34 +220,12 @@ extension WaterViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return (imageView, label)
     }
-    private func createCustomButton(buttonImage: String) -> UIButton {
+    private func createCustomButton(buttonImage: UIImage, selector: Selector) -> UIButton {
         let button = UIButton()
-        button.setImage(UIImage(named: buttonImage), for: .normal)
+        button.setImage(buttonImage, for: .normal)
+        button.addTarget(self, action: selector, for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
-    }
-}
-extension WaterViewController: AddWaterViewControllerDelegate {
-    func updateDrinkQuantity(type: String, quantity: Int) {
-        let text = "\(quantity) ml"
-        switch type {
-        case "water":
-            waterLabel.text = text
-        case "coffee":
-            coffeeLabel.text = text
-        case "juice":
-            juiceLabel.text = text
-        case "tea":
-            teaLabel.text = text
-        default:
-            print("Unexpected drink type")
-            return
-        }
-        print("Updated \(type) quantity to \(quantity) ml")
-        blurEffectView?.removeFromSuperview()
-    }
-    func handleCancel() {
-        blurEffectView?.removeFromSuperview()
     }
 }
 extension WaterViewController {
@@ -199,6 +242,9 @@ extension WaterViewController {
         containerView.addSubview(juiceItem)
         containerView.addSubview(coffeeItem)
 
+        graphicContainerView.addSubview(pieChartView)
+        pieChartView.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(plusButton)
         view.addSubview(alertButton)
         
@@ -224,6 +270,11 @@ extension WaterViewController {
             graphicContainerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/3),
             graphicContainerView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
             graphicContainerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            
+            pieChartView.centerXAnchor.constraint(equalTo: graphicContainerView.centerXAnchor),
+            pieChartView.centerYAnchor.constraint(equalTo: graphicContainerView.centerYAnchor),
+            pieChartView.heightAnchor.constraint(equalTo: graphicContainerView.heightAnchor),
+            pieChartView.widthAnchor.constraint(equalTo: graphicContainerView.widthAnchor),
             
             containerView.topAnchor.constraint(equalTo: graphicContainerView.bottomAnchor, constant: 12),
             containerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/5),
@@ -255,10 +306,11 @@ extension WaterViewController {
             plusButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
             plusButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1/3),
             
-            alertButton.bottomAnchor.constraint(equalTo: graphicContainerView.bottomAnchor),
+            alertButton.topAnchor.constraint(equalTo: graphicContainerView.topAnchor),
             alertButton.heightAnchor.constraint(equalToConstant: 72),
             alertButton.widthAnchor.constraint(equalToConstant: 84),
             alertButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18)
         ])
     }
 }
+
