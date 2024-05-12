@@ -118,9 +118,11 @@ class AddWaterViewController: UIViewController {
         dismiss(animated: true)
     }
     @objc private func handleAdd() {
-        guard let type = selectedDrinkType, drinkQuantity > 0 else {return}
-        delegate?.updateDrinkQuantity(type: type, quantity: drinkQuantity)
-        dismiss(animated: true)
+        DispatchQueue.main.async { [self] in
+            guard let type = selectedDrinkType, drinkQuantity > 0 else {return}
+            delegate?.updateDrinkQuantity(type: type, quantity: drinkQuantity)
+            dismiss(animated: true)
+        }
     }
     @objc private func waterItemTapped() {
         updateSelection(newType: "water", imageView: waterItemImageView, newImageName: "water3")
