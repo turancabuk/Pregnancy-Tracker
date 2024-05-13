@@ -9,8 +9,7 @@ import UIKit
 import CoreData
 import DGCharts
 
-class WaterViewController: UIViewController {
-    
+class WaterViewController: UIViewController, WaterReminderViewControllerDelegate {
 
     var viewModel: WaterViewModel
     var pieChartView: PieChartView
@@ -92,7 +91,7 @@ class WaterViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        resetDrinkQuantities()
+        setupDailyResetTimer()
         loadDrinkQunatities()
         updateLabels()
         updateChartData()
@@ -165,7 +164,18 @@ class WaterViewController: UIViewController {
         present(addWaterViewController, animated: true)
     }
     @objc fileprivate func handleAlert() {
-        print("alert button tapped")
+        let reminderViewController = WaterReminderViewController()
+        reminderViewController.modalPresentationStyle = .overFullScreen
+        reminderViewController.modalTransitionStyle = .crossDissolve
+        reminderViewController.delegate = self
+        
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView?.frame = view.bounds
+        blurEffectView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView!)
+        
+        present(reminderViewController, animated: true)
     }
     @objc private func handleBack() {
         dismiss(animated: true)
@@ -201,6 +211,9 @@ extension WaterViewController: AddWaterViewControllerDelegate {
     }
     func handleCancel() {
         blurEffectView?.removeFromSuperview()
+    }
+    func switchStatusChanged(selected: Bool) {
+        
     }
 }
 extension WaterViewController {
