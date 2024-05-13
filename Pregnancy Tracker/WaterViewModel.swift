@@ -42,7 +42,6 @@ class WaterViewModel {
         Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false) { [weak self] _ in
             DispatchQueue.main.async {
                 self?.resetDrinkQuantities()
-                self?.setupDailyResetTimer()
             }
         }
     }
