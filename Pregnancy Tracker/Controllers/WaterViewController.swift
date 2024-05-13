@@ -92,8 +92,8 @@ class WaterViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        resetDrinkQuantities()
         loadDrinkQunatities()
-        setupDailyResetTimer()
         updateLabels()
         updateChartData()
     }

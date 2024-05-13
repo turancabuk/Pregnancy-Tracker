@@ -31,8 +31,8 @@ class WaterViewModel {
     func setupDailyResetTimer() {
         let calendar = Calendar.current
         var dateComponents = DateComponents()
-        dateComponents.hour = 7
-        dateComponents.minute = 0
+        dateComponents.hour = 13
+        dateComponents.minute = 18
         dateComponents.second = 0
         
         let today = Date()
