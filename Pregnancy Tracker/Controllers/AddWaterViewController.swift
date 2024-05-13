@@ -95,9 +95,9 @@ class AddWaterViewController: UIViewController {
     }()
     
     lazy var addButton: UIButton = {
-    let button = UIComponentsFactory.createCustomButton(title: "ADD", state: .normal, titleColor: UIColor.white, borderColor: UIColor.clear, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleAdd)
+        let tintColor = #colorLiteral(red: 0.0004648703907, green: 0.5735016465, blue: 0.9910971522, alpha: 1)
+    let button = UIComponentsFactory.createCustomButton(title: "ADD", state: .normal, titleColor: tintColor, borderColor: tintColor, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleAdd)
     button.titleLabel?.font = FontHelper.customFont(size: 12)
-    button.backgroundColor = #colorLiteral(red: 0.0004648703907, green: 0.5735016465, blue: 0.9910971522, alpha: 1)
     return button
     }()
     
@@ -235,7 +235,7 @@ extension AddWaterViewController {
             
             addButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -24),
             addButton.heightAnchor.constraint(equalToConstant: 46),
-            addButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 3/4),
+            addButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.5),
             addButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor)
             
         ])

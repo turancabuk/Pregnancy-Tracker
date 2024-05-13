@@ -56,6 +56,7 @@
 		5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */; };
 		5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */; };
 		5CEB19272BE66B5A00E0B546 /* WaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */; };
+		5CF3A3BC2BF229B500DE7C76 /* WaterReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF3A3BB2BF229B500DE7C76 /* WaterReminderViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowLayer.swift; sourceTree = "<group>"; };
 		5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesDetailVC.swift; sourceTree = "<group>"; };
 		5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewController.swift; sourceTree = "<group>"; };
+		5CF3A3BB2BF229B500DE7C76 /* WaterReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterReminderViewController.swift; sourceTree = "<group>"; };
 		69E174A0973F7285C2F61BED /* Pods-Pregnancy Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pregnancy Tracker.release.xcconfig"; path = "Target Support Files/Pods-Pregnancy Tracker/Pods-Pregnancy Tracker.release.xcconfig"; sourceTree = "<group>"; };
 		BA1B08941861B4C92C718A67 /* Pods_Pregnancy_Tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pregnancy_Tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -192,6 +194,7 @@
 				5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */,
 				5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */,
 				5CBF71AF2BEB891C00C0B304 /* AddWaterViewController.swift */,
+				5CF3A3BB2BF229B500DE7C76 /* WaterReminderViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				5CAA089D2BDA86AF0042E3A8 /* AddEventViewModel.swift in Sources */,
 				5C01985D2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift in Sources */,
 				5C7FA8EF2BA9E17700AEC447 /* CalendarCell.swift in Sources */,
+				5CF3A3BC2BF229B500DE7C76 /* WaterReminderViewController.swift in Sources */,
 				5C3E175F2BD53AA600C92FC4 /* SafeAreaViewModel.swift in Sources */,
 				5C86E60D2B9DE80A00FFB7A8 /* PersonalInformationView.swift in Sources */,
 				5CBF71B02BEB891C00C0B304 /* AddWaterViewController.swift in Sources */,
