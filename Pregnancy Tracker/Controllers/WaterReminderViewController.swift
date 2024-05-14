@@ -6,14 +6,16 @@
 //
 
 import UIKit
+import UserNotifications
 
 protocol WaterReminderViewControllerDelegate: AnyObject {
     func handleCancel()
     func switchStatusChanged(selected: Bool)
 }
 class WaterReminderViewController: UIViewController {
-
     weak var delegate: WaterReminderViewControllerDelegate?
+    var selectedH: Int = 0
+    var selectedM: Int = 0
     
     lazy var containerView: UIView = {
         let view = UIView()
@@ -26,7 +28,7 @@ class WaterReminderViewController: UIViewController {
     
     lazy var switchButton: UISwitch = {
         let switchControl = UISwitch()
-        switchControl.isOn = false
+        switchControl.isOn = UserDefaults.standard.bool(forKey: "switchButtonStatus")
         switchControl.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
         switchControl.translatesAutoresizingMaskIntoConstraints = false
         return switchControl
@@ -45,7 +47,7 @@ class WaterReminderViewController: UIViewController {
         datePicker.datePickerMode = .countDownTimer
         datePicker.countDownDuration = 900
         datePicker.preferredDatePickerStyle = .wheels
-        datePicker.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
+        datePicker.addTarget(self, action: #selector(datePickerChanged(_:)), for: .valueChanged)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
@@ -67,31 +69,103 @@ class WaterReminderViewController: UIViewController {
     }()
     
     lazy var addButton: UIButton = {
-    let tintColor = #colorLiteral(red: 0.0004648703907, green: 0.5735016465, blue: 0.9910971522, alpha: 1)
-    let button = UIComponentsFactory.createCustomButton(title: "ADD", state: .normal, titleColor: tintColor, borderColor: tintColor, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleAdd)
-    button.titleLabel?.font = FontHelper.customFont(size: 12)
-    
-    return button
+        let tintColor = #colorLiteral(red: 0.0004648703907, green: 0.5735016465, blue: 0.9910971522, alpha: 1)
+        let button = UIComponentsFactory.createCustomButton(title: "ADD", state: .normal, titleColor: tintColor, borderColor: tintColor, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleAdd)
+        button.titleLabel?.font = FontHelper.customFont(size: 12)
+        return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupLayout()
+        checkForPermission()
         
     }
     @objc private func handleCancel() {
+        
         delegate?.handleCancel()
         dismiss(animated: true)
     }
+    @objc private func datePickerChanged(_ picker: UIDatePicker) {
+        let totalValue = picker.countDownDuration
+        let hour = Int(totalValue) / 3600
+        let minute = (Int(totalValue) % 3600) / 60
+        
+        self.selectedH = hour
+        self.selectedM = minute
+    }
     @objc private func switchChanged() {
         
-    }
-    @objc private func datePickerChanged() {
-        
+        if switchButton.isOn {
+            self.addButton.isHidden = false
+        } else {
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            UserDefaults.standard.setValue(switchButton.isOn, forKey: "switchButtonStatus")
+            delegate?.switchStatusChanged(selected: switchButton.isOn)
+            self.addButton.isHidden = true
+        }
     }
     @objc private func handleAdd() {
-        print("add button tapped")
+        guard switchButton.isOn else { return }
+        UserDefaults.standard.setValue(switchButton.isOn, forKey: "switchButtonStatus")
+        delegate?.switchStatusChanged(selected: switchButton.isOn)
+        
+        if switchButton.isOn {
+            dispatchNotification()
+        }
+        dismiss(animated: true)
+        delegate?.handleCancel()
+    }
+}
+extension WaterReminderViewController {
+    func checkForPermission() {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.getNotificationSettings { settings in
+            switch settings.authorizationStatus {
+            case .denied:
+                return
+            case .authorized:
+                DispatchQueue.main.async {
+                    if self.switchButton.isOn {
+                        self.dispatchNotification()
+                    }
+                }
+            case .notDetermined:
+                notificationCenter.requestAuthorization(options: [.alert, .sound]) { didAllow, error in
+                    if didAllow {
+                        DispatchQueue.main.async {
+                            if self.switchButton.isOn {
+                                self.dispatchNotification()
+                            }
+                        }
+                    }
+                }
+            default:
+                return
+            }
+        }
+    }
+    func dispatchNotification() {
+        let identifier = "water-reminder"
+        let title = "Time to drink something"
+        let body = "Let's have something to drink"
+        
+        let notificationCenter = UNUserNotificationCenter.current()
+        
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = .default
+        
+        let totalSeconds = (selectedH * 3600) + (selectedM * 60)
+        guard totalSeconds >= 60 else { return }
+        
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(totalSeconds), repeats: true)
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
+        notificationCenter.add(request)
     }
 }
 extension WaterReminderViewController {

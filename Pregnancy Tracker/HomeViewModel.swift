@@ -128,7 +128,7 @@ class HomeViewModel {
             detVC.modalPresentationStyle = .fullScreen
             viewController.present(detVC, animated: true)
         default:
-            fatalError()
+           return
         }
     }
     fileprivate func uniqueSelectedItem(_ selectedItem: String, controller: UIViewController, detailController: UIViewController, backgroundColor: UIColor) {
