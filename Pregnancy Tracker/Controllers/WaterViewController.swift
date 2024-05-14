@@ -86,6 +86,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
        
         setupItems()
         setupLayout()
+       
         
         
     }
@@ -95,6 +96,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         loadDrinkQunatities()
         updateLabels()
         updateChartData()
+        updateAlertButton()
     }
     final func saveDrinkQuantities() {
         
@@ -214,6 +216,15 @@ extension WaterViewController: AddWaterViewControllerDelegate {
     }
     func switchStatusChanged(selected: Bool) {
         
+        if selected {
+            alertButton.setImage(UIImage(named: "reminder2"), for: .normal)
+        }else{
+            alertButton.setImage(UIImage(named: "reminder"), for: .normal)
+        }
+    }
+    func updateAlertButton() {
+        let switchStatus = UserDefaults.standard.bool(forKey: "switchButtonStatus")
+        switchStatusChanged(selected: switchStatus)
     }
 }
 extension WaterViewController {
