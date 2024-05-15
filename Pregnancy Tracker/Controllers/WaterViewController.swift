@@ -66,7 +66,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     }()
     
     lazy var plusButton = createCustomButton(buttonImage: UIImage(named: "plus")!, selector: #selector(handlePlus))
-    lazy var alertButton = createCustomButton(buttonImage: UIImage(named: "reminder")!, selector: #selector(handleAlert))
+    lazy var alertButton = createCustomButton(buttonImage: UIImage(named: "reminder")!, selector: #selector(handleReminder))
     lazy var backButton = createCustomButton(buttonImage: UIImage(systemName: "chevron.backward")!, selector: #selector(handleBack))
     
     init() {
@@ -140,10 +140,10 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         }
 
         let dataSet = PieChartDataSet(entries: dataEntries, label: "")
-        let waterColor = #colorLiteral(red: 0.2051374316, green: 0.5963311195, blue: 0.8612344861, alpha: 1)
-        let coffeeColor = #colorLiteral(red: 0.182844013, green: 0.7996165156, blue: 0.4433076978, alpha: 1)
-        let juiceColor = #colorLiteral(red: 0.9074830413, green: 0.2954654694, blue: 0.2339037955, alpha: 1)
-        let teaColor = #colorLiteral(red: 0.9463655353, green: 0.7656276822, blue: 0.06403773278, alpha: 1)
+        let waterColor =  #colorLiteral(red: 0.4244635105, green: 0.7731418014, blue: 0.8198239207, alpha: 1)
+        let coffeeColor =  #colorLiteral(red: 0.3430070281, green: 0.6384900212, blue: 0.6003831029, alpha: 1)
+        let juiceColor =  #colorLiteral(red: 0.3742775917, green: 0.3643782437, blue: 0.6130426526, alpha: 1)
+        let teaColor =  #colorLiteral(red: 0.9988623261, green: 0.1231439188, blue: 0.3038950861, alpha: 1)
         dataSet.colors = [waterColor, coffeeColor, teaColor, juiceColor]
         let data = PieChartData(dataSets: [dataSet])
 
@@ -165,7 +165,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         
         present(addWaterViewController, animated: true)
     }
-    @objc fileprivate func handleAlert() {
+    @objc fileprivate func handleReminder() {
         let reminderViewController = WaterReminderViewController()
         reminderViewController.modalPresentationStyle = .overFullScreen
         reminderViewController.modalTransitionStyle = .crossDissolve
@@ -209,7 +209,6 @@ extension WaterViewController: AddWaterViewControllerDelegate {
             return
         }
         blurEffectView?.removeFromSuperview()
-        
     }
     func handleCancel() {
         blurEffectView?.removeFromSuperview()
@@ -337,4 +336,3 @@ extension WaterViewController {
         ])
     }
 }
-

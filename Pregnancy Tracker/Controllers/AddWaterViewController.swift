@@ -83,7 +83,7 @@ class AddWaterViewController: UIViewController {
     
     lazy var unitView: UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.9913895726, green: 0.9271829128, blue: 0.8677335382, alpha: 1)
+        view.backgroundColor =  #colorLiteral(red: 0.9948099256, green: 0.7468553185, blue: 0.3784635663, alpha: 1)
         view.addSubview(unitLabel)
         
         NSLayoutConstraint.activate([
@@ -95,7 +95,7 @@ class AddWaterViewController: UIViewController {
     }()
     
     lazy var addButton: UIButton = {
-        let tintColor = #colorLiteral(red: 0.0004648703907, green: 0.5735016465, blue: 0.9910971522, alpha: 1)
+        let tintColor = #colorLiteral(red: 0.2527885735, green: 0.6357112527, blue: 0.8464984894, alpha: 1)
     let button = UIComponentsFactory.createCustomButton(title: "ADD", state: .normal, titleColor: tintColor, borderColor: tintColor, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleAdd)
     button.titleLabel?.font = FontHelper.customFont(size: 12)
     return button
