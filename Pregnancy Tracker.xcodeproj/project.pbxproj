@@ -41,8 +41,6 @@
 		5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA42B98CAD900212267 /* SettingsController.swift */; };
 		5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA72B98CB3300212267 /* MainTabbarController.swift */; };
 		5CA2AC102BF1254400DD28B4 /* WaterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA2AC0F2BF1254400DD28B4 /* WaterViewModel.swift */; };
-		5CA2AC1E2BF131DC00DD28B4 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5CA2AC1D2BF131DC00DD28B4 /* UIOnboarding */; };
-		5CA2AC212BF131E400DD28B4 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5CA2AC202BF131E400DD28B4 /* JGProgressHUD */; };
 		5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF52B986EB4004FAD1D /* AppDelegate.swift */; };
 		5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF72B986EB4004FAD1D /* SceneDelegate.swift */; };
 		5CA9DEFA2B986EB4004FAD1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF92B986EB4004FAD1D /* ViewController.swift */; };
@@ -57,6 +55,9 @@
 		5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */; };
 		5CEB19272BE66B5A00E0B546 /* WaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */; };
 		5CF3A3BC2BF229B500DE7C76 /* WaterReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF3A3BB2BF229B500DE7C76 /* WaterReminderViewController.swift */; };
+		5CF3A3C12BF5187000DE7C76 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5CF3A3C02BF5187000DE7C76 /* JGProgressHUD */; };
+		5CF3A3C42BF5187800DE7C76 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5CF3A3C32BF5187800DE7C76 /* UIOnboarding */; };
+		5CF3A3C62BF518C500DE7C76 /* WaterReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF3A3C52BF518C500DE7C76 /* WaterReminderViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +111,7 @@
 		5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesDetailVC.swift; sourceTree = "<group>"; };
 		5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewController.swift; sourceTree = "<group>"; };
 		5CF3A3BB2BF229B500DE7C76 /* WaterReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterReminderViewController.swift; sourceTree = "<group>"; };
+		5CF3A3C52BF518C500DE7C76 /* WaterReminderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterReminderViewModel.swift; sourceTree = "<group>"; };
 		69E174A0973F7285C2F61BED /* Pods-Pregnancy Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pregnancy Tracker.release.xcconfig"; path = "Target Support Files/Pods-Pregnancy Tracker/Pods-Pregnancy Tracker.release.xcconfig"; sourceTree = "<group>"; };
 		BA1B08941861B4C92C718A67 /* Pods_Pregnancy_Tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pregnancy_Tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -119,9 +121,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CF3A3C12BF5187000DE7C76 /* JGProgressHUD in Frameworks */,
+				5CF3A3C42BF5187800DE7C76 /* UIOnboarding in Frameworks */,
 				4FC30F8D8A6E85C37EC53CB6 /* Pods_Pregnancy_Tracker.framework in Frameworks */,
-				5CA2AC212BF131E400DD28B4 /* JGProgressHUD in Frameworks */,
-				5CA2AC1E2BF131DC00DD28B4 /* UIOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +178,7 @@
 				5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */,
 				5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */,
 				5CA2AC0F2BF1254400DD28B4 /* WaterViewModel.swift */,
+				5CF3A3C52BF518C500DE7C76 /* WaterReminderViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -301,8 +304,8 @@
 			);
 			name = "Pregnancy Tracker";
 			packageProductDependencies = (
-				5CA2AC1D2BF131DC00DD28B4 /* UIOnboarding */,
-				5CA2AC202BF131E400DD28B4 /* JGProgressHUD */,
+				5CF3A3C02BF5187000DE7C76 /* JGProgressHUD */,
+				5CF3A3C32BF5187800DE7C76 /* UIOnboarding */,
 			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
@@ -333,8 +336,8 @@
 			);
 			mainGroup = 5CA9DEE92B986EB4004FAD1D;
 			packageReferences = (
-				5CA2AC1C2BF131DC00DD28B4 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
-				5CA2AC1F2BF131E400DD28B4 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				5CF3A3BF2BF5187000DE7C76 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				5CF3A3C22BF5187800DE7C76 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
 			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
@@ -426,6 +429,7 @@
 				5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */,
 				5C5495522BD1309500720C48 /* DietAndFoodInfoProvider.swift in Sources */,
 				5C86E61B2BA0611600FFB7A8 /* PaddedPlaceHolder.swift in Sources */,
+				5CF3A3C62BF518C500DE7C76 /* WaterReminderViewModel.swift in Sources */,
 				5C5495422BD0057F00720C48 /* FoodandDietCell.swift in Sources */,
 				5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */,
 				53372BD12B9A3A0C00F2F268 /* SettingsPageButtons.swift in Sources */,
@@ -677,15 +681,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5CA2AC1C2BF131DC00DD28B4 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lascic/UIOnboarding.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.3;
-			};
-		};
-		5CA2AC1F2BF131E400DD28B4 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+		5CF3A3BF2BF5187000DE7C76 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
 			requirement = {
@@ -693,18 +689,26 @@
 				minimumVersion = 2.2.0;
 			};
 		};
+		5CF3A3C22BF5187800DE7C76 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lascic/UIOnboarding.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5CA2AC1D2BF131DC00DD28B4 /* UIOnboarding */ = {
+		5CF3A3C02BF5187000DE7C76 /* JGProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5CA2AC1C2BF131DC00DD28B4 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
-			productName = UIOnboarding;
-		};
-		5CA2AC202BF131E400DD28B4 /* JGProgressHUD */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5CA2AC1F2BF131E400DD28B4 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			package = 5CF3A3BF2BF5187000DE7C76 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
 			productName = JGProgressHUD;
+		};
+		5CF3A3C32BF5187800DE7C76 /* UIOnboarding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CF3A3C22BF5187800DE7C76 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
+			productName = UIOnboarding;
 		};
 /* End XCSwiftPackageProductDependency section */
 
