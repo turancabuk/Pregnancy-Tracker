@@ -52,8 +52,8 @@ class WaterReminderViewModel {
         let totalSeconds = (selectedH * 3600) + (selectedM * 60)
         guard totalSeconds >= 60 else { return }
 
-        let startSilenceHour = 22
-        let endSilenceHour = 9
+        let startSilenceHour = 14
+        let endSilenceHour = 20
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(totalSeconds), repeats: true)
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
