@@ -20,30 +20,15 @@ class WaterViewModel {
             drinkQunatities = savedQuantities
         }
     }
+
     func saveDrinkQuantities() {
         UserDefaults.standard.set(drinkQunatities, forKey: "SaveDrinkQuantities")
         UserDefaults.standard.synchronize()
     }
+
     func resetDrinkQuantities() {
         drinkQunatities = ["water": 0, "coffee": 0, "juice": 0, "tea": 0]
-    }
-    
-    func setupDailyResetTimer() {
-        let calendar = Calendar.current
-        var dateComponents = DateComponents()
-        dateComponents.hour = 13
-        dateComponents.minute = 18
-        dateComponents.second = 0
-        
-        let today = Date()
-        let sevenAMToday = calendar.nextDate(after: today, matching: dateComponents, matchingPolicy: .nextTime)!
-        let timeInterval = sevenAMToday.timeIntervalSinceNow
-        
-        Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false) { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.resetDrinkQuantities()
-            }
-        }
+        saveDrinkQuantities()
     }
     func getCurrentDate() -> String {
         let dateFormatter = DateFormatter()

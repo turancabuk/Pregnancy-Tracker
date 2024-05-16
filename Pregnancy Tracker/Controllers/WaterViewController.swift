@@ -73,6 +73,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         self.viewModel = WaterViewModel()
         self.pieChartView = PieChartView()
         super.init(nibName: nil, bundle: nil)
+        scheduleResetTimer()
     }
     
     required init?(coder: NSCoder) {
@@ -86,17 +87,18 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
        
         setupItems()
         setupLayout()
-       
-        
+        scheduleResetTimer()
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupDailyResetTimer()
+
+        checkIfResetRequired()
         loadDrinkQunatities()
         updateLabels()
         updateChartData()
         updateAlertButton()
+
     }
     final func saveDrinkQuantities() {
         
@@ -105,6 +107,52 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     final func loadDrinkQunatities() {
         
         viewModel.loadDrinkQunatities()
+    }
+    private func scheduleResetTimer() {
+        let calendar = Calendar.current
+        let now = Date()
+        var resetTime = calendar.date(bySettingHour: 07, minute: 0, second: 0, of: now)!
+
+        if resetTime <= now {
+            resetTime = calendar.date(byAdding: .day, value: 1, to: resetTime)!
+        }
+
+        let timeInterval = resetTime.timeIntervalSince(now)
+        Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(resetDrinkQuantities), userInfo: nil, repeats: false)
+
+        let dailyInterval: TimeInterval = 24 * 60 * 60
+        Timer.scheduledTimer(timeInterval: dailyInterval, target: self, selector: #selector(resetDrinkQuantities), userInfo: nil, repeats: true)
+    }
+    private func checkIfResetRequired() {
+           let calendar = Calendar.current
+           let now = Date()
+           let lastResetDate = UserDefaults.standard.object(forKey: "lastResetDate") as? Date ?? Date.distantPast
+           var resetTime = calendar.date(bySettingHour: 22, minute: 35, second: 0, of: lastResetDate)
+
+        if calendar.isDateInToday(lastResetDate) == false || resetTime! <= now {
+               resetDrinkQuantities()
+           }
+    }
+    private func updateChartData() {
+        let drinkTypes = ["water", "coffee", "juice", "tea"]
+        var dataEntries: [PieChartDataEntry] = []
+
+        for type in drinkTypes {
+            let value = Double(viewModel.drinkQunatities[type, default: 0])
+            let entry = PieChartDataEntry(value: value, label: type.capitalized)
+            dataEntries.append(entry)
+        }
+        let dataSet = PieChartDataSet(entries: dataEntries, label: "")
+        let waterColor =  #colorLiteral(red: 0.4244635105, green: 0.7731418014, blue: 0.8198239207, alpha: 1)
+        let coffeeColor =  #colorLiteral(red: 0.3430070281, green: 0.6384900212, blue: 0.6003831029, alpha: 1)
+        let juiceColor =  #colorLiteral(red: 0.3742775917, green: 0.3643782437, blue: 0.6130426526, alpha: 1)
+        let teaColor =  #colorLiteral(red: 0.9988623261, green: 0.1231439188, blue: 0.3038950861, alpha: 1)
+        dataSet.colors = [waterColor, coffeeColor, teaColor, juiceColor]
+        let data = PieChartData(dataSets: [dataSet])
+
+        pieChartView.data = data
+        pieChartView.notifyDataSetChanged()
+        ShadowLayer.setShadow(view: pieChartView, color: .black, opacity: 12, offset: .init(width: 0.5, height: 0.5), radius: 5)
     }
     final func updateLabels() {
         waterLabel.text = "\(viewModel.drinkQunatities["water", default: 0]) ml"
@@ -118,38 +166,11 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         (coffeeItem, coffeeLabel) = createItems(labelImage: UIImage(named: "coffee1")!, labelText: "0 ml")
         (teaItem, teaLabel) = createItems(labelImage: UIImage(named: "tea1")!, labelText: "0 ml")
     }
-    final func setupDailyResetTimer() {
-        
-        DispatchQueue.main.async {
-            self.viewModel.setupDailyResetTimer()
-        }
-    }
-    final func resetDrinkQuantities() {
-        
+    @objc private func resetDrinkQuantities() {
         viewModel.resetDrinkQuantities()
-        saveDrinkQuantities()
-    }
-    private func updateChartData() {
-        let drinkTypes = ["water", "coffee", "juice", "tea"]
-        var dataEntries: [PieChartDataEntry] = []
-
-        for type in drinkTypes {
-            let value = Double(viewModel.drinkQunatities[type, default: 0])
-            let entry = PieChartDataEntry(value: value, label: type.capitalized)
-            dataEntries.append(entry)
-        }
-
-        let dataSet = PieChartDataSet(entries: dataEntries, label: "")
-        let waterColor =  #colorLiteral(red: 0.4244635105, green: 0.7731418014, blue: 0.8198239207, alpha: 1)
-        let coffeeColor =  #colorLiteral(red: 0.3430070281, green: 0.6384900212, blue: 0.6003831029, alpha: 1)
-        let juiceColor =  #colorLiteral(red: 0.3742775917, green: 0.3643782437, blue: 0.6130426526, alpha: 1)
-        let teaColor =  #colorLiteral(red: 0.9988623261, green: 0.1231439188, blue: 0.3038950861, alpha: 1)
-        dataSet.colors = [waterColor, coffeeColor, teaColor, juiceColor]
-        let data = PieChartData(dataSets: [dataSet])
-
-        pieChartView.data = data
-        pieChartView.notifyDataSetChanged()
-        ShadowLayer.setShadow(view: pieChartView, color: .black, opacity: 12, offset: .init(width: 0.5, height: 0.5), radius: 5)
+        updateLabels()
+        updateChartData()
+        UserDefaults.standard.set(Date(), forKey: "lastResetDate")
     }
     @objc fileprivate func handlePlus() {
         let addWaterViewController = AddWaterViewController()
