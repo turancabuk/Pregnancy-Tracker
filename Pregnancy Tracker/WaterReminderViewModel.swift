@@ -7,13 +7,11 @@
 
 import UIKit
 
-
 class WaterReminderViewModel {
     
     private(set) var selectedH: Int = 0
     private(set) var selectedM: Int = 0
     
-
     func checkForPermission() {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.getNotificationSettings { settings in
@@ -41,39 +39,68 @@ class WaterReminderViewModel {
         let identifier = "water-reminder"
         let title = "Time to drink something"
         let body = "Let's have something to drink"
-
+        
         let notificationCenter = UNUserNotificationCenter.current()
-
+        
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body
         content.sound = .default
-
+        
         let totalSeconds = (selectedH * 3600) + (selectedM * 60)
         guard totalSeconds >= 60 else { return }
-
-        let startSilenceHour = 14
-        let endSilenceHour = 20
-
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(totalSeconds), repeats: true)
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-
+        
+        let startSilenceHour = 9
+        let endSilenceHour = 19
+        
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
-        notificationCenter.add(request) { (error) in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-            } else {
-                let calendar = Calendar.current
-                let now = Date()
-                let silenceStart = calendar.date(bySettingHour: startSilenceHour, minute: 0, second: 0, of: now)!
-                let silenceEnd = calendar.date(bySettingHour: endSilenceHour, minute: 0, second: 0, of: now)!
-
-                if now >= silenceStart && now <= silenceEnd {
-                    notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
-                } else {
-                    notificationCenter.add(request)
+        
+        let calendar = Calendar.current
+        let now = Date()
+        
+        var nextTriggerDate = now
+        
+        // Eğer şu an sessiz saatler arasında değilse, bildirimleri düzenli aralıklarla gönder
+        if !isWithinSilenceHours(date: now, startHour: startSilenceHour, endHour: endSilenceHour) {
+            // Bildirimlerin belirli bir sıklıkta gönderilmesi için trigger oluştur
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(totalSeconds), repeats: true)
+            
+            // Bildirimi ekle
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+            
+            notificationCenter.add(request) { (error) in
+                if let error = error {
+                    print("Error: \(error.localizedDescription)")
                 }
             }
+        } else {
+            // Eğer şu an sessiz saatler arasındaysa, bir sonraki uygun zaman dilimine ileriye al
+            while isWithinSilenceHours(date: nextTriggerDate, startHour: startSilenceHour, endHour: endSilenceHour) {
+                nextTriggerDate = nextTriggerDate.addingTimeInterval(TimeInterval(totalSeconds))
+            }
+            
+            // Bildirimlerin belirli bir sıklıkta gönderilmesi için trigger oluştur
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: nextTriggerDate.timeIntervalSinceNow, repeats: false)
+            
+            // Bildirimi ekle
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+            
+            notificationCenter.add(request) { (error) in
+                if let error = error {
+                    print("Error: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    func isWithinSilenceHours(date: Date, startHour: Int, endHour: Int) -> Bool {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour], from: date)
+        let hour = components.hour!
+        
+        if startHour <= endHour {
+            return hour >= startHour && hour < endHour
+        } else {
+            return hour >= startHour || hour < endHour
         }
     }
     func updateTime(hour: Int, minute: Int) {
