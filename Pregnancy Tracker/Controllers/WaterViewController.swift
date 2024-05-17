@@ -111,7 +111,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     private func scheduleResetTimer() {
         let calendar = Calendar.current
         let now = Date()
-        var resetTime = calendar.date(bySettingHour: 07, minute: 0, second: 0, of: now)!
+        var resetTime = calendar.date(bySettingHour: 19, minute: 00, second: 0, of: now)!
 
         if resetTime <= now {
             resetTime = calendar.date(byAdding: .day, value: 1, to: resetTime)!
