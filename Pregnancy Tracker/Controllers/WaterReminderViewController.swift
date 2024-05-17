@@ -16,6 +16,7 @@ class WaterReminderViewController: UIViewController {
     
     var viewModel: WaterReminderViewModel
     weak var delegate: WaterReminderViewControllerDelegate?
+    
     var selectedH: Int = 0
     var selectedM: Int = 0
     
@@ -89,6 +90,8 @@ class WaterReminderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         setupLayout()
         checkForPermission()
 
