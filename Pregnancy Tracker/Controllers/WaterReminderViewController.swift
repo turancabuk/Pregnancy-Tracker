@@ -16,6 +16,7 @@ class WaterReminderViewController: UIViewController {
     
     var viewModel: WaterReminderViewModel
     weak var delegate: WaterReminderViewControllerDelegate?
+    var notificationTimer: Timer?
     
     var selectedH: Int = 0
     var selectedM: Int = 0
@@ -94,6 +95,12 @@ class WaterReminderViewController: UIViewController {
         
         setupLayout()
         checkForPermission()
+        
+        let calendar = Calendar.current
+        let now = Date()
+        
+        print("saat: \(calendar.component(.hour, from: now)), minute: \(calendar.component(.minute, from: now))")
+
 
     }
     func checkForPermission() {
