@@ -33,11 +33,6 @@ class AddWaterViewController: UIViewController {
         return view
     }()
     
-    lazy var whatLabel = createCustomLabel(labelText: "What Did You Drink?", labelSize: 14)
-    lazy var howMuchLabel = createCustomLabel(labelText: "How Much Did You Drink?", labelSize: 14)
-    lazy var zeroLabel = createCustomLabel(labelText: "0 ml", labelSize: 10)
-    lazy var threeHundredLabel = createCustomLabel(labelText: "300 ml", labelSize: 10)
-    
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -56,6 +51,11 @@ class AddWaterViewController: UIViewController {
         stackView.addArrangedSubview(teaItemImageView)
         return stackView
     }()
+    
+    lazy var whatLabel = createCustomLabel(labelText: "What Did You Drink?", labelSize: 14)
+    lazy var howMuchLabel = createCustomLabel(labelText: "How Much Did You Drink?", labelSize: 14)
+    lazy var zeroLabel = createCustomLabel(labelText: "0 ml", labelSize: 10)
+    lazy var threeHundredLabel = createCustomLabel(labelText: "300 ml", labelSize: 10)
     
     lazy var closeButton: UIButton = {
         let button = UIButton()

@@ -11,8 +11,9 @@ class MainTabbarController: UIViewController {
     
     let profileController = ProfileController()
     let homeController = HomeController()
-    let settingsController = SettingsController()
+    let waterController = WaterViewController()
     let calendarController = CalendarViewController()
+    let settingsController = SettingsController()
     let MainBarController = UITabBarController()
     
 
@@ -21,11 +22,12 @@ class MainTabbarController: UIViewController {
         super.viewDidLoad()
         
         profileController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
-        homeController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
-        settingsController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "gearshape"), selectedImage: UIImage(systemName: "gearshape.fill"))
+        homeController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "figure.yoga"), selectedImage: UIImage(systemName: "figure.yoga.fill"))
+        waterController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "drop.degreesign"), selectedImage: UIImage(systemName: "drop.degreesign.fill"))
         calendarController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "calendar"), selectedImage: UIImage(systemName: "calendar"))
+        settingsController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "gearshape"), selectedImage: UIImage(systemName: "gearshape.fill"))
         
-        MainBarController.viewControllers = [profileController, homeController, calendarController, settingsController]
+        MainBarController.viewControllers = [profileController, homeController, waterController, calendarController, settingsController]
         view.addSubview(MainBarController.view)
         MainBarController.didMove(toParent: self)
         

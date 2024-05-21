@@ -13,6 +13,7 @@ protocol AddEventViewModelDelegate: AnyObject {
     func didAddEvent()
     func didFailWithError(message: String)
 }
+
 class AddEventViewModel {
     
     private let eventStore = EKEventStore()
@@ -53,7 +54,7 @@ class AddEventViewModel {
     }
 
     private func requestCalendarAccess(completion: @escaping (Bool) -> Void) {
-        eventStore.requestAccess(to: .event) { granted, error in
+        eventStore.requestFullAccessToEvents { granted, error in
             DispatchQueue.main.async {
                 if granted && error == nil {
                     completion(true)
@@ -99,4 +100,3 @@ class AddEventViewModel {
         }
     }
 }
-

@@ -42,9 +42,9 @@ class SafeAreaView: UIView {
     }
 
     lazy var nameLabel = createCustomLabel(fontSize: 16, textColor: .black)
-    lazy var pregnancyWeekLabel: UILabel = createCustomLabel(fontSize: 16, text: "Pregnancy Week", textColor: .white)
+    lazy var pregnancyWeekLabel: UILabel = createCustomLabel(fontSize: 16, text: "Pregnancy Week", textColor: .lightGray)
     lazy var pregnancyWeekValue = createCustomLabel(fontSize: 16, textColor: .black)
-    lazy var birthDayLabel = createCustomLabel(fontSize: 16,text: "Birth Day ❤️", textColor: .white)
+    lazy var birthDayLabel = createCustomLabel(fontSize: 16,text: "Birth Day ❤️", textColor: .lightGray)
     lazy var birthDayValue = createCustomLabel(fontSize: 16, textColor: .systemPink)
     
 
@@ -102,12 +102,12 @@ extension SafeAreaView {
         
         NSLayoutConstraint.activate([
             
-            personelView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            personelView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 24),
             personelView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             personelView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            personelView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 1/5.5),
+            personelView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 1/4.5),
             
-            profileImageView.topAnchor.constraint(equalTo: personelView.topAnchor, constant: 6),
+            profileImageView.topAnchor.constraint(equalTo: personelView.topAnchor, constant: 32),
             profileImageView.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/5),
             profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor),
             profileImageView.centerXAnchor.constraint(equalTo: personelView.centerXAnchor),
@@ -117,7 +117,7 @@ extension SafeAreaView {
             nameLabel.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
             nameLabel.centerXAnchor.constraint(equalTo: profileImageView.centerXAnchor),
             
-            pregnancyWeekLabel.topAnchor.constraint(equalTo: personelView.bottomAnchor, constant: -60),
+            pregnancyWeekLabel.topAnchor.constraint(equalTo: personelView.bottomAnchor, constant: -80),
             pregnancyWeekLabel.leadingAnchor.constraint(equalTo: personelView.leadingAnchor, constant: 8),
             pregnancyWeekLabel.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
             pregnancyWeekLabel.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),
@@ -127,7 +127,7 @@ extension SafeAreaView {
             pregnancyWeekValue.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
             pregnancyWeekValue.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),
             
-            birthDayLabel.topAnchor.constraint(equalTo: personelView.bottomAnchor, constant: -60),
+            birthDayLabel.topAnchor.constraint(equalTo: personelView.bottomAnchor, constant: -80),
             birthDayLabel.trailingAnchor.constraint(equalTo: personelView.trailingAnchor),
             birthDayLabel.heightAnchor.constraint(equalTo: personelView.heightAnchor, multiplier: 1/5),
             birthDayLabel.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/3),

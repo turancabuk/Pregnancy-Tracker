@@ -67,7 +67,6 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     
     lazy var plusButton = createCustomButton(buttonImage: UIImage(named: "plus")!, selector: #selector(handlePlus))
     lazy var alertButton = createCustomButton(buttonImage: UIImage(named: "reminder")!, selector: #selector(handleReminder))
-    lazy var backButton = createCustomButton(buttonImage: UIImage(systemName: "chevron.backward")!, selector: #selector(handleBack))
     
     init() {
         self.viewModel = WaterViewModel()
@@ -111,7 +110,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     private func scheduleResetTimer() {
         let calendar = Calendar.current
         let now = Date()
-        var resetTime = calendar.date(bySettingHour: 19, minute: 00, second: 0, of: now)!
+        var resetTime = calendar.date(bySettingHour: 7, minute: 00, second: 0, of: now)!
 
         if resetTime <= now {
             resetTime = calendar.date(byAdding: .day, value: 1, to: resetTime)!
@@ -127,7 +126,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
            let calendar = Calendar.current
            let now = Date()
            let lastResetDate = UserDefaults.standard.object(forKey: "lastResetDate") as? Date ?? Date.distantPast
-           var resetTime = calendar.date(bySettingHour: 22, minute: 35, second: 0, of: lastResetDate)
+        let resetTime = calendar.date(bySettingHour: 7, minute: 0, second: 0, of: lastResetDate)
 
         if calendar.isDateInToday(lastResetDate) == false || resetTime! <= now {
                resetDrinkQuantities()
@@ -147,7 +146,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         let coffeeColor =  #colorLiteral(red: 0.3430070281, green: 0.6384900212, blue: 0.6003831029, alpha: 1)
         let juiceColor =  #colorLiteral(red: 0.3742775917, green: 0.3643782437, blue: 0.6130426526, alpha: 1)
         let teaColor =  #colorLiteral(red: 0.9988623261, green: 0.1231439188, blue: 0.3038950861, alpha: 1)
-        dataSet.colors = [waterColor, coffeeColor, teaColor, juiceColor]
+        dataSet.colors = [waterColor, coffeeColor, juiceColor, teaColor ]
         let data = PieChartData(dataSets: [dataSet])
 
         pieChartView.data = data
@@ -274,8 +273,7 @@ extension WaterViewController {
 }
 extension WaterViewController {
     private func setupLayout() {
-        
-        view.addSubview(backButton)
+        view.backgroundColor = .white
         view.addSubview(nameLabel)
         view.addSubview(dateLabel)
         view.addSubview(graphicContainerView)
@@ -295,12 +293,7 @@ extension WaterViewController {
         
         NSLayoutConstraint.activate([
             
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            backButton.widthAnchor.constraint(equalToConstant: 32),
-            backButton.heightAnchor.constraint(equalToConstant: 32),
-            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 6),
-            
-            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
+            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 64),
             nameLabel.heightAnchor.constraint(equalToConstant: 36),
             nameLabel.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1/2),
             nameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
@@ -345,7 +338,7 @@ extension WaterViewController {
             coffeeItem.widthAnchor.constraint(equalTo: waterItem.widthAnchor),
             coffeeItem.heightAnchor.constraint(equalTo: waterItem.heightAnchor),
             
-            plusButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
+            plusButton.topAnchor.constraint(equalTo: containerView.bottomAnchor),
             plusButton.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/6),
             plusButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
             plusButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1/3),

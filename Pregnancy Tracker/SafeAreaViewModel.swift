@@ -25,25 +25,24 @@ class SafeAreaViewModel {
         }
     }
     private func loadUserData() {
-        
         DispatchQueue.main.async {
-            
             let userName = self.userDefaults.string(forKey: "userName") ?? "Unknown User"
             let profileImageData = self.userDefaults.data(forKey: "profileImage")
             let profileImage = profileImageData != nil ? UIImage(data: profileImageData!) : nil
             
             var pregnancyWeek: String?
             if let dateData = self.userDefaults.data(forKey: "pregnancyDate"),
-               let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(dateData) as? Date {
+               let savedDate = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSDate.self, from: dateData) as Date? {
                 let weeks = Calendar.current.dateComponents([.weekOfYear], from: savedDate, to: Date()).weekOfYear ?? 0
                 pregnancyWeek = "\(weeks + 1) weeks"
             }
             
             var birthDate: String?
             if let savedDateData = self.userDefaults.data(forKey: "pregnancyDate"),
-               let savedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedDateData) as? Date {
+               let savedDate = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSDate.self, from: savedDateData) as Date? {
                 birthDate = self.updateBirthday(date: savedDate)
             }
+            
             self.model = UserInfoModel(userName: userName, profileImage: profileImage, pregnancyWeek: pregnancyWeek, birthDate: birthDate)
         }
     }
@@ -55,7 +54,7 @@ class SafeAreaViewModel {
         if let futureDate = Calendar.current.date(byAdding: components, to: date) {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy"
-            let futureDateString = dateFormatter.string(from: futureDate)
+            _ = dateFormatter.string(from: futureDate)
             return dateFormatter.string(from: futureDate)
         }
         return "date not set"

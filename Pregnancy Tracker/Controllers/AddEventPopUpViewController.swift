@@ -164,7 +164,7 @@ extension AddEventPopUpViewController {
             timePickerContainerView.heightAnchor.constraint(equalToConstant: preferredContentSize.height),
             
             timePicker.topAnchor.constraint(equalTo: timePickerContainerView.topAnchor, constant: 6),
-            timePicker.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 1/3),
+            timePicker.widthAnchor.constraint(equalTo: timePickerContainerView.widthAnchor, multiplier: 2/3),
             timePicker.heightAnchor.constraint(equalTo: timePickerContainerView.heightAnchor, multiplier: 1/3),
             timePicker.centerXAnchor.constraint(equalTo: timePickerContainerView.centerXAnchor),
             
