@@ -16,6 +16,8 @@ class HomeController: UIViewController, UICollectionViewDelegate {
     let scrollView = UIScrollView()
     let contentView = UIView()
     var collectionView: UICollectionView!
+    var blurEffectView: UIVisualEffectView?
+
     
     let seperatorView: UIView = {
         let view = UIView()
@@ -49,6 +51,7 @@ class HomeController: UIViewController, UICollectionViewDelegate {
         super.viewWillAppear(animated)
         
         DispatchQueue.main.async {
+//            self.showOnboardingMovieView()
             self.safeAreaView.updateUI()
         }
     }
@@ -57,6 +60,20 @@ class HomeController: UIViewController, UICollectionViewDelegate {
         viewModel.setupCollectionView(controller: self)
         collectionView = viewModel.collectionView
         collectionView.delegate = self
+    }
+    private func showOnboardingMovieView() {
+        
+        let onboardingMoviewViewController = OnboardinMoviewViewController()
+        onboardingMoviewViewController.modalPresentationStyle = .overFullScreen
+        onboardingMoviewViewController.modalTransitionStyle = .crossDissolve
+        
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView?.frame = view.bounds
+        blurEffectView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView!)
+        
+        present(onboardingMoviewViewController, animated: true)
     }
     private func applyInitialSnapshot(){
         
