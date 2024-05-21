@@ -26,7 +26,7 @@ class VerticalCollectionViewCell: UICollectionViewCell {
         
         containerLayerView.fillSuperview()
         
-        containerView.backgroundColor = #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1)
+        containerView.backgroundColor = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
         infoLabel.textColor = .black
         infoLabel.numberOfLines = 0
         

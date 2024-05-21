@@ -131,7 +131,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let selectedItem = viewModel.selectItem(at: indexPath)
+        _ = viewModel.selectItem(at: indexPath)
         let readEventVC = viewModel.readEventVC
         self.present(readEventVC, animated: true)
     }
@@ -141,14 +141,19 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
 }
 extension CalendarViewController {
     fileprivate func setupLayout() {
+        
         todoCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: "calendarCellId")
         view.backgroundColor = UIColor(hex: "fcefef")
+        
         view.addSubview(calendarContainerLayerView)
         calendarContainerLayerView.addSubview(calendarContainerView)
         calendarContainerView.addSubview(calendarView)
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(todoCollectionView)
+         
+        
+        
         NSLayoutConstraint.activate([
             
             calendarContainerLayerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
