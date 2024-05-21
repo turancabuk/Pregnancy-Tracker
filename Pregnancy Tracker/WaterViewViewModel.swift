@@ -1,5 +1,5 @@
 //
-//  WaterViewModel.swift
+//  WaterViewViewModel.swift
 //  Pregnancy Tracker
 //
 //  Created by Turan Çabuk on 12.05.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WaterViewModel {
+class WaterViewViewModel {
     
     var drinkQunatities: [String: Int] = ["water": 0, "coffee": 0, "juice": 0, "tea": 0]
 

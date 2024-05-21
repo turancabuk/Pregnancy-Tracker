@@ -7,7 +7,5 @@ target 'Pregnancy Tracker' do
 
   # Pods for Pregnancy Tracker
   pod 'DGCharts'
-  pod 'UIOnboarding'
-  pod 'JGProgressHUD'
 
 end

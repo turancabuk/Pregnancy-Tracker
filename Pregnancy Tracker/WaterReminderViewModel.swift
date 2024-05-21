@@ -39,31 +39,50 @@ class WaterReminderViewModel {
         let notificationCenter = UNUserNotificationCenter.current()
         let identifier = "water-reminder"
         
+        // Mevcut tüm bildirim isteklerini kaldır
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
         
-        for minuteOffset in 1...60 {
-            let content = UNMutableNotificationContent()
-            content.title = "Time to drink something"
-            content.body = "Let's have something to drink"
-            
-            let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: Date(timeIntervalSinceNow: Double(minuteOffset * 60)))
-            let currentHour = dateComponents.hour ?? 0
-            let currentMinute = dateComponents.minute ?? 0
-            
-            if (currentHour == 19 && currentMinute >= 17) || (currentHour > 19) || (currentHour < 1) {
+        let content = UNMutableNotificationContent()
+        content.title = "Time to drink something"
+        content.body = "Let's have something to drink"
+        content.sound = .default
+
+        let interval = TimeInterval((selectedH * 3600) + (selectedM * 60))
+        let calendar = Calendar.current
+        var nextTriggerDate = Date()
+
+        // Gece saatleri için doğru başlangıç zamanını hesapla
+        while true {
+            let currentHour = calendar.component(.hour, from: nextTriggerDate)
+            if currentHour >= 22 || currentHour < 9 {
+                // Gece saatleri arasında bir sonraki gün 09:00'a atla
+                nextTriggerDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: nextTriggerDate.addingTimeInterval(24 * 60 * 60))!
+            } else {
+                break
+            }
+        }
+
+        // 24 saat boyunca geçerli bildirimleri ayarla
+        while nextTriggerDate.timeIntervalSinceNow < 24 * 60 * 60 {
+            let triggerHour = calendar.component(.hour, from: nextTriggerDate)
+            if triggerHour >= 22 || triggerHour < 9 {
+                // Eğer gece saatlerine denk gelirse bir sonraki güne atla
+                nextTriggerDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: nextTriggerDate.addingTimeInterval(24 * 60 * 60))!
                 continue
             }
-            content.sound = .default
-            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-            let request = UNNotificationRequest(identifier: "\(identifier)-\(minuteOffset)", content: content, trigger: trigger)
-            
-            notificationCenter.add(request) { (error) in
+
+            let trigger = UNCalendarNotificationTrigger(dateMatching: calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: nextTriggerDate), repeats: false)
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+
+            notificationCenter.add(request) { error in
                 if let error = error {
                     print("Error scheduling notification: \(error)")
                 }
             }
+            nextTriggerDate = nextTriggerDate.addingTimeInterval(interval)
         }
     }
+
     func updateTime(hour: Int, minute: Int) {
         self.selectedH = hour
         self.selectedM = minute
