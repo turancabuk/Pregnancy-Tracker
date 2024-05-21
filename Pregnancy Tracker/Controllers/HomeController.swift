@@ -19,7 +19,7 @@ class HomeController: UIViewController, UICollectionViewDelegate {
     
     let seperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
         return view
     }()
     
@@ -77,23 +77,23 @@ class HomeController: UIViewController, UICollectionViewDelegate {
 }
 extension HomeController {
     fileprivate func setupLayout() {
-        view.addSubview(safeAreaView)
-        let color = #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1)
+
+        let color = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
         safeAreaView.setPersonelView(backgroundColor: color)
         tabBarController?.tabBar.backgroundColor = .white
-        scrollView.isScrollEnabled = true
         advertView.getButton.addTarget(self, action: #selector(getButtonTapped), for: .touchUpInside)
         
-        safeAreaView.addSubview(seperatorView)
-        safeAreaView.addSubview(scrollView)
-        scrollView.addSubview(contentView)
+        view.addSubview(safeAreaView)
+        view.addSubview(seperatorView)
+        view.addSubview(scrollView)
+        view.addSubview(contentView)
         contentView.addSubview(collectionView)
         contentView.addSubview(advertView)
         
         disableAutoResizingMaskConstraints(for: [safeAreaView, seperatorView, scrollView, contentView, advertView, collectionView])
         
         NSLayoutConstraint.activate([
-            safeAreaView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+            safeAreaView.topAnchor.constraint(equalTo: seperatorView.bottomAnchor, constant: -32),
             safeAreaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             safeAreaView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             safeAreaView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -110,7 +110,7 @@ extension HomeController {
             
             seperatorView.topAnchor.constraint(equalTo: view.topAnchor),
             seperatorView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
-            seperatorView.bottomAnchor.constraint(equalTo: safeAreaView.personelView.topAnchor),
+            seperatorView.heightAnchor.constraint(equalToConstant: 26),
             seperatorView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
             
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
@@ -120,10 +120,10 @@ extension HomeController {
             
             advertView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 12),
             advertView.widthAnchor.constraint(equalTo: collectionView.widthAnchor, constant: -6),
-            advertView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
+            advertView.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
             advertView.heightAnchor.constraint(equalToConstant: 40),
             
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -40),
 
         ])
         

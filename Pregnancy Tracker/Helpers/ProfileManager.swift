@@ -35,9 +35,10 @@ class ProfileManager {
 
         var lastMenstrualPeriod: Date?
         if let dateData = defaults.data(forKey: "pregnancyDate"),
-           let date = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(dateData) as? Date {
+           let date = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSDate.self, from: dateData) as Date? {
             lastMenstrualPeriod = date
         }
+        
         return UserInfoModel(userName: userName, profileImage: profileImage, lastMenstrualPeriod: lastMenstrualPeriod)
     }
 }

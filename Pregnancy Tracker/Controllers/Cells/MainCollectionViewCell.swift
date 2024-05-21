@@ -25,7 +25,7 @@ class MainCollectionViewCell: UICollectionViewCell {
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
         containerView.layer.masksToBounds = false
-        ShadowLayer.setShadow(view: containerView, color: .darkGray, opacity: 1.0, offset: .init(width: 0.5, height: 0.5), radius: 5)
+        ShadowLayer.setShadow(view: containerView, color: .black, opacity: 1.0, offset: .init(width: 0.7, height: 0.7), radius: 3)
     }
     
     required init?(coder: NSCoder) {

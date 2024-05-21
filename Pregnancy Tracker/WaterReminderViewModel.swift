@@ -11,7 +11,7 @@ class WaterReminderViewModel {
     
     private(set) var selectedH: Int = 0
     private(set) var selectedM: Int = 0
-
+    
     func checkForPermission() {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.getNotificationSettings { settings in
@@ -46,15 +46,14 @@ class WaterReminderViewModel {
             content.title = "Time to drink something"
             content.body = "Let's have something to drink"
             
-            var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: Date(timeIntervalSinceNow: Double(minuteOffset * 60)))
+            let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: Date(timeIntervalSinceNow: Double(minuteOffset * 60)))
             let currentHour = dateComponents.hour ?? 0
+            let currentMinute = dateComponents.minute ?? 0
             
-            if currentHour >= 16 && currentHour <= 17 {
-                content.sound = nil
-            } else {
-                content.sound = .default
+            if (currentHour == 19 && currentMinute >= 17) || (currentHour > 19) || (currentHour < 1) {
+                continue
             }
-            
+            content.sound = .default
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
             let request = UNNotificationRequest(identifier: "\(identifier)-\(minuteOffset)", content: content, trigger: trigger)
             
@@ -65,7 +64,6 @@ class WaterReminderViewModel {
             }
         }
     }
-
     func updateTime(hour: Int, minute: Int) {
         self.selectedH = hour
         self.selectedM = minute

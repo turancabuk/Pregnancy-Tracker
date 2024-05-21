@@ -88,8 +88,8 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     }()
     
     lazy var saveButton: UIButton = {
-        let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: UIColor.orange, borderColor: .white, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleSave)
-        button.setTitleColor(UIColor.white, for: .normal)
+        let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1), borderColor: #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1), borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleSave)
+        button.setTitleColor(UIColor.black, for: .normal)
         return button
     }()
     
@@ -161,7 +161,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         view.endEditing(true)
     }
     @objc fileprivate func handleDatePicker() {
-        print("date selected")
+        
     }
     @objc func handleSave() {
         
@@ -185,8 +185,14 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
 extension ProfileController {
     private func setupLayout() {
         
+        view.backgroundColor = .black
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
+        view.gestureRecognizers?.forEach { recognizer in
+            if let tapRecognizer = recognizer as? UITapGestureRecognizer {
+                tapRecognizer.cancelsTouchesInView = false
+            }
+        }
         
         view.addSubview(topView)
         view.addSubview(seperatorView)
@@ -227,14 +233,14 @@ extension ProfileController {
             nameTextfield.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/25),
             
             datePickerLabel.topAnchor.constraint(equalTo: nameTextfield.bottomAnchor, constant: 24),
-            datePickerLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 2/3),
+            datePickerLabel.widthAnchor.constraint(equalTo: view.widthAnchor),
             datePickerLabel.leadingAnchor.constraint(equalTo: datePicker.leadingAnchor),
             datePickerLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/30),
             
             datePicker.topAnchor.constraint(equalTo: datePickerLabel.bottomAnchor, constant: 12),
+            datePicker.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -6),
             datePicker.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/10),
             datePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            datePicker.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -12),
             
             saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
             saveButton.heightAnchor.constraint(equalToConstant: 40),
