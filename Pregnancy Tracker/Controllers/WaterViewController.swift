@@ -11,7 +11,7 @@ import DGCharts
 
 class WaterViewController: UIViewController, WaterReminderViewControllerDelegate {
 
-    var viewModel: WaterViewModel
+    var viewModel: WaterViewViewModel
     var pieChartView: PieChartView
     var blurEffectView: UIVisualEffectView?
     
@@ -69,7 +69,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     lazy var alertButton = createCustomButton(buttonImage: UIImage(named: "reminder")!, selector: #selector(handleReminder))
     
     init() {
-        self.viewModel = WaterViewModel()
+        self.viewModel = WaterViewViewModel()
         self.pieChartView = PieChartView()
         super.init(nibName: nil, bundle: nil)
         scheduleResetTimer()
@@ -123,14 +123,13 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         Timer.scheduledTimer(timeInterval: dailyInterval, target: self, selector: #selector(resetDrinkQuantities), userInfo: nil, repeats: true)
     }
     private func checkIfResetRequired() {
-           let calendar = Calendar.current
-           let now = Date()
-           let lastResetDate = UserDefaults.standard.object(forKey: "lastResetDate") as? Date ?? Date.distantPast
-        let resetTime = calendar.date(bySettingHour: 7, minute: 0, second: 0, of: lastResetDate)
+        let calendar = Calendar.current
+        let now = Date()
+        let lastResetDate = UserDefaults.standard.object(forKey: "lastResetDate") as? Date ?? Date.distantPast
 
-        if calendar.isDateInToday(lastResetDate) == false || resetTime! <= now {
-               resetDrinkQuantities()
-           }
+        if !calendar.isDateInToday(lastResetDate) {
+            resetDrinkQuantities()
+        }
     }
     private func updateChartData() {
         let drinkTypes = ["water", "coffee", "juice", "tea"]
