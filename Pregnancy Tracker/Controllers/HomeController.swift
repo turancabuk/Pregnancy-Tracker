@@ -7,7 +7,9 @@
 
 import UIKit
 
-class HomeController: UIViewController, UICollectionViewDelegate {
+
+class HomeController: UIViewController, UICollectionViewDelegate, OnboardingMoviewViewControllerDelegate {
+    
         
     var viewModel: HomeViewModel
     let safeAreaView: SafeAreaView
@@ -51,7 +53,7 @@ class HomeController: UIViewController, UICollectionViewDelegate {
         super.viewWillAppear(animated)
         
         DispatchQueue.main.async {
-//            self.showOnboardingMovieView()
+            self.showOnboardingMovieView()
             self.safeAreaView.updateUI()
         }
     }
@@ -63,9 +65,10 @@ class HomeController: UIViewController, UICollectionViewDelegate {
     }
     private func showOnboardingMovieView() {
         
-        let onboardingMoviewViewController = OnboardinMoviewViewController()
+        let onboardingMoviewViewController = OnboardingMoviewViewController()
         onboardingMoviewViewController.modalPresentationStyle = .overFullScreen
         onboardingMoviewViewController.modalTransitionStyle = .crossDissolve
+        onboardingMoviewViewController.delegate = self
         
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -90,6 +93,9 @@ class HomeController: UIViewController, UICollectionViewDelegate {
     @objc private func getButtonTapped() {
         
         viewModel.advertViewContact()
+    }
+    func handleCancel() {
+        blurEffectView?.removeFromSuperview()
     }
 }
 extension HomeController {
