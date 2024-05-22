@@ -15,6 +15,10 @@
 		5C01985D2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01985C2B9B7EDE00AC22CB /* HeaderCategoriesCell.swift */; };
 		5C0198612B9B912D00AC22CB /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198602B9B912D00AC22CB /* OnboardingController.swift */; };
 		5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */; };
+		5C0695832BFDF83500BD6867 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0695822BFDF83500BD6867 /* FirebaseAuth */; };
+		5C0695852BFDF83500BD6867 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0695842BFDF83500BD6867 /* FirebaseDatabase */; };
+		5C0695872BFDF83500BD6867 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0695862BFDF83500BD6867 /* FirebaseFirestore */; };
+		5C0695892BFDF83500BD6867 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0695882BFDF83500BD6867 /* FirebaseStorage */; };
 		5C34023C2BBC1F8E006C7063 /* UIComponentsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */; };
 		5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3402472BBD5446006C7063 /* CalendarViewController.swift */; };
 		5C3E175C2BD5394C00C92FC4 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3E175B2BD5394C00C92FC4 /* UserInfoModel.swift */; };
@@ -25,6 +29,8 @@
 		5C5495502BD0426500720C48 /* FoodAndDietView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54954F2BD0426500720C48 /* FoodAndDietView.swift */; };
 		5C5495522BD1309500720C48 /* DietAndFoodInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5495512BD1309500720C48 /* DietAndFoodInfoProvider.swift */; };
 		5C58CF1C2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C58CF1B2BC021BB00F9FBC4 /* AddEventPopUpViewController.swift */; };
+		5C6B77462BFDF6C8003DCC90 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C6B77452BFDF6C8003DCC90 /* UIOnboarding */; };
+		5C6B77492BFDF6D4003DCC90 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5C6B77482BFDF6D4003DCC90 /* JGProgressHUD */; };
 		5C6E312F2BD917AF00C2476C /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E312E2BD917AF00C2476C /* CalendarViewModel.swift */; };
 		5C76EC022BD5945700286311 /* PersonalInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C76EC012BD5945700286311 /* PersonalInformationViewModel.swift */; };
 		5C76EC0A2BD6994500286311 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C76EC092BD6994500286311 /* ProfileViewModel.swift */; };
@@ -41,7 +47,7 @@
 		5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA42B98CAD900212267 /* SettingsController.swift */; };
 		5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA72B98CB3300212267 /* MainTabbarController.swift */; };
 		5CA2AC102BF1254400DD28B4 /* WaterViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA2AC0F2BF1254400DD28B4 /* WaterViewViewModel.swift */; };
-		5CA5E3A22BFCFDB4001FA1F9 /* OnboardinMoviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5E3A12BFCFDB4001FA1F9 /* OnboardinMoviewViewController.swift */; };
+		5CA5E3A22BFCFDB4001FA1F9 /* OnboardingMoviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5E3A12BFCFDB4001FA1F9 /* OnboardingMoviewViewController.swift */; };
 		5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF52B986EB4004FAD1D /* AppDelegate.swift */; };
 		5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF72B986EB4004FAD1D /* SceneDelegate.swift */; };
 		5CA9DEFA2B986EB4004FAD1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF92B986EB4004FAD1D /* ViewController.swift */; };
@@ -51,13 +57,12 @@
 		5CAA089D2BDA86AF0042E3A8 /* AddEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */; };
 		5CAA08A52BE1034F0042E3A8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */; };
 		5CAA08A72BE287920042E3A8 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */; };
+		5CB779572BFDFC3F0046C3A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CB779562BFDFC3F0046C3A1 /* GoogleService-Info.plist */; };
 		5CBF71B02BEB891C00C0B304 /* AddWaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF71AF2BEB891C00C0B304 /* AddWaterViewController.swift */; };
 		5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */; };
 		5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */; };
 		5CEB19272BE66B5A00E0B546 /* WaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */; };
 		5CF3A3BC2BF229B500DE7C76 /* WaterReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF3A3BB2BF229B500DE7C76 /* WaterReminderViewController.swift */; };
-		5CF3A3C12BF5187000DE7C76 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5CF3A3C02BF5187000DE7C76 /* JGProgressHUD */; };
-		5CF3A3C42BF5187800DE7C76 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5CF3A3C32BF5187800DE7C76 /* UIOnboarding */; };
 		5CF3A3C62BF518C500DE7C76 /* WaterReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF3A3C52BF518C500DE7C76 /* WaterReminderViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -96,7 +101,7 @@
 		5C917AA42B98CAD900212267 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		5C917AA72B98CB3300212267 /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		5CA2AC0F2BF1254400DD28B4 /* WaterViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewViewModel.swift; sourceTree = "<group>"; };
-		5CA5E3A12BFCFDB4001FA1F9 /* OnboardinMoviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardinMoviewViewController.swift; sourceTree = "<group>"; };
+		5CA5E3A12BFCFDB4001FA1F9 /* OnboardingMoviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMoviewViewController.swift; sourceTree = "<group>"; };
 		5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pregnancy Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA9DEF52B986EB4004FAD1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5CA9DEF72B986EB4004FAD1D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +113,7 @@
 		5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewModel.swift; sourceTree = "<group>"; };
 		5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		5CB779562BFDFC3F0046C3A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5CBF71AF2BEB891C00C0B304 /* AddWaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWaterViewController.swift; sourceTree = "<group>"; };
 		5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowLayer.swift; sourceTree = "<group>"; };
 		5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesDetailVC.swift; sourceTree = "<group>"; };
@@ -123,9 +129,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CF3A3C12BF5187000DE7C76 /* JGProgressHUD in Frameworks */,
-				5CF3A3C42BF5187800DE7C76 /* UIOnboarding in Frameworks */,
+				5C0695852BFDF83500BD6867 /* FirebaseDatabase in Frameworks */,
 				4FC30F8D8A6E85C37EC53CB6 /* Pods_Pregnancy_Tracker.framework in Frameworks */,
+				5C6B77492BFDF6D4003DCC90 /* JGProgressHUD in Frameworks */,
+				5C6B77462BFDF6C8003DCC90 /* UIOnboarding in Frameworks */,
+				5C0695892BFDF83500BD6867 /* FirebaseStorage in Frameworks */,
+				5C0695832BFDF83500BD6867 /* FirebaseAuth in Frameworks */,
+				5C0695872BFDF83500BD6867 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +210,7 @@
 				5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */,
 				5CBF71AF2BEB891C00C0B304 /* AddWaterViewController.swift */,
 				5CF3A3BB2BF229B500DE7C76 /* WaterReminderViewController.swift */,
-				5CA5E3A12BFCFDB4001FA1F9 /* OnboardinMoviewViewController.swift */,
+				5CA5E3A12BFCFDB4001FA1F9 /* OnboardingMoviewViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -275,6 +285,7 @@
 				5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */,
 				5CA9DF002B986EB5004FAD1D /* LaunchScreen.storyboard */,
 				5C86E61C2BA0745000FFB7A8 /* CoreData.xcdatamodeld */,
+				5CB779562BFDFC3F0046C3A1 /* GoogleService-Info.plist */,
 				5CA9DF032B986EB5004FAD1D /* Info.plist */,
 			);
 			path = "Pregnancy Tracker";
@@ -307,8 +318,12 @@
 			);
 			name = "Pregnancy Tracker";
 			packageProductDependencies = (
-				5CF3A3C02BF5187000DE7C76 /* JGProgressHUD */,
-				5CF3A3C32BF5187800DE7C76 /* UIOnboarding */,
+				5C6B77452BFDF6C8003DCC90 /* UIOnboarding */,
+				5C6B77482BFDF6D4003DCC90 /* JGProgressHUD */,
+				5C0695822BFDF83500BD6867 /* FirebaseAuth */,
+				5C0695842BFDF83500BD6867 /* FirebaseDatabase */,
+				5C0695862BFDF83500BD6867 /* FirebaseFirestore */,
+				5C0695882BFDF83500BD6867 /* FirebaseStorage */,
 			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
@@ -339,9 +354,9 @@
 			);
 			mainGroup = 5CA9DEE92B986EB4004FAD1D;
 			packageReferences = (
-				5CF3A3BF2BF5187000DE7C76 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
-				5CF3A3C22BF5187800DE7C76 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
-				5C1E75932BFD0D2D0097695B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				5C6B77442BFDF6C8003DCC90 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
+				5C6B77472BFDF6D4003DCC90 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				5C0695812BFDF83500BD6867 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
@@ -359,6 +374,7 @@
 			files = (
 				5C0198512B9A12B800AC22CB /* Kinoble.ttf in Resources */,
 				5CA9DF022B986EB5004FAD1D /* LaunchScreen.storyboard in Resources */,
+				5CB779572BFDFC3F0046C3A1 /* GoogleService-Info.plist in Resources */,
 				5CA9DEFF2B986EB5004FAD1D /* Assets.xcassets in Resources */,
 				5CA9DEFD2B986EB4004FAD1D /* Main.storyboard in Resources */,
 			);
@@ -455,7 +471,7 @@
 				5CAA08A72BE287920042E3A8 /* HomeViewModel.swift in Sources */,
 				5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */,
 				5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */,
-				5CA5E3A22BFCFDB4001FA1F9 /* OnboardinMoviewViewController.swift in Sources */,
+				5CA5E3A22BFCFDB4001FA1F9 /* OnboardingMoviewViewController.swift in Sources */,
 				5C917AA32B98CA9B00212267 /* ProfileController.swift in Sources */,
 				5C76EC0A2BD6994500286311 /* ProfileViewModel.swift in Sources */,
 			);
@@ -686,7 +702,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5C1E75932BFD0D2D0097695B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		5C0695812BFDF83500BD6867 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
@@ -694,15 +710,7 @@
 				minimumVersion = 10.26.0;
 			};
 		};
-		5CF3A3BF2BF5187000DE7C76 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.0;
-			};
-		};
-		5CF3A3C22BF5187800DE7C76 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
+		5C6B77442BFDF6C8003DCC90 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lascic/UIOnboarding.git";
 			requirement = {
@@ -710,18 +718,46 @@
 				minimumVersion = 2.0.3;
 			};
 		};
+		5C6B77472BFDF6D4003DCC90 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5CF3A3C02BF5187000DE7C76 /* JGProgressHUD */ = {
+		5C0695822BFDF83500BD6867 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5CF3A3BF2BF5187000DE7C76 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
-			productName = JGProgressHUD;
+			package = 5C0695812BFDF83500BD6867 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
-		5CF3A3C32BF5187800DE7C76 /* UIOnboarding */ = {
+		5C0695842BFDF83500BD6867 /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5CF3A3C22BF5187800DE7C76 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
+			package = 5C0695812BFDF83500BD6867 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		5C0695862BFDF83500BD6867 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C0695812BFDF83500BD6867 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		5C0695882BFDF83500BD6867 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C0695812BFDF83500BD6867 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		5C6B77452BFDF6C8003DCC90 /* UIOnboarding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C6B77442BFDF6C8003DCC90 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
 			productName = UIOnboarding;
+		};
+		5C6B77482BFDF6D4003DCC90 /* JGProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C6B77472BFDF6D4003DCC90 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
 		};
 /* End XCSwiftPackageProductDependency section */
 
