@@ -8,7 +8,7 @@
 import UIKit
 
 
-class HomeController: UIViewController, UICollectionViewDelegate, OnboardingMoviewViewControllerDelegate {
+class HomeController: UIViewController, UICollectionViewDelegate, OnboardingMovieVieControllerDelegate {
     
         
     var viewModel: HomeViewModel
@@ -53,22 +53,27 @@ class HomeController: UIViewController, UICollectionViewDelegate, OnboardingMovi
         super.viewWillAppear(animated)
         
         DispatchQueue.main.async {
-            self.showOnboardingMovieView()
             self.safeAreaView.updateUI()
         }
     }
-    private func setupCollectionView() {
-
-        viewModel.setupCollectionView(controller: self)
-        collectionView = viewModel.collectionView
-        collectionView.delegate = self
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let isFirstLaunch = UserDefaults.standard.bool(forKey: "hasLaunchedBefore1")
+        
+        if !isFirstLaunch {
+            UserDefaults.standard.setValue(true, forKey: "hasLaunchedBefore1")
+            UserDefaults.standard.synchronize()
+            
+            self.showOnboardingMovieView()
+        }
     }
     private func showOnboardingMovieView() {
         
-        let onboardingMoviewViewController = OnboardingMoviewViewController()
-        onboardingMoviewViewController.modalPresentationStyle = .overFullScreen
-        onboardingMoviewViewController.modalTransitionStyle = .crossDissolve
-        onboardingMoviewViewController.delegate = self
+        let onboardingMovieViewController = OnboardingMovieViewController()
+        onboardingMovieViewController.modalPresentationStyle = .overFullScreen
+        onboardingMovieViewController.modalTransitionStyle = .crossDissolve
+        onboardingMovieViewController.delegate = self
         
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -76,7 +81,13 @@ class HomeController: UIViewController, UICollectionViewDelegate, OnboardingMovi
         blurEffectView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView!)
         
-        present(onboardingMoviewViewController, animated: true)
+        present(onboardingMovieViewController, animated: true)
+    }
+    private func setupCollectionView() {
+
+        viewModel.setupCollectionView(controller: self)
+        collectionView = viewModel.collectionView
+        collectionView.delegate = self
     }
     private func applyInitialSnapshot(){
         
@@ -161,5 +172,4 @@ extension HomeController {
         views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
 }
-
 

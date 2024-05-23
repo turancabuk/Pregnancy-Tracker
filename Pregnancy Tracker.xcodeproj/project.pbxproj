@@ -23,6 +23,7 @@
 		5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3402472BBD5446006C7063 /* CalendarViewController.swift */; };
 		5C3E175C2BD5394C00C92FC4 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3E175B2BD5394C00C92FC4 /* UserInfoModel.swift */; };
 		5C3E175F2BD53AA600C92FC4 /* SafeAreaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */; };
+		5C4840632BFFDAA700CFF1C0 /* onboarding.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5C4840622BFFDAA700CFF1C0 /* onboarding.mp4 */; };
 		5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */; };
 		5C54953D2BCF095C00720C48 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54953C2BCF095C00720C48 /* ProfileManager.swift */; };
 		5C5495422BD0057F00720C48 /* FoodandDietCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5495412BD0057F00720C48 /* FoodandDietCell.swift */; };
@@ -47,7 +48,7 @@
 		5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA42B98CAD900212267 /* SettingsController.swift */; };
 		5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA72B98CB3300212267 /* MainTabbarController.swift */; };
 		5CA2AC102BF1254400DD28B4 /* WaterViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA2AC0F2BF1254400DD28B4 /* WaterViewViewModel.swift */; };
-		5CA5E3A22BFCFDB4001FA1F9 /* OnboardingMoviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5E3A12BFCFDB4001FA1F9 /* OnboardingMoviewViewController.swift */; };
+		5CA5E3A22BFCFDB4001FA1F9 /* OnboardingMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5E3A12BFCFDB4001FA1F9 /* OnboardingMovieViewController.swift */; };
 		5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF52B986EB4004FAD1D /* AppDelegate.swift */; };
 		5CA9DEF82B986EB4004FAD1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF72B986EB4004FAD1D /* SceneDelegate.swift */; };
 		5CA9DEFA2B986EB4004FAD1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF92B986EB4004FAD1D /* ViewController.swift */; };
@@ -57,7 +58,7 @@
 		5CAA089D2BDA86AF0042E3A8 /* AddEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */; };
 		5CAA08A52BE1034F0042E3A8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */; };
 		5CAA08A72BE287920042E3A8 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */; };
-		5CB779572BFDFC3F0046C3A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CB779562BFDFC3F0046C3A1 /* GoogleService-Info.plist */; };
+		5CBE6EB82BFF9F79002C2D50 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE6EB72BFF9F79002C2D50 /* GoogleService-Info.plist */; };
 		5CBF71B02BEB891C00C0B304 /* AddWaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF71AF2BEB891C00C0B304 /* AddWaterViewController.swift */; };
 		5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */; };
 		5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */; };
@@ -79,6 +80,7 @@
 		5C3402472BBD5446006C7063 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		5C3E175B2BD5394C00C92FC4 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaViewModel.swift; sourceTree = "<group>"; };
+		5C4840622BFFDAA700CFF1C0 /* onboarding.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = onboarding.mp4; sourceTree = "<group>"; };
 		5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadEventPopUpViewController.swift; sourceTree = "<group>"; };
 		5C54953C2BCF095C00720C48 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		5C5495412BD0057F00720C48 /* FoodandDietCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodandDietCell.swift; sourceTree = "<group>"; };
@@ -101,7 +103,7 @@
 		5C917AA42B98CAD900212267 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		5C917AA72B98CB3300212267 /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		5CA2AC0F2BF1254400DD28B4 /* WaterViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewViewModel.swift; sourceTree = "<group>"; };
-		5CA5E3A12BFCFDB4001FA1F9 /* OnboardingMoviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMoviewViewController.swift; sourceTree = "<group>"; };
+		5CA5E3A12BFCFDB4001FA1F9 /* OnboardingMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMovieViewController.swift; sourceTree = "<group>"; };
 		5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pregnancy Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA9DEF52B986EB4004FAD1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5CA9DEF72B986EB4004FAD1D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,7 +115,7 @@
 		5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewModel.swift; sourceTree = "<group>"; };
 		5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		5CB779562BFDFC3F0046C3A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5CBE6EB72BFF9F79002C2D50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5CBF71AF2BEB891C00C0B304 /* AddWaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWaterViewController.swift; sourceTree = "<group>"; };
 		5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowLayer.swift; sourceTree = "<group>"; };
 		5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesDetailVC.swift; sourceTree = "<group>"; };
@@ -210,7 +212,7 @@
 				5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */,
 				5CBF71AF2BEB891C00C0B304 /* AddWaterViewController.swift */,
 				5CF3A3BB2BF229B500DE7C76 /* WaterReminderViewController.swift */,
-				5CA5E3A12BFCFDB4001FA1F9 /* OnboardingMoviewViewController.swift */,
+				5CA5E3A12BFCFDB4001FA1F9 /* OnboardingMovieViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -254,6 +256,7 @@
 		5CA9DEE92B986EB4004FAD1D = {
 			isa = PBXGroup;
 			children = (
+				5C4840622BFFDAA700CFF1C0 /* onboarding.mp4 */,
 				5CA9DEF42B986EB4004FAD1D /* Pregnancy Tracker */,
 				5CA9DEF32B986EB4004FAD1D /* Products */,
 				503D3840CAEDEA292473CE81 /* Pods */,
@@ -285,7 +288,7 @@
 				5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */,
 				5CA9DF002B986EB5004FAD1D /* LaunchScreen.storyboard */,
 				5C86E61C2BA0745000FFB7A8 /* CoreData.xcdatamodeld */,
-				5CB779562BFDFC3F0046C3A1 /* GoogleService-Info.plist */,
+				5CBE6EB72BFF9F79002C2D50 /* GoogleService-Info.plist */,
 				5CA9DF032B986EB5004FAD1D /* Info.plist */,
 			);
 			path = "Pregnancy Tracker";
@@ -374,8 +377,9 @@
 			files = (
 				5C0198512B9A12B800AC22CB /* Kinoble.ttf in Resources */,
 				5CA9DF022B986EB5004FAD1D /* LaunchScreen.storyboard in Resources */,
-				5CB779572BFDFC3F0046C3A1 /* GoogleService-Info.plist in Resources */,
+				5CBE6EB82BFF9F79002C2D50 /* GoogleService-Info.plist in Resources */,
 				5CA9DEFF2B986EB5004FAD1D /* Assets.xcassets in Resources */,
+				5C4840632BFFDAA700CFF1C0 /* onboarding.mp4 in Resources */,
 				5CA9DEFD2B986EB4004FAD1D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -471,7 +475,7 @@
 				5CAA08A72BE287920042E3A8 /* HomeViewModel.swift in Sources */,
 				5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */,
 				5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */,
-				5CA5E3A22BFCFDB4001FA1F9 /* OnboardingMoviewViewController.swift in Sources */,
+				5CA5E3A22BFCFDB4001FA1F9 /* OnboardingMovieViewController.swift in Sources */,
 				5C917AA32B98CA9B00212267 /* ProfileController.swift in Sources */,
 				5C76EC0A2BD6994500286311 /* ProfileViewModel.swift in Sources */,
 			);

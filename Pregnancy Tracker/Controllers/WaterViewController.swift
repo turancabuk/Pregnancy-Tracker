@@ -198,9 +198,6 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         
         present(reminderViewController, animated: true)
     }
-    @objc private func handleBack() {
-        dismiss(animated: true)
-    }
 }
 extension WaterViewController: AddWaterViewControllerDelegate {
     
