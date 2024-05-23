@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyDURQE6LSu7TzBvf8M3rF1MuCvF5HSYI-Q</string>
+	<string>AIzaSyDSDEOKlD9UZ2-8Iar861AwHbOg5aXvmes</string>
 	<key>GCM_SENDER_ID</key>
-	<string>132298063350</string>
+	<string>241751450841</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.turancabuk.Pregnancy-Tracker</string>
 	<key>PROJECT_ID</key>
-	<string>yoga-bb617</string>
+	<string>pregnant-yoga</string>
 	<key>STORAGE_BUCKET</key>
-	<string>yoga-bb617.appspot.com</string>
+	<string>pregnant-yoga.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:132298063350:ios:983874bc54e92d1a995bd7</string>
+	<string>1:241751450841:ios:70bb82ff9641df21a98ac8</string>
 </dict>
 </plist>
