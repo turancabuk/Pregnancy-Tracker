@@ -47,7 +47,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     lazy var calendarView: UIDatePicker = {
         let datePicker = UIComponentsFactory.createCustomCalendarView()
         datePicker.addTarget(self, action: #selector(dayTapped(selectedDate:)), for: .valueChanged)
-        datePicker.backgroundColor = UIColor(hex: "ffc2b4")
+        datePicker.backgroundColor = #colorLiteral(red: 0.9815322757, green: 0.8296527267, blue: 0.7543181181, alpha: 1)
         return datePicker
     }()
 
@@ -156,7 +156,7 @@ extension CalendarViewController {
         
         NSLayoutConstraint.activate([
             
-            calendarContainerLayerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
+            calendarContainerLayerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 54),
             calendarContainerLayerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
             calendarContainerLayerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
             calendarContainerLayerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.7/3.5),
@@ -181,7 +181,7 @@ extension CalendarViewController {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            todoCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            todoCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
             todoCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             todoCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             todoCollectionView.heightAnchor.constraint(equalToConstant: 220),

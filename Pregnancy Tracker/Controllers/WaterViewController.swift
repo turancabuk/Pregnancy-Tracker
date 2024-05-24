@@ -269,7 +269,7 @@ extension WaterViewController {
 }
 extension WaterViewController {
     private func setupLayout() {
-        view.backgroundColor = .white
+        view.backgroundColor = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
         view.addSubview(nameLabel)
         view.addSubview(dateLabel)
         view.addSubview(graphicContainerView)
