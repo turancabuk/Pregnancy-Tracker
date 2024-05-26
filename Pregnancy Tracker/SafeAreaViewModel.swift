@@ -24,7 +24,7 @@ class SafeAreaViewModel {
             self.loadUserData()
         }
     }
-    private func loadUserData() {
+    func loadUserData() {
         DispatchQueue.main.async {
             let userName = self.userDefaults.string(forKey: "userName") ?? "Unknown User"
             let profileImageData = self.userDefaults.data(forKey: "profileImage")

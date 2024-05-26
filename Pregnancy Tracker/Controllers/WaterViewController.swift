@@ -10,8 +10,10 @@ import CoreData
 import DGCharts
 
 class WaterViewController: UIViewController, WaterReminderViewControllerDelegate {
-
+    
     var viewModel: WaterViewViewModel
+    var model: UserInfoModel?
+    var infoModel: ProfileViewModel?
     var pieChartView: PieChartView
     var blurEffectView: UIVisualEffectView?
     
@@ -72,9 +74,12 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         self.viewModel = WaterViewViewModel()
         self.pieChartView = PieChartView()
         super.init(nibName: nil, bundle: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userDataDidUpdate), name: .userDataDidUpdate, object: nil)
         scheduleResetTimer()
     }
-    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -83,21 +88,32 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+        
         setupItems()
         setupLayout()
         scheduleResetTimer()
         
     }
+    @objc func userDataDidUpdate() {
+        DispatchQueue.main.async {
+            self.loadUserData()
+        }
+    }
+    private func loadUserData() {
+        DispatchQueue.main.async {
+            let nameText = UserDefaults.standard.string(forKey: "userName") ?? "Unknown User"
+            self.nameLabel.text = "Hi, \(nameText)"
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         checkIfResetRequired()
         loadDrinkQunatities()
         updateLabels()
         updateChartData()
         updateAlertButton()
-
+        
     }
     final func saveDrinkQuantities() {
         
@@ -111,14 +127,14 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         let calendar = Calendar.current
         let now = Date()
         var resetTime = calendar.date(bySettingHour: 7, minute: 00, second: 0, of: now)!
-
+        
         if resetTime <= now {
             resetTime = calendar.date(byAdding: .day, value: 1, to: resetTime)!
         }
-
+        
         let timeInterval = resetTime.timeIntervalSince(now)
         Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(resetDrinkQuantities), userInfo: nil, repeats: false)
-
+        
         let dailyInterval: TimeInterval = 24 * 60 * 60
         Timer.scheduledTimer(timeInterval: dailyInterval, target: self, selector: #selector(resetDrinkQuantities), userInfo: nil, repeats: true)
     }
@@ -126,7 +142,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         let calendar = Calendar.current
         let now = Date()
         let lastResetDate = UserDefaults.standard.object(forKey: "lastResetDate") as? Date ?? Date.distantPast
-
+        
         if !calendar.isDateInToday(lastResetDate) {
             resetDrinkQuantities()
         }
@@ -134,7 +150,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     private func updateChartData() {
         let drinkTypes = ["water", "coffee", "juice", "tea"]
         var dataEntries: [PieChartDataEntry] = []
-
+        
         for type in drinkTypes {
             let value = Double(viewModel.drinkQunatities[type, default: 0])
             let entry = PieChartDataEntry(value: value, label: type.capitalized)
@@ -147,7 +163,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         let teaColor =  #colorLiteral(red: 0.9988623261, green: 0.1231439188, blue: 0.3038950861, alpha: 1)
         dataSet.colors = [waterColor, coffeeColor, juiceColor, teaColor ]
         let data = PieChartData(dataSets: [dataSet])
-
+        
         pieChartView.data = data
         pieChartView.notifyDataSetChanged()
         ShadowLayer.setShadow(view: pieChartView, color: .black, opacity: 12, offset: .init(width: 0.5, height: 0.5), radius: 5)
@@ -250,7 +266,7 @@ extension WaterViewController {
         label.textColor = .black
         label.font = FontHelper.customFont(size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
-
+        
         imageView.addSubview(label)
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 20),
@@ -269,7 +285,7 @@ extension WaterViewController {
 }
 extension WaterViewController {
     private func setupLayout() {
-        view.backgroundColor = .white
+        view.backgroundColor = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
         view.addSubview(nameLabel)
         view.addSubview(dateLabel)
         view.addSubview(graphicContainerView)
@@ -279,7 +295,7 @@ extension WaterViewController {
         containerView.addSubview(teaItem)
         containerView.addSubview(juiceItem)
         containerView.addSubview(coffeeItem)
-
+        
         graphicContainerView.addSubview(pieChartView)
         pieChartView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -318,7 +334,7 @@ extension WaterViewController {
             waterItem.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 24),
             waterItem.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 2/5),
             waterItem.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 1/3),
-
+            
             teaItem.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12),
             teaItem.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -24),
             teaItem.widthAnchor.constraint(equalTo: waterItem.widthAnchor),

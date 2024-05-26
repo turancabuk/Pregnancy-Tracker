@@ -15,7 +15,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     
     lazy var topView: UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -56,7 +56,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     lazy var nameTextfield: UITextField = {
 
         let textfield = UIComponentsFactory.createCustomTextfield(placeHolder: "", fontSize: 16, borderColor: UIColor.white, borderWidth: 3.0, cornerRadius: 12)
-        textfield.backgroundColor = #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1)
+        textfield.backgroundColor = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
         textfield.textColor = UIColor.black
         textfield.paddingLeft(padding: 12)
         textfield.textAlignment = .center
@@ -79,7 +79,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         datePicker.maximumDate = currentDate
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .inline
-        datePicker.backgroundColor = #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1)
+        datePicker.backgroundColor = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
         datePicker.layer.cornerRadius = 16
         datePicker.clipsToBounds = true
         datePicker.isUserInteractionEnabled = true
@@ -88,7 +88,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
     }()
     
     lazy var saveButton: UIButton = {
-        let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1), borderColor: #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1), borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleSave)
+        let button = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: #colorLiteral(red: 0.9810908437, green: 0.9316324592, blue: 0.8195053935, alpha: 1), borderColor: #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1), borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleSave)
         button.setTitleColor(UIColor.black, for: .normal)
         return button
     }()
@@ -219,8 +219,8 @@ extension ProfileController {
             
             profileImageView.centerXAnchor.constraint(equalTo: seperatorView.centerXAnchor),
             profileImageView.centerYAnchor.constraint(equalTo: seperatorView.centerYAnchor),
-            profileImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/5),
-            profileImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 2.5/6),
+            profileImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/6),
+            profileImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 2.5/7),
             
             changeImageView.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: -4),
             changeImageView.widthAnchor.constraint(equalToConstant: 48),
