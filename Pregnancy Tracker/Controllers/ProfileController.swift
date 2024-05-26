@@ -219,8 +219,8 @@ extension ProfileController {
             
             profileImageView.centerXAnchor.constraint(equalTo: seperatorView.centerXAnchor),
             profileImageView.centerYAnchor.constraint(equalTo: seperatorView.centerYAnchor),
-            profileImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/5),
-            profileImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 2.5/6),
+            profileImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/6),
+            profileImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 2.5/7),
             
             changeImageView.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: -4),
             changeImageView.widthAnchor.constraint(equalToConstant: 48),
