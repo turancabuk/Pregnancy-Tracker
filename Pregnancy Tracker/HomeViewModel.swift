@@ -101,13 +101,11 @@ class HomeViewModel {
             let selectedItem = foodAndDietCollection[indexPath.row]
             let detVC = FoodAndDietView()
             if selectedItem == "diet" {
-                detVC.imageView.image = UIImage(named: "diet")
+                detVC.imageView.image = UIImage(named: "diet1")
                 let dietDetail = DietAndFoodInfoProvider.shared.getDietDescription(for: .diet)
-                detVC.foodDietLabel.text = dietDetail
             }else{
-                detVC.imageView.image = UIImage(named: "food")
+                detVC.imageView.image = UIImage(named: "food1")
                 let foodDetail = DietAndFoodInfoProvider.shared.getDietDescription(for: .food)
-                detVC.foodDietLabel.text = foodDetail
             }
             detVC.modalPresentationStyle = .fullScreen
             viewController.present(detVC, animated: true)

@@ -11,13 +11,15 @@ import JGProgressHUD
 class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var viewModel: PersonalInformationViewModel!
+    var userInfoModel: UserInfoModel
+    var profileManager: ProfileManager
     let personalCardColor = #colorLiteral(red: 0.970778048, green: 0.8382893801, blue: 0.8796723485, alpha: 1)
     let personalCardColor1 = #colorLiteral(red: 0.9507680535, green: 0.7077944875, blue: 0.8335040212, alpha: 1)
     let hud = JGProgressHUD(style: .dark)
     
     lazy var safeAreaView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = personalCardColor
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
         ShadowLayer.setShadow(view: view, color: UIColor.darkGray, opacity: 1.0, offset: .init(width: 0.5, height: 0.5), radius: 12)
@@ -51,6 +53,7 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
     lazy var nameTextfield: UITextField = {
         let textfield = UIComponentsFactory.createCustomTextfield(placeHolder: "Enter your name", fontSize: 18, borderColor: personalCardColor, borderWidth: 2.0, cornerRadius: 8)
         textfield.paddingLeft(padding: 18)
+        textfield.textColor = .black
         return textfield
     }()
     
@@ -64,7 +67,7 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
     
     lazy var datePickerContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
         ShadowLayer.setShadow(view: view, color: .darkGray, opacity: 0.5, offset: .init(width: 0.5, height: 0.5), radius: 12)
@@ -86,11 +89,13 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         return datePicker
     }()
     
-    lazy var saveButton = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: personalCardColor, borderColor: personalCardColor, borderWidth: 3.0, cornerRadius: 16, clipsToBounds: true, action: handleSave)
+    lazy var saveButton = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .white, borderColor: .white, borderWidth: 3.0, cornerRadius: 16, clipsToBounds: true, action: handleSave)
     
     
     
-    init(userInfoModel: UserInfoModel, profileManager: ProfileManager) {
+    init() {
+        self.userInfoModel = UserInfoModel()
+        self.profileManager = ProfileManager()
         super.init(nibName: nil, bundle: nil)
         viewModel = PersonalInformationViewModel(
             personalInformationModel: userInfoModel,

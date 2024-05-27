@@ -29,7 +29,6 @@ class DietAndFoodInfoProvider {
     
     let dietInfo = """
 LEAN MEATS
-
 Lean meats are a crucial part of a healthy pregnancy diet. They are high in essential nutrients such as protein, iron, and B vitamins. These nutrients are vital for both the mother and the developing baby. Lean meat options include chicken breast, turkey, beef, and some types of fish. Cooking methods such as grilling, steaming, or baking can be used to prepare healthy meals. Due to their low-fat content, lean meats also help you control your calorie intake.
 
 Chicken Breast:
@@ -54,7 +53,6 @@ Fish:
 Options like salmon, mackerel, and trout are rich in omega-3s, whereas leaner choices such as sea bass and dorado are also beneficial.
 
 AVOCADO
-
 Avocados are a powerhouse of nutrients, offering a substantial supply of healthy fats, fiber, and vitamins such as K, C, E, and B6. These nutrients contribute to heart health, digestive health, and skin vitality. Incorporating avocados into your diet can also help manage weight and stabilize blood sugar levels. Their creamy texture and mild flavor make them a versatile ingredient in many dishes, from breakfasts to salads and even smoothies. Plus, their high content of healthy fats helps improve the absorption of nutrients from other foods eaten with them.
 
 Avocado Toast:
@@ -66,9 +64,9 @@ A traditional Mexican dip made by mashing ripe avocados with lime juice, onions,
 Avocado Salad:
 Add diced avocados to your favorite salad for a creamy texture and a nutritional boost. They pair well with leafy greens, nuts, and a light vinaigrette.
 
+ 
 
 EGGS
-
 Eggs are an excellent source of high-quality protein and contain a wide range of essential nutrients including vitamins D, B12, selenium, and choline. These nutrients are crucial for brain health and maintaining a healthy metabolism. Eggs are also one of the few food sources of vitamin D, which is important for bone health and immune function. Their affordability and versatility make them a staple in diets around the world. Whether incorporated into meals as a main ingredient or used in baking, eggs enhance flavor and nutritional value, making them indispensable in the kitchen.
 
 Scrambled Eggs:
@@ -80,10 +78,10 @@ Versatile and filling, omelettes can be filled with your choice of vegetables, m
 Boiled Eggs:
 Boil eggs to your desired firmness—soft, medium, or hard. Boiled eggs are a great addition to salads or as a snack on their own.
 
+ 
 
 WHEAT
-
-Wheat is a fundamental food grain that is rich in carbohydrates, providing essential energy for daily activities. It also contains protein, fiber, and various vitamins and minerals, such as magnesium, zinc, and B vitamins. These nutrients help support metabolic health and contribute to heart and digestive health. Whole wheat, in particular, is beneficial as it contains the entire grain kernel, which means it has more nutrients compared to refined wheat products. Wheat is incredibly versatile in cooking and baking, forming the base for a wide range of dishes across different cuisines, from breads and pastries to cereals and side dishes. Including whole wheat in your diet can promote a healthier lifestyle by aiding in digestion and maintaining steady blood sugar levels.
+Wheat is a fundamental food grain that is rich in carbohydrates, providing essential energy for daily activities. It also contains protein, fiber, and various vitamins and minerals, such as magnesium, zinc, and B vitamins. These nutrients help support metabolic health and contribute to heart and digestive health. Whole wheat, in particular, is beneficial as it contains the entire grain kernel, which means it has more nutrients compared to refined wheat products. Wheat is incredibly versatile in cooking and baking, forming the base for a wide range of dishes across different cuisines, from breads and pastries to cereals and side dishes. Including whole wheat in your diet can promote a healthier lifestyle by aiding in digestion and maintaining steady blood sugar levels
 
 Whole Wheat Bread:
 A healthier alternative to white bread, made with whole wheat flour which retains all parts of the grain and provides more nutrients and fiber.
@@ -96,7 +94,6 @@ Cooked wheat berries add a chewy texture to salads. They can be combined with fr
 
 
 UNDERCOOKED FOODS
-
 Consuming undercooked foods can pose serious health risks as they may contain harmful bacteria, viruses, or parasites. These pathogens can lead to foodborne illnesses, commonly resulting in symptoms such as nausea, vomiting, diarrhea, and abdominal pain. Vulnerable populations, such as pregnant women, young children, the elderly, and those with weakened immune systems, are particularly at risk. To ensure safety, it is crucial to cook meat, poultry, and eggs to the appropriate temperatures, and to handle raw seafood with care. Always use a food thermometer to check that your food has reached a safe internal temperature before consumption.
 
 Raw Poultry:
@@ -111,9 +108,9 @@ While often safe, they can pose risks if the eggs are contaminated with Salmonel
 Sushi and Sashimi:
 Although a popular dish, raw fish must be handled with care to avoid parasites and bacteria.
 
+ 
 
 CAFEINE
-
 Caffeine is a stimulant that affects the central nervous system, providing temporary alertness and a boost in energy. While moderate caffeine consumption can be part of a healthy diet, excessive intake may lead to negative health effects such as restlessness, anxiety, heart palpitations, and trouble sleeping. It can also exacerbate certain health conditions like heart disorders or anxiety disorders. Pregnant women are advised to limit their caffeine intake, as it can affect fetal development. To avoid these risks, it is recommended to consume no more than 400 mg of caffeine per day for most healthy adults, which is roughly the amount in four 8-ounce cups of brewed coffee.
 
 Coffee:
@@ -131,6 +128,7 @@ These beverages typically contain caffeine. The amount can vary, but it is usual
 Chocolate and Chocolate Products:
 Contains small amounts of caffeine, especially dark chocolate.
 
+ 
 
 RAW FISH
 
@@ -147,10 +145,9 @@ An Italian appetizer consisting of thin slices of raw fish or seafood, often dre
 
 Tartare:
 Typically made from raw tuna or salmon, this dish is chopped and mixed with ingredients like onions, capers, and seasonings.
-
+ 
 
 UNDONE MEAT
-
 Consuming undone or undercooked meat poses significant health risks due to the potential presence of harmful bacteria and parasites, such as E. coli, Salmonella, and Trichinella. These pathogens can cause severe foodborne illnesses, manifesting symptoms like severe stomach cramps, diarrhea, and vomiting. Cooking meat to the appropriate internal temperatures ensures that these harmful organisms are killed, making the meat safe to eat. It is especially important to thoroughly cook ground meat, as the grinding process can distribute pathogens throughout. Pregnant women, young children, the elderly, and individuals with weakened immune systems should avoid eating undone meat. Always use a meat thermometer to check that meat has reached the safe minimum internal temperature before consumption.
 
 Rare Steak:
@@ -159,11 +156,17 @@ A steak cooked very briefly, so the inside remains red and only slightly warm.
 Tartare:
 Often made from beef or horse meat, this dish is served raw, seasoned, and sometimes paired with raw egg.
 
-Carpaccio:
+Carpacc
 Thinly sliced raw beef or sometimes fish, traditionally served with olive oil, lemon, and capers.
 
 Rare Burgers:
 Ground meat that is cooked on the outside but remains pink and raw in the center.
+
+ 
+
+
+
+
 """
     
     let foodInfo = """
