@@ -7,35 +7,34 @@
 
 import UIKit
 
-class MainTabbarController: UIViewController {
-    
-    let profileController = ProfileController()
-    let homeController = HomeController()
-    let waterController = WaterViewController()
-    let calendarController = CalendarViewController()
-    let settingsController = SettingsController()
-    let MainBarController = UITabBarController()
-    
+class MainTabbarController: UITabBarController {
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let profileController = ProfileController()
+        let homeController = HomeController()
+        let waterController = WaterViewController()
+        let calendarController = CalendarViewController()
+        let settingsController = SettingsController()
         
         profileController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
         homeController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "figure.yoga"), selectedImage: UIImage(systemName: "figure.yoga.fill"))
         waterController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "drop.degreesign"), selectedImage: UIImage(systemName: "drop.degreesign.fill"))
-        calendarController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "calendar"), selectedImage: UIImage(systemName: "calendar"))
+        calendarController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "calendar"), selectedImage: UIImage(systemName: "calendar.fill"))
         settingsController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "gearshape"), selectedImage: UIImage(systemName: "gearshape.fill"))
         
-        MainBarController.viewControllers = [profileController, homeController, waterController, calendarController, settingsController]
-        view.addSubview(MainBarController.view)
-        MainBarController.didMove(toParent: self)
+        let controllers = [
+            UINavigationController(rootViewController: profileController),
+            UINavigationController(rootViewController: homeController),
+            UINavigationController(rootViewController: waterController),
+            UINavigationController(rootViewController: calendarController),
+            UINavigationController(rootViewController: settingsController)
+        ]
         
-        MainBarController.selectedIndex = 1
-        MainBarController.tabBar.barTintColor = .blue
-        MainBarController.tabBar.layer.cornerRadius = 12
-        MainBarController.tabBar.layer.masksToBounds = true
+        self.viewControllers = controllers
         
-       
+        self.selectedIndex = 1
+        self.tabBar.barTintColor = .blue
     }
 }

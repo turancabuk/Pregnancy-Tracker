@@ -140,7 +140,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     }
     private func checkIfResetRequired() {
         let calendar = Calendar.current
-        let now = Date()
+        _ = Date()
         let lastResetDate = UserDefaults.standard.object(forKey: "lastResetDate") as? Date ?? Date.distantPast
         
         if !calendar.isDateInToday(lastResetDate) {
