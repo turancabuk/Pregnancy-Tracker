@@ -157,7 +157,7 @@ class PersonalInformationView: UIViewController, UIImagePickerControllerDelegate
         let selectedDate = datePicker.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        let dateString = dateFormatter.string(from: selectedDate)
+        _ = dateFormatter.string(from: selectedDate)
     }
     @objc fileprivate func handleSave() {
         

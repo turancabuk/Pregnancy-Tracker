@@ -102,21 +102,21 @@ class HomeViewModel {
             let detVC = FoodAndDietView()
             if selectedItem == "diet" {
                 detVC.imageView.image = UIImage(named: "diet1")
-                let dietDetail = DietAndFoodInfoProvider.shared.getDietDescription(for: .diet)
-            }else{
+            } else {
                 detVC.imageView.image = UIImage(named: "food1")
-                let foodDetail = DietAndFoodInfoProvider.shared.getDietDescription(for: .food)
             }
             detVC.modalPresentationStyle = .fullScreen
             viewController.present(detVC, animated: true)
         }
     }
+
     fileprivate func uniqueSelectedItem(_ selectedItem: String, controller: UIViewController, detailController: UIViewController, backgroundColor: UIColor) {
         let detailVC = detailController
         detailVC.view.backgroundColor = backgroundColor
         detailVC.modalPresentationStyle = .fullScreen
         controller.present(detailVC, animated: true)
     }
+
     func advertViewContact() {
         if let url = URL(string: "https://apps.apple.com/us/app/little-steps-development/id6474306976") {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)

@@ -102,12 +102,12 @@ extension SafeAreaView {
         
         NSLayoutConstraint.activate([
             
-            personelView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 24),
+            personelView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: -60),
             personelView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             personelView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             personelView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 1/4.5),
             
-            profileImageView.topAnchor.constraint(equalTo: personelView.topAnchor, constant: 32),
+            profileImageView.topAnchor.constraint(equalTo: personelView.topAnchor, constant: 12),
             profileImageView.widthAnchor.constraint(equalTo: personelView.widthAnchor, multiplier: 1/5),
             profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor),
             profileImageView.centerXAnchor.constraint(equalTo: personelView.centerXAnchor),
