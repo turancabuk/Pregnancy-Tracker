@@ -14,11 +14,11 @@ class HomeController: UIViewController, UICollectionViewDelegate, OnboardingMovi
     var viewModel: HomeViewModel
     let safeAreaView: SafeAreaView
     let profileController: ProfileController
-    let advertView: AdvertView
     let scrollView = UIScrollView()
     let contentView = UIView()
     var collectionView: UICollectionView!
     var blurEffectView: UIVisualEffectView?
+    
 
     
     let seperatorView: UIView = {
@@ -31,7 +31,6 @@ class HomeController: UIViewController, UICollectionViewDelegate, OnboardingMovi
         self.viewModel = HomeViewModel()
         self.safeAreaView = SafeAreaView()
         self.profileController = ProfileController()
-        self.advertView = AdvertView()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -101,10 +100,6 @@ class HomeController: UIViewController, UICollectionViewDelegate, OnboardingMovi
         
         viewModel.didSelect(collectionView, didSelectItemAt: indexPath, viewController: self)
     }
-    @objc private func getButtonTapped() {
-        
-        viewModel.advertViewContact()
-    }
     func handleCancel() {
         blurEffectView?.removeFromSuperview()
     }
@@ -115,61 +110,48 @@ extension HomeController {
         let color = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
         safeAreaView.setPersonelView(backgroundColor: color)
         tabBarController?.tabBar.backgroundColor = .white
-        advertView.getButton.addTarget(self, action: #selector(getButtonTapped), for: .touchUpInside)
         
-        view.addSubview(safeAreaView)
         view.addSubview(seperatorView)
+        view.addSubview(safeAreaView)
         view.addSubview(scrollView)
-        view.addSubview(contentView)
+        scrollView.addSubview(contentView)
         contentView.addSubview(collectionView)
-        contentView.addSubview(advertView)
         
-        disableAutoResizingMaskConstraints(for: [safeAreaView, seperatorView, scrollView, contentView, advertView, collectionView])
+        disableAutoResizingMaskConstraints(for: [safeAreaView, seperatorView, scrollView, contentView, collectionView])
         
         NSLayoutConstraint.activate([
-            safeAreaView.topAnchor.constraint(equalTo: seperatorView.bottomAnchor, constant: -32),
-            safeAreaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            safeAreaView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            safeAreaView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            seperatorView.topAnchor.constraint(equalTo: view.topAnchor),
+            seperatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            seperatorView.heightAnchor.constraint(equalToConstant: 62),
+            seperatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
+            safeAreaView.topAnchor.constraint(equalTo: seperatorView.bottomAnchor),
+            safeAreaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            safeAreaView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            safeAreaView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+           
             scrollView.topAnchor.constraint(equalTo: safeAreaView.personelView.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: safeAreaView.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            seperatorView.topAnchor.constraint(equalTo: view.topAnchor),
-            seperatorView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
-            seperatorView.heightAnchor.constraint(equalToConstant: 26),
-            seperatorView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
-            
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 700),
+            collectionView.heightAnchor.constraint(equalToConstant: 680),
             
-            advertView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 12),
-            advertView.widthAnchor.constraint(equalTo: collectionView.widthAnchor, constant: -6),
-            advertView.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
-            advertView.heightAnchor.constraint(equalToConstant: 40),
-            
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -40),
-
+            contentView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
         ])
         
-        if let lastView = contentView.subviews.last {
-            NSLayoutConstraint.activate([
-                lastView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            ])
-        }
         safeAreaView.backgroundColor = .white
     }
+
     fileprivate func disableAutoResizingMaskConstraints(for views: [UIView]) {
         views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
 }
-
