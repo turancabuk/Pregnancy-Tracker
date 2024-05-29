@@ -156,7 +156,7 @@ extension CalendarViewController {
         
         NSLayoutConstraint.activate([
             
-            calendarContainerLayerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 54),
+            calendarContainerLayerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             calendarContainerLayerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
             calendarContainerLayerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
             calendarContainerLayerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.7/3.5),
@@ -181,10 +181,10 @@ extension CalendarViewController {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            todoCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
+            todoCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             todoCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             todoCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            todoCollectionView.heightAnchor.constraint(equalToConstant: 220),
+            todoCollectionView.heightAnchor.constraint(equalToConstant: 1520),
             todoCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             contentView.bottomAnchor.constraint(equalTo: todoCollectionView.bottomAnchor),

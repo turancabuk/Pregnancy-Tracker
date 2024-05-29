@@ -305,7 +305,7 @@ extension WaterViewController {
         
         NSLayoutConstraint.activate([
             
-            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 64),
+            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             nameLabel.heightAnchor.constraint(equalToConstant: 36),
             nameLabel.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1/2),
             nameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
@@ -350,9 +350,9 @@ extension WaterViewController {
             coffeeItem.widthAnchor.constraint(equalTo: waterItem.widthAnchor),
             coffeeItem.heightAnchor.constraint(equalTo: waterItem.heightAnchor),
             
-            plusButton.topAnchor.constraint(equalTo: containerView.bottomAnchor),
+            plusButton.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 48),
             plusButton.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/6),
-            plusButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            plusButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -6),
             plusButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1/3),
             
             alertButton.topAnchor.constraint(equalTo: graphicContainerView.topAnchor),
