@@ -95,8 +95,8 @@ extension OnboardingMovieViewController {
         NSLayoutConstraint.activate([
             uniqueView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 4/5),
             uniqueView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 4/5),
-            uniqueView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            uniqueView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            uniqueView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            uniqueView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -12),
 
             containerView.topAnchor.constraint(equalTo: uniqueView.topAnchor, constant: 4),
             containerView.bottomAnchor.constraint(equalTo: uniqueView.bottomAnchor, constant: -4),
