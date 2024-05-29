@@ -129,28 +129,27 @@ extension HomeController {
             safeAreaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             safeAreaView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             safeAreaView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-           
-            scrollView.topAnchor.constraint(equalTo: safeAreaView.personelView.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: safeAreaView.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: safeAreaView.trailingAnchor),
+            
+            scrollView.topAnchor.constraint(equalTo: safeAreaView.personelView.bottomAnchor, constant: 6),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
+            
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
             
-            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 680),
-            
-            contentView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            collectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.95),
+            collectionView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
-        
-        safeAreaView.backgroundColor = .white
+        view.backgroundColor = .white
     }
-
+    
     fileprivate func disableAutoResizingMaskConstraints(for views: [UIView]) {
         views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }

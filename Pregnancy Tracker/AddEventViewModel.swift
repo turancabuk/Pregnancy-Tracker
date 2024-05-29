@@ -16,13 +16,14 @@ protocol AddEventViewModelDelegate: AnyObject {
 
 class AddEventViewModel {
     
-    private let eventStore = EKEventStore()
+    private let eventStore: EKEventStore
     private let entityName = "Doctor"
     private var managedObjectContext: NSManagedObjectContext?
     var selectedDate: Date?
     var delegate: AddEventViewModelDelegate?
 
-    init() {
+    init(eventStore: EKEventStore) {
+        self.eventStore = eventStore
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             managedObjectContext = appDelegate.persistentContainer.viewContext
         }
@@ -73,6 +74,9 @@ class AddEventViewModel {
         event.notes = description
         event.calendar = eventStore.defaultCalendarForNewEvents
 
+        let alarm = EKAlarm(relativeOffset: -15 * 60)
+        event.addAlarm(alarm)
+        
         do {
             try eventStore.save(event, span: .thisEvent)
             delegate?.didAddEvent()

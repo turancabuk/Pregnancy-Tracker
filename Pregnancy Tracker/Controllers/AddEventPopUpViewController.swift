@@ -15,8 +15,7 @@ protocol AddEventPopUpViewControllerDelegate: AnyObject {
 }
 class AddEventPopUpViewController: UIViewController, UITextViewDelegate, AddEventViewModelDelegate {
     
-    var viewModel = AddEventViewModel()
-    let eventStore = EKEventStore()
+    var viewModel: AddEventViewModel
     let entityName = "Doctor"
     var managedObjectContext: NSManagedObjectContext?
     var selectedDate: Date?
@@ -56,6 +55,16 @@ class AddEventPopUpViewController: UIViewController, UITextViewDelegate, AddEven
     lazy var saveButton = UIComponentsFactory.createCustomButton(title: "SAVE", state: .normal, titleColor: .white, borderColor: .black, borderWidth: 1.0, cornerRadius: 6, clipsToBounds: true, action: handleSave)
     lazy var cancelButton = UIComponentsFactory.createCustomButton(title: "Cancel", state: .normal, titleColor: .white, borderColor: .black, borderWidth: 1.0, cornerRadius: 4, clipsToBounds: true, action: handleCancel)
     
+    init() {
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else {
+            fatalError("Could not get sceneDelegate")
+        }
+        self.viewModel = AddEventViewModel(eventStore: sceneDelegate.sharedEventStore)
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
