@@ -6,26 +6,40 @@
 //
 
 import UIKit
+import AVKit
+
 
 class CategoriesDetailVC: UIViewController {
     
-    let imageView = UIImageView()
+    var videoURLs: [String] = []
+    var currentVideoIndex = 0
+    var player: AVPlayer?
+    var playerViewController : AVPlayerViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 12),
-            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 20),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 12)
-        ])
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        view.backgroundColor = .white
+        setupPlayer()
+        
     }
-    @objc fileprivate func handleDismiss() {
-        self.dismiss(animated: true, completion: nil)
+    func setupPlayer() {
+        guard !videoURLs.isEmpty else {return}
+        playVideo(at: currentVideoIndex)
+    }
+    func playVideo(at index: Int) {
+        guard index < videoURLs.count, let url = URL(string: videoURLs[index])  else {return}
+        
+        player = AVPlayer(url: url)
+        playerViewController = AVPlayerViewController()
+        playerViewController?.player = player
+        
+        if let playerVC = playerViewController {
+            addChild(playerVC)
+            view.addSubview(playerVC.view)
+            playerVC.view.frame = view.frame
+            playerVC.didMove(toParent: self)
+            player?.play()
+        }
     }
 }
