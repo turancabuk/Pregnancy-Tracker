@@ -138,22 +138,39 @@ extension HomeViewModel {
                 print("Error getting documents: \(error)")
                 completion(nil)
             } else {
-                var videoURLs: [String] = []
-                for item in result!.items {
+                guard let result = result else {
+                    completion(nil)
+                    return
+                }
+
+                var videoURLs: [(Int, String)] = []
+                let sortedItems = result.items.sorted { (item1, item2) -> Bool in
+                    let item1Number = Int(item1.name.split(separator: ".").first ?? "") ?? 0
+                    let item2Number = Int(item2.name.split(separator: ".").first ?? "") ?? 0
+                    return item1Number < item2Number
+                }
+                
+                let dispatchGroup = DispatchGroup()
+                
+                for (index, item) in sortedItems.enumerated() {
+                    dispatchGroup.enter()
                     item.downloadURL { url, error in
                         if let url = url {
-                            videoURLs.append(url.absoluteString)
-                            if videoURLs.count == result!.items.count {
-                                completion(videoURLs)
-                            }
+                            videoURLs.append((index, url.absoluteString))
                         } else {
-                            completion(nil)
+                            print("Error getting download URL: \(error?.localizedDescription ?? "Unknown error")")
                         }
+                        dispatchGroup.leave()
                     }
+                }
+                dispatchGroup.notify(queue: .main) {
+                    let sortedURLs = videoURLs.sorted(by: { $0.0 < $1.0 }).map { $0.1 }
+                    completion(sortedURLs)
                 }
             }
         }
     }
+
 }
 extension HomeViewModel {
     func createHorizontalSection(height: CGFloat, itemCount: Int) -> NSCollectionLayoutSection {
