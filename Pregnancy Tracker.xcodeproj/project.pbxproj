@@ -52,12 +52,15 @@
 		5CAA089D2BDA86AF0042E3A8 /* AddEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */; };
 		5CAA08A52BE1034F0042E3A8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */; };
 		5CAA08A72BE287920042E3A8 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */; };
-		5CBE6EB82BFF9F79002C2D50 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE6EB72BFF9F79002C2D50 /* GoogleService-Info.plist */; };
 		5CBF71B02BEB891C00C0B304 /* AddWaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF71AF2BEB891C00C0B304 /* AddWaterViewController.swift */; };
 		5CC9B5522C05283400990BAE /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5CC9B5512C05283400990BAE /* UIOnboarding */; };
 		5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */; };
 		5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */; };
 		5CEB19272BE66B5A00E0B546 /* WaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */; };
+		5CF14F942C09020C00157E01 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5CF14F932C09020C00157E01 /* FirebaseFirestore */; };
+		5CF14F962C09020C00157E01 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5CF14F952C09020C00157E01 /* FirebaseFirestoreSwift */; };
+		5CF14F982C09020C00157E01 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5CF14F972C09020C00157E01 /* FirebaseStorage */; };
+		5CF14F9A2C09026100157E01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CF14F992C09026100157E01 /* GoogleService-Info.plist */; };
 		5CF3A3BC2BF229B500DE7C76 /* WaterReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF3A3BB2BF229B500DE7C76 /* WaterReminderViewController.swift */; };
 		5CF3A3C62BF518C500DE7C76 /* WaterReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF3A3C52BF518C500DE7C76 /* WaterReminderViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -109,11 +112,11 @@
 		5CAA089C2BDA86AF0042E3A8 /* AddEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewModel.swift; sourceTree = "<group>"; };
 		5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		5CBE6EB72BFF9F79002C2D50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5CBF71AF2BEB891C00C0B304 /* AddWaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWaterViewController.swift; sourceTree = "<group>"; };
 		5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowLayer.swift; sourceTree = "<group>"; };
 		5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesDetailVC.swift; sourceTree = "<group>"; };
 		5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewController.swift; sourceTree = "<group>"; };
+		5CF14F992C09026100157E01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5CF3A3BB2BF229B500DE7C76 /* WaterReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterReminderViewController.swift; sourceTree = "<group>"; };
 		5CF3A3C52BF518C500DE7C76 /* WaterReminderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterReminderViewModel.swift; sourceTree = "<group>"; };
 		69E174A0973F7285C2F61BED /* Pods-Pregnancy Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pregnancy Tracker.release.xcconfig"; path = "Target Support Files/Pods-Pregnancy Tracker/Pods-Pregnancy Tracker.release.xcconfig"; sourceTree = "<group>"; };
@@ -125,9 +128,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CF14F962C09020C00157E01 /* FirebaseFirestoreSwift in Frameworks */,
 				5CC9B5522C05283400990BAE /* UIOnboarding in Frameworks */,
+				5CF14F942C09020C00157E01 /* FirebaseFirestore in Frameworks */,
 				5C367BED2C052868005891EB /* JGProgressHUD in Frameworks */,
 				4FC30F8D8A6E85C37EC53CB6 /* Pods_Pregnancy_Tracker.framework in Frameworks */,
+				5CF14F982C09020C00157E01 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +283,7 @@
 				5CA9DEFE2B986EB5004FAD1D /* Assets.xcassets */,
 				5CA9DF002B986EB5004FAD1D /* LaunchScreen.storyboard */,
 				5C86E61C2BA0745000FFB7A8 /* CoreData.xcdatamodeld */,
-				5CBE6EB72BFF9F79002C2D50 /* GoogleService-Info.plist */,
+				5CF14F992C09026100157E01 /* GoogleService-Info.plist */,
 				5CA9DF032B986EB5004FAD1D /* Info.plist */,
 			);
 			path = "Pregnancy Tracker";
@@ -312,6 +318,9 @@
 			packageProductDependencies = (
 				5CC9B5512C05283400990BAE /* UIOnboarding */,
 				5C367BEC2C052868005891EB /* JGProgressHUD */,
+				5CF14F932C09020C00157E01 /* FirebaseFirestore */,
+				5CF14F952C09020C00157E01 /* FirebaseFirestoreSwift */,
+				5CF14F972C09020C00157E01 /* FirebaseStorage */,
 			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
@@ -344,6 +353,7 @@
 			packageReferences = (
 				5CC9B5502C05283400990BAE /* XCRemoteSwiftPackageReference "UIOnboarding" */,
 				5C367BEB2C052868005891EB /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				5CF14F922C09020C00157E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
@@ -361,10 +371,10 @@
 			files = (
 				5C0198512B9A12B800AC22CB /* Kinoble.ttf in Resources */,
 				5CA9DF022B986EB5004FAD1D /* LaunchScreen.storyboard in Resources */,
-				5CBE6EB82BFF9F79002C2D50 /* GoogleService-Info.plist in Resources */,
 				5CA9DEFF2B986EB5004FAD1D /* Assets.xcassets in Resources */,
 				5C4840632BFFDAA700CFF1C0 /* onboarding.mp4 in Resources */,
 				5CA9DEFD2B986EB4004FAD1D /* Main.storyboard in Resources */,
+				5CF14F9A2C09026100157E01 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,6 +715,14 @@
 				minimumVersion = 2.0.3;
 			};
 		};
+		5CF14F922C09020C00157E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.27.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -717,6 +735,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5CC9B5502C05283400990BAE /* XCRemoteSwiftPackageReference "UIOnboarding" */;
 			productName = UIOnboarding;
+		};
+		5CF14F932C09020C00157E01 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CF14F922C09020C00157E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		5CF14F952C09020C00157E01 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CF14F922C09020C00157E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		5CF14F972C09020C00157E01 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CF14F922C09020C00157E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SwiftUI
+import FirebaseStorage
 
 class HomeViewModel {
     
@@ -21,6 +21,10 @@ class HomeViewModel {
                                   "deneme2 deneme2 deneme2 deneme2 deneme2 deneme2",
                                   "deneme3 deneme3 deneme3 deneme3 deneme3 deneme3",
     ]
+    
+    enum YogaSeries: String {
+        case sergy = "sergy"
+    }
     
     enum Section: Int, CaseIterable {
         case main
@@ -89,27 +93,28 @@ class HomeViewModel {
         }
     }
     func didSelect(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath, viewController: UIViewController) {
+        let selectedSeries: YogaSeries
         
         switch Section(rawValue: indexPath.section)! {
         case .main:
-            let selectedItem = mainCollection[indexPath.row]
-            uniqueSelectedItem(selectedItem, controller: viewController, detailController: CategoriesDetailVC(), backgroundColor: .blue)
+            selectedSeries = .sergy
         case .vertical:
-            let selectedItem = verticalCollection[indexPath.row]
-            uniqueSelectedItem(selectedItem, controller: viewController, detailController: CategoriesDetailVC(), backgroundColor: .yellow)
+            selectedSeries = .sergy
         case .foodDiet:
-            let selectedItem = foodAndDietCollection[indexPath.row]
-            let detVC = FoodAndDietView()
-            if selectedItem == "diet" {
-                detVC.imageView.image = UIImage(named: "diet1")
-            } else {
-                detVC.imageView.image = UIImage(named: "food1")
+            selectedSeries = .sergy // Değiştirilebilir
+        }
+        
+        fetchVideoURLs(for: selectedSeries) { [weak self] videoURLs in
+            guard let self = self, let videoURLs = videoURLs else { return }
+            
+            DispatchQueue.main.async {
+                let detailVC = CategoriesDetailVC()
+                detailVC.videoURLs = videoURLs
+                detailVC.modalPresentationStyle = .fullScreen
+                viewController.present(detailVC, animated: true, completion: nil)
             }
-            detVC.modalPresentationStyle = .fullScreen
-            viewController.present(detVC, animated: true)
         }
     }
-
     fileprivate func uniqueSelectedItem(_ selectedItem: String, controller: UIViewController, detailController: UIViewController, backgroundColor: UIColor) {
         let detailVC = detailController
         detailVC.view.backgroundColor = backgroundColor
@@ -122,6 +127,50 @@ class HomeViewModel {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
+}
+extension HomeViewModel {
+    func fetchVideoURLs(for series: YogaSeries, completion: @escaping ([String]?) -> Void) {
+        let storage = Storage.storage()
+        let storageRef = storage.reference().child(series.rawValue)
+        
+        storageRef.listAll { (result, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion(nil)
+            } else {
+                guard let result = result else {
+                    completion(nil)
+                    return
+                }
+
+                var videoURLs: [(Int, String)] = []
+                let sortedItems = result.items.sorted { (item1, item2) -> Bool in
+                    let item1Number = Int(item1.name.split(separator: ".").first ?? "") ?? 0
+                    let item2Number = Int(item2.name.split(separator: ".").first ?? "") ?? 0
+                    return item1Number < item2Number
+                }
+                
+                let dispatchGroup = DispatchGroup()
+                
+                for (index, item) in sortedItems.enumerated() {
+                    dispatchGroup.enter()
+                    item.downloadURL { url, error in
+                        if let url = url {
+                            videoURLs.append((index, url.absoluteString))
+                        } else {
+                            print("Error getting download URL: \(error?.localizedDescription ?? "Unknown error")")
+                        }
+                        dispatchGroup.leave()
+                    }
+                }
+                dispatchGroup.notify(queue: .main) {
+                    let sortedURLs = videoURLs.sorted(by: { $0.0 < $1.0 }).map { $0.1 }
+                    completion(sortedURLs)
+                }
+            }
+        }
+    }
+
 }
 extension HomeViewModel {
     func createHorizontalSection(height: CGFloat, itemCount: Int) -> NSCollectionLayoutSection {
