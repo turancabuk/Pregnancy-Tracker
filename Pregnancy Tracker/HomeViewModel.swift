@@ -26,6 +26,8 @@ class HomeViewModel {
         case sergy = "sergy"
         case pressmaster = "pressmaster"
         case grbanoff = "grbanoff"
+        case mediastock = "mediastock"
+        case stock = "stock"
     }
     
     enum Section: Int, CaseIterable {
@@ -108,7 +110,12 @@ class HomeViewModel {
                 selectedSeries = .grbanoff
             }
         case .vertical:
-            selectedSeries = .pressmaster
+            switch indexPath.row {
+            case 0:
+                selectedSeries = .mediastock
+            default:
+                selectedSeries = .stock
+            }
         case .foodDiet:
             selectedSeries = nil
             let selectedItem = foodAndDietCollection[indexPath.row]
