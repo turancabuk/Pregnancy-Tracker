@@ -17,11 +17,14 @@
 		5C0198692B9B994700AC22CB /* UIOnboardingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0198682B9B994700AC22CB /* UIOnboardingHelper.swift */; };
 		5C34023C2BBC1F8E006C7063 /* UIComponentsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34023B2BBC1F8E006C7063 /* UIComponentsFactory.swift */; };
 		5C3402482BBD5446006C7063 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3402472BBD5446006C7063 /* CalendarViewController.swift */; };
-		5C367BED2C052868005891EB /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5C367BEC2C052868005891EB /* JGProgressHUD */; };
 		5C3E175C2BD5394C00C92FC4 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3E175B2BD5394C00C92FC4 /* UserInfoModel.swift */; };
 		5C3E175F2BD53AA600C92FC4 /* SafeAreaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */; };
 		5C4840632BFFDAA700CFF1C0 /* onboarding.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5C4840622BFFDAA700CFF1C0 /* onboarding.mp4 */; };
 		5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */; };
+		5C51B0702C0E49BC008486F5 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C51B06F2C0E49BC008486F5 /* UIOnboarding */; };
+		5C51B0732C0E4B70008486F5 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5C51B0722C0E4B70008486F5 /* JGProgressHUD */; };
+		5C51B0762C0E4FD5008486F5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5C51B0752C0E4FD5008486F5 /* FirebaseFirestore */; };
+		5C51B0782C0E4FD5008486F5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5C51B0772C0E4FD5008486F5 /* FirebaseStorage */; };
 		5C54953D2BCF095C00720C48 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54953C2BCF095C00720C48 /* ProfileManager.swift */; };
 		5C5495422BD0057F00720C48 /* FoodandDietCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5495412BD0057F00720C48 /* FoodandDietCell.swift */; };
 		5C5495502BD0426500720C48 /* FoodAndDietView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54954F2BD0426500720C48 /* FoodAndDietView.swift */; };
@@ -53,13 +56,9 @@
 		5CAA08A52BE1034F0042E3A8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA08A42BE1034F0042E3A8 /* SettingsViewModel.swift */; };
 		5CAA08A72BE287920042E3A8 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA08A62BE287920042E3A8 /* HomeViewModel.swift */; };
 		5CBF71B02BEB891C00C0B304 /* AddWaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF71AF2BEB891C00C0B304 /* AddWaterViewController.swift */; };
-		5CC9B5522C05283400990BAE /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5CC9B5512C05283400990BAE /* UIOnboarding */; };
 		5CE4AB062BA4CB01005F257F /* ShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB052BA4CB01005F257F /* ShadowLayer.swift */; };
 		5CE4AB082BA4D343005F257F /* CategoriesDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4AB072BA4D343005F257F /* CategoriesDetailVC.swift */; };
 		5CEB19272BE66B5A00E0B546 /* WaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEB19262BE66B5A00E0B546 /* WaterViewController.swift */; };
-		5CF14F942C09020C00157E01 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5CF14F932C09020C00157E01 /* FirebaseFirestore */; };
-		5CF14F962C09020C00157E01 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5CF14F952C09020C00157E01 /* FirebaseFirestoreSwift */; };
-		5CF14F982C09020C00157E01 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5CF14F972C09020C00157E01 /* FirebaseStorage */; };
 		5CF14F9A2C09026100157E01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CF14F992C09026100157E01 /* GoogleService-Info.plist */; };
 		5CF3A3BC2BF229B500DE7C76 /* WaterReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF3A3BB2BF229B500DE7C76 /* WaterReminderViewController.swift */; };
 		5CF3A3C62BF518C500DE7C76 /* WaterReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF3A3C52BF518C500DE7C76 /* WaterReminderViewModel.swift */; };
@@ -128,12 +127,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CF14F962C09020C00157E01 /* FirebaseFirestoreSwift in Frameworks */,
-				5CC9B5522C05283400990BAE /* UIOnboarding in Frameworks */,
-				5CF14F942C09020C00157E01 /* FirebaseFirestore in Frameworks */,
-				5C367BED2C052868005891EB /* JGProgressHUD in Frameworks */,
 				4FC30F8D8A6E85C37EC53CB6 /* Pods_Pregnancy_Tracker.framework in Frameworks */,
-				5CF14F982C09020C00157E01 /* FirebaseStorage in Frameworks */,
+				5C51B0762C0E4FD5008486F5 /* FirebaseFirestore in Frameworks */,
+				5C51B0732C0E4B70008486F5 /* JGProgressHUD in Frameworks */,
+				5C51B0782C0E4FD5008486F5 /* FirebaseStorage in Frameworks */,
+				5C51B0702C0E49BC008486F5 /* UIOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,11 +314,10 @@
 			);
 			name = "Pregnancy Tracker";
 			packageProductDependencies = (
-				5CC9B5512C05283400990BAE /* UIOnboarding */,
-				5C367BEC2C052868005891EB /* JGProgressHUD */,
-				5CF14F932C09020C00157E01 /* FirebaseFirestore */,
-				5CF14F952C09020C00157E01 /* FirebaseFirestoreSwift */,
-				5CF14F972C09020C00157E01 /* FirebaseStorage */,
+				5C51B06F2C0E49BC008486F5 /* UIOnboarding */,
+				5C51B0722C0E4B70008486F5 /* JGProgressHUD */,
+				5C51B0752C0E4FD5008486F5 /* FirebaseFirestore */,
+				5C51B0772C0E4FD5008486F5 /* FirebaseStorage */,
 			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
@@ -351,9 +348,9 @@
 			);
 			mainGroup = 5CA9DEE92B986EB4004FAD1D;
 			packageReferences = (
-				5CC9B5502C05283400990BAE /* XCRemoteSwiftPackageReference "UIOnboarding" */,
-				5C367BEB2C052868005891EB /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
-				5CF14F922C09020C00157E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				5C51B06E2C0E49BC008486F5 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
+				5C51B0712C0E4B70008486F5 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				5C51B0742C0E4FD5008486F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
@@ -699,15 +696,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5C367BEB2C052868005891EB /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.0;
-			};
-		};
-		5CC9B5502C05283400990BAE /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
+		5C51B06E2C0E49BC008486F5 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lascic/UIOnboarding";
 			requirement = {
@@ -715,7 +704,15 @@
 				minimumVersion = 2.0.3;
 			};
 		};
-		5CF14F922C09020C00157E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		5C51B0712C0E4B70008486F5 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
+		5C51B0742C0E4FD5008486F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
@@ -726,29 +723,24 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5C367BEC2C052868005891EB /* JGProgressHUD */ = {
+		5C51B06F2C0E49BC008486F5 /* UIOnboarding */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5C367BEB2C052868005891EB /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
-			productName = JGProgressHUD;
-		};
-		5CC9B5512C05283400990BAE /* UIOnboarding */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5CC9B5502C05283400990BAE /* XCRemoteSwiftPackageReference "UIOnboarding" */;
+			package = 5C51B06E2C0E49BC008486F5 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
 			productName = UIOnboarding;
 		};
-		5CF14F932C09020C00157E01 /* FirebaseFirestore */ = {
+		5C51B0722C0E4B70008486F5 /* JGProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5CF14F922C09020C00157E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 5C51B0712C0E4B70008486F5 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
+		};
+		5C51B0752C0E4FD5008486F5 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C51B0742C0E4FD5008486F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		5CF14F952C09020C00157E01 /* FirebaseFirestoreSwift */ = {
+		5C51B0772C0E4FD5008486F5 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5CF14F922C09020C00157E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestoreSwift;
-		};
-		5CF14F972C09020C00157E01 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5CF14F922C09020C00157E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 5C51B0742C0E4FD5008486F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */

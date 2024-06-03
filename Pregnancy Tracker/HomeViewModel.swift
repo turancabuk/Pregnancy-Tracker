@@ -24,6 +24,10 @@ class HomeViewModel {
     
     enum YogaSeries: String {
         case sergy = "sergy"
+        case pressmaster = "pressmaster"
+        case grbanoff = "grbanoff"
+        case mediastock = "mediastock"
+        case stock = "stock"
     }
     
     enum Section: Int, CaseIterable {
@@ -93,25 +97,47 @@ class HomeViewModel {
         }
     }
     func didSelect(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath, viewController: UIViewController) {
-        let selectedSeries: YogaSeries
+        let selectedSeries: YogaSeries?
         
         switch Section(rawValue: indexPath.section)! {
         case .main:
-            selectedSeries = .sergy
+            switch indexPath.row {
+            case 0:
+                selectedSeries = .sergy
+            case 1:
+                selectedSeries = .pressmaster
+            default:
+                selectedSeries = .grbanoff
+            }
         case .vertical:
-            selectedSeries = .sergy
+            switch indexPath.row {
+            case 0:
+                selectedSeries = .mediastock
+            default:
+                selectedSeries = .stock
+            }
         case .foodDiet:
-            selectedSeries = .sergy // Değiştirilebilir
+            selectedSeries = nil
+            let selectedItem = foodAndDietCollection[indexPath.row]
+            let detVC = FoodAndDietView()
+            if selectedItem == "diet" {
+                detVC.imageView.image = UIImage(named: "diet1")
+            }else{
+                detVC.imageView.image = UIImage(named: "food1")
+            }
+            detVC.modalPresentationStyle = .fullScreen
+            viewController.present(detVC, animated: true)
         }
-        
-        fetchVideoURLs(for: selectedSeries) { [weak self] videoURLs in
-            guard let self = self, let videoURLs = videoURLs else { return }
-            
-            DispatchQueue.main.async {
-                let detailVC = CategoriesDetailVC()
-                detailVC.videoURLs = videoURLs
-                detailVC.modalPresentationStyle = .fullScreen
-                viewController.present(detailVC, animated: true, completion: nil)
+        if let selectedSeries = selectedSeries {
+            fetchVideoURLs(for: selectedSeries) { [weak self] videoURLs in
+                guard let self = self, let videoURLs = videoURLs else { return }
+                
+                DispatchQueue.main.async {
+                    let detailVC = CategoriesDetailVC()
+                    detailVC.videoURLs = videoURLs
+                    detailVC.modalPresentationStyle = .fullScreen
+                    viewController.present(detailVC, animated: true, completion: nil)
+                }
             }
         }
     }
