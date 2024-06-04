@@ -1,5 +1,5 @@
 {
-  "originHash" : "61e8a8a02e9564c9a1c434f6487c91d270cf48bd3831afb7de2157c169191495",
+  "originHash" : "2bca1ec56ea60e6d1fc65d026922803d8166f85564ddd645e5adabce50f2acfa",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -22,7 +22,7 @@
     {
       "identity" : "firebase-ios-sdk",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/firebase/firebase-ios-sdk.git",
+      "location" : "https://github.com/firebase/firebase-ios-sdk",
       "state" : {
         "revision" : "8bcaf973b1d84e119b7c7c119abad72ed460979f",
         "version" : "10.27.0"
@@ -130,7 +130,7 @@
     {
       "identity" : "uionboarding",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/lascic/UIOnboarding.git",
+      "location" : "https://github.com/lascic/UIOnboarding",
       "state" : {
         "revision" : "efd1e944c399de24c10d9f4947301e1c105dbb9b",
         "version" : "2.0.3"

@@ -28,6 +28,7 @@ class HomeViewModel {
         case grbanoff = "grbanoff"
         case mediastock = "mediastock"
         case stock = "stock"
+        case petrunine = "petrunine"
     }
     
     enum Section: Int, CaseIterable {
