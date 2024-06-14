@@ -21,10 +21,6 @@
 		5C3E175F2BD53AA600C92FC4 /* SafeAreaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3E175E2BD53AA600C92FC4 /* SafeAreaViewModel.swift */; };
 		5C4840632BFFDAA700CFF1C0 /* onboarding.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5C4840622BFFDAA700CFF1C0 /* onboarding.mp4 */; };
 		5C4F81512BC2CB5E0012F709 /* ReadEventPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F81502BC2CB5E0012F709 /* ReadEventPopUpViewController.swift */; };
-		5C51B07B2C0F7FBF008486F5 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5C51B07A2C0F7FBF008486F5 /* JGProgressHUD */; };
-		5C51B07E2C0F826A008486F5 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C51B07D2C0F826A008486F5 /* UIOnboarding */; };
-		5C51B0812C0F855A008486F5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5C51B0802C0F855A008486F5 /* FirebaseFirestore */; };
-		5C51B0832C0F855A008486F5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5C51B0822C0F855A008486F5 /* FirebaseStorage */; };
 		5C54953D2BCF095C00720C48 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54953C2BCF095C00720C48 /* ProfileManager.swift */; };
 		5C5495422BD0057F00720C48 /* FoodandDietCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5495412BD0057F00720C48 /* FoodandDietCell.swift */; };
 		5C5495502BD0426500720C48 /* FoodAndDietView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54954F2BD0426500720C48 /* FoodAndDietView.swift */; };
@@ -44,6 +40,10 @@
 		5C917AA32B98CA9B00212267 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA22B98CA9B00212267 /* ProfileController.swift */; };
 		5C917AA52B98CAD900212267 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA42B98CAD900212267 /* SettingsController.swift */; };
 		5C917AA82B98CB3300212267 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C917AA72B98CB3300212267 /* MainTabbarController.swift */; };
+		5C93D8282C1C792400BF5EE7 /* UIOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 5C93D8272C1C792400BF5EE7 /* UIOnboarding */; };
+		5C93D82B2C1C793900BF5EE7 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5C93D82A2C1C793900BF5EE7 /* JGProgressHUD */; };
+		5C93D82E2C1C798300BF5EE7 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5C93D82D2C1C798300BF5EE7 /* FirebaseFirestore */; };
+		5C93D8302C1C798300BF5EE7 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5C93D82F2C1C798300BF5EE7 /* FirebaseStorage */; };
 		5CA2AC102BF1254400DD28B4 /* WaterViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA2AC0F2BF1254400DD28B4 /* WaterViewViewModel.swift */; };
 		5CA5E3A22BFCFDB4001FA1F9 /* OnboardingMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5E3A12BFCFDB4001FA1F9 /* OnboardingMovieViewController.swift */; };
 		5CA9DEF62B986EB4004FAD1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA9DEF52B986EB4004FAD1D /* AppDelegate.swift */; };
@@ -127,11 +127,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C51B07B2C0F7FBF008486F5 /* JGProgressHUD in Frameworks */,
-				5C51B0812C0F855A008486F5 /* FirebaseFirestore in Frameworks */,
-				5C51B07E2C0F826A008486F5 /* UIOnboarding in Frameworks */,
-				5C51B0832C0F855A008486F5 /* FirebaseStorage in Frameworks */,
 				4FC30F8D8A6E85C37EC53CB6 /* Pods_Pregnancy_Tracker.framework in Frameworks */,
+				5C93D82E2C1C798300BF5EE7 /* FirebaseFirestore in Frameworks */,
+				5C93D82B2C1C793900BF5EE7 /* JGProgressHUD in Frameworks */,
+				5C93D8302C1C798300BF5EE7 /* FirebaseStorage in Frameworks */,
+				5C93D8282C1C792400BF5EE7 /* UIOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,10 +314,10 @@
 			);
 			name = "Pregnancy Tracker";
 			packageProductDependencies = (
-				5C51B07A2C0F7FBF008486F5 /* JGProgressHUD */,
-				5C51B07D2C0F826A008486F5 /* UIOnboarding */,
-				5C51B0802C0F855A008486F5 /* FirebaseFirestore */,
-				5C51B0822C0F855A008486F5 /* FirebaseStorage */,
+				5C93D8272C1C792400BF5EE7 /* UIOnboarding */,
+				5C93D82A2C1C793900BF5EE7 /* JGProgressHUD */,
+				5C93D82D2C1C798300BF5EE7 /* FirebaseFirestore */,
+				5C93D82F2C1C798300BF5EE7 /* FirebaseStorage */,
 			);
 			productName = "Pregnancy Tracker";
 			productReference = 5CA9DEF22B986EB4004FAD1D /* Pregnancy Tracker.app */;
@@ -348,9 +348,9 @@
 			);
 			mainGroup = 5CA9DEE92B986EB4004FAD1D;
 			packageReferences = (
-				5C51B0792C0F7FBF008486F5 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
-				5C51B07C2C0F826A008486F5 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
-				5C51B07F2C0F855A008486F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				5C93D8262C1C792400BF5EE7 /* XCRemoteSwiftPackageReference "UIOnboarding" */,
+				5C93D8292C1C793900BF5EE7 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				5C93D82C2C1C798300BF5EE7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 5CA9DEF32B986EB4004FAD1D /* Products */;
 			projectDirPath = "";
@@ -696,15 +696,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5C51B0792C0F7FBF008486F5 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.0;
-			};
-		};
-		5C51B07C2C0F826A008486F5 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
+		5C93D8262C1C792400BF5EE7 /* XCRemoteSwiftPackageReference "UIOnboarding" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lascic/UIOnboarding";
 			requirement = {
@@ -712,7 +704,15 @@
 				minimumVersion = 2.0.3;
 			};
 		};
-		5C51B07F2C0F855A008486F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		5C93D8292C1C793900BF5EE7 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
+		5C93D82C2C1C798300BF5EE7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
@@ -723,24 +723,24 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5C51B07A2C0F7FBF008486F5 /* JGProgressHUD */ = {
+		5C93D8272C1C792400BF5EE7 /* UIOnboarding */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5C51B0792C0F7FBF008486F5 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
-			productName = JGProgressHUD;
-		};
-		5C51B07D2C0F826A008486F5 /* UIOnboarding */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5C51B07C2C0F826A008486F5 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
+			package = 5C93D8262C1C792400BF5EE7 /* XCRemoteSwiftPackageReference "UIOnboarding" */;
 			productName = UIOnboarding;
 		};
-		5C51B0802C0F855A008486F5 /* FirebaseFirestore */ = {
+		5C93D82A2C1C793900BF5EE7 /* JGProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5C51B07F2C0F855A008486F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 5C93D8292C1C793900BF5EE7 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
+		};
+		5C93D82D2C1C798300BF5EE7 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C93D82C2C1C798300BF5EE7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		5C51B0822C0F855A008486F5 /* FirebaseStorage */ = {
+		5C93D82F2C1C798300BF5EE7 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5C51B07F2C0F855A008486F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 5C93D82C2C1C798300BF5EE7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */

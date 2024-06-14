@@ -67,7 +67,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
         let label = UILabel()
         label.text = "Select your last Menstrual Period"
         label.font = FontHelper.customFont(size: 16)
-        label.textColor = UIColor.black
+        label.textColor = UIColor.white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -185,7 +185,7 @@ class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINa
 extension ProfileController {
     private func setupLayout() {
         
-        view.backgroundColor = .black
+        view.backgroundColor = .white
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         view.gestureRecognizers?.forEach { recognizer in
@@ -196,7 +196,7 @@ extension ProfileController {
         
         view.addSubview(topView)
         view.addSubview(seperatorView)
-        view.addSubview(bottomView)
+//        view.addSubview(bottomView)
         view.addSubview(profileImageView)
         view.addSubview(changeImageView)
         view.addSubview(nameTextfield)
@@ -212,10 +212,6 @@ extension ProfileController {
             seperatorView.topAnchor.constraint(equalTo: topView.bottomAnchor),
             seperatorView.widthAnchor.constraint(equalTo: view.widthAnchor),
             seperatorView.heightAnchor.constraint(equalToConstant: 2),
-            
-            bottomView.topAnchor.constraint(equalTo: seperatorView.bottomAnchor),
-            bottomView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             profileImageView.centerXAnchor.constraint(equalTo: seperatorView.centerXAnchor),
             profileImageView.centerYAnchor.constraint(equalTo: seperatorView.centerYAnchor),
