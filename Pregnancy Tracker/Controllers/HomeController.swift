@@ -18,12 +18,12 @@ class HomeController: UIViewController, UICollectionViewDelegate, OnboardingMovi
     let contentView = UIView()
     var collectionView: UICollectionView!
     var blurEffectView: UIVisualEffectView?
-    
-
-    
-    let seperatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
+    lazy var seperatorImageView: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "seperator")
+        ShadowLayer.setShadow(view: view, color: .darkGray, opacity: 2, offset: .init(width: 0.5, height: 0.5), radius: 12)
+        view.contentMode = .scaleAspectFill
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -107,28 +107,28 @@ class HomeController: UIViewController, UICollectionViewDelegate, OnboardingMovi
 extension HomeController {
     fileprivate func setupLayout() {
 
-        let color = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
-        safeAreaView.setPersonelView(backgroundColor: color)
+        safeAreaView.setPersonelView(backgroundColor: .white)
         tabBarController?.tabBar.backgroundColor = .white
         
-        view.addSubview(seperatorView)
         view.addSubview(safeAreaView)
+        view.addSubview(seperatorImageView)
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(collectionView)
         
-        disableAutoResizingMaskConstraints(for: [safeAreaView, seperatorView, scrollView, contentView, collectionView])
+        disableAutoResizingMaskConstraints(for: [safeAreaView, scrollView, contentView, collectionView])
         
         NSLayoutConstraint.activate([
-            seperatorView.topAnchor.constraint(equalTo: view.topAnchor),
-            seperatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            seperatorView.heightAnchor.constraint(equalToConstant: 62),
-            seperatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            safeAreaView.topAnchor.constraint(equalTo: seperatorView.bottomAnchor),
+            safeAreaView.topAnchor.constraint(equalTo: view.topAnchor),
             safeAreaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             safeAreaView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             safeAreaView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            seperatorImageView.topAnchor.constraint(equalTo: safeAreaView.personelView.bottomAnchor),
+            seperatorImageView.heightAnchor.constraint(equalToConstant: 4),
+            seperatorImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            seperatorImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             scrollView.topAnchor.constraint(equalTo: safeAreaView.personelView.bottomAnchor, constant: 6),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

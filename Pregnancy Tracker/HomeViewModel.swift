@@ -14,8 +14,8 @@ class HomeViewModel {
     var dataSource: UICollectionViewDiffableDataSource<Section, String>!
 
     let foodAndDietCollection = ["diet", "food"]
-    let mainCollection = ["yuri", "zoran", "dolga"]
-    let verticalCollection = ["1", "2", "3", "4"]
+    let mainCollection = ["yuri", "1", "dolga"]
+    let verticalCollection = ["zoran", "2", "3", "4"]
     let verticalCollectionInfo = ["deneme deneme deneme deneme deneme deneme",
                                   "deneme1 deneme1 deneme1 deneme1 deneme1 deneme1",
                                   "deneme2 deneme2 deneme2 deneme2 deneme2 deneme2",
@@ -29,6 +29,7 @@ class HomeViewModel {
         case mediastock = "mediastock"
         case stock = "stock"
         case petrunine = "petrunine"
+        case engaaged = "engaaged"
     }
     
     enum Section: Int, CaseIterable {
@@ -106,16 +107,20 @@ class HomeViewModel {
             case 0:
                 selectedSeries = .sergy
             case 1:
-                selectedSeries = .pressmaster
+                selectedSeries = .mediastock
             default:
                 selectedSeries = .grbanoff
             }
         case .vertical:
             switch indexPath.row {
             case 0:
-                selectedSeries = .mediastock
-            default:
+                selectedSeries = .pressmaster
+            case 1:
                 selectedSeries = .stock
+            case 2:
+                selectedSeries = .petrunine
+            default:
+                selectedSeries = .engaaged
             }
         case .foodDiet:
             selectedSeries = nil

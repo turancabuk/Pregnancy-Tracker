@@ -27,6 +27,13 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     var juiceItem: UIView!
     var teaItem: UIView!
     
+    lazy var gradientView: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "Gradients")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         if let name = UserDefaults.standard.string(forKey: "userName") {
@@ -91,7 +98,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         
         setupItems()
         setupLayout()
-        scheduleResetTimer()
+
         
     }
     @objc func userDataDidUpdate() {
@@ -107,7 +114,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        scheduleResetTimer()
         checkIfResetRequired()
         loadDrinkQunatities()
         updateLabels()
@@ -126,7 +133,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     private func scheduleResetTimer() {
         let calendar = Calendar.current
         let now = Date()
-        var resetTime = calendar.date(bySettingHour: 7, minute: 00, second: 0, of: now)!
+        var resetTime = calendar.date(bySettingHour: 15, minute: 00, second: 0, of: now)!
         
         if resetTime <= now {
             resetTime = calendar.date(byAdding: .day, value: 1, to: resetTime)!
@@ -214,6 +221,30 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         
         present(reminderViewController, animated: true)
     }
+    // MARK: - Factory UI Methods
+    private func createItems(labelImage: UIImage, labelText: String) -> (UIView, UILabel) {
+        let imageView = UIImageView(image: labelImage)
+        let label = UILabel()
+        label.text = labelText
+        label.textColor = .black
+        label.font = FontHelper.customFont(size: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        imageView.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 20),
+            label.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 2)
+        ])
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return (imageView, label)
+    }
+    private func createCustomButton(buttonImage: UIImage, selector: Selector) -> UIButton {
+        let button = UIButton()
+        button.setImage(buttonImage, for: .normal)
+        button.addTarget(self, action: selector, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
 }
 extension WaterViewController: AddWaterViewControllerDelegate {
     
@@ -259,33 +290,10 @@ extension WaterViewController: AddWaterViewControllerDelegate {
     }
 }
 extension WaterViewController {
-    private func createItems(labelImage: UIImage, labelText: String) -> (UIView, UILabel) {
-        let imageView = UIImageView(image: labelImage)
-        let label = UILabel()
-        label.text = labelText
-        label.textColor = .black
-        label.font = FontHelper.customFont(size: 12)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        imageView.addSubview(label)
-        NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 20),
-            label.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 2)
-        ])
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return (imageView, label)
-    }
-    private func createCustomButton(buttonImage: UIImage, selector: Selector) -> UIButton {
-        let button = UIButton()
-        button.setImage(buttonImage, for: .normal)
-        button.addTarget(self, action: selector, for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }
-}
-extension WaterViewController {
     private func setupLayout() {
         view.backgroundColor = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
+        
+        view.addSubview(gradientView)
         view.addSubview(nameLabel)
         view.addSubview(dateLabel)
         view.addSubview(graphicContainerView)
@@ -302,8 +310,12 @@ extension WaterViewController {
         view.addSubview(plusButton)
         view.addSubview(alertButton)
         
-        
         NSLayoutConstraint.activate([
+            
+            gradientView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 5/4),
+            gradientView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/4),
+            gradientView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            gradientView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             nameLabel.heightAnchor.constraint(equalToConstant: 36),
