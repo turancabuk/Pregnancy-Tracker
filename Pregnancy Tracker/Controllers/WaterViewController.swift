@@ -27,13 +27,6 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     var juiceItem: UIView!
     var teaItem: UIView!
     
-    lazy var gradientView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "Gradients")
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         if let name = UserDefaults.standard.string(forKey: "userName") {
@@ -98,7 +91,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         
         setupItems()
         setupLayout()
-
+        scheduleResetTimer()
         
     }
     @objc func userDataDidUpdate() {
@@ -114,7 +107,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        scheduleResetTimer()
+        
         checkIfResetRequired()
         loadDrinkQunatities()
         updateLabels()
@@ -133,7 +126,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     private func scheduleResetTimer() {
         let calendar = Calendar.current
         let now = Date()
-        var resetTime = calendar.date(bySettingHour: 15, minute: 00, second: 0, of: now)!
+        var resetTime = calendar.date(bySettingHour: 7, minute: 10, second: 10, of: now)!
         
         if resetTime <= now {
             resetTime = calendar.date(byAdding: .day, value: 1, to: resetTime)!
@@ -147,7 +140,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     }
     private func checkIfResetRequired() {
         let calendar = Calendar.current
-        _ = Date()
+        let now = Date()
         let lastResetDate = UserDefaults.standard.object(forKey: "lastResetDate") as? Date ?? Date.distantPast
         
         if !calendar.isDateInToday(lastResetDate) {
@@ -292,8 +285,6 @@ extension WaterViewController: AddWaterViewControllerDelegate {
 extension WaterViewController {
     private func setupLayout() {
         view.backgroundColor = #colorLiteral(red: 0.938759625, green: 0.8843975663, blue: 0.8854001164, alpha: 1)
-        
-        view.addSubview(gradientView)
         view.addSubview(nameLabel)
         view.addSubview(dateLabel)
         view.addSubview(graphicContainerView)
@@ -311,11 +302,6 @@ extension WaterViewController {
         view.addSubview(alertButton)
         
         NSLayoutConstraint.activate([
-            
-            gradientView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 5/4),
-            gradientView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/4),
-            gradientView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            gradientView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             nameLabel.heightAnchor.constraint(equalToConstant: 36),
