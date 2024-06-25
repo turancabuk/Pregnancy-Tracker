@@ -39,7 +39,7 @@ class PersonalInformationViewModel {
                 if !succes {
                     self?.showError("Profile not save")
                 }else{
-                    print("error:")
+//                    print("error:")
                 }
             }
         }
