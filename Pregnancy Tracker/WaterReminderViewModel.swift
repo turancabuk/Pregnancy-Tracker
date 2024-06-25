@@ -57,9 +57,11 @@ class WaterReminderViewModel {
             var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: nextTriggerDate)
             let currentHour = dateComponents.hour ?? 0
             
-            if currentHour >= 22 || currentHour < 9 {
+            if currentHour >= 22 && currentHour < 24 {
                 content.sound = nil
-            } else {
+            } else if currentHour >= 0 && currentHour < 9 {
+                continue
+            } else if currentHour >= 9 && currentHour < 22 {
                 content.sound = .default
             }
             
