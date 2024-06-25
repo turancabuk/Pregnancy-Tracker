@@ -16,10 +16,6 @@ class WaterReminderViewController: UIViewController {
     
     var viewModel: WaterReminderViewModel
     weak var delegate: WaterReminderViewControllerDelegate?
-    var notificationTimer: Timer?
-    
-    var selectedH: Int = 0
-    var selectedM: Int = 0
     
     lazy var containerView: UIView = {
         let view = UIView()
@@ -29,7 +25,7 @@ class WaterReminderViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     lazy var switchButton: UISwitch = {
         let switchControl = UISwitch()
         switchControl.isOn = UserDefaults.standard.bool(forKey: "switchButtonStatus")
@@ -37,7 +33,7 @@ class WaterReminderViewController: UIViewController {
         switchControl.translatesAutoresizingMaskIntoConstraints = false
         return switchControl
     }()
-
+    
     lazy var reminderLabel: UILabel = {
         let label = UILabel()
         label.text = "How often would you like us to remind you?"
@@ -45,7 +41,7 @@ class WaterReminderViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .countDownTimer
@@ -55,7 +51,7 @@ class WaterReminderViewController: UIViewController {
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
-
+    
     lazy var silenceLabel: UILabel = {
         let label = UILabel()
         label.text = "Notifications are silenced between 22:00 - 09:00 every day."
@@ -63,7 +59,7 @@ class WaterReminderViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     lazy var cancelButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "cancel"), for: .normal)
@@ -71,14 +67,14 @@ class WaterReminderViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
     lazy var addButton: UIButton = {
         let tintColor =  #colorLiteral(red: 0.2527885735, green: 0.6357112527, blue: 0.8464984894, alpha: 1)
         let button = UIComponentsFactory.createCustomButton(title: "ADD", state: .normal, titleColor: tintColor, borderColor: tintColor, borderWidth: 2.0, cornerRadius: 12, clipsToBounds: true, action: handleAdd)
         button.titleLabel?.font = FontHelper.customFont(size: 12)
         return button
     }()
-
+    
     init() {
         self.viewModel = WaterReminderViewModel()
         super.init(nibName: nil, bundle: nil)
@@ -96,12 +92,7 @@ class WaterReminderViewController: UIViewController {
         setupLayout()
         checkForPermission()
         
-        let calendar = Calendar.current
-        let now = Date()
         
-        print("saat: \(calendar.component(.hour, from: now)), minute: \(calendar.component(.minute, from: now))")
-
-
     }
     func checkForPermission() {
         viewModel.checkForPermission()
@@ -117,7 +108,6 @@ class WaterReminderViewController: UIViewController {
         let totalValue = picker.countDownDuration
         let hour = Int(totalValue) / 3600
         let minute = (Int(totalValue) % 3600) / 60
-        
         viewModel.updateTime(hour: hour, minute: minute)
     }
     @objc private func switchChanged() {
@@ -142,6 +132,7 @@ class WaterReminderViewController: UIViewController {
         delegate?.handleCancel()
     }
 }
+
 extension WaterReminderViewController {
     private func setupLayout() {
         
