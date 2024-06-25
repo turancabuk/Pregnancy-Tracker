@@ -67,6 +67,22 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         return view
     }()
     
+    lazy var infoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "info.circle")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    lazy var infoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Values ​​are reset every day at 07:00."
+        label.font = FontHelper.customFont(size: 8)
+        label.textColor = .darkGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     lazy var plusButton = createCustomButton(buttonImage: UIImage(named: "plus")!, selector: #selector(handlePlus))
     lazy var alertButton = createCustomButton(buttonImage: UIImage(named: "reminder")!, selector: #selector(handleReminder))
     
@@ -294,6 +310,8 @@ extension WaterViewController {
         containerView.addSubview(teaItem)
         containerView.addSubview(juiceItem)
         containerView.addSubview(coffeeItem)
+        containerView.addSubview(infoImageView)
+        containerView.addSubview(infoLabel)
         
         graphicContainerView.addSubview(pieChartView)
         pieChartView.translatesAutoresizingMaskIntoConstraints = false
@@ -324,7 +342,7 @@ extension WaterViewController {
             pieChartView.widthAnchor.constraint(equalTo: graphicContainerView.widthAnchor),
             
             containerView.topAnchor.constraint(equalTo: graphicContainerView.bottomAnchor, constant: 12),
-            containerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/5),
+            containerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/4),
             containerView.widthAnchor.constraint(equalTo: graphicContainerView.widthAnchor),
             containerView.centerXAnchor.constraint(equalTo: graphicContainerView.centerXAnchor),
             
@@ -348,7 +366,15 @@ extension WaterViewController {
             coffeeItem.widthAnchor.constraint(equalTo: waterItem.widthAnchor),
             coffeeItem.heightAnchor.constraint(equalTo: waterItem.heightAnchor),
             
-            plusButton.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 48),
+            infoImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -4),
+            infoImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
+            
+            infoLabel.centerYAnchor.constraint(equalTo: infoImageView.centerYAnchor),
+            infoLabel.leadingAnchor.constraint(equalTo: infoImageView.trailingAnchor, constant: 4),
+            infoLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor),
+            infoLabel.heightAnchor.constraint(equalToConstant: 8),
+            
+            plusButton.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 24),
             plusButton.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/6),
             plusButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -6),
             plusButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1/3),
