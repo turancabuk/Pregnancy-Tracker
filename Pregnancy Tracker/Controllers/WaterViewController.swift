@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 import DGCharts
 
-class WaterViewController: UIViewController, WaterReminderViewControllerDelegate {
+class WaterViewController: UIViewController {
     
     var viewModel: WaterViewViewModel
     var model: UserInfoModel?
@@ -110,6 +110,16 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         scheduleResetTimer()
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        checkIfResetRequired()
+        loadDrinkQunatities()
+        updateLabels()
+        updateChartData()
+        updateAlertButton()
+        
+    }
     @objc func userDataDidUpdate() {
         DispatchQueue.main.async {
             self.loadUserData()
@@ -120,16 +130,6 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
             let nameText = UserDefaults.standard.string(forKey: "userName") ?? "Unknown User"
             self.nameLabel.text = "Hi, \(nameText)"
         }
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        checkIfResetRequired()
-        loadDrinkQunatities()
-        updateLabels()
-        updateChartData()
-        updateAlertButton()
-        
     }
     final func saveDrinkQuantities() {
         
@@ -142,7 +142,7 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     private func scheduleResetTimer() {
         let calendar = Calendar.current
         let now = Date()
-        var resetTime = calendar.date(bySettingHour: 7, minute: 10, second: 10, of: now)!
+        var resetTime = calendar.date(bySettingHour: 23, minute: 50, second: 10, of: now)!
         
         if resetTime <= now {
             resetTime = calendar.date(byAdding: .day, value: 1, to: resetTime)!
@@ -156,7 +156,6 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
     }
     private func checkIfResetRequired() {
         let calendar = Calendar.current
-        let now = Date()
         let lastResetDate = UserDefaults.standard.object(forKey: "lastResetDate") as? Date ?? Date.distantPast
         
         if !calendar.isDateInToday(lastResetDate) {
@@ -190,12 +189,18 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         juiceLabel.text = "\(viewModel.drinkQunatities["juice", default: 0]) ml"
         teaLabel.text = "\(viewModel.drinkQunatities["tea", default: 0]) ml"
     }
+    func updateAlertButton() {
+        let switchStatus = UserDefaults.standard.bool(forKey: "switchButtonStatus")
+        switchStatusChanged(selected: switchStatus)
+    }
     final func setupItems() {
         (waterItem, waterLabel) = createItems(labelImage: UIImage(named: "water2")!, labelText: "0 ml")
         (juiceItem, juiceLabel) = createItems(labelImage: UIImage(named: "juice1")!, labelText: "0 ml")
         (coffeeItem, coffeeLabel) = createItems(labelImage: UIImage(named: "coffee1")!, labelText: "0 ml")
         (teaItem, teaLabel) = createItems(labelImage: UIImage(named: "tea1")!, labelText: "0 ml")
     }
+    
+    // MARK: - Selector Methods.
     @objc private func resetDrinkQuantities() {
         viewModel.resetDrinkQuantities()
         updateLabels()
@@ -255,8 +260,9 @@ class WaterViewController: UIViewController, WaterReminderViewControllerDelegate
         return button
     }
 }
-extension WaterViewController: AddWaterViewControllerDelegate {
+extension WaterViewController: AddWaterViewControllerDelegate, WaterReminderViewControllerDelegate {
     
+    // MARK: - Protocol Methods.
     func updateDrinkQuantity(type: String, quantity: Int) {
         loadDrinkQunatities()
         let previousQuntity = viewModel.drinkQunatities[type] ?? 0
@@ -292,10 +298,6 @@ extension WaterViewController: AddWaterViewControllerDelegate {
         }else{
             alertButton.setImage(UIImage(named: "reminder"), for: .normal)
         }
-    }
-    func updateAlertButton() {
-        let switchStatus = UserDefaults.standard.bool(forKey: "switchButtonStatus")
-        switchStatusChanged(selected: switchStatus)
     }
 }
 extension WaterViewController {
